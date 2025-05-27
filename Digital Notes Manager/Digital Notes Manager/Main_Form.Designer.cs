@@ -1,6 +1,6 @@
 ﻿namespace Digital_Notes_Manager
 {
-    partial class Form1
+    partial class Main_Form
     {
         /// <summary>
         ///  Required designer variable.
@@ -30,12 +30,13 @@
         {
             SuspendLayout();
             // 
-            // Form1
+            // Main_Form
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Name = "Form1";
+            ClientSize = new Size(630, 461);
+            Margin = new Padding(3, 2, 3, 2);
+            Name = "Main_Form";
             ResumeLayout(false);
         }
 
