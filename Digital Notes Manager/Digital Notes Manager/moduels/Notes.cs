@@ -18,5 +18,6 @@ namespace Digital_Notes_Manager.moduels
         public DateTime ReminderDate { get; set; }
         public int UserID { get; set; }
         public virtual User User { get; set; }
+        //555
     }
 }
