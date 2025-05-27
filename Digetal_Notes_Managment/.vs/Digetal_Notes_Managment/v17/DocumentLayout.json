@@ -1,0 +1,36 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "E:\\.Net ITI Intake45 4-Month 2025 Minya\\12.1- Windows Application\\Project\\Digetal_Notes_Managment\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{F3D24594-2F90-46E2-80F9-2F672573ED7C}|Digetal_Notes_Managment\\Digetal_Notes_Managment.csproj|e:\\.net iti intake45 4-month 2025 minya\\12.1- windows application\\project\\digetal_notes_managment\\digetal_notes_managment\\homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "RelativeMoniker": "D:0:0:{F3D24594-2F90-46E2-80F9-2F672573ED7C}|Digetal_Notes_Managment\\Digetal_Notes_Managment.csproj|solutionrelative:digetal_notes_managment\\homepage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "HomePage.cs [Design]",
+              "DocumentMoniker": "E:\\.Net ITI Intake45 4-Month 2025 Minya\\12.1- Windows Application\\Project\\Digetal_Notes_Managment\\Digetal_Notes_Managment\\HomePage.cs",
+              "RelativeDocumentMoniker": "Digetal_Notes_Managment\\HomePage.cs",
+              "ToolTip": "E:\\.Net ITI Intake45 4-Month 2025 Minya\\12.1- Windows Application\\Project\\Digetal_Notes_Managment\\Digetal_Notes_Managment\\HomePage.cs [Design]",
+              "RelativeToolTip": "Digetal_Notes_Managment\\HomePage.cs [Design]",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-05-27T15:09:02.408Z",
+              "EditorCaption": " [Design]"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
