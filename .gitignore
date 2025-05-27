@@ -1,5 +1,8 @@
-# Object file
-*.o
+# Ignore Visual Studio temporary files
+.vs/
+*.user
+*.suo
 
-# Ada Library Information
-*.ali
+# Ignore build output
+bin/
+obj/
