@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using DevExpress.XtraEditors;
 
 namespace Digital_Notes_Manager
 {
-    public partial class Note : Form
+    public partial class Note : XtraForm
     {
         public Note()
         {
