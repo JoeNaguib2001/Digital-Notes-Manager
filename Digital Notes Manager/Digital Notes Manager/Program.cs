@@ -12,7 +12,7 @@ namespace Digital_Notes_Manager
             // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
 
-            Application.Run(new Main_Form());
+            Application.Run(new Note());
 
         }
     }
