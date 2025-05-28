@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Digital_Notes_Manager.Migrations
 {
     /// <inheritdoc />
-    public partial class init : Migration
+    public partial class Init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,7 +58,7 @@ namespace Digital_Notes_Manager.Migrations
             migrationBuilder.InsertData(
                 table: "Notes",
                 columns: new[] { "ID", "Category", "Content", "CreationDate", "ReminderDate", "Title", "UserID" },
-                values: new object[] { 1, 16, "Welcome to my first note", new DateTime(2025, 5, 28, 2, 21, 2, 159, DateTimeKind.Local).AddTicks(7978), new DateTime(2025, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hello", 1 });
+                values: new object[] { 1, 16, "Welcome to my first note", new DateTime(2025, 5, 28, 2, 17, 48, 323, DateTimeKind.Local).AddTicks(9283), new DateTime(2025, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), "Hello", 1 });
 
             migrationBuilder.CreateIndex(
                 name: "IX_Notes_Title",

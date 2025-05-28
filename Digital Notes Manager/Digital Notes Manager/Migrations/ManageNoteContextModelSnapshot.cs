@@ -66,7 +66,7 @@ namespace Digital_Notes_Manager.Migrations
                             ID = 1,
                             Category = 16,
                             Content = "Welcome to my first note",
-                            CreationDate = new DateTime(2025, 5, 28, 2, 21, 2, 159, DateTimeKind.Local).AddTicks(7978),
+                            CreationDate = new DateTime(2025, 5, 28, 2, 17, 48, 323, DateTimeKind.Local).AddTicks(9283),
                             ReminderDate = new DateTime(2025, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Hello",
                             UserID = 1

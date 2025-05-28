@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Digital_Notes_Manager.Migrations
 {
     [DbContext(typeof(ManageNoteContext))]
-    [Migration("20250527232111_init")]
-    partial class init
+    [Migration("20250528001750_Init")]
+    partial class Init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -69,7 +69,7 @@ namespace Digital_Notes_Manager.Migrations
                             ID = 1,
                             Category = 16,
                             Content = "Welcome to my first note",
-                            CreationDate = new DateTime(2025, 5, 28, 2, 21, 10, 822, DateTimeKind.Local).AddTicks(7348),
+                            CreationDate = new DateTime(2025, 5, 28, 2, 17, 48, 323, DateTimeKind.Local).AddTicks(9283),
                             ReminderDate = new DateTime(2025, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             Title = "Hello",
                             UserID = 1
