@@ -21,6 +21,7 @@ namespace Digital_Notes_Manager
 
                 if (user != null)
                 {
+                    this.Hide();
                     Form form = new Main_Form();
                     form.ShowDialog();
                 }
