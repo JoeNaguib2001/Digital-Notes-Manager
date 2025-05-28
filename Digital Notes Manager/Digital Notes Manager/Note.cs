@@ -1,11 +1,17 @@
-﻿using DevExpress.XtraBars.Docking2010;
+﻿using DevExpress.XtraBars;
+using DevExpress.XtraBars.Docking2010;
+using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using System.Drawing.Drawing2D;
+using System.Runtime.InteropServices;
 
 namespace Digital_Notes_Manager
 {
-    public partial class Note : XtraForm
+    public partial class Note : RibbonForm
     {
+        private BarManager barManager;
+        private PopupMenu popupMenu;
+
         public Note()
         {
             InitializeComponent();
@@ -28,8 +34,10 @@ namespace Digital_Notes_Manager
             SetButtonAppearance();
             richTextBox1.Select();
 
+            //drag drop the from from anu emty space
+            MakeFormDraggable(this);
 
-
+            PopMenu();
         }
         private void SetTextStyle()
         {
@@ -74,7 +82,7 @@ namespace Digital_Notes_Manager
 
             SetButtonAppearance();
             SetTextStyle();
-            //MessageBox.Show(e.Button.ToString());
+
 
         }
 
@@ -83,7 +91,7 @@ namespace Digital_Notes_Manager
         {
             foreach (WindowsUIButton button in stylePanal.Buttons.OfType<WindowsUIButton>())
             {
-                button.Appearance.BackColor = button.Checked ? Color.Blue : Color.Black;
+                button.Appearance.BackColor = button.Checked ? Color.Black : Color.BlueViolet;
                 button.Appearance.Options.UseBackColor = true;
             }
         }
@@ -114,6 +122,86 @@ namespace Digital_Notes_Manager
             this.Region = new Region(path);
         }
 
+
+
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HTCAPTION = 0x2;
+
+        private void MakeFormDraggable(Control control)
+        {
+            control.MouseDown += (s, e) =>
+            {
+                if (e.Button == MouseButtons.Left)
+                {
+                    ReleaseCapture();
+                    SendMessage(this.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+                }
+            };
+        }
+
+        private void Close_btn_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void dropDownButton1_Click(object sender, EventArgs e)
+        {
+            //new 
+            //popupMenu1.ShowPopup();
+        }
+
+        private void stylePanal_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void PopMenu()
+        {
+
+            barManager = new BarManager();
+            barManager.Form = this;
+
+            // Step 2: Create PopupMenu
+            popupMenu = new PopupMenu(barManager);
+
+            // Step 3: Add items
+            BarButtonItem item1 = new BarButtonItem(barManager, "Set Notification");
+
+
+            // Handle clicks
+            item1.ItemClick += (s, e) => XtraMessageBox.Show("Option 1 clicked");
+
+            // Add items to popup menu
+            popupMenu.AddItem(item1);
+
+
+            // Step 4: Attach to button click
+            MenuBtn.Click += (s, e) =>
+            {
+
+
+                Point leftOfButton = MenuBtn.PointToScreen(new Point(-MenuBtn.Width * 2, 20)); // if Width unknown, estimate
+                popupMenu.ShowPopup(leftOfButton);
+
+                //popupMenu.ShowPopup(MousePosition); // show near cursor
+            };
+        }
+
+        private void Close_btn_Click_1(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void MenuBtn_Click(object sender, EventArgs e)
+        {
+
+        }
 
     }
 }
