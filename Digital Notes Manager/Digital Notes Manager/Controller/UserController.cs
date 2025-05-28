@@ -18,12 +18,25 @@ namespace Digital_Notes_Manager.Controller
         {
             context = new ManageNoteContext();
         }
+        //==================== View All User ======================================
 
+        /// <summary>
+        /// This Function to View All Users 
+        /// in The User Table
+        /// </summary>
+        /// <returns>All Users</returns>
         public List<User> ViewAllUsers()
         {
             return context.Users.ToList();
         }
 
+        //==================== Get User ======================================
+
+        /// <summary>
+        /// To Get User By his ID
+        /// </summary>
+        /// <param name="id">UserID</param>
+        /// <returns>User Object</returns>
         public User? GetUserById(int id)
         {
             try
@@ -37,6 +50,11 @@ namespace Digital_Notes_Manager.Controller
             }
         }
 
+        /// <summary>
+        ///  To Get User By his UserName
+        /// </summary>
+        /// <param name="userName">UserName</param>
+        /// <returns>User Object</returns>
         public User? GetUserByUserName(string userName)
         {
             var found = context.Users.FirstOrDefault(u => u.Username == userName);
@@ -46,7 +64,14 @@ namespace Digital_Notes_Manager.Controller
             return null;
         }
 
+        //==================== Add New User ======================================
 
+        /// <summary>
+        /// To Create a New User 
+        /// first,  Search if user found or not
+        /// if not => Create new user
+        /// </summary>
+        /// <param name="user">User Object from form inputs</param>
         public void AddUser(User user)
         {
             var found = context.Users.Any(u => u.Username == user.Username);
@@ -64,6 +89,7 @@ namespace Digital_Notes_Manager.Controller
         }
 
         //==================== Update User ======================================
+
         //public bool UpdateUser(User user)
         //{
         //    bool validUserName = ValidateUserName(user.Username);
@@ -80,6 +106,12 @@ namespace Digital_Notes_Manager.Controller
         //    return false;
         //}
 
+        /// <summary>
+        /// Update User if he is Login and can Edit 
+        /// his Fields
+        /// </summary>
+        /// <param name="user">User Object from form inputs</param>
+        /// <returns>bool</returns>
         public bool UpdateUserLogged(User user)
         {
             bool validUserName = ValidateUserName(user.Username);
@@ -109,6 +141,12 @@ namespace Digital_Notes_Manager.Controller
         }
 
         //==================== Delete User ======================================
+
+        ///<summary>
+        /// Delete User by ID if he Found
+        /// </summary>
+        /// <param name="id">UserID</param>
+        /// <returns>bool</returns>
         public bool RemoveUser(int id)
         {
             var found = context.Users.AsTracking().FirstOrDefault(u => u.UserID == id);
@@ -132,6 +170,13 @@ namespace Digital_Notes_Manager.Controller
 
 
         //==================== Validate ======================================
+
+        /// <summary>
+        /// Validates the specified user name to ensure it is not null or empty.
+        /// </summary>
+        /// <param name="userName">The user name to validate.</param>
+        /// <returns><see langword="true"/> if the <paramref name="userName"/> is not null or empty;  otherwise, <see
+        /// langword="false"/>. </returns>
         public bool ValidateUserName(string userName)
         {
             if (userName != null || userName != "")
@@ -141,6 +186,11 @@ namespace Digital_Notes_Manager.Controller
             return false;
         }
 
+        /// <summary>
+        /// Validates whether the provided password meets basic non-null and non-empty criteria.
+        /// </summary>
+        /// <param name="password">The password to validate. Cannot be null or an empty string.</param>
+        /// <returns><see langword="true"/> if the password is not null or empty; otherwise, <see langword="false"/>.</returns>
         public bool ValidatePassword(string password)
         {
             if (password != null || password != "")
