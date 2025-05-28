@@ -1,8 +1,10 @@
+﻿using DevExpress.XtraEditors;
+
 namespace Digital_Notes_Manager
 {
-    public partial class Form1 : Form
+    public partial class Note : XtraForm
     {
-        public Form1()
+        public Note()
         {
             InitializeComponent();
         }
