@@ -28,16 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             panel1 = new Panel();
             Notes_Grid = new DevExpress.XtraGrid.GridControl();
             gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             colTitle = new DevExpress.XtraGrid.Columns.GridColumn();
-            colCategory = new DevExpress.XtraGrid.Columns.GridColumn();
             colCreationDate = new DevExpress.XtraGrid.Columns.GridColumn();
             colReminderDate = new DevExpress.XtraGrid.Columns.GridColumn();
+            colCategory = new DevExpress.XtraGrid.Columns.GridColumn();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            deleteAllSeToolStripMenuItem = new ToolStripMenuItem();
+            openToolStripMenuItem = new ToolStripMenuItem();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Notes_Grid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
+            contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -51,7 +56,7 @@
             // 
             // Notes_Grid
             // 
-            Notes_Grid.DataSource = typeof(moduels.Notes);
+            Notes_Grid.DataSource = typeof(moduels.Note);
             Notes_Grid.Dock = DockStyle.Fill;
             Notes_Grid.Location = new Point(0, 0);
             Notes_Grid.MainView = gridView1;
@@ -62,18 +67,42 @@
             // 
             // gridView1
             // 
+            gridView1.Appearance.Empty.BackColor = Color.FromArgb(46, 49, 56);
+            gridView1.Appearance.Empty.Options.UseBackColor = true;
+            gridView1.Appearance.FocusedCell.BackColor = Color.FromArgb(35, 38, 45);
+            gridView1.Appearance.FocusedCell.ForeColor = Color.White;
+            gridView1.Appearance.FocusedCell.Options.UseBackColor = true;
+            gridView1.Appearance.FocusedCell.Options.UseForeColor = true;
+            gridView1.Appearance.FocusedRow.BackColor = Color.FromArgb(35, 38, 45);
+            gridView1.Appearance.FocusedRow.ForeColor = Color.White;
+            gridView1.Appearance.FocusedRow.Options.UseBackColor = true;
+            gridView1.Appearance.FocusedRow.Options.UseForeColor = true;
+            gridView1.Appearance.HeaderPanel.BackColor = Color.Red;
+            gridView1.Appearance.HeaderPanel.Options.UseBackColor = true;
+            gridView1.Appearance.SelectedRow.ForeColor = Color.White;
+            gridView1.Appearance.SelectedRow.Options.UseForeColor = true;
             gridView1.ColumnPanelRowHeight = 75;
-            gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colTitle, colCategory, colCreationDate, colReminderDate });
+            gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colTitle, colCreationDate, colReminderDate, colCategory });
             gridView1.GridControl = Notes_Grid;
             gridView1.Name = "gridView1";
+            gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
+            gridView1.OptionsSelection.EnableAppearanceFocusedRow = false;
+            gridView1.OptionsSelection.EnableAppearanceHideSelection = false;
+            gridView1.OptionsSelection.MultiSelect = true;
+            gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
             gridView1.RowHeight = 50;
+            gridView1.PopupMenuShowing += gridView1_PopupMenuShowing;
             gridView1.CellValueChanged += gridView1_CellValueChanged;
             gridView1.RowUpdated += gridView1_RowUpdated;
             // 
             // colTitle
             // 
+            colTitle.AppearanceCell.BackColor = Color.FromArgb(60, 63, 70);
             colTitle.AppearanceCell.Font = new Font("Tahoma", 17.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            colTitle.AppearanceCell.ForeColor = Color.White;
+            colTitle.AppearanceCell.Options.UseBackColor = true;
             colTitle.AppearanceCell.Options.UseFont = true;
+            colTitle.AppearanceCell.Options.UseForeColor = true;
             colTitle.AppearanceCell.Options.UseTextOptions = true;
             colTitle.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colTitle.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -89,33 +118,16 @@
             colTitle.FieldName = "Title";
             colTitle.Name = "colTitle";
             colTitle.Visible = true;
-            colTitle.VisibleIndex = 0;
-            // 
-            // colCategory
-            // 
-            colCategory.AppearanceCell.Font = new Font("Tahoma", 17.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            colCategory.AppearanceCell.Options.UseFont = true;
-            colCategory.AppearanceCell.Options.UseTextOptions = true;
-            colCategory.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            colCategory.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            colCategory.AppearanceHeader.BackColor = Color.FromArgb(46, 49, 56);
-            colCategory.AppearanceHeader.Font = new Font("Tahoma", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            colCategory.AppearanceHeader.ForeColor = Color.Black;
-            colCategory.AppearanceHeader.Options.UseBackColor = true;
-            colCategory.AppearanceHeader.Options.UseFont = true;
-            colCategory.AppearanceHeader.Options.UseForeColor = true;
-            colCategory.AppearanceHeader.Options.UseTextOptions = true;
-            colCategory.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
-            colCategory.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            colCategory.FieldName = "Category";
-            colCategory.Name = "colCategory";
-            colCategory.Visible = true;
-            colCategory.VisibleIndex = 1;
+            colTitle.VisibleIndex = 1;
             // 
             // colCreationDate
             // 
+            colCreationDate.AppearanceCell.BackColor = Color.FromArgb(60, 63, 70);
             colCreationDate.AppearanceCell.Font = new Font("Tahoma", 17.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            colCreationDate.AppearanceCell.ForeColor = Color.White;
+            colCreationDate.AppearanceCell.Options.UseBackColor = true;
             colCreationDate.AppearanceCell.Options.UseFont = true;
+            colCreationDate.AppearanceCell.Options.UseForeColor = true;
             colCreationDate.AppearanceCell.Options.UseTextOptions = true;
             colCreationDate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colCreationDate.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -131,12 +143,16 @@
             colCreationDate.FieldName = "CreationDate";
             colCreationDate.Name = "colCreationDate";
             colCreationDate.Visible = true;
-            colCreationDate.VisibleIndex = 2;
+            colCreationDate.VisibleIndex = 3;
             // 
             // colReminderDate
             // 
+            colReminderDate.AppearanceCell.BackColor = Color.FromArgb(60, 63, 70);
             colReminderDate.AppearanceCell.Font = new Font("Tahoma", 17.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            colReminderDate.AppearanceCell.ForeColor = Color.White;
+            colReminderDate.AppearanceCell.Options.UseBackColor = true;
             colReminderDate.AppearanceCell.Options.UseFont = true;
+            colReminderDate.AppearanceCell.Options.UseForeColor = true;
             colReminderDate.AppearanceCell.Options.UseTextOptions = true;
             colReminderDate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colReminderDate.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -152,7 +168,52 @@
             colReminderDate.FieldName = "ReminderDate";
             colReminderDate.Name = "colReminderDate";
             colReminderDate.Visible = true;
-            colReminderDate.VisibleIndex = 3;
+            colReminderDate.VisibleIndex = 4;
+            // 
+            // colCategory
+            // 
+            colCategory.AppearanceCell.BackColor = Color.FromArgb(60, 63, 70);
+            colCategory.AppearanceCell.Font = new Font("Tahoma", 17.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            colCategory.AppearanceCell.ForeColor = Color.White;
+            colCategory.AppearanceCell.Options.UseBackColor = true;
+            colCategory.AppearanceCell.Options.UseFont = true;
+            colCategory.AppearanceCell.Options.UseForeColor = true;
+            colCategory.AppearanceCell.Options.UseTextOptions = true;
+            colCategory.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            colCategory.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            colCategory.AppearanceHeader.BackColor = Color.FromArgb(46, 49, 56);
+            colCategory.AppearanceHeader.Font = new Font("Tahoma", 20.25F, FontStyle.Bold);
+            colCategory.AppearanceHeader.ForeColor = Color.White;
+            colCategory.AppearanceHeader.Options.UseBackColor = true;
+            colCategory.AppearanceHeader.Options.UseFont = true;
+            colCategory.AppearanceHeader.Options.UseForeColor = true;
+            colCategory.AppearanceHeader.Options.UseTextOptions = true;
+            colCategory.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            colCategory.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            colCategory.Caption = "Category";
+            colCategory.FieldName = "Category";
+            colCategory.Name = "colCategory";
+            colCategory.Visible = true;
+            colCategory.VisibleIndex = 2;
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openToolStripMenuItem, deleteAllSeToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(108, 48);
+            // 
+            // deleteAllSeToolStripMenuItem
+            // 
+            deleteAllSeToolStripMenuItem.Name = "deleteAllSeToolStripMenuItem";
+            deleteAllSeToolStripMenuItem.Size = new Size(107, 22);
+            deleteAllSeToolStripMenuItem.Text = "Delete";
+            deleteAllSeToolStripMenuItem.Click += deleteAllSeToolStripMenuItem_Click;
+            // 
+            // openToolStripMenuItem
+            // 
+            openToolStripMenuItem.Name = "openToolStripMenuItem";
+            openToolStripMenuItem.Size = new Size(107, 22);
+            openToolStripMenuItem.Text = "Open";
             // 
             // ViewNotes
             // 
@@ -165,6 +226,7 @@
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)Notes_Grid).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
+            contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -177,5 +239,9 @@
         private DevExpress.XtraGrid.Columns.GridColumn colCategory;
         private DevExpress.XtraGrid.Columns.GridColumn colCreationDate;
         private DevExpress.XtraGrid.Columns.GridColumn colReminderDate;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem deleteAllSeToolStripMenuItem;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
+        private ToolStripMenuItem openToolStripMenuItem;
     }
 }

@@ -45,21 +45,17 @@ namespace Digital_Notes_Manager
 
         private void LoadNotesForm()
         {
-            //this.MDI_Panel.Controls.Clear();
-            //manageNoteContext = new ManageNoteContext();
-            //viewNotes = new ViewNotes(manageNoteContext);
-            //viewNotes.Notes_Grid.DataSource = manageNoteContext.Notes.Local.ToBindingList();
-
-            //// وخد بالك إنك تعمل Load للبيانات قبل كده:
-            //manageNoteContext.Notes.Load(); // Requires: using Microsoft.EntityFrameworkCore;
-            //MDI_Panel.Controls.Add(viewNotes.panel1);
             this.MDI_Panel.Controls.Clear();
+            SetDataSource();
+            MDI_Panel.Controls.Add(viewNotes.panel1);
+        }
+        public void SetDataSource()
+        {
             manageNoteContext = new ManageNoteContext();
-            Testing testing = new Testing(manageNoteContext);
+            viewNotes = new ViewNotes(manageNoteContext, this);
             var list = manageNoteContext.Notes.ToList();
-            BindingList<Notes> bindingList = new BindingList<Notes>(list);
-            testing.gridControl1.DataSource = bindingList;
-            this.MDI_Panel.Controls.Add(testing.panel1);
+            BindingList<Note> BLN = new BindingList<Note>(list);
+            viewNotes.Notes_Grid.DataSource = BLN;
         }
     }
 }
