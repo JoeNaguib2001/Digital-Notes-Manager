@@ -28,18 +28,49 @@
         /// </summary>
         private void InitializeComponent()
         {
+            stylePanal = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
+            richTextBox1 = new RichTextBox();
             SuspendLayout();
+            // 
+            // stylePanal
+            // 
+            stylePanal.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] { new DevExpress.XtraBars.Docking2010.WindowsUIButton(), new DevExpress.XtraBars.Docking2010.WindowsUIButton() });
+            stylePanal.Location = new Point(1, 222);
+            stylePanal.Name = "stylePanal";
+            stylePanal.Size = new Size(90, 25);
+            stylePanal.TabIndex = 2;
+            stylePanal.Text = "windowsuiButtonPanel1";
+            stylePanal.ButtonUnchecked += stylePanal_ButtonUnchecked;
+            stylePanal.ButtonChecked += StylePanal_ButtonChecked;
+            // 
+            // richTextBox1
+            // 
+            richTextBox1.BorderStyle = BorderStyle.None;
+            richTextBox1.Location = new Point(12, -3);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(356, 219);
+            richTextBox1.TabIndex = 3;
+            richTextBox1.Text = "";
+            richTextBox1.TextChanged += richTextBox1_TextChanged;
             // 
             // Note
             // 
+            AllowDrop = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(380, 252);
+            Controls.Add(richTextBox1);
+            Controls.Add(stylePanal);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "Note";
             Text = "Note";
+
             ResumeLayout(false);
         }
 
         #endregion
+        private DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel stylePanal;
+        private RichTextBox richTextBox1;
     }
 }
