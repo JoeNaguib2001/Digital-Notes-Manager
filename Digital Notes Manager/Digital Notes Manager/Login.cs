@@ -1,5 +1,5 @@
 ﻿using DevExpress.XtraEditors;
-using Digital_Notes_Manager.moduels;
+using Digital_Notes_Manager.Models;
 
 namespace Digital_Notes_Manager
 {
@@ -21,6 +21,7 @@ namespace Digital_Notes_Manager
 
                 if (user != null)
                 {
+                    this.Hide();
                     Form form = new Main_Form();
                     form.ShowDialog();
                 }

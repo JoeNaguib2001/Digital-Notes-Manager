@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Digital_Notes_Manager.moduels
+﻿namespace Digital_Notes_Manager.Models
 {
     [Flags]
     public enum Category { Study = 1, Work = 2, Ideas = 4, Reminders = 8, Personal = 16 };
-    public class Notes
+    public class Note
     {
         public int ID { get; set; }
         public string Title { get; set; }
