@@ -1,7 +1,6 @@
 ﻿using DevExpress.XtraBars;
 using DevExpress.XtraBars.Docking2010;
 using DevExpress.XtraBars.Ribbon;
-using DevExpress.XtraEditors;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 
@@ -38,6 +37,8 @@ namespace Digital_Notes_Manager
             MakeFormDraggable(this);
 
             PopMenu();
+
+
         }
         private void SetTextStyle()
         {
@@ -175,7 +176,7 @@ namespace Digital_Notes_Manager
 
 
             // Handle clicks
-            item1.ItemClick += (s, e) => XtraMessageBox.Show("Option 1 clicked");
+            item1.ItemClick += (s, e) => Calender.ShowPopup();
 
             // Add items to popup menu
             popupMenu.AddItem(item1);
@@ -203,5 +204,9 @@ namespace Digital_Notes_Manager
 
         }
 
+        //private void Calender_Click(object sender, EventArgs e)
+        //{
+        //    Calender.ShowPopup();
+        //}
     }
 }
