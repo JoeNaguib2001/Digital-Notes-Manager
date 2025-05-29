@@ -77,7 +77,7 @@ namespace Digital_Notes_Manager
                 ManageNoteContext.Update(editedNote);
                 ManageNoteContext.SaveChanges();
             }
-            var note = gridView1.GetRow(e.RowHandle) as Note_Form;
+            var note = gridView1.GetRow(e.RowHandle) as Note;
             ManageNoteContext.SaveChanges();
         }
 
