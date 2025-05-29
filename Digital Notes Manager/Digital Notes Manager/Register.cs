@@ -1,4 +1,6 @@
 ﻿using DevExpress.XtraBars.Ribbon;
+using DevExpress.XtraEditors;
+using Digital_Notes_Manager.Models;
 using System.Drawing.Drawing2D;
 
 namespace Digital_Notes_Manager
@@ -32,7 +34,77 @@ namespace Digital_Notes_Manager
 
         private void SinUpBtn_Click(object sender, EventArgs e)
         {
+            string username = usernameTxt.Text.Trim();
+            string password = passwordTxt.Text;
+            string confirmPassword = passwordConfirmTxt.Text;
 
+
+            if (string.IsNullOrWhiteSpace(username))
+            {
+                XtraMessageBox.Show("Username is required.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                usernameTxt.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(password))
+            {
+                XtraMessageBox.Show("Password is required.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                passwordTxt.Focus();
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(confirmPassword))
+            {
+                XtraMessageBox.Show("Please confirm your password.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                passwordConfirmTxt.Focus();
+                return;
+            }
+
+            if (password.Length < 6)
+            {
+                XtraMessageBox.Show("Password must be at least 6 characters.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                passwordTxt.Focus();
+                return;
+            }
+
+            if (password != confirmPassword)
+            {
+                XtraMessageBox.Show("Passwords do not match.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                passwordConfirmTxt.Focus();
+                return;
+            }
+
+            using (var context = new ManageNoteContext())
+            {
+
+                bool userExists = context.Users.Any(u => u.Username == username);
+                if (userExists)
+                {
+                    XtraMessageBox.Show("Username already exists. Choose another one.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                var newUser = new User
+                {
+                    Username = username,
+                    Password = password
+                };
+
+                context.Users.Add(newUser);
+                context.SaveChanges();
+
+                Properties.Settings.Default.UserID = newUser.UserID;
+                Properties.Settings.Default.Save();
+
+                XtraMessageBox.Show("Registered successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+                usernameTxt.Text = "";
+                passwordTxt.Text = "";
+                passwordConfirmTxt.Text = "";
+
+
+            }
         }
     }
 }
