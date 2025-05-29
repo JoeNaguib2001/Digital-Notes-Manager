@@ -28,7 +28,7 @@ namespace Digital_Notes_Manager
                         break;
                     case "Add_A_New_Note_Accordion_Element":
                         {
-                            Note_Form noteForm = new Note_Form(manageNoteContext, this);
+                            Note_Form noteForm = new Note_Form();
                             noteForm.Show();
                         }
                         break;
@@ -47,8 +47,26 @@ namespace Digital_Notes_Manager
         private void LoadNotesForm()
         {
             this.MDI_Panel.Controls.Clear();
-            viewNotes = new ViewNotes(manageNoteContext, this);
+            viewNotes = new ViewNotes();
             MDI_Panel.Controls.Add(viewNotes.panel1);
+        }
+
+        private void MDI_Panel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void View_All_Notes_Popped_Click(object sender, EventArgs e)
+        {
+            var list = manageNoteContext.Notes.ToList();
+            for (int i = 0; i < 5; i++)
+            {
+                Note_Form note_form = new Note_Form();
+                note_form.richTextBox1.Text = list[i].Content;
+                note_form.Text = list[i].Title;
+                note_form.Show();
+
+            }
         }
 
     }

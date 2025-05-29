@@ -12,13 +12,10 @@ namespace Digital_Notes_Manager
     {
         private BarManager barManager;
         private PopupMenu popupMenu;
-        private ManageNoteContext _ManageNoteContext;
-        private Main_Form _Main_Form;
-        public Note_Form(ManageNoteContext manageNoteContext, Main_Form main_Form)
+        private readonly ManageNoteContext _ManageNoteContext = Utilities.manageNoteContext;
+        public Note_Form()
         {
             InitializeComponent();
-            this._ManageNoteContext = manageNoteContext;
-            this._Main_Form = main_Form;
             stylePanal.Buttons.Clear();
             WindowsUIButton btn1 = new WindowsUIButton("", ButtonStyle.CheckButton);
             WindowsUIButton btn2 = new WindowsUIButton("", ButtonStyle.CheckButton);
