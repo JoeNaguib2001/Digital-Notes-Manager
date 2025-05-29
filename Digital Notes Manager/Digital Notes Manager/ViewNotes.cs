@@ -71,13 +71,13 @@ namespace Digital_Notes_Manager
 
         private void gridView1_CellValueChanged(object sender, CellValueChangedEventArgs e)
         {
-            var editedNote = gridView1.GetFocusedRow() as Note_Form;
+            var editedNote = gridView1.GetFocusedRow() as Note;
             if (editedNote != null)
             {
                 ManageNoteContext.Update(editedNote);
                 ManageNoteContext.SaveChanges();
             }
-            var note = gridView1.GetRow(e.RowHandle) as Note_Form;
+            var note = gridView1.GetRow(e.RowHandle) as Note;
             ManageNoteContext.SaveChanges();
         }
 
