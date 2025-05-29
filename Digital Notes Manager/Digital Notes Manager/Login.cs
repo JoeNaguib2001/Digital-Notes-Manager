@@ -23,6 +23,7 @@ namespace Digital_Notes_Manager
                 {
                     this.Hide();
                     Form form = new Main_Form();
+                    this.Hide();
                     form.ShowDialog();
                 }
                 else
