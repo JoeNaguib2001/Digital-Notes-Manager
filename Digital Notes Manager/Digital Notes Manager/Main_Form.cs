@@ -1,7 +1,6 @@
 using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraEditors;
 using Digital_Notes_Manager.moduels;
-using System.ComponentModel;
 
 namespace Digital_Notes_Manager
 {
@@ -54,8 +53,8 @@ namespace Digital_Notes_Manager
             manageNoteContext = new ManageNoteContext();
             viewNotes = new ViewNotes(manageNoteContext, this);
             var list = manageNoteContext.Notes.ToList();
-            BindingList<Note> BLN = new BindingList<Note>(list);
-            viewNotes.Notes_Grid.DataSource = BLN;
+            //BindingList<Note> BLN = new BindingList<Note>(list);
+            // viewNotes.Notes_Grid.DataSource = BLN;
         }
     }
 }
