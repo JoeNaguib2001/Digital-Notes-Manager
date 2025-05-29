@@ -41,7 +41,7 @@ namespace Digital_Notes_Manager
         }
 
         ViewNotes viewNotes;
-        ManageNoteContext manageNoteContext;
+        ManageNoteContext manageNoteContext = new ManageNoteContext();
 
         private void LoadNotesForm()
         {
