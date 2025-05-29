@@ -37,8 +37,9 @@
             colReminderDate = new DevExpress.XtraGrid.Columns.GridColumn();
             colCategory = new DevExpress.XtraGrid.Columns.GridColumn();
             contextMenuStrip1 = new ContextMenuStrip(components);
-            deleteAllSeToolStripMenuItem = new ToolStripMenuItem();
             openToolStripMenuItem = new ToolStripMenuItem();
+            deleteAllSeToolStripMenuItem = new ToolStripMenuItem();
+            gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Notes_Grid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
@@ -82,7 +83,7 @@
             gridView1.Appearance.SelectedRow.ForeColor = Color.White;
             gridView1.Appearance.SelectedRow.Options.UseForeColor = true;
             gridView1.ColumnPanelRowHeight = 75;
-            gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colTitle, colCreationDate, colReminderDate, colCategory });
+            gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colTitle, colCreationDate, colReminderDate, colCategory, gridColumn2 });
             gridView1.GridControl = Notes_Grid;
             gridView1.Name = "gridView1";
             gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -168,7 +169,7 @@
             colReminderDate.FieldName = "ReminderDate";
             colReminderDate.Name = "colReminderDate";
             colReminderDate.Visible = true;
-            colReminderDate.VisibleIndex = 4;
+            colReminderDate.VisibleIndex = 5;
             // 
             // colCategory
             // 
@@ -202,6 +203,12 @@
             contextMenuStrip1.Name = "contextMenuStrip1";
             contextMenuStrip1.Size = new Size(108, 48);
             // 
+            // openToolStripMenuItem
+            // 
+            openToolStripMenuItem.Name = "openToolStripMenuItem";
+            openToolStripMenuItem.Size = new Size(107, 22);
+            openToolStripMenuItem.Text = "Open";
+            // 
             // deleteAllSeToolStripMenuItem
             // 
             deleteAllSeToolStripMenuItem.Name = "deleteAllSeToolStripMenuItem";
@@ -209,11 +216,12 @@
             deleteAllSeToolStripMenuItem.Text = "Delete";
             deleteAllSeToolStripMenuItem.Click += deleteAllSeToolStripMenuItem_Click;
             // 
-            // openToolStripMenuItem
+            // gridColumn2
             // 
-            openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(107, 22);
-            openToolStripMenuItem.Text = "Open";
+            gridColumn2.Caption = "gridColumn2";
+            gridColumn2.Name = "gridColumn2";
+            gridColumn2.Visible = true;
+            gridColumn2.VisibleIndex = 4;
             // 
             // ViewNotes
             // 
@@ -243,5 +251,6 @@
         private ToolStripMenuItem deleteAllSeToolStripMenuItem;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn1;
         private ToolStripMenuItem openToolStripMenuItem;
+        private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
     }
 }
