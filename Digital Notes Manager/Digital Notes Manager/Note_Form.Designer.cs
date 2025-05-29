@@ -1,6 +1,6 @@
 ﻿namespace Digital_Notes_Manager
 {
-    partial class Note
+    partial class Note_Form
     {
         /// <summary>
         /// Required designer variable.
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Note));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Note_Form));
             stylePanal = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             richTextBox1 = new RichTextBox();
             saveBtn = new DevExpress.XtraEditors.SimpleButton();
@@ -89,7 +89,7 @@
             Close_btn.TabIndex = 6;
             Close_btn.Click += Close_btn_Click_1;
             // 
-            // Note
+            // Note_Form
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
@@ -102,7 +102,7 @@
             Controls.Add(stylePanal);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "Note";
+            Name = "Note_Form";
             Text = "Note";
             ResumeLayout(false);
         }

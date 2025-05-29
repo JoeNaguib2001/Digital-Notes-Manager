@@ -7,12 +7,12 @@ using System.Runtime.InteropServices;
 
 namespace Digital_Notes_Manager
 {
-    public partial class Note : RibbonForm
+    public partial class Note_Form : RibbonForm
     {
         private BarManager barManager;
         private PopupMenu popupMenu;
 
-        public Note()
+        public Note_Form()
         {
             InitializeComponent();
             stylePanal.Buttons.Clear();
