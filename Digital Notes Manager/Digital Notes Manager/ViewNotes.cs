@@ -1,5 +1,7 @@
 ﻿using DevExpress.XtraEditors;
+using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
+using DevExpress.XtraGrid.Views.Grid;
 using Digital_Notes_Manager.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -35,9 +37,37 @@ namespace Digital_Notes_Manager
                 gridView1.CloseEditor();          // يقفل الـ editor
                 gridView1.UpdateCurrentRow();     // يعمل commit للتغيير علطول
             };
-
-
+            combo.AppearanceDropDown.Font = new Font("Segoe UI", 12); // حجم 12 أو أي حجم يعجبك
+            combo.AppearanceDropDown.Options.UseFont = true;
+            gridView1.RowCellClick += gridView1_RowCellClick; // ربط الحدث
+            gridView1.SortInfo.Clear();
+            gridView1.SortInfo.AddRange(new[] {
+            new GridColumnSortInfo(gridView1.Columns["CreationDate"], DevExpress.Data.ColumnSortOrder.Descending)
+    });
         }
+
+        private void gridView1_RowCellClick(object sender, RowCellClickEventArgs e)
+        {
+            if (e.Column == DeleteColumn)
+            {
+                var selectedRow = gridView1.GetFocusedRow() as Note;
+                if (selectedRow != null)
+                {
+                    if (MessageBox.Show("هل أنت متأكد من حذف الملاحظة المحددة؟", "تأكيد", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    {
+                        ManageNoteContext.Entry(selectedRow).State = EntityState.Deleted;
+                        ManageNoteContext.SaveChanges();
+                        XtraMessageBox.Show("تم حذف الملاحظة بنجاح");
+                        Main_Form.SetDataSource(Notes_Grid);
+                    }
+                }
+                else
+                {
+                    XtraMessageBox.Show("Please Select A Note To Delete");
+                }
+            }
+        }
+
 
         private void gridView1_CellValueChanged(object sender, CellValueChangedEventArgs e)
         {
@@ -86,7 +116,7 @@ namespace Digital_Notes_Manager
 
 
             XtraMessageBox.Show("Deleted Successfully");
-            Main_Form.SetDataSource();
+            Main_Form.SetDataSource(Notes_Grid);
         }
 
         private void gridView1_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
@@ -96,6 +126,15 @@ namespace Digital_Notes_Manager
                 contextMenuStrip1.Show(Notes_Grid, e.Point);
             }
 
+        }
+
+        List<Note_Form> note_Forms = new List<Note_Form>();
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Note_Form noteForm = new Note_Form();
+            var selectedRow = gridView1.GetFocusedRow() as Note;
+            noteForm.richTextBox1.Text = selectedRow?.Content ?? string.Empty;
+            noteForm.Show();
         }
     }
 }

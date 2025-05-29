@@ -109,9 +109,9 @@
 
         #endregion
         private DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel stylePanal;
-        private RichTextBox richTextBox1;
         private DevExpress.XtraEditors.SimpleButton saveBtn;
         private DevExpress.XtraEditors.SimpleButton MenuBtn;
         private DevExpress.XtraEditors.SimpleButton Close_btn;
+        public RichTextBox richTextBox1;
     }
 }

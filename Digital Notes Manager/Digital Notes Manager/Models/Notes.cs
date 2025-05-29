@@ -1,4 +1,4 @@
-﻿namespace Digital_Notes_Manager.moduels
+﻿namespace Digital_Notes_Manager.Models
 {
     [Flags]
     public enum Category { Study = 1, Work = 2, Ideas = 4, Reminders = 8, Personal = 16 };

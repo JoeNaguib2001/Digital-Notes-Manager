@@ -1,6 +1,8 @@
 using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraEditors;
-using Digital_Notes_Manager.moduels;
+using DevExpress.XtraGrid;
+using Digital_Notes_Manager.Models;
+using System.ComponentModel;
 
 namespace Digital_Notes_Manager
 {
@@ -35,7 +37,6 @@ namespace Digital_Notes_Manager
                         XtraMessageBox.Show("Unknown action.");
                         break;
                 }
-
             }
         }
 
@@ -45,16 +46,16 @@ namespace Digital_Notes_Manager
         private void LoadNotesForm()
         {
             this.MDI_Panel.Controls.Clear();
-            SetDataSource();
+            viewNotes = new ViewNotes(manageNoteContext, this);
+            SetDataSource(viewNotes.Notes_Grid);
             MDI_Panel.Controls.Add(viewNotes.panel1);
         }
-        public void SetDataSource()
+        public void SetDataSource(GridControl GC)
         {
             manageNoteContext = new ManageNoteContext();
-            viewNotes = new ViewNotes(manageNoteContext, this);
             var list = manageNoteContext.Notes.ToList();
-            //BindingList<Note> BLN = new BindingList<Note>(list);
-            // viewNotes.Notes_Grid.DataSource = BLN;
+            BindingList<Note> BLN = new BindingList<Note>(list);
+            GC.DataSource = BLN;
         }
     }
 }

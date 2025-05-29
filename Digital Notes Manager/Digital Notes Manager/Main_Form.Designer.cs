@@ -152,6 +152,7 @@
             Controls.Add(MDI_Panel);
             Controls.Add(accordionControl1);
             Controls.Add(menuStrip1);
+            IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
             Margin = new Padding(3, 2, 3, 2);
             Name = "Main_Form";

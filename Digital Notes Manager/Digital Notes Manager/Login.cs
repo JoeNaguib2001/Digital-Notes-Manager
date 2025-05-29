@@ -1,5 +1,5 @@
 ﻿using DevExpress.XtraEditors;
-using Digital_Notes_Manager.moduels;
+using Digital_Notes_Manager.Models;
 
 namespace Digital_Notes_Manager
 {
