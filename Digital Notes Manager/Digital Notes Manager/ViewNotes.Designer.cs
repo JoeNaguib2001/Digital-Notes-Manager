@@ -29,12 +29,12 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
+            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions3 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewNotes));
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject9 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject10 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject11 = new DevExpress.Utils.SerializableAppearanceObject();
+            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject12 = new DevExpress.Utils.SerializableAppearanceObject();
             panel1 = new Panel();
             Notes_Grid = new DevExpress.XtraGrid.GridControl();
             gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -47,10 +47,6 @@
             contextMenuStrip1 = new ContextMenuStrip(components);
             openToolStripMenuItem = new ToolStripMenuItem();
             deleteAllSeToolStripMenuItem = new ToolStripMenuItem();
-            colID = new DevExpress.XtraGrid.Columns.GridColumn();
-            colContent = new DevExpress.XtraGrid.Columns.GridColumn();
-            colUserID = new DevExpress.XtraGrid.Columns.GridColumn();
-            colUser = new DevExpress.XtraGrid.Columns.GridColumn();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Notes_Grid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
@@ -96,7 +92,7 @@
             gridView1.Appearance.SelectedRow.ForeColor = Color.White;
             gridView1.Appearance.SelectedRow.Options.UseForeColor = true;
             gridView1.ColumnPanelRowHeight = 75;
-            gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colTitle, colCreationDate, colReminderDate, colCategory, DeleteColumn, colID, colContent, colUserID, colUser });
+            gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colTitle, colCreationDate, colReminderDate, colCategory, DeleteColumn });
             gridView1.GridControl = Notes_Grid;
             gridView1.Name = "gridView1";
             gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -229,13 +225,13 @@
             DeleteColumn.ColumnEdit = BtnDelete;
             DeleteColumn.Name = "DeleteColumn";
             DeleteColumn.Visible = true;
-            DeleteColumn.VisibleIndex = 9;
+            DeleteColumn.VisibleIndex = 5;
             // 
             // BtnDelete
             // 
             BtnDelete.AutoHeight = false;
-            editorButtonImageOptions2.Image = (Image)resources.GetObject("editorButtonImageOptions2.Image");
-            BtnDelete.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            editorButtonImageOptions3.Image = (Image)resources.GetObject("editorButtonImageOptions3.Image");
+            BtnDelete.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions3, new DevExpress.Utils.KeyShortcut(Keys.None), serializableAppearanceObject9, serializableAppearanceObject10, serializableAppearanceObject11, serializableAppearanceObject12, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
             BtnDelete.Name = "BtnDelete";
             BtnDelete.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             // 
@@ -258,34 +254,6 @@
             deleteAllSeToolStripMenuItem.Size = new Size(107, 22);
             deleteAllSeToolStripMenuItem.Text = "Delete";
             deleteAllSeToolStripMenuItem.Click += deleteAllSeToolStripMenuItem_Click;
-            // 
-            // colID
-            // 
-            colID.FieldName = "ID";
-            colID.Name = "colID";
-            colID.Visible = true;
-            colID.VisibleIndex = 5;
-            // 
-            // colContent
-            // 
-            colContent.FieldName = "Content";
-            colContent.Name = "colContent";
-            colContent.Visible = true;
-            colContent.VisibleIndex = 6;
-            // 
-            // colUserID
-            // 
-            colUserID.FieldName = "UserID";
-            colUserID.Name = "colUserID";
-            colUserID.Visible = true;
-            colUserID.VisibleIndex = 7;
-            // 
-            // colUser
-            // 
-            colUser.FieldName = "User";
-            colUser.Name = "colUser";
-            colUser.Visible = true;
-            colUser.VisibleIndex = 8;
             // 
             // ViewNotes
             // 
@@ -318,9 +286,5 @@
         private ToolStripMenuItem openToolStripMenuItem;
         private DevExpress.XtraGrid.Columns.GridColumn DeleteColumn;
         private DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit BtnDelete;
-        private DevExpress.XtraGrid.Columns.GridColumn colID;
-        private DevExpress.XtraGrid.Columns.GridColumn colContent;
-        private DevExpress.XtraGrid.Columns.GridColumn colUserID;
-        private DevExpress.XtraGrid.Columns.GridColumn colUser;
     }
 }

@@ -1,8 +1,6 @@
 using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraEditors;
-using DevExpress.XtraGrid;
 using Digital_Notes_Manager.Models;
-using System.ComponentModel;
 
 namespace Digital_Notes_Manager
 {
@@ -29,8 +27,10 @@ namespace Digital_Notes_Manager
                         }
                         break;
                     case "Add_A_New_Note_Accordion_Element":
-                        // Logic to add a new note
-                        XtraMessageBox.Show("Add a new note functionality is not implemented yet.");
+                        {
+                            Note_Form noteForm = new Note_Form(manageNoteContext, this);
+                            noteForm.Show();
+                        }
                         break;
 
                     default:
@@ -40,22 +40,16 @@ namespace Digital_Notes_Manager
             }
         }
 
-        ViewNotes viewNotes;
-        ManageNoteContext manageNoteContext = new ManageNoteContext();
+        public ViewNotes viewNotes;
+        ManageNoteContext manageNoteContext = Utilities.manageNoteContext;
+
 
         private void LoadNotesForm()
         {
             this.MDI_Panel.Controls.Clear();
             viewNotes = new ViewNotes(manageNoteContext, this);
-            SetDataSource(viewNotes.Notes_Grid);
             MDI_Panel.Controls.Add(viewNotes.panel1);
         }
-        public void SetDataSource(GridControl GC)
-        {
-            manageNoteContext = new ManageNoteContext();
-            var list = manageNoteContext.Notes.ToList();
-            BindingList<Note> BLN = new BindingList<Note>(list);
-            GC.DataSource = BLN;
-        }
+
     }
 }

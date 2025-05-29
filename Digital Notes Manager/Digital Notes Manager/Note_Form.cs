@@ -2,6 +2,7 @@
 using DevExpress.XtraBars.Docking2010;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
+using Digital_Notes_Manager.Models;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 
@@ -11,10 +12,13 @@ namespace Digital_Notes_Manager
     {
         private BarManager barManager;
         private PopupMenu popupMenu;
-
-        public Note_Form()
+        private ManageNoteContext _ManageNoteContext;
+        private Main_Form _Main_Form;
+        public Note_Form(ManageNoteContext manageNoteContext, Main_Form main_Form)
         {
             InitializeComponent();
+            this._ManageNoteContext = manageNoteContext;
+            this._Main_Form = main_Form;
             stylePanal.Buttons.Clear();
             WindowsUIButton btn1 = new WindowsUIButton("", ButtonStyle.CheckButton);
             WindowsUIButton btn2 = new WindowsUIButton("", ButtonStyle.CheckButton);
@@ -203,5 +207,20 @@ namespace Digital_Notes_Manager
 
         }
 
+        private void saveBtn_Click(object sender, EventArgs e)
+        {
+            Note newNote = new Note
+            {
+                Title = "132",
+                Content = "123",
+                CreationDate = DateTime.Now,
+                ReminderDate = DateTime.Now,
+                UserID = 1,
+                Category = Category.Study,
+            };
+            _ManageNoteContext.Notes.Add(newNote);
+            _ManageNoteContext.SaveChanges();
+            Utilities.SetNotesGridControlDataSource();
+        }
     }
 }

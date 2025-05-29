@@ -44,6 +44,8 @@ namespace Digital_Notes_Manager
             gridView1.SortInfo.AddRange(new[] {
             new GridColumnSortInfo(gridView1.Columns["CreationDate"], DevExpress.Data.ColumnSortOrder.Descending)
     });
+            Utilities.GridControl = Notes_Grid;
+            Utilities.SetNotesGridControlDataSource();
         }
 
         private void gridView1_RowCellClick(object sender, RowCellClickEventArgs e)
@@ -53,12 +55,12 @@ namespace Digital_Notes_Manager
                 var selectedRow = gridView1.GetFocusedRow() as Note;
                 if (selectedRow != null)
                 {
-                    if (MessageBox.Show("هل أنت متأكد من حذف الملاحظة المحددة؟", "تأكيد", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (MessageBox.Show("Are you sure you want to delete this note ?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         ManageNoteContext.Entry(selectedRow).State = EntityState.Deleted;
                         ManageNoteContext.SaveChanges();
                         XtraMessageBox.Show("تم حذف الملاحظة بنجاح");
-                        Main_Form.SetDataSource(Notes_Grid);
+                        Utilities.SetNotesGridControlDataSource();
                     }
                 }
                 else
@@ -116,7 +118,7 @@ namespace Digital_Notes_Manager
 
 
             XtraMessageBox.Show("Deleted Successfully");
-            Main_Form.SetDataSource(Notes_Grid);
+            Utilities.SetNotesGridControlDataSource();
         }
 
         private void gridView1_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
@@ -131,7 +133,7 @@ namespace Digital_Notes_Manager
         List<Note_Form> note_Forms = new List<Note_Form>();
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Note_Form noteForm = new Note_Form();
+            Note_Form noteForm = new Note_Form(ManageNoteContext, Main_Form);
             var selectedRow = gridView1.GetFocusedRow() as Note;
             noteForm.richTextBox1.Text = selectedRow?.Content ?? string.Empty;
             noteForm.Show();
