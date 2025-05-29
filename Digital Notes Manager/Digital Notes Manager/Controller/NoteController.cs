@@ -10,24 +10,25 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Digital_Notes_Manager.Controller
 {
-    public class UserController
+    public class NoteController
     {
         private readonly ManageNoteContext context;
 
-        public UserController()
+        public NoteController()
         {
             context = new ManageNoteContext();
         }
-        //==================== View All User ======================================
+
+        //==================== View All Notes ======================================
 
         /// <summary>
-        /// This Function to View All Users 
-        /// in The User Table
+        /// This Function to View All Notes 
+        /// in The Notes Table to Specific user
         /// </summary>
-        /// <returns>All Users</returns>
-        public List<User> ViewAllUsers()
+        /// <returns>All Notes</returns>
+        public List<Note> ViewAllNotes()
         {
-            return context.Users.ToList();
+            return context.Notes.ToList();
         }
 
         //==================== Get User ======================================

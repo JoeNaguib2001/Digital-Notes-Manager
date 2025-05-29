@@ -29,12 +29,6 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewNotes));
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
             panel1 = new Panel();
             Notes_Grid = new DevExpress.XtraGrid.GridControl();
             gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -44,13 +38,14 @@
             colCategory = new DevExpress.XtraGrid.Columns.GridColumn();
             DeleteColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             BtnDelete = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
-            contextMenuStrip1 = new ContextMenuStrip(components);
-            openToolStripMenuItem = new ToolStripMenuItem();
-            deleteAllSeToolStripMenuItem = new ToolStripMenuItem();
             colID = new DevExpress.XtraGrid.Columns.GridColumn();
             colContent = new DevExpress.XtraGrid.Columns.GridColumn();
             colUserID = new DevExpress.XtraGrid.Columns.GridColumn();
             colUser = new DevExpress.XtraGrid.Columns.GridColumn();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            openToolStripMenuItem = new ToolStripMenuItem();
+            deleteAllSeToolStripMenuItem = new ToolStripMenuItem();
+            saveInYourDeviceToolStripMenuItem = new ToolStripMenuItem();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)Notes_Grid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
@@ -78,6 +73,7 @@
             Notes_Grid.Size = new Size(915, 565);
             Notes_Grid.TabIndex = 0;
             Notes_Grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
+
             // 
             // gridView1
             // 
@@ -234,30 +230,9 @@
             // BtnDelete
             // 
             BtnDelete.AutoHeight = false;
-            editorButtonImageOptions2.Image = (Image)resources.GetObject("editorButtonImageOptions2.Image");
-            BtnDelete.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            BtnDelete.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph) });
             BtnDelete.Name = "BtnDelete";
             BtnDelete.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
-            // 
-            // contextMenuStrip1
-            // 
-            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openToolStripMenuItem, deleteAllSeToolStripMenuItem });
-            contextMenuStrip1.Name = "contextMenuStrip1";
-            contextMenuStrip1.Size = new Size(108, 48);
-            // 
-            // openToolStripMenuItem
-            // 
-            openToolStripMenuItem.Name = "openToolStripMenuItem";
-            openToolStripMenuItem.Size = new Size(107, 22);
-            openToolStripMenuItem.Text = "Open";
-            openToolStripMenuItem.Click += openToolStripMenuItem_Click;
-            // 
-            // deleteAllSeToolStripMenuItem
-            // 
-            deleteAllSeToolStripMenuItem.Name = "deleteAllSeToolStripMenuItem";
-            deleteAllSeToolStripMenuItem.Size = new Size(107, 22);
-            deleteAllSeToolStripMenuItem.Text = "Delete";
-            deleteAllSeToolStripMenuItem.Click += deleteAllSeToolStripMenuItem_Click;
             // 
             // colID
             // 
@@ -286,6 +261,33 @@
             colUser.Name = "colUser";
             colUser.Visible = true;
             colUser.VisibleIndex = 8;
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { openToolStripMenuItem, deleteAllSeToolStripMenuItem, saveInYourDeviceToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(177, 70);
+            // 
+            // openToolStripMenuItem
+            // 
+            openToolStripMenuItem.Name = "openToolStripMenuItem";
+            openToolStripMenuItem.Size = new Size(176, 22);
+            openToolStripMenuItem.Text = "Open";
+            openToolStripMenuItem.Click += openToolStripMenuItem_Click;
+            // 
+            // deleteAllSeToolStripMenuItem
+            // 
+            deleteAllSeToolStripMenuItem.Name = "deleteAllSeToolStripMenuItem";
+            deleteAllSeToolStripMenuItem.Size = new Size(176, 22);
+            deleteAllSeToolStripMenuItem.Text = "Delete";
+            deleteAllSeToolStripMenuItem.Click += deleteAllSeToolStripMenuItem_Click;
+            // 
+            // saveInYourDeviceToolStripMenuItem
+            // 
+            saveInYourDeviceToolStripMenuItem.Name = "saveInYourDeviceToolStripMenuItem";
+            saveInYourDeviceToolStripMenuItem.Size = new Size(176, 22);
+            saveInYourDeviceToolStripMenuItem.Text = "Save in Your Device";
+            saveInYourDeviceToolStripMenuItem.Click += saveInYourDeviceToolStripMenuItem_Click;
             // 
             // ViewNotes
             // 
@@ -322,5 +324,6 @@
         private DevExpress.XtraGrid.Columns.GridColumn colContent;
         private DevExpress.XtraGrid.Columns.GridColumn colUserID;
         private DevExpress.XtraGrid.Columns.GridColumn colUser;
+        private ToolStripMenuItem saveInYourDeviceToolStripMenuItem;
     }
 }
