@@ -37,6 +37,7 @@
             passwordTxt = new DevExpress.XtraEditors.TextEdit();
             simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
             SinUpBtn = new DevExpress.XtraEditors.SimpleButton();
+            registerPanel = new Panel();
             ((System.ComponentModel.ISupportInitialize)usernameTxt.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)passwordConfirmTxt.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)passwordTxt.Properties).BeginInit();
@@ -130,6 +131,14 @@
             SinUpBtn.Text = "Sign Up";
             SinUpBtn.Click += SinUpBtn_Click;
             // 
+            // registerPanel
+            // 
+            registerPanel.Dock = DockStyle.Fill;
+            registerPanel.Location = new Point(0, 0);
+            registerPanel.Name = "registerPanel";
+            registerPanel.Size = new Size(521, 390);
+            registerPanel.TabIndex = 8;
+            // 
             // Register
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
@@ -143,6 +152,7 @@
             Controls.Add(labelControl2);
             Controls.Add(labelControl1);
             Controls.Add(usernameLabel);
+            Controls.Add(registerPanel);
             Name = "Register";
             Text = "Register";
             ((System.ComponentModel.ISupportInitialize)usernameTxt.Properties).EndInit();
@@ -162,5 +172,6 @@
         private DevExpress.XtraEditors.TextEdit passwordTxt;
         private DevExpress.XtraEditors.SimpleButton simpleButton1;
         private DevExpress.XtraEditors.SimpleButton SinUpBtn;
+        public Panel registerPanel;
     }
 }
