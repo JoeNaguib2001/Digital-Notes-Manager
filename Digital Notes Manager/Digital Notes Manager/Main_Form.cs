@@ -73,5 +73,27 @@ namespace Digital_Notes_Manager
             }
         }
 
+        private void importNoteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "Rich Text Files (*rtf)|*.rtf";
+            openFile.Title = "Import Notes";
+
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    Note_Form note = new Note_Form();
+
+                    note.richTextBox1.LoadFile(openFile.FileName, RichTextBoxStreamType.RichText);
+
+                    note.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error importing the file: " + ex.Message, "Import Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
     }
 }

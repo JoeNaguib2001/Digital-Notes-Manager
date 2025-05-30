@@ -2,8 +2,11 @@
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraRichEdit.Forms;
 using Digital_Notes_Manager.Models;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using static DevExpress.XtraPrinting.Native.ExportOptionsPropertiesNames;
 
 namespace Digital_Notes_Manager
 {
@@ -135,6 +138,67 @@ namespace Digital_Notes_Manager
             noteForm.richTextBox1.Text = selectedRow?.Content ?? string.Empty;
             noteForm.Show();
         }
+
+        private void saveInYourDeviceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Note_Form noteForm = new Note_Form();
+            var selectedRow = gridView1.GetFocusedRow() as Note;
+            noteForm.richTextBox1.Text = selectedRow?.Content ?? string.Empty;
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Rich Text File (*.rtf) | *.rtf";
+            saveFileDialog.Title = "Save Note as RTF File in Your Device";
+            saveFileDialog.FileName = $"{selectedRow.Title}.rtf";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+
+
+                    RichTextBox richTextBox = new RichTextBox();
+
+
+
+                    richTextBox.SelectionAlignment = HorizontalAlignment.Center;
+                    richTextBox.SelectionFont = new Font("Arial", 20, FontStyle.Bold | FontStyle.Underline);
+                    richTextBox.SelectionColor = Color.DarkRed;
+                    richTextBox.AppendText($"{selectedRow.Title}\n\n");
+
+
+                    richTextBox.SelectionAlignment = HorizontalAlignment.Left;
+                    richTextBox.SelectionFont = new Font("Arial", 12, FontStyle.Bold | FontStyle.Italic);
+                    richTextBox.SelectionColor = Color.DarkGreen;
+                    richTextBox.AppendText($"Category: {selectedRow.Category}");
+                    richTextBox.AppendText($"                                ");
+                    richTextBox.AppendText($"Created On: {selectedRow.CreationDate:dd/MM/yyyy}\n");
+
+
+                    richTextBox.SelectionFont = new Font("Arial", 12, FontStyle.Regular);
+                    richTextBox.SelectionColor = Color.Gray;
+                    richTextBox.AppendText("------------------------------------------------------------------------------------------------------------\n\n");
+
+                    richTextBox.SelectionFont = new Font("Arial", 14, FontStyle.Regular);
+                    richTextBox.SelectionColor = Color.Black;
+                    richTextBox.AppendText(selectedRow.Content ?? "");
+
+
+                    richTextBox.SaveFile(saveFileDialog.FileName, RichTextBoxStreamType.RichText);
+
+                    // Open the file automatically
+                    System.Diagnostics.Process.Start("explorer.exe", saveFileDialog.FileName);
+
+                    MessageBox.Show("Note saved and opened successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error while saving the file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+       
     }
 }
+
 
