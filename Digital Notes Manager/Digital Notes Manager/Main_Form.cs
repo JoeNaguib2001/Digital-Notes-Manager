@@ -51,10 +51,6 @@ namespace Digital_Notes_Manager
             MDI_Panel.Controls.Add(viewNotes.panel1);
         }
 
-        private void MDI_Panel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
 
         private void View_All_Notes_Popped_Click(object sender, EventArgs e)
         {
