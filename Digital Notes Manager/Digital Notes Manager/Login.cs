@@ -8,9 +8,14 @@ namespace Digital_Notes_Manager
         public Login()
         {
             InitializeComponent();
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("The Bezier");
+            loginBtn.LookAndFeel.Style = DevExpress.LookAndFeel.LookAndFeelStyle.Flat;
+            loginBtn.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
         }
+
         private void loginBtn_Click(object sender, EventArgs e)
         {
+
             using (var context = new ManageNoteContext())
             {
                 string enteredUsername = userNameTxt.Text;
@@ -26,10 +31,10 @@ namespace Digital_Notes_Manager
 
                     XtraMessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-
                     Main_Form main = new Main_Form();
                     main.Show();
-                    this.Hide();
+                    Utilities.LoginRegisterMDI.Hide();
+
                 }
                 else
                 {
