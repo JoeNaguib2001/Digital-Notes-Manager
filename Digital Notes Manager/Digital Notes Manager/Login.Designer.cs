@@ -67,8 +67,8 @@
             // 
             // loginBtn
             // 
-            loginBtn.Appearance.BackColor = Color.FromArgb(0, 191, 140);
-            loginBtn.Appearance.BorderColor = Color.FromArgb(0, 191, 140);
+            loginBtn.Appearance.BackColor = Color.FromArgb(0, 150, 180);
+            loginBtn.Appearance.BorderColor = Color.FromArgb(0, 150, 180);
             loginBtn.Appearance.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             loginBtn.Appearance.ForeColor = Color.White;
             loginBtn.Appearance.Options.UseBackColor = true;
