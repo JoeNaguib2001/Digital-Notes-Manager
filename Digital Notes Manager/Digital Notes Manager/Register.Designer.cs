@@ -126,8 +126,8 @@
             // 
             // SinUpBtn
             // 
-            SinUpBtn.Appearance.BackColor = Color.FromArgb(0, 191, 140);
-            SinUpBtn.Appearance.BorderColor = Color.FromArgb(0, 191, 140);
+            SinUpBtn.Appearance.BackColor = Color.FromArgb(0, 150, 180);
+            SinUpBtn.Appearance.BorderColor = Color.FromArgb(0, 150, 180);
             SinUpBtn.Appearance.Font = new Font("Segoe UI", 22.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             SinUpBtn.Appearance.ForeColor = Color.White;
             SinUpBtn.Appearance.Options.UseBackColor = true;
