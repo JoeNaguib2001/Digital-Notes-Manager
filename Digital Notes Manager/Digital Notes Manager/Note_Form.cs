@@ -210,11 +210,12 @@ namespace Digital_Notes_Manager
         {
             Note newNote = new Note
             {
-                Title = _Title,
-                Content = "123",
+                Title = _Title ?? "ok",
+                Content = richTextBox1.Rtf,
                 CreationDate = DateTime.Now,
                 ReminderDate = NotficationDate,
                 Category = Category.Study,
+                UserID = 1
             };
             _ManageNoteContext.Notes.Add(newNote);
             _ManageNoteContext.SaveChanges();

@@ -199,5 +199,14 @@ namespace Digital_Notes_Manager.Controller
             }
             return false;
         }
+
+
+        public List<Note> GetNotesByUserId(int userId)
+        {
+            return context.Notes
+                          .Where(n => n.UserID == userId)
+                          .OrderByDescending(n => n.CreationDate)
+                          .ToList();
+        }
     }
 }
