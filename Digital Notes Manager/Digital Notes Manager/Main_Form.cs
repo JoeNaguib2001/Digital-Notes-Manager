@@ -1,9 +1,6 @@
 using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraEditors;
-using Digital_Notes_Manager.moduels;
-using System.ComponentModel;
 using Digital_Notes_Manager.Models;
-
 namespace Digital_Notes_Manager
 {
     public partial class Main_Form : XtraForm
@@ -55,11 +52,11 @@ namespace Digital_Notes_Manager
 
         private void MDI_Panel_Paint(object sender, PaintEventArgs e)
         {
-            manageNoteContext = new ManageNoteContext();
-            viewNotes = new ViewNotes(manageNoteContext, this);
-            var list = manageNoteContext.Notes.ToList();
-            BindingList<Note> BLN = new BindingList<Note>(list);
-            viewNotes.Notes_Grid.DataSource = BLN;
+            //manageNoteContext = new ManageNoteContext();
+            //viewNotes = new ViewNotes(manageNoteContext, this);
+            //var list = manageNoteContext.Notes.ToList();
+            //BindingList<Note> BLN = new BindingList<Note>(list);
+            //viewNotes.Notes_Grid.DataSource = BLN;
 
         }
 
