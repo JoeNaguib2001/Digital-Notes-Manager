@@ -155,10 +155,7 @@ namespace Digital_Notes_Manager
                 try
                 {
 
-
                     RichTextBox richTextBox = new RichTextBox();
-
-
 
                     richTextBox.SelectionAlignment = HorizontalAlignment.Center;
                     richTextBox.SelectionFont = new Font("Arial", 20, FontStyle.Bold | FontStyle.Underline);

@@ -84,7 +84,7 @@ namespace Digital_Notes_Manager
         {
             OpenFileDialog openFile = new OpenFileDialog
             {
-                Filter = "Rich Text Files (*.rtf)|*.rtf", 
+                Filter = "Rich Text Files (*.rtf)|*.rtf",
                 Title = "Import Note"
             };
 
@@ -94,16 +94,16 @@ namespace Digital_Notes_Manager
 
                 try
                 {
-                
+
                     RichTextBox tempRtb = new RichTextBox();
 
-                 
+
                     tempRtb.LoadFile(openFile.FileName, RichTextBoxStreamType.RichText);
 
                     string? rtfContent = tempRtb.Rtf;
 
                     string rawText = tempRtb.Text;
-                    var lines = rawText.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries); // ��� '\r' ������� �� ������ ������ ��������
+                    var lines = rawText.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries);
 
                     string? title = lines.FirstOrDefault(l => l.StartsWith("Title:", StringComparison.OrdinalIgnoreCase))?.Replace("Title:", "", StringComparison.OrdinalIgnoreCase).Trim();
                     string? category = lines.FirstOrDefault(l => l.StartsWith("Category:", StringComparison.OrdinalIgnoreCase))?.Replace("Category:", "", StringComparison.OrdinalIgnoreCase).Trim();
@@ -113,7 +113,7 @@ namespace Digital_Notes_Manager
                     DateTime creationDate;
                     if (!DateTime.TryParse(dateStr, out creationDate))
                     {
-                        creationDate = DateTime.Now; 
+                        creationDate = DateTime.Now;
                     }
 
                     DateTime reminderDate;
@@ -123,7 +123,7 @@ namespace Digital_Notes_Manager
                     }
 
                     UserController userController = new UserController();
-                    int currentUserId = 1; 
+                    int currentUserId = 1;
                     User? currentUser = userController.GetUserById(currentUserId);
                     if (currentUser == null)
                     {
@@ -131,12 +131,12 @@ namespace Digital_Notes_Manager
                         return;
                     }
 
-                  
+
                     importedNote.Title = title ?? Path.GetFileNameWithoutExtension(openFile.FileName);
 
                     if (!Enum.TryParse(typeof(Category), category, true, out var parsedCategory) || !(parsedCategory is Category validCategory))
                     {
-                      
+
                         MessageBox.Show($"Invalid category '{category}' found in file. Defaulting to 'Uncategorized'.", "Import Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         importedNote.Category = Category.Uncategorized;
                     }
@@ -147,10 +147,10 @@ namespace Digital_Notes_Manager
 
                     importedNote.CreationDate = creationDate;
                     importedNote.ReminderDate = reminderDate;
-                    importedNote.Content = rtfContent; 
+                    importedNote.Content = rtfContent;
                     importedNote.UserID = currentUser.UserID;
 
-                 
+
                     SaveNoteToDatabase(importedNote);
 
 

@@ -5,6 +5,7 @@ using Digital_Notes_Manager.Models;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 
+
 namespace Digital_Notes_Manager
 {
     public partial class Note_Form : RibbonForm
@@ -211,10 +212,11 @@ namespace Digital_Notes_Manager
             Note newNote = new Note
             {
                 Title = _Title,
-                Content = "123",
+                Content = richTextBox1.Rtf,
                 CreationDate = DateTime.Now,
                 ReminderDate = NotficationDate,
                 Category = Category.Study,
+                UserID = 1
             };
             _ManageNoteContext.Notes.Add(newNote);
             _ManageNoteContext.SaveChanges();
