@@ -188,6 +188,7 @@
             MainMenuStrip = menuStrip1;
             Margin = new Padding(3, 2, 3, 2);
             Name = "Main_Form";
+            Load += Notify_Load;
             ((System.ComponentModel.ISupportInitialize)accordionControl1).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
