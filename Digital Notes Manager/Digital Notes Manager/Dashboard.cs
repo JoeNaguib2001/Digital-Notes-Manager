@@ -1,20 +1,8 @@
-﻿using DevExpress.Utils.Frames;
-using DevExpress.XtraBars.Ribbon;
-using DevExpress.XtraRichEdit.Forms;
+﻿using DevExpress.XtraBars.Ribbon;
 using Digital_Notes_Manager.Controller;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 using Digital_Notes_Manager.Models;
-using DevExpress.DXTemplateGallery.Extensions;
-using Microsoft.IdentityModel.Tokens;
+using System.Data;
+using System.Drawing.Drawing2D;
 
 
 namespace Digital_Notes_Manager
@@ -24,14 +12,22 @@ namespace Digital_Notes_Manager
         private List<Note_Form> noteForms = new List<Note_Form>();
         private int currentIndex = 0;
         private int notesToShow = 2;  // عدد النوتس اللي تظهر في الكروزال في نفس الوقت
-        private int noteWidth =300;
+        private int noteWidth = 300;
         private int noteHeight = 180;
         private int margin = 10;
-        private int userId;
-        public Dashboard(int userId)
+        public Dashboard()
         {
             InitializeComponent();
-            this.userId = userId;
+
+            LoadingNotes();
+
+            // تعديل مكان الأزرار لتكون تحت النوتس مباشرة
+            int buttonsY = 10 + noteHeight + 10; // أعلى النوتس + ارتفاع النوت + مسافة بسيطة
+            PreviousBtn.Location = new Point(10, buttonsY);
+            NextBtn.Location = new Point(10 + (notesToShow * (noteWidth + margin)) - NextBtn.Width, buttonsY);
+
+            PreviousBtn.BringToFront();
+            NextBtn.BringToFront();
         }
 
 
@@ -51,18 +47,7 @@ namespace Digital_Notes_Manager
         }
 
 
-        private void Dashboard_Load(object sender, EventArgs e)
-        {
-            LoadingNotes();
 
-            // تعديل مكان الأزرار لتكون تحت النوتس مباشرة
-            int buttonsY = 10 + noteHeight + 10; // أعلى النوتس + ارتفاع النوت + مسافة بسيطة
-            PreviousBtn.Location = new Point(10, buttonsY);
-            NextBtn.Location = new Point(10 + (notesToShow * (noteWidth + margin)) - NextBtn.Width, buttonsY);
-
-            PreviousBtn.BringToFront();
-            NextBtn.BringToFront();
-        }
 
         private void LoadingNotes()
         {
@@ -70,8 +55,7 @@ namespace Digital_Notes_Manager
             noteForms.Clear();
 
             UserController user = new UserController();
-            //int userId = Properties.Settings.Default.UserID;
-            var notes = user.GetNotesByUserId(userId);
+            var notes = user.GetNotesByUserId(Properties.Settings.Default.UserID);
 
             foreach (var note in notes)
             {

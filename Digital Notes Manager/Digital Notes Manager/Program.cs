@@ -15,7 +15,7 @@ namespace Digital_Notes_Manager
             Thread.CurrentThread.CurrentCulture = new CultureInfo("ar-EG");
             Thread.CurrentThread.CurrentUICulture = new CultureInfo("ar-EG");
             ApplicationConfiguration.Initialize();
-            Application.Run(new Testing());
+            Application.Run(new LoginRegisterMDI());
         }
     }
 }

@@ -29,44 +29,26 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Dashboard));
-            CloseBtn = new DevExpress.XtraEditors.SimpleButton();
-            sidePanel = new Panel();
             NotePanel = new Panel();
             PreviousBtn = new DevExpress.XtraEditors.SimpleButton();
             NextBtn = new DevExpress.XtraEditors.SimpleButton();
             NotePanel.SuspendLayout();
             SuspendLayout();
             // 
-            // CloseBtn
-            // 
-            CloseBtn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("CloseBtn.ImageOptions.SvgImage");
-            CloseBtn.Location = new Point(954, 12);
-            CloseBtn.Name = "CloseBtn";
-            CloseBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
-            CloseBtn.Size = new Size(34, 23);
-            CloseBtn.TabIndex = 0;
-            CloseBtn.Click += CloseBtn_Click;
-            // 
-            // sidePanel
-            // 
-            sidePanel.Location = new Point(12, 41);
-            sidePanel.Name = "sidePanel";
-            sidePanel.Size = new Size(161, 389);
-            sidePanel.TabIndex = 1;
-            // 
             // NotePanel
             // 
             NotePanel.Controls.Add(PreviousBtn);
             NotePanel.Controls.Add(NextBtn);
-            NotePanel.Location = new Point(179, 41);
+            NotePanel.Dock = DockStyle.Bottom;
+            NotePanel.Location = new Point(0, 359);
             NotePanel.Name = "NotePanel";
-            NotePanel.Size = new Size(809, 389);
+            NotePanel.Size = new Size(693, 322);
             NotePanel.TabIndex = 2;
             // 
             // PreviousBtn
             // 
             PreviousBtn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("PreviousBtn.ImageOptions.SvgImage");
-            PreviousBtn.Location = new Point(133, 298);
+            PreviousBtn.Location = new Point(145, 239);
             PreviousBtn.Name = "PreviousBtn";
             PreviousBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             PreviousBtn.Size = new Size(41, 46);
@@ -77,7 +59,7 @@
             // 
             NextBtn.ImageOptions.ImageIndex = 1;
             NextBtn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("NextBtn.ImageOptions.SvgImage");
-            NextBtn.Location = new Point(618, 298);
+            NextBtn.Location = new Point(490, 239);
             NextBtn.Name = "NextBtn";
             NextBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             NextBtn.Size = new Size(37, 46);
@@ -88,23 +70,18 @@
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1000, 442);
+            ClientSize = new Size(693, 681);
             Controls.Add(NotePanel);
-            Controls.Add(sidePanel);
-            Controls.Add(CloseBtn);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "Dashboard";
             Text = "Dashboard";
-            Load += Dashboard_Load;
             NotePanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private DevExpress.XtraEditors.SimpleButton CloseBtn;
-        private Panel sidePanel;
-        private Panel NotePanel;
         private DevExpress.XtraEditors.SimpleButton PreviousBtn;
         private DevExpress.XtraEditors.SimpleButton NextBtn;
+        public Panel NotePanel;
     }
 }

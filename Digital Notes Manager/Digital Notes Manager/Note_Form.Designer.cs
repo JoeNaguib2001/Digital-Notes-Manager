@@ -89,10 +89,10 @@
             // Close_btn
             // 
             Close_btn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("Close_btn.ImageOptions.SvgImage");
-            Close_btn.Location = new Point(236, 0);
+            Close_btn.Location = new Point(243, 0);
             Close_btn.Name = "Close_btn";
             Close_btn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
-            Close_btn.Size = new Size(37, 23);
+            Close_btn.Size = new Size(30, 23);
             Close_btn.TabIndex = 6;
             Close_btn.Click += Close_btn_Click;
             // 
