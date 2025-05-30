@@ -163,20 +163,34 @@ namespace Digital_Notes_Manager
                     richTextBox.SelectionAlignment = HorizontalAlignment.Center;
                     richTextBox.SelectionFont = new Font("Arial", 20, FontStyle.Bold | FontStyle.Underline);
                     richTextBox.SelectionColor = Color.DarkRed;
-                    richTextBox.AppendText($"{selectedRow.Title}\n\n");
+                    richTextBox.AppendText($"Title: {selectedRow.Title}\n\n");
 
 
                     richTextBox.SelectionAlignment = HorizontalAlignment.Left;
                     richTextBox.SelectionFont = new Font("Arial", 12, FontStyle.Bold | FontStyle.Italic);
                     richTextBox.SelectionColor = Color.DarkGreen;
                     richTextBox.AppendText($"Category: {selectedRow.Category}");
-                    richTextBox.AppendText($"                                ");
+
+                    richTextBox.SelectionAlignment = HorizontalAlignment.Left;
+                    richTextBox.AppendText($"\n");
+                    richTextBox.SelectionFont = new Font("Arial", 12, FontStyle.Bold | FontStyle.Italic);
+                    richTextBox.SelectionColor = Color.ForestGreen;
                     richTextBox.AppendText($"Created On: {selectedRow.CreationDate:dd/MM/yyyy}\n");
+
+                    richTextBox.SelectionAlignment = HorizontalAlignment.Left;
+                    richTextBox.AppendText($"\n");
+                    richTextBox.SelectionFont = new Font("Arial", 12, FontStyle.Bold | FontStyle.Italic);
+                    richTextBox.SelectionColor = Color.ForestGreen;
+                    richTextBox.AppendText($"Reminder On: {selectedRow.ReminderDate:dd/MM/yyyy}\n");
 
 
                     richTextBox.SelectionFont = new Font("Arial", 12, FontStyle.Regular);
                     richTextBox.SelectionColor = Color.Gray;
-                    richTextBox.AppendText("------------------------------------------------------------------------------------------------------------\n\n");
+                    richTextBox.AppendText("------------------------------------------------------------------------------------------------------------\n");
+
+                    richTextBox.SelectionFont = new Font("Arial", 12, FontStyle.Regular);
+                    richTextBox.SelectionColor = Color.Gray;
+                    richTextBox.AppendText("---------------------------------------------- Note Content ------------------------------------------\n\n");
 
                     richTextBox.SelectionFont = new Font("Arial", 14, FontStyle.Regular);
                     richTextBox.SelectionColor = Color.Black;
@@ -197,7 +211,7 @@ namespace Digital_Notes_Manager
             }
         }
 
-       
+
     }
 }
 
