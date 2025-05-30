@@ -32,6 +32,9 @@
             CloseBtn = new DevExpress.XtraEditors.SimpleButton();
             sidePanel = new Panel();
             NotePanel = new Panel();
+            PreviousBtn = new DevExpress.XtraEditors.SimpleButton();
+            NextBtn = new DevExpress.XtraEditors.SimpleButton();
+            NotePanel.SuspendLayout();
             SuspendLayout();
             // 
             // CloseBtn
@@ -53,10 +56,32 @@
             // 
             // NotePanel
             // 
+            NotePanel.Controls.Add(PreviousBtn);
+            NotePanel.Controls.Add(NextBtn);
             NotePanel.Location = new Point(179, 41);
             NotePanel.Name = "NotePanel";
             NotePanel.Size = new Size(609, 389);
             NotePanel.TabIndex = 2;
+            // 
+            // PreviousBtn
+            // 
+            PreviousBtn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("PreviousBtn.ImageOptions.SvgImage");
+            PreviousBtn.Location = new Point(178, 212);
+            PreviousBtn.Name = "PreviousBtn";
+            PreviousBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
+            PreviousBtn.Size = new Size(41, 46);
+            PreviousBtn.TabIndex = 1;
+            PreviousBtn.Click += PreviousBtn_Click;
+            // 
+            // NextBtn
+            // 
+            NextBtn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("NextBtn.ImageOptions.SvgImage");
+            NextBtn.Location = new Point(457, 212);
+            NextBtn.Name = "NextBtn";
+            NextBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
+            NextBtn.Size = new Size(37, 46);
+            NextBtn.TabIndex = 0;
+            NextBtn.Click += NextBtn_Click;
             // 
             // Dashboard
             // 
@@ -69,6 +94,7 @@
             Name = "Dashboard";
             Text = "Dashboard";
             Load += Dashboard_Load;
+            NotePanel.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -77,5 +103,7 @@
         private DevExpress.XtraEditors.SimpleButton CloseBtn;
         private Panel sidePanel;
         private Panel NotePanel;
+        private DevExpress.XtraEditors.SimpleButton PreviousBtn;
+        private DevExpress.XtraEditors.SimpleButton NextBtn;
     }
 }

@@ -13,12 +13,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Digital_Notes_Manager.Models;
+using DevExpress.DXTemplateGallery.Extensions;
 
 
 namespace Digital_Notes_Manager
 {
     public partial class Dashboard : RibbonForm
     {
+        private List<Note_Form> noteForms = new List<Note_Form>();
+        private int currentIndex = 0;
+        private int notesToShow = 3;  // عدد النوتس اللي تظهر في الكروزال في نفس الوقت
+        private int noteWidth = 250;
+        private int noteHeight = 150;
+        private int margin = 10;
         public Dashboard()
         {
             InitializeComponent();
@@ -49,56 +56,81 @@ namespace Digital_Notes_Manager
         private void LoadingNotes()
         {
             NotePanel.Controls.Clear();
+            noteForms.Clear();
 
-            var user = new UserController();
+            UserController user = new UserController();
             var notes = user.GetNotesByUserId(1);
-
-            int x = 10, y = 10;
-            int width = 300, height = 180;
-            int margin = 10;
-            int maxPerRow = 2;
-            int col = 0;
 
             foreach (var note in notes)
             {
-                var noteForm = new Note_Form(); // مش هتعدل عليه
-                noteForm.TopLevel = false;
-                noteForm.FormBorderStyle = FormBorderStyle.None;
-                noteForm.ShowInTaskbar = false;
-                noteForm.Size = new Size(width, height);
-                noteForm.Tag = note;
-
-                noteForm.Load += (s, e) =>
+                var noteForm = new Note_Form
                 {
-                    var thisNote = noteForm.Tag as Note;
-                    if (thisNote != null)
-                    {
-                        var rtb = noteForm.Controls.OfType<RichTextBox>().FirstOrDefault();
-                        if (rtb != null)
-                            rtb.Text = thisNote.Content;
-                    }
+                    TopLevel = false,
+                    FormBorderStyle = FormBorderStyle.None,
+                    ShowInTaskbar = false,
+                    Size = new Size(noteWidth, noteHeight),
+                    Tag = note
                 };
 
-                noteForm.Location = new Point(x + col * (width + margin), y);
                 NotePanel.Controls.Add(noteForm);
-                noteForm.Show();
-
-                col++;
-                if (col == maxPerRow)
-                {
-                    col = 0;
-                    y += height + margin;
-                }
+                noteForm.Hide(); // نخفيهم الأول
+                noteForms.Add(noteForm);
             }
 
-            // خلي البانل يقبل Scroll لو النوتات كتير
-            NotePanel.AutoScroll = true;
+            ShowNotesInCarousel();
         }
+
+        private void ShowNotesInCarousel()
+        {
+            // خفي فقط النوت فورمز، مش كل الكنترولز داخل NotePanel
+            foreach (Control c in NotePanel.Controls)
+            {
+                if (c is Note_Form)
+                    c.Hide();
+            }
+
+            int x = 10, y = 10;
+
+            for (int i = 0; i < notesToShow; i++)
+            {
+                int noteIndex = currentIndex + i;
+                if (noteIndex >= noteForms.Count) break;
+
+                var noteForm = noteForms[noteIndex];
+                noteForm.Location = new Point(x + i * (noteWidth + margin), y);
+                noteForm.Show();
+            }
+            PreviousBtn.BringToFront();
+            NextBtn.BringToFront();
+
+
+        }
+
 
 
         private void CloseBtn_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void NextBtn_Click(object sender, EventArgs e)
+        {
+            if (currentIndex + notesToShow < noteForms.Count)
+            {
+                currentIndex++;
+                ShowNotesInCarousel();
+            }
+        }
+
+        private void PreviousBtn_Click(object sender, EventArgs e)
+        {
+
+            if (currentIndex > 0)
+            {
+                currentIndex--;
+                ShowNotesInCarousel();
+            }
+         
         }
     }
 }
