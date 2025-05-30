@@ -30,6 +30,7 @@
         {
             accordionControl1 = new DevExpress.XtraBars.Navigation.AccordionControl();
             accordionControlElement1 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            dateTimePicker1 = new DateTimePicker();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
             SuspendLayout();
             // 
@@ -46,11 +47,19 @@
             accordionControlElement1.Name = "accordionControlElement1";
             accordionControlElement1.Text = "Element1";
             // 
+            // dateTimePicker1
+            // 
+            dateTimePicker1.Location = new Point(480, 97);
+            dateTimePicker1.Name = "dateTimePicker1";
+            dateTimePicker1.Size = new Size(200, 23);
+            dateTimePicker1.TabIndex = 1;
+            // 
             // Testing
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(dateTimePicker1);
             Controls.Add(accordionControl1);
             Name = "Testing";
             Text = "Testing";
@@ -62,5 +71,6 @@
 
         private DevExpress.XtraBars.Navigation.AccordionControl accordionControl1;
         private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement1;
+        private DateTimePicker dateTimePicker1;
     }
 }

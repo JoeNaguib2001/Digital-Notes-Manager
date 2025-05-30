@@ -38,7 +38,9 @@
             importNoteToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             MDI_Panel = new Panel();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
+            accordionControl1.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -46,6 +48,7 @@
             // 
             accordionControl1.Appearance.AccordionControl.BackColor = Color.FromArgb(46, 49, 56);
             accordionControl1.Appearance.AccordionControl.Options.UseBackColor = true;
+            accordionControl1.Controls.Add(button1);
             accordionControl1.Dock = DockStyle.Left;
             accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { NotesGroupAccordionElement });
             accordionControl1.Location = new Point(0, 24);
@@ -158,7 +161,7 @@
             // importNoteToolStripMenuItem
             // 
             importNoteToolStripMenuItem.Name = "importNoteToolStripMenuItem";
-            importNoteToolStripMenuItem.Size = new Size(180, 22);
+            importNoteToolStripMenuItem.Size = new Size(139, 22);
             importNoteToolStripMenuItem.Text = "Import Note";
             importNoteToolStripMenuItem.Click += importNoteToolStripMenuItem_Click;
             // 
@@ -176,6 +179,16 @@
             MDI_Panel.Size = new Size(693, 681);
             MDI_Panel.TabIndex = 2;
             // 
+            // button1
+            // 
+            button1.Location = new Point(92, 306);
+            button1.Name = "button1";
+            button1.Size = new Size(104, 53);
+            button1.TabIndex = 2;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // Main_Form
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
@@ -190,6 +203,7 @@
             Name = "Main_Form";
             Load += Notify_Load;
             ((System.ComponentModel.ISupportInitialize)accordionControl1).EndInit();
+            accordionControl1.ResumeLayout(false);
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -208,5 +222,6 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement Add_A_New_Note_Accordion_Element;
         private DevExpress.XtraBars.Navigation.AccordionControlElement View_All_Notes_Popped;
         private ToolStripMenuItem importNoteToolStripMenuItem;
+        private Button button1;
     }
 }

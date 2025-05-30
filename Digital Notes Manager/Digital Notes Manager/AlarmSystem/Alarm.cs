@@ -1,19 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using DevExpress.DataAccess.Native.Sql;
-using Digital_Notes_Manager.Models;
+﻿using Digital_Notes_Manager.Models;
 using System.Media;
-using System.Timers;
 
 namespace Digital_Notes_Manager.AlarmSystem
 {
     public class Alarm
     {
-        private List<Note> notes;
-        private Queue<Note> noteQueue;
+        public static List<Note> notes;
+        private static Queue<Note> noteQueue;
         private Main_Form mainFormInstance;
 
 
@@ -21,12 +14,12 @@ namespace Digital_Notes_Manager.AlarmSystem
         public Alarm(Main_Form form, List<Note> notesFromForm)
         {
             mainFormInstance = form;
-            notes = notesFromForm.OrderBy(n => n.ReminderDate).ToList();
+            notes = notesFromForm;
 
             noteQueue = new Queue<Note>(notes);
-   
+
         }
-        public void UpdateNotes(Note note)
+        public static void AddNewNoteToAlarmSystemNotesList(Note note)
         {
             notes.Add(note);
             notes = notes.OrderBy(n => n.ReminderDate).ToList();
@@ -35,47 +28,95 @@ namespace Digital_Notes_Manager.AlarmSystem
         }
 
 
+        //public async Task CompareTimeAsync()
+        //{
+        //    bool hasNotificationInFiveMinutes = false;
+        //    while (true)
+        //    {
+        //        //await Task.Delay(1000);
+
+        //        if (noteQueue.Any())
+        //        {
+        //            var note = noteQueue.First();
+
+        //            var timeDifference = note.ReminderDate - DateTimeOffset.Now;
+
+        //            if (timeDifference <= TimeSpan.FromMinutes(5) && timeDifference > TimeSpan.Zero)
+        //            {
+        //                if (!hasNotificationInFiveMinutes)
+        //                {
+        //                    NotifySoon(note);
+        //                    hasNotificationInFiveMinutes = true;
+        //                }
+        //            }
+        //            else if (timeDifference <= TimeSpan.Zero)
+        //            {
+        //                Notify(note);
+        //                noteQueue.Dequeue();
+        //                hasNotificationInFiveMinutes = false;
+        //            }
+        //        }
+        //    }
+        //}
+        private Dictionary<int, bool> soonNotified = new();
+        private Dictionary<int, bool> notified = new();
+
         public async Task CompareTimeAsync()
         {
-
             while (true)
             {
-                await Task.Delay(10000);
+                await Task.Delay(1500); // كل ثانية
 
                 if (noteQueue.Any())
                 {
                     var note = noteQueue.First();
-               
-                   var timeDifference = note.ReminderDate - DateTimeOffset.Now;
+                    var timeDifference = note.ReminderDate - DateTimeOffset.Now;
 
+                    // لو داخل 5 دقايق ولسه ما اتحذرش
                     if (timeDifference <= TimeSpan.FromMinutes(5) && timeDifference > TimeSpan.Zero)
                     {
-                        NotifySoon(note);  
-                   }
-                    else if (timeDifference <= TimeSpan.Zero)
+                        if (!soonNotified.ContainsKey(note.ID))
+                        {
+                            await NotifySoon(note);
+                            soonNotified[note.ID] = true;
+                        }
+                    }
+
+                    // لو جه الوقت أو عداه ولسه ما اتحذرش
+                    else if (timeDifference == TimeSpan.Zero)
                     {
-                        Notify(note);      
-                       noteQueue.Dequeue();
+                        if (!notified.ContainsKey(note.ID))
+                        {
+                            await Notify(note);
+                            notified[note.ID] = true;
+
+                            // شيله من الكيو بعد ما وقت التنبيه ييجي
+                            noteQueue.Dequeue();
+                        }
+                    }
+                    else if (timeDifference < TimeSpan.Zero)
+                    {
+                        noteQueue.Dequeue();
                     }
                 }
-
             }
-
         }
 
 
-        public void NotifySoon(Note note)
+
+        public async Task NotifySoon(Note note)
         {
             SoundPlayer player = new SoundPlayer(typeof(Program).Assembly.GetManifestResourceStream("Digital_Notes_Manager.AlarmSounds.Alarm1.wav"));
             player.Play();
             mainFormInstance.ShowSoonMessage(note);
         }
 
-        public void Notify(Note note) {
+        public async Task Notify(Note note)
+        {
             SystemSounds.Asterisk.Play();
             mainFormInstance.IsMached(note);
 
-                }
+        }
 
 
     }
