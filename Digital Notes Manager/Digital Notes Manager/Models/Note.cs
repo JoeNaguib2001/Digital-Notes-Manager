@@ -9,7 +9,7 @@
         public string Content { get; set; }
         public Category Category { get; set; }
         public DateTime CreationDate { get; set; }
-        public DateTime ReminderDate { get; set; }
+        public DateTimeOffset ReminderDate { get; set; }
         public int UserID { get; set; }
         public virtual User User { get; set; }
     }
