@@ -1,15 +1,21 @@
-using DevExpress.XtraBars.Navigation;
+﻿using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraEditors;
 using Digital_Notes_Manager.Models;
 namespace Digital_Notes_Manager
 {
     public partial class Main_Form : XtraForm
     {
+        private DevExpress.XtraBars.Alerter.AlertControl alertControl;
+
         public Main_Form()
         {
             InitializeComponent();
+            this.Shown += Notify_Load;
+
             Add_A_New_Note_Accordion_Element.Click += AccordionElementClick;
             Show_Notes_Accordion_Element.Click += AccordionElementClick;
+            alertControl = new DevExpress.XtraBars.Alerter.AlertControl();
+
             LoadNotesForm();
         }
 
@@ -48,6 +54,11 @@ namespace Digital_Notes_Manager
             this.MDI_Panel.Controls.Clear();
             viewNotes = new ViewNotes();
             MDI_Panel.Controls.Add(viewNotes.panel1);
+            var resources = typeof(Program).Assembly.GetManifestResourceNames();
+            foreach (var res in resources)
+            {
+                System.Diagnostics.Debug.WriteLine(res);
+            }
         }
 
 
@@ -97,5 +108,29 @@ namespace Digital_Notes_Manager
                 }
             }
         }
+    
+        public void IsMached(Note note) {
+            this.Invoke((MethodInvoker)(() =>
+            {
+                alertControl.Show(null, "⏰ Reminder", $"🔔 {note.Title} is due now!");
+            }));
+        }
+        public void ShowSoonMessage(Note note)
+        {
+            this.Invoke((MethodInvoker)(() =>
+            {
+                alertControl.Show(null, "⏰ Reminder",$"Note {note.Title} is coming soon!");
+            }));
+        }
+        private async void Notify_Load(object sender, EventArgs e)
+        {
+            List<Note> list = manageNoteContext.Users
+                .SelectMany(us => us.Notes)
+                .ToList(); 
+            Alarm alarm = new Alarm(this, list);
+            _=alarm.CompareTimeAsync(); 
+        }
+    
+
     }
 }
