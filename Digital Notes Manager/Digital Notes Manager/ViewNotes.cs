@@ -1,6 +1,6 @@
 ﻿using DevExpress.XtraEditors;
 using DevExpress.XtraGrid.Views.Base;
-using Digital_Notes_Manager.moduels;
+using Digital_Notes_Manager.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Digital_Notes_Manager
