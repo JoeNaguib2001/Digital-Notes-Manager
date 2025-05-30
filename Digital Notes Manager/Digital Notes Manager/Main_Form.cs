@@ -1,9 +1,6 @@
 using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraEditors;
-using DevExpress.XtraGrid;
 using Digital_Notes_Manager.Models;
-using System.ComponentModel;
-
 namespace Digital_Notes_Manager
 {
     public partial class Main_Form : XtraForm
@@ -29,8 +26,10 @@ namespace Digital_Notes_Manager
                         }
                         break;
                     case "Add_A_New_Note_Accordion_Element":
-                        // Logic to add a new note
-                        XtraMessageBox.Show("Add a new note functionality is not implemented yet.");
+                        {
+                            Note_Form noteForm = new Note_Form();
+                            noteForm.Show();
+                        }
                         break;
 
                     default:
@@ -40,22 +39,63 @@ namespace Digital_Notes_Manager
             }
         }
 
-        ViewNotes viewNotes;
-        ManageNoteContext manageNoteContext = new ManageNoteContext();
+        public ViewNotes viewNotes;
+        ManageNoteContext manageNoteContext = Utilities.manageNoteContext;
+
 
         private void LoadNotesForm()
         {
             this.MDI_Panel.Controls.Clear();
-            viewNotes = new ViewNotes(manageNoteContext, this);
-            SetDataSource(viewNotes.Notes_Grid);
+            viewNotes = new ViewNotes();
             MDI_Panel.Controls.Add(viewNotes.panel1);
         }
-        public void SetDataSource(GridControl GC)
+
+
+        private void MDI_Panel_Paint(object sender, PaintEventArgs e)
         {
-            manageNoteContext = new ManageNoteContext();
+            //manageNoteContext = new ManageNoteContext();
+            //viewNotes = new ViewNotes(manageNoteContext, this);
+            //var list = manageNoteContext.Notes.ToList();
+            //BindingList<Note> BLN = new BindingList<Note>(list);
+            //viewNotes.Notes_Grid.DataSource = BLN;
+
+        }
+
+
+        private void View_All_Notes_Popped_Click(object sender, EventArgs e)
+        {
             var list = manageNoteContext.Notes.ToList();
-            BindingList<Note> BLN = new BindingList<Note>(list);
-            GC.DataSource = BLN;
+            for (int i = 0; i < 5; i++)
+            {
+                Note_Form note_form = new Note_Form();
+                note_form.richTextBox1.Text = list[i].Content;
+                note_form.Text = list[i].Title;
+                note_form.Show();
+
+            }
+        }
+
+        private void importNoteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.Filter = "Rich Text Files (*rtf)|*.rtf";
+            openFile.Title = "Import Notes";
+
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    Note_Form note = new Note_Form();
+
+                    note.richTextBox1.LoadFile(openFile.FileName, RichTextBoxStreamType.RichText);
+
+                    note.Show();
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error importing the file: " + ex.Message, "Import Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
     }
 }
