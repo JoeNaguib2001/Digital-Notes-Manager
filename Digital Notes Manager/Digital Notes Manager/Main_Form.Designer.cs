@@ -54,6 +54,7 @@
             accordionControl1.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Hidden;
             accordionControl1.Size = new Size(260, 681);
             accordionControl1.TabIndex = 0;
+            accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
             // 
             // NotesGroupAccordionElement
             // 
