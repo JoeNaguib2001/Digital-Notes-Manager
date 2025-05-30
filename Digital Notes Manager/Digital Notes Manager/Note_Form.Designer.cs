@@ -90,7 +90,7 @@
             Close_btn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             Close_btn.Size = new Size(37, 23);
             Close_btn.TabIndex = 6;
-            Close_btn.Click += Close_btn_Click_1;
+            Close_btn.Click += Close_btn_Click;
             // 
             // Calender
             // 
@@ -109,6 +109,7 @@
             Calender.Size = new Size(100, 20);
             Calender.TabIndex = 7;
             Calender.Visible = false;
+            Calender.EditValueChanged += Calender_EditValueChanged;
             // 
             // Note_Form
             // 

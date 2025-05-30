@@ -1,7 +1,6 @@
 ﻿using DevExpress.XtraBars;
 using DevExpress.XtraBars.Docking2010;
 using DevExpress.XtraBars.Ribbon;
-using DevExpress.XtraEditors;
 using Digital_Notes_Manager.Models;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
@@ -12,6 +11,8 @@ namespace Digital_Notes_Manager
     {
         private BarManager barManager;
         private PopupMenu popupMenu;
+        private DateTimeOffset NotficationDate;
+
         private readonly ManageNoteContext _ManageNoteContext = Utilities.manageNoteContext;
         public Note_Form()
         {
@@ -71,7 +72,7 @@ namespace Digital_Notes_Manager
                 richTextBox1.Font = new Font(richTextBox1.Font, style);
             }
         }
-        private void StylePanal_ButtonChecked(object sender, DevExpress.XtraBars.Docking2010.ButtonEventArgs e)
+        private void StylePanal_ButtonChecked(object sender, ButtonEventArgs e)
         {
 
             var clickedBtn = e.Button as WindowsUIButton;
@@ -194,12 +195,9 @@ namespace Digital_Notes_Manager
 
                 //popupMenu.ShowPopup(MousePosition); // show near cursor
             };
+
         }
 
-        private void Close_btn_Click_1(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
         private void MenuBtn_Click(object sender, EventArgs e)
         {
@@ -217,13 +215,19 @@ namespace Digital_Notes_Manager
                 Title = "132",
                 Content = "123",
                 CreationDate = DateTime.Now,
-                ReminderDate = DateTime.Now,
+                ReminderDate = NotficationDate,
                 UserID = 1,
                 Category = Category.Study,
             };
             _ManageNoteContext.Notes.Add(newNote);
             _ManageNoteContext.SaveChanges();
             Utilities.SetNotesGridControlDataSource();
+        }
+
+        private void Calender_EditValueChanged(object sender, EventArgs e)
+        {
+            NotficationDate = Calender.DateTimeOffset;
+            //MessageBox.Show("Confirmed selection: " + NotficationDate.ToString());
         }
     }
 }
