@@ -38,9 +38,7 @@
             importNoteToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             MDI_Panel = new Panel();
-            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
-            accordionControl1.SuspendLayout();
             menuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -48,7 +46,6 @@
             // 
             accordionControl1.Appearance.AccordionControl.BackColor = Color.FromArgb(46, 49, 56);
             accordionControl1.Appearance.AccordionControl.Options.UseBackColor = true;
-            accordionControl1.Controls.Add(button1);
             accordionControl1.Dock = DockStyle.Left;
             accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { NotesGroupAccordionElement });
             accordionControl1.Location = new Point(0, 24);
@@ -56,7 +53,7 @@
             accordionControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             accordionControl1.Name = "accordionControl1";
             accordionControl1.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Hidden;
-            accordionControl1.Size = new Size(260, 681);
+            accordionControl1.Size = new Size(260, 750);
             accordionControl1.TabIndex = 0;
             accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
             // 
@@ -147,7 +144,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(953, 24);
+            menuStrip1.Size = new Size(1010, 24);
             menuStrip1.TabIndex = 1;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -173,27 +170,17 @@
             // 
             // MDI_Panel
             // 
-            MDI_Panel.Dock = DockStyle.Fill;
+            MDI_Panel.Anchor = AnchorStyles.None;
             MDI_Panel.Location = new Point(260, 24);
             MDI_Panel.Name = "MDI_Panel";
-            MDI_Panel.Size = new Size(693, 681);
+            MDI_Panel.Size = new Size(750, 750);
             MDI_Panel.TabIndex = 2;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(92, 306);
-            button1.Name = "button1";
-            button1.Size = new Size(104, 53);
-            button1.TabIndex = 2;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // Main_Form
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(953, 705);
+            ClientSize = new Size(1010, 774);
             Controls.Add(MDI_Panel);
             Controls.Add(accordionControl1);
             Controls.Add(menuStrip1);
@@ -203,7 +190,6 @@
             Name = "Main_Form";
             Load += Notify_Load;
             ((System.ComponentModel.ISupportInitialize)accordionControl1).EndInit();
-            accordionControl1.ResumeLayout(false);
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
             ResumeLayout(false);
@@ -222,6 +208,5 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement Add_A_New_Note_Accordion_Element;
         private DevExpress.XtraBars.Navigation.AccordionControlElement View_All_Notes_Popped;
         private ToolStripMenuItem importNoteToolStripMenuItem;
-        private Button button1;
     }
 }
