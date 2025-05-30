@@ -12,17 +12,13 @@ namespace Digital_Notes_Manager
 {
     public partial class ViewNotes : Form
     {
-        ManageNoteContext ManageNoteContext;
-        Main_Form Main_Form;
-        public ViewNotes(ManageNoteContext ManageNoteContext, Main_Form main_Form)
+        public ViewNotes()
         {
             InitializeComponent();
-            this.ManageNoteContext = ManageNoteContext;
-            this.Main_Form = main_Form;
             gridView1.Columns["CreationDate"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             gridView1.Columns["CreationDate"].DisplayFormat.FormatString = "dd/MM/yyyy";
             gridView1.Columns["ReminderDate"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            gridView1.Columns["ReminderDate"].DisplayFormat.FormatString = "dd/MM/yyyy";
+            gridView1.Columns["ReminderDate"].DisplayFormat.FormatString = "dd/MM/yyyy HH:mm:ss";
 
             var combo = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
 
@@ -47,8 +43,11 @@ namespace Digital_Notes_Manager
             gridView1.SortInfo.AddRange(new[] {
             new GridColumnSortInfo(gridView1.Columns["CreationDate"], DevExpress.Data.ColumnSortOrder.Descending)
     });
+            Utilities.GridControl = Notes_Grid;
+            Utilities.SetNotesGridControlDataSource();
         }
 
+        private ManageNoteContext ManageNoteContext = Utilities.manageNoteContext;
         private void gridView1_RowCellClick(object sender, RowCellClickEventArgs e)
         {
             if (e.Column == DeleteColumn)
@@ -56,12 +55,12 @@ namespace Digital_Notes_Manager
                 var selectedRow = gridView1.GetFocusedRow() as Note;
                 if (selectedRow != null)
                 {
-                    if (MessageBox.Show("هل أنت متأكد من حذف الملاحظة المحددة؟", "تأكيد", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (MessageBox.Show("Are you sure you want to delete this note ?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         ManageNoteContext.Entry(selectedRow).State = EntityState.Deleted;
                         ManageNoteContext.SaveChanges();
-                        XtraMessageBox.Show("تم حذف الملاحظة بنجاح");
-                        Main_Form.SetDataSource(Notes_Grid);
+                        XtraMessageBox.Show("Note Deleted Successfully");
+                        Utilities.SetNotesGridControlDataSource();
                     }
                 }
                 else
@@ -91,7 +90,7 @@ namespace Digital_Notes_Manager
 
         private void deleteAllSeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("هل أنت متأكد من حذف العناصر المحددة؟", "تأكيد", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            if (MessageBox.Show("Are you sure you want to delete the selected notes ?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 return;
 
             // خزن الـ IDs أو الكيانات اللي متعلم عليها
@@ -119,7 +118,7 @@ namespace Digital_Notes_Manager
 
 
             XtraMessageBox.Show("Deleted Successfully");
-            Main_Form.SetDataSource(Notes_Grid);
+            Utilities.SetNotesGridControlDataSource();
         }
 
         private void gridView1_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)

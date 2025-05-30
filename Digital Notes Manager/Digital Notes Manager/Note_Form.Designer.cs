@@ -68,6 +68,7 @@
             saveBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             saveBtn.Size = new Size(21, 20);
             saveBtn.TabIndex = 4;
+            saveBtn.Click += saveBtn_Click;
             // 
             // MenuBtn
             // 
