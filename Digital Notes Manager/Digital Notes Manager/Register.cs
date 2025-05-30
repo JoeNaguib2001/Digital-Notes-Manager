@@ -103,7 +103,9 @@ namespace Digital_Notes_Manager
                 passwordTxt.Text = "";
                 passwordConfirmTxt.Text = "";
 
-
+                this.Hide();
+                Main_Form main_Form = new Main_Form();
+                main_Form.Show();
             }
         }
     }
