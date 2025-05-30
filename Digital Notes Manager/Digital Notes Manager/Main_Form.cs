@@ -1,5 +1,6 @@
 ﻿using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraEditors;
+using Digital_Notes_Manager.AlarmSystem;
 using Digital_Notes_Manager.Models;
 namespace Digital_Notes_Manager
 {
@@ -108,8 +109,9 @@ namespace Digital_Notes_Manager
                 }
             }
         }
-    
-        public void IsMached(Note note) {
+
+        public void IsMached(Note note)
+        {
             this.Invoke((MethodInvoker)(() =>
             {
                 alertControl.Show(null, "⏰ Reminder", $"🔔 {note.Title} is due now!");
@@ -119,18 +121,42 @@ namespace Digital_Notes_Manager
         {
             this.Invoke((MethodInvoker)(() =>
             {
-                alertControl.Show(null, "⏰ Reminder",$"Note {note.Title} is coming soon!");
+                alertControl.Show(null, "⏰ Reminder", $"Note {note.Title} is coming soon!");
             }));
         }
         private async void Notify_Load(object sender, EventArgs e)
         {
-            List<Note> list = manageNoteContext.Users
-                .SelectMany(us => us.Notes)
-                .ToList(); 
+            int userId = Properties.Settings.Default.UserID;
+            List<Note> list = manageNoteContext.Notes
+                .Where(x => x.UserID == userId)
+                .AsEnumerable()
+                .OrderBy(x => x.ReminderDate.UtcDateTime)
+                .ToList();
             Alarm alarm = new Alarm(this, list);
-            _=alarm.CompareTimeAsync(); 
+            _ = alarm.CompareTimeAsync();
         }
-    
 
+        private void button1_Click(object sender, EventArgs e)
+        {
+            using var context = new ManageNoteContext();
+            var reminderDate = new DateTimeOffset(2025, 5, 30, 21, 45, 0, TimeZoneInfo.Local.GetUtcOffset(DateTime.Now));
+
+            var newNote = new Note
+            {
+                Title = "New Note",
+                Content = "This is a new note added manually.",
+                Category = Category.Work,
+                CreationDate = DateTime.Now,
+                ReminderDate = reminderDate,
+                UserID = 2 // لازم تتأكد إن اليوزر ده موجود
+            };
+            //Alarm.AddNewNoteToAlarmSystemNotesList();
+
+            Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
+            //context.Notes.Add(newNote);
+            //context.SaveChanges();
+
+
+        }
     }
 }

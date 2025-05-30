@@ -29,7 +29,7 @@ namespace Digital_Notes_Manager
                     Properties.Settings.Default.UserID = user.UserID;
                     Properties.Settings.Default.Save();
 
-                    XtraMessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //XtraMessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     Main_Form main = new Main_Form();
                     main.Show();
