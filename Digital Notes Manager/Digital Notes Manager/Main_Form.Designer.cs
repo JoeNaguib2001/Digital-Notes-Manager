@@ -35,6 +35,7 @@
             View_All_Notes_Popped = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
+            importNoteToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             MDI_Panel = new Panel();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
@@ -148,9 +149,17 @@
             // 
             // fileToolStripMenuItem
             // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { importNoteToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(37, 20);
             fileToolStripMenuItem.Text = "File";
+            // 
+            // importNoteToolStripMenuItem
+            // 
+            importNoteToolStripMenuItem.Name = "importNoteToolStripMenuItem";
+            importNoteToolStripMenuItem.Size = new Size(180, 22);
+            importNoteToolStripMenuItem.Text = "Import Note";
+            importNoteToolStripMenuItem.Click += importNoteToolStripMenuItem_Click;
             // 
             // helpToolStripMenuItem
             // 
@@ -196,6 +205,6 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement Show_Notes_Accordion_Element;
         private DevExpress.XtraBars.Navigation.AccordionControlElement Add_A_New_Note_Accordion_Element;
         private DevExpress.XtraBars.Navigation.AccordionControlElement View_All_Notes_Popped;
-
+        private ToolStripMenuItem importNoteToolStripMenuItem;
     }
 }
