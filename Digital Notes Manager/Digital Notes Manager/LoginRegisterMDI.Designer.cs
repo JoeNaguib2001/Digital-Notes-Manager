@@ -45,8 +45,8 @@
             // 
             // loginBtnFromMDI
             // 
-            loginBtnFromMDI.Appearance.BackColor = Color.FromArgb(0, 191, 140);
-            loginBtnFromMDI.Appearance.BorderColor = Color.FromArgb(0, 191, 140);
+            loginBtnFromMDI.Appearance.BackColor = Color.FromArgb(0, 150, 180);
+            loginBtnFromMDI.Appearance.BorderColor = Color.FromArgb(0, 150, 180);
             loginBtnFromMDI.Appearance.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             loginBtnFromMDI.Appearance.ForeColor = Color.White;
             loginBtnFromMDI.Appearance.Options.UseBackColor = true;
@@ -74,8 +74,8 @@
             // 
             // registerBtnFromMDI
             // 
-            registerBtnFromMDI.Appearance.BackColor = Color.FromArgb(0, 191, 140);
-            registerBtnFromMDI.Appearance.BorderColor = Color.FromArgb(0, 191, 140);
+            registerBtnFromMDI.Appearance.BackColor = Color.FromArgb(0, 150, 180);
+            registerBtnFromMDI.Appearance.BorderColor = Color.FromArgb(0, 150, 180);
             registerBtnFromMDI.Appearance.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             registerBtnFromMDI.Appearance.ForeColor = Color.White;
             registerBtnFromMDI.Appearance.Options.UseBackColor = true;
