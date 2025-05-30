@@ -2,11 +2,8 @@
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
-using DevExpress.XtraRichEdit.Forms;
 using Digital_Notes_Manager.Models;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
-using static DevExpress.XtraPrinting.Native.ExportOptionsPropertiesNames;
 
 namespace Digital_Notes_Manager
 {
@@ -197,7 +194,7 @@ namespace Digital_Notes_Manager
             }
         }
 
-       
+
     }
 }
 
