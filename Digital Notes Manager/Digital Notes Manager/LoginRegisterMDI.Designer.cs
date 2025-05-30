@@ -38,9 +38,9 @@
             // loginRegisterMDIPanel
             // 
             loginRegisterMDIPanel.Dock = DockStyle.Fill;
-            loginRegisterMDIPanel.Location = new Point(0, 0);
+            loginRegisterMDIPanel.Location = new Point(0, 52);
             loginRegisterMDIPanel.Name = "loginRegisterMDIPanel";
-            loginRegisterMDIPanel.Size = new Size(800, 450);
+            loginRegisterMDIPanel.Size = new Size(600, 299);
             loginRegisterMDIPanel.TabIndex = 0;
             // 
             // simpleButton1
@@ -48,7 +48,7 @@
             simpleButton1.Dock = DockStyle.Left;
             simpleButton1.Location = new Point(0, 0);
             simpleButton1.Name = "simpleButton1";
-            simpleButton1.Size = new Size(413, 52);
+            simpleButton1.Size = new Size(297, 52);
             simpleButton1.TabIndex = 1;
             simpleButton1.Text = "simpleButton1";
             // 
@@ -59,15 +59,15 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(800, 52);
+            panel1.Size = new Size(600, 52);
             panel1.TabIndex = 2;
             // 
             // simpleButton2
             // 
             simpleButton2.Dock = DockStyle.Right;
-            simpleButton2.Location = new Point(412, 0);
+            simpleButton2.Location = new Point(295, 0);
             simpleButton2.Name = "simpleButton2";
-            simpleButton2.Size = new Size(388, 52);
+            simpleButton2.Size = new Size(305, 52);
             simpleButton2.TabIndex = 2;
             simpleButton2.Text = "simpleButton2";
             // 
@@ -75,9 +75,9 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(panel1);
+            ClientSize = new Size(600, 351);
             Controls.Add(loginRegisterMDIPanel);
+            Controls.Add(panel1);
             Name = "LoginRegisterMDI";
             Text = "LoginRegisterMDI";
             panel1.ResumeLayout(false);

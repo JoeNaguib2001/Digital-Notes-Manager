@@ -1,11 +1,10 @@
-﻿using DevExpress.XtraBars.Ribbon;
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using Digital_Notes_Manager.Models;
 using System.Drawing.Drawing2D;
 
 namespace Digital_Notes_Manager
 {
-    public partial class Register : RibbonForm
+    public partial class Register : Form
     {
         public Register()
         {
@@ -26,11 +25,7 @@ namespace Digital_Notes_Manager
         }
 
 
-        private void simpleButton1_Click(object sender, EventArgs e)
-        {
 
-            this.Close();
-        }
 
         private void SinUpBtn_Click(object sender, EventArgs e)
         {
