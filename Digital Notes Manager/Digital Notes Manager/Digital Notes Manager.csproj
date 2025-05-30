@@ -12,6 +12,19 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="1377062030711980183.wav" />
+    <None Remove="Alarm1.wav" />
+    <None Remove="Alarm2.wav" />
+    <None Remove="AlarmSounds\Alarm3.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="AlarmSounds\Alarm1.wav" />
+    <EmbeddedResource Include="AlarmSounds\Alarm2.wav" />
+    <EmbeddedResource Include="AlarmSounds\Alarm3.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="DevExpress.Win.Design" Version="24.2.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.16" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.16" />
