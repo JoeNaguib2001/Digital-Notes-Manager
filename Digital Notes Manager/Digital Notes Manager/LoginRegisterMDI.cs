@@ -8,6 +8,7 @@
         public LoginRegisterMDI()
         {
             InitializeComponent();
+            Utilities.LoginRegisterMDI = this;
             LoadLogin();
         }
         private void LoadRegister()
@@ -23,6 +24,7 @@
         }
         private void LoadLogin()
         {
+
             if (login is null)
             {
                 login = new Login();
@@ -31,6 +33,16 @@
             loginRegisterMDIPanel.Controls.Clear();
             loginRegisterMDIPanel.Controls.Add(login.loginPanel);
 
+        }
+
+        private void loginBtnFromMDI_Click(object sender, EventArgs e)
+        {
+            LoadLogin();
+        }
+
+        private void registerBtnFromMDI_Click(object sender, EventArgs e)
+        {
+            LoadRegister();
         }
     }
 }

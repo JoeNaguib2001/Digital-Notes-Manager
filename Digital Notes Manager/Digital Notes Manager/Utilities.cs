@@ -8,6 +8,7 @@ namespace Digital_Notes_Manager
     {
         public static GridControl GridControl { get; set; }
         public static ManageNoteContext manageNoteContext { get; } = new ManageNoteContext();
+        public static LoginRegisterMDI LoginRegisterMDI { get; set; }
         public static void SetNotesGridControlDataSource()
         {
             var list = manageNoteContext.Notes.Where(x => x.UserID == Properties.Settings.Default.UserID).ToList();
