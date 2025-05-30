@@ -21,14 +21,22 @@ namespace Digital_Notes_Manager
 
                 if (user != null)
                 {
+                    Properties.Settings.Default.UserID = user.UserID;
+                    Properties.Settings.Default.Save();
+
+                    XtraMessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+
+                    Main_Form main = new Main_Form();
+                    main.Show();
                     this.Hide();
-                    Form form = new Main_Form();
-                    form.ShowDialog();
                 }
                 else
                 {
                     XtraMessageBox.Show("Wrong Username or Password");
+                    return;
                 }
+
             }
         }
     }

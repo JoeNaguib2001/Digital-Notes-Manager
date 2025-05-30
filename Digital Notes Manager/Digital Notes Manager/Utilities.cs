@@ -10,7 +10,8 @@ namespace Digital_Notes_Manager
         public static ManageNoteContext manageNoteContext { get; } = new ManageNoteContext();
         public static void SetNotesGridControlDataSource()
         {
-            var list = manageNoteContext.Notes.ToList();
+            var list = manageNoteContext.Notes.Where(x => x.UserID == Properties.Settings.Default.UserID).ToList();
+
             BindingList<Note> BLN = new BindingList<Note>(list);
             GridControl.DataSource = BLN;
         }
