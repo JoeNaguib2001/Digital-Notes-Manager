@@ -36,8 +36,12 @@
             Close_btn = new DevExpress.XtraEditors.SimpleButton();
             Calender = new DevExpress.XtraEditors.DateTimeOffsetEdit();
             TitleBox = new DevExpress.XtraEditors.TextEdit();
+            Categorybox = new DevExpress.XtraEditors.ComboBoxEdit();
+            panel1 = new Panel();
             ((System.ComponentModel.ISupportInitialize)Calender.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TitleBox.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)Categorybox.Properties).BeginInit();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // stylePanal
@@ -45,14 +49,13 @@
             stylePanal.AppearanceButton.Normal.ForeColor = Color.Gray;
             stylePanal.AppearanceButton.Normal.Options.UseForeColor = true;
             stylePanal.Buttons.AddRange(new DevExpress.XtraEditors.ButtonPanel.IBaseButton[] { new DevExpress.XtraBars.Docking2010.WindowsUIButton(), new DevExpress.XtraBars.Docking2010.WindowsUIButton() });
-            stylePanal.Location = new Point(2, 224);
+            stylePanal.Location = new Point(3, 5);
             stylePanal.Name = "stylePanal";
             stylePanal.Size = new Size(92, 20);
             stylePanal.TabIndex = 2;
             stylePanal.Text = "windowsuiButtonPanel1";
             stylePanal.ButtonUnchecked += stylePanal_ButtonUnchecked;
             stylePanal.ButtonChecked += StylePanal_ButtonChecked;
-            stylePanal.Click += stylePanal_Click;
             // 
             // richTextBox1
             // 
@@ -62,12 +65,11 @@
             richTextBox1.Size = new Size(260, 193);
             richTextBox1.TabIndex = 3;
             richTextBox1.Text = "";
-            richTextBox1.TextChanged += richTextBox1_TextChanged;
             // 
             // saveBtn
             // 
             saveBtn.ImageOptions.Image = (Image)resources.GetObject("saveBtn.ImageOptions.Image");
-            saveBtn.Location = new Point(91, 224);
+            saveBtn.Location = new Point(100, 5);
             saveBtn.Name = "saveBtn";
             saveBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             saveBtn.Size = new Size(21, 20);
@@ -133,17 +135,35 @@
             TitleBox.KeyDown += TitleBox_KeyDown;
             TitleBox.Leave += TitleBox_Leave;
             // 
+            // Categorybox
+            // 
+            Categorybox.Location = new Point(162, 5);
+            Categorybox.Name = "Categorybox";
+            Categorybox.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            Categorybox.Size = new Size(100, 20);
+            Categorybox.TabIndex = 9;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(stylePanal);
+            panel1.Controls.Add(Categorybox);
+            panel1.Controls.Add(saveBtn);
+            panel1.Dock = DockStyle.Bottom;
+            panel1.Location = new Point(0, 222);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(280, 28);
+            panel1.TabIndex = 10;
+            // 
             // Note_Form
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(285, 249);
+            ClientSize = new Size(280, 250);
+            Controls.Add(panel1);
             Controls.Add(Close_btn);
             Controls.Add(MenuBtn);
-            Controls.Add(saveBtn);
             Controls.Add(richTextBox1);
-            Controls.Add(stylePanal);
             Controls.Add(Calender);
             Controls.Add(TitleBox);
             FormBorderStyle = FormBorderStyle.FixedSingle;
@@ -153,6 +173,8 @@
             Text = "Note";
             ((System.ComponentModel.ISupportInitialize)Calender.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)TitleBox.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)Categorybox.Properties).EndInit();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -164,5 +186,7 @@
         public RichTextBox richTextBox1;
         private DevExpress.XtraEditors.DateTimeOffsetEdit Calender;
         private DevExpress.XtraEditors.TextEdit TitleBox;
+        private DevExpress.XtraEditors.ComboBoxEdit Categorybox;
+        private Panel panel1;
     }
 }

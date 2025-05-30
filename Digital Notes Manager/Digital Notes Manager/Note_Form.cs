@@ -12,7 +12,7 @@ namespace Digital_Notes_Manager
         private BarManager barManager;
         private PopupMenu popupMenu;
         private DateTimeOffset NotficationDate;
-
+        private string _Title;
         private readonly ManageNoteContext _ManageNoteContext = Utilities.manageNoteContext;
         public Note_Form()
         {
@@ -41,6 +41,7 @@ namespace Digital_Notes_Manager
 
             PopMenu();
 
+            GetCategory();
 
         }
         private void SetTextStyle()
@@ -104,13 +105,10 @@ namespace Digital_Notes_Manager
         {
 
             SetTextStyle();
-            //MessageBox.Show(e.Button.ToString());
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
 
         }
+
+
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -124,6 +122,14 @@ namespace Digital_Notes_Manager
             path.AddArc(new Rectangle(0, Height - radius, radius, radius), 90, 90);
             path.CloseFigure();
             this.Region = new Region(path);
+        }
+
+
+        private void GetCategory()
+        {
+            var Categories = _ManageNoteContext.Notes.Select(N => N.Category).Distinct().ToList();
+            Categorybox.Properties.Items.AddRange(Categories);
+
         }
 
 
@@ -154,16 +160,8 @@ namespace Digital_Notes_Manager
             this.Close();
         }
 
-        private void dropDownButton1_Click(object sender, EventArgs e)
-        {
-            //new 
-            //popupMenu1.ShowPopup();
-        }
 
-        private void stylePanal_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void PopMenu()
         {
@@ -212,11 +210,10 @@ namespace Digital_Notes_Manager
         {
             Note newNote = new Note
             {
-                Title = "132",
+                Title = _Title,
                 Content = "123",
                 CreationDate = DateTime.Now,
                 ReminderDate = NotficationDate,
-                UserID = 1,
                 Category = Category.Study,
             };
             _ManageNoteContext.Notes.Add(newNote);
@@ -249,8 +246,9 @@ namespace Digital_Notes_Manager
             if (e.KeyCode == Keys.Enter)
             {
                 // Move focus to the form or another control
+                _Title = TitleBox.Text;
                 richTextBox1.Focus();
-                MessageBox.Show(TitleBox.Text);
+
             }
         }
     }
