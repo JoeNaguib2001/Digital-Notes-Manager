@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using Digital_Notes_Manager.Models;
 using DevExpress.DXTemplateGallery.Extensions;
+using Microsoft.IdentityModel.Tokens;
 
 
 namespace Digital_Notes_Manager
@@ -22,13 +23,15 @@ namespace Digital_Notes_Manager
     {
         private List<Note_Form> noteForms = new List<Note_Form>();
         private int currentIndex = 0;
-        private int notesToShow = 3;  // عدد النوتس اللي تظهر في الكروزال في نفس الوقت
-        private int noteWidth = 250;
-        private int noteHeight = 150;
+        private int notesToShow = 2;  // عدد النوتس اللي تظهر في الكروزال في نفس الوقت
+        private int noteWidth =300;
+        private int noteHeight = 180;
         private int margin = 10;
-        public Dashboard()
+        private int userId;
+        public Dashboard(int userId)
         {
             InitializeComponent();
+            this.userId = userId;
         }
 
 
@@ -47,10 +50,18 @@ namespace Digital_Notes_Manager
             this.Region = new Region(path);
         }
 
+
         private void Dashboard_Load(object sender, EventArgs e)
         {
             LoadingNotes();
 
+            // تعديل مكان الأزرار لتكون تحت النوتس مباشرة
+            int buttonsY = 10 + noteHeight + 10; // أعلى النوتس + ارتفاع النوت + مسافة بسيطة
+            PreviousBtn.Location = new Point(10, buttonsY);
+            NextBtn.Location = new Point(10 + (notesToShow * (noteWidth + margin)) - NextBtn.Width, buttonsY);
+
+            PreviousBtn.BringToFront();
+            NextBtn.BringToFront();
         }
 
         private void LoadingNotes()
@@ -59,7 +70,8 @@ namespace Digital_Notes_Manager
             noteForms.Clear();
 
             UserController user = new UserController();
-            var notes = user.GetNotesByUserId(1);
+            //int userId = Properties.Settings.Default.UserID;
+            var notes = user.GetNotesByUserId(userId);
 
             foreach (var note in notes)
             {
@@ -68,26 +80,78 @@ namespace Digital_Notes_Manager
                     TopLevel = false,
                     FormBorderStyle = FormBorderStyle.None,
                     ShowInTaskbar = false,
-                    Size = new Size(noteWidth, noteHeight),
-                    Tag = note
+                    Size = new Size(noteWidth, noteHeight)
                 };
 
+                InitializeNoteFormWithData(noteForm, note); // نمرر الداتا يدويًا
+
                 NotePanel.Controls.Add(noteForm);
-                noteForm.Hide(); // نخفيهم الأول
+                noteForm.Hide();
                 noteForms.Add(noteForm);
             }
+
+            NotePanel.Controls.Add(PreviousBtn);
+            NotePanel.Controls.Add(NextBtn);
 
             ShowNotesInCarousel();
         }
 
+
+        private void SetNoteData(Note_Form noteForm, Note note)
+        {
+            // نحاول نمرر البيانات لعنصر الفورم حسب الاسم
+            foreach (Control ctrl in noteForm.Controls)
+            {
+                if (ctrl.Name == "TitleBox" && ctrl is DevExpress.XtraEditors.TextEdit titleBox)
+                {
+                    titleBox.Text = note.Title;
+                }
+                else if (ctrl is RichTextBox richBox && ctrl.Name == "richTextBox1")
+                {
+                    richBox.Text = note.Content;
+                }
+
+                // لو عندك عناصر تانية زي Categorybox وهكذا، ممكن تضيفهم هنا بنفس الطريقة
+            }
+        }
+
+        private void InitializeNoteFormWithData(Note_Form form, Note note)
+        {
+            form.Tag = note;
+
+            // نفعّل الفورم يدويًا كأن المستخدم بدأ يكتب البيانات
+            foreach (Control ctrl in form.Controls)
+            {
+                if (ctrl.Name == "TitleBox" && ctrl is DevExpress.XtraEditors.TextEdit titleBox)
+                {
+                    titleBox.Properties.ReadOnly = false;
+                    titleBox.Text = note.Title;
+                    titleBox.Properties.ReadOnly = true;
+                }
+                else if (ctrl is RichTextBox richBox && ctrl.Name == "richTextBox1")
+                {
+                    richBox.Text = note.Content;
+                }
+
+                // لو فيه Categorybox مثلاً
+                else if (ctrl.Name == "Categorybox" && ctrl is DevExpress.XtraEditors.ComboBoxEdit catBox)
+                {
+                    catBox.Properties.Items.AddRange(Enum.GetNames(typeof(Category)));
+
+                    if (!string.IsNullOrEmpty(note.Category.ToString()))
+                    {
+                        catBox.SelectedItem = note.Category.ToString();
+                    }
+                }
+            }
+        }
+
+
+
         private void ShowNotesInCarousel()
         {
-            // خفي فقط النوت فورمز، مش كل الكنترولز داخل NotePanel
-            foreach (Control c in NotePanel.Controls)
-            {
-                if (c is Note_Form)
-                    c.Hide();
-            }
+            // أخفي جميع النوتس في البداية
+            NotePanel.Controls.Cast<Control>().Where(c => !(c is DevExpress.XtraEditors.SimpleButton)).ToList().ForEach(c => c.Hide());
 
             int x = 10, y = 10;
 
@@ -100,13 +164,7 @@ namespace Digital_Notes_Manager
                 noteForm.Location = new Point(x + i * (noteWidth + margin), y);
                 noteForm.Show();
             }
-            PreviousBtn.BringToFront();
-            NextBtn.BringToFront();
-
-
         }
-
-
 
         private void CloseBtn_Click(object sender, EventArgs e)
         {
@@ -124,13 +182,11 @@ namespace Digital_Notes_Manager
 
         private void PreviousBtn_Click(object sender, EventArgs e)
         {
-
             if (currentIndex > 0)
             {
                 currentIndex--;
                 ShowNotesInCarousel();
             }
-         
         }
     }
 }

@@ -40,7 +40,7 @@
             // CloseBtn
             // 
             CloseBtn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("CloseBtn.ImageOptions.SvgImage");
-            CloseBtn.Location = new Point(742, 12);
+            CloseBtn.Location = new Point(954, 12);
             CloseBtn.Name = "CloseBtn";
             CloseBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             CloseBtn.Size = new Size(34, 23);
@@ -60,13 +60,13 @@
             NotePanel.Controls.Add(NextBtn);
             NotePanel.Location = new Point(179, 41);
             NotePanel.Name = "NotePanel";
-            NotePanel.Size = new Size(609, 389);
+            NotePanel.Size = new Size(809, 389);
             NotePanel.TabIndex = 2;
             // 
             // PreviousBtn
             // 
             PreviousBtn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("PreviousBtn.ImageOptions.SvgImage");
-            PreviousBtn.Location = new Point(178, 212);
+            PreviousBtn.Location = new Point(133, 298);
             PreviousBtn.Name = "PreviousBtn";
             PreviousBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             PreviousBtn.Size = new Size(41, 46);
@@ -75,19 +75,20 @@
             // 
             // NextBtn
             // 
+            NextBtn.ImageOptions.ImageIndex = 1;
             NextBtn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("NextBtn.ImageOptions.SvgImage");
-            NextBtn.Location = new Point(457, 212);
+            NextBtn.Location = new Point(618, 298);
             NextBtn.Name = "NextBtn";
             NextBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             NextBtn.Size = new Size(37, 46);
-            NextBtn.TabIndex = 0;
+            NextBtn.TabIndex = 1;
             NextBtn.Click += NextBtn_Click;
             // 
             // Dashboard
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 442);
+            ClientSize = new Size(1000, 442);
             Controls.Add(NotePanel);
             Controls.Add(sidePanel);
             Controls.Add(CloseBtn);

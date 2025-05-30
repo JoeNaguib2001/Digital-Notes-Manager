@@ -27,7 +27,7 @@ namespace Digital_Notes_Manager
                     XtraMessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
 
-                    Main_Form main = new Main_Form();
+                    Dashboard main = new Dashboard(user.UserID);
                     main.Show();
                     this.Hide();
                 }
