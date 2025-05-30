@@ -33,8 +33,10 @@
             loginBtn = new DevExpress.XtraEditors.SimpleButton();
             userNameTxt = new DevExpress.XtraEditors.TextEdit();
             passwordTxt = new DevExpress.XtraEditors.TextEdit();
+            loginPanel = new Panel();
             ((System.ComponentModel.ISupportInitialize)userNameTxt.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)passwordTxt.Properties).BeginInit();
+            loginPanel.SuspendLayout();
             SuspendLayout();
             // 
             // userNameLabel
@@ -43,7 +45,7 @@
             userNameLabel.Appearance.ForeColor = Color.White;
             userNameLabel.Appearance.Options.UseFont = true;
             userNameLabel.Appearance.Options.UseForeColor = true;
-            userNameLabel.Location = new Point(103, 57);
+            userNameLabel.Location = new Point(24, 23);
             userNameLabel.Margin = new Padding(3, 2, 3, 2);
             userNameLabel.Name = "userNameLabel";
             userNameLabel.Size = new Size(164, 37);
@@ -56,7 +58,7 @@
             passwordLabel.Appearance.ForeColor = Color.White;
             passwordLabel.Appearance.Options.UseFont = true;
             passwordLabel.Appearance.Options.UseForeColor = true;
-            passwordLabel.Location = new Point(103, 142);
+            passwordLabel.Location = new Point(24, 108);
             passwordLabel.Margin = new Padding(3, 2, 3, 2);
             passwordLabel.Name = "passwordLabel";
             passwordLabel.Size = new Size(160, 37);
@@ -71,7 +73,7 @@
             loginBtn.Appearance.Options.UseBackColor = true;
             loginBtn.Appearance.Options.UseFont = true;
             loginBtn.Appearance.Options.UseForeColor = true;
-            loginBtn.Location = new Point(322, 329);
+            loginBtn.Location = new Point(185, 183);
             loginBtn.Name = "loginBtn";
             loginBtn.Size = new Size(138, 55);
             loginBtn.TabIndex = 4;
@@ -80,7 +82,7 @@
             // 
             // userNameTxt
             // 
-            userNameTxt.Location = new Point(375, 52);
+            userNameTxt.Location = new Point(224, 20);
             userNameTxt.Margin = new Padding(3, 2, 3, 2);
             userNameTxt.Name = "userNameTxt";
             userNameTxt.Properties.Appearance.BackColor = Color.FromArgb(84, 94, 106);
@@ -88,20 +90,36 @@
             userNameTxt.Properties.Appearance.ForeColor = Color.White;
             userNameTxt.Properties.Appearance.Options.UseBackColor = true;
             userNameTxt.Properties.Appearance.Options.UseFont = true;
-            userNameTxt.Size = new Size(241, 52);
+            userNameTxt.Properties.Appearance.Options.UseForeColor = true;
+            userNameTxt.Size = new Size(241, 42);
             userNameTxt.TabIndex = 5;
             // 
             // passwordTxt
             // 
-            passwordTxt.Location = new Point(438, 218);
+            passwordTxt.Location = new Point(224, 107);
             passwordTxt.Name = "passwordTxt";
             passwordTxt.Properties.Appearance.BackColor = Color.FromArgb(84, 94, 106);
             passwordTxt.Properties.Appearance.Font = new Font("Tahoma", 22.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             passwordTxt.Properties.Appearance.ForeColor = Color.White;
             passwordTxt.Properties.Appearance.Options.UseBackColor = true;
             passwordTxt.Properties.Appearance.Options.UseFont = true;
-            passwordTxt.Size = new Size(241, 52);
+            passwordTxt.Properties.Appearance.Options.UseForeColor = true;
+            passwordTxt.Properties.PasswordChar = '*';
+            passwordTxt.Size = new Size(241, 42);
             passwordTxt.TabIndex = 6;
+            // 
+            // loginPanel
+            // 
+            loginPanel.Controls.Add(loginBtn);
+            loginPanel.Controls.Add(passwordTxt);
+            loginPanel.Controls.Add(userNameTxt);
+            loginPanel.Controls.Add(userNameLabel);
+            loginPanel.Controls.Add(passwordLabel);
+            loginPanel.Dock = DockStyle.Fill;
+            loginPanel.Location = new Point(0, 0);
+            loginPanel.Name = "loginPanel";
+            loginPanel.Size = new Size(521, 268);
+            loginPanel.TabIndex = 7;
             // 
             // Login
             // 
@@ -109,19 +127,16 @@
             Appearance.Options.UseBackColor = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(passwordTxt);
-            Controls.Add(userNameTxt);
-            Controls.Add(loginBtn);
-            Controls.Add(passwordLabel);
-            Controls.Add(userNameLabel);
+            ClientSize = new Size(521, 268);
+            Controls.Add(loginPanel);
             Margin = new Padding(3, 2, 3, 2);
             Name = "Login";
             Text = "Login";
             ((System.ComponentModel.ISupportInitialize)userNameTxt.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)passwordTxt.Properties).EndInit();
+            loginPanel.ResumeLayout(false);
+            loginPanel.PerformLayout();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -131,5 +146,6 @@
         private DevExpress.XtraEditors.SimpleButton loginBtn;
         private DevExpress.XtraEditors.TextEdit userNameTxt;
         private DevExpress.XtraEditors.TextEdit passwordTxt;
+        public Panel loginPanel;
     }
 }

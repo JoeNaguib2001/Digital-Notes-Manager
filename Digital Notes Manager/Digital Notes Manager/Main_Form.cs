@@ -4,6 +4,7 @@ using Digital_Notes_Manager.Models;
 using Digital_Notes_Manager.Controller;
 using System.IO;
 
+
 namespace Digital_Notes_Manager
 {
     public partial class Main_Form : XtraForm
@@ -53,10 +54,17 @@ namespace Digital_Notes_Manager
             MDI_Panel.Controls.Add(viewNotes.panel1);
         }
 
+
         private void MDI_Panel_Paint(object sender, PaintEventArgs e)
         {
+            //manageNoteContext = new ManageNoteContext();
+            //viewNotes = new ViewNotes(manageNoteContext, this);
+            //var list = manageNoteContext.Notes.ToList();
+            //BindingList<Note> BLN = new BindingList<Note>(list);
+            //viewNotes.Notes_Grid.DataSource = BLN;
 
         }
+
 
         private void View_All_Notes_Popped_Click(object sender, EventArgs e)
         {
@@ -95,7 +103,7 @@ namespace Digital_Notes_Manager
                     string? rtfContent = tempRtb.Rtf;
 
                     string rawText = tempRtb.Text;
-                    var lines = rawText.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries); // ÃÖÝ '\r' ááÊÚÇãá ãÚ äåÇíÇÊ ÇáÃÓØÑ ÇáãÎÊáÝÉ
+                    var lines = rawText.Split(new[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries); // ï¿½ï¿½ï¿½ '\r' ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 
                     string? title = lines.FirstOrDefault(l => l.StartsWith("Title:", StringComparison.OrdinalIgnoreCase))?.Replace("Title:", "", StringComparison.OrdinalIgnoreCase).Trim();
                     string? category = lines.FirstOrDefault(l => l.StartsWith("Category:", StringComparison.OrdinalIgnoreCase))?.Replace("Category:", "", StringComparison.OrdinalIgnoreCase).Trim();
