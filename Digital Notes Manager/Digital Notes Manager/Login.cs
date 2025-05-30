@@ -3,7 +3,7 @@ using Digital_Notes_Manager.Models;
 
 namespace Digital_Notes_Manager
 {
-    public partial class Login : XtraForm
+    public partial class Login : Form
     {
         public Login()
         {
