@@ -2,24 +2,23 @@
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
+using DevExpress.XtraRichEdit.Forms;
 using Digital_Notes_Manager.Models;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
+using static DevExpress.XtraPrinting.Native.ExportOptionsPropertiesNames;
 
 namespace Digital_Notes_Manager
 {
     public partial class ViewNotes : Form
     {
-        ManageNoteContext ManageNoteContext;
-        Main_Form Main_Form;
-        public ViewNotes(ManageNoteContext ManageNoteContext, Main_Form main_Form)
+        public ViewNotes()
         {
             InitializeComponent();
-            this.ManageNoteContext = ManageNoteContext;
-            this.Main_Form = main_Form;
             gridView1.Columns["CreationDate"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             gridView1.Columns["CreationDate"].DisplayFormat.FormatString = "dd/MM/yyyy";
             gridView1.Columns["ReminderDate"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
-            gridView1.Columns["ReminderDate"].DisplayFormat.FormatString = "dd/MM/yyyy";
+            gridView1.Columns["ReminderDate"].DisplayFormat.FormatString = "dd/MM/yyyy HH:mm:ss";
 
             var combo = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
 
@@ -44,8 +43,11 @@ namespace Digital_Notes_Manager
             gridView1.SortInfo.AddRange(new[] {
             new GridColumnSortInfo(gridView1.Columns["CreationDate"], DevExpress.Data.ColumnSortOrder.Descending)
     });
+            Utilities.GridControl = Notes_Grid;
+            Utilities.SetNotesGridControlDataSource();
         }
 
+        private ManageNoteContext ManageNoteContext = Utilities.manageNoteContext;
         private void gridView1_RowCellClick(object sender, RowCellClickEventArgs e)
         {
             if (e.Column == DeleteColumn)
@@ -53,12 +55,12 @@ namespace Digital_Notes_Manager
                 var selectedRow = gridView1.GetFocusedRow() as Note;
                 if (selectedRow != null)
                 {
-                    if (MessageBox.Show("هل أنت متأكد من حذف الملاحظة المحددة؟", "تأكيد", MessageBoxButtons.YesNo) == DialogResult.Yes)
+                    if (MessageBox.Show("Are you sure you want to delete this note ?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                     {
                         ManageNoteContext.Entry(selectedRow).State = EntityState.Deleted;
                         ManageNoteContext.SaveChanges();
-                        XtraMessageBox.Show("تم حذف الملاحظة بنجاح");
-                        Main_Form.SetDataSource(Notes_Grid);
+                        XtraMessageBox.Show("Note Deleted Successfully");
+                        Utilities.SetNotesGridControlDataSource();
                     }
                 }
                 else
@@ -88,7 +90,7 @@ namespace Digital_Notes_Manager
 
         private void deleteAllSeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("هل أنت متأكد من حذف العناصر المحددة؟", "تأكيد", MessageBoxButtons.YesNo) != DialogResult.Yes)
+            if (MessageBox.Show("Are you sure you want to delete the selected notes ?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
                 return;
 
             // خزن الـ IDs أو الكيانات اللي متعلم عليها
@@ -116,7 +118,7 @@ namespace Digital_Notes_Manager
 
 
             XtraMessageBox.Show("Deleted Successfully");
-            Main_Form.SetDataSource(Notes_Grid);
+            Utilities.SetNotesGridControlDataSource();
         }
 
         private void gridView1_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
@@ -136,6 +138,67 @@ namespace Digital_Notes_Manager
             noteForm.richTextBox1.Text = selectedRow?.Content ?? string.Empty;
             noteForm.Show();
         }
+
+        private void saveInYourDeviceToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Note_Form noteForm = new Note_Form();
+            var selectedRow = gridView1.GetFocusedRow() as Note;
+            noteForm.richTextBox1.Text = selectedRow?.Content ?? string.Empty;
+
+            SaveFileDialog saveFileDialog = new SaveFileDialog();
+            saveFileDialog.Filter = "Rich Text File (*.rtf) | *.rtf";
+            saveFileDialog.Title = "Save Note as RTF File in Your Device";
+            saveFileDialog.FileName = $"{selectedRow.Title}.rtf";
+
+            if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+
+
+                    RichTextBox richTextBox = new RichTextBox();
+
+
+
+                    richTextBox.SelectionAlignment = HorizontalAlignment.Center;
+                    richTextBox.SelectionFont = new Font("Arial", 20, FontStyle.Bold | FontStyle.Underline);
+                    richTextBox.SelectionColor = Color.DarkRed;
+                    richTextBox.AppendText($"{selectedRow.Title}\n\n");
+
+
+                    richTextBox.SelectionAlignment = HorizontalAlignment.Left;
+                    richTextBox.SelectionFont = new Font("Arial", 12, FontStyle.Bold | FontStyle.Italic);
+                    richTextBox.SelectionColor = Color.DarkGreen;
+                    richTextBox.AppendText($"Category: {selectedRow.Category}");
+                    richTextBox.AppendText($"                                ");
+                    richTextBox.AppendText($"Created On: {selectedRow.CreationDate:dd/MM/yyyy}\n");
+
+
+                    richTextBox.SelectionFont = new Font("Arial", 12, FontStyle.Regular);
+                    richTextBox.SelectionColor = Color.Gray;
+                    richTextBox.AppendText("------------------------------------------------------------------------------------------------------------\n\n");
+
+                    richTextBox.SelectionFont = new Font("Arial", 14, FontStyle.Regular);
+                    richTextBox.SelectionColor = Color.Black;
+                    richTextBox.AppendText(selectedRow.Content ?? "");
+
+
+                    richTextBox.SaveFile(saveFileDialog.FileName, RichTextBoxStreamType.RichText);
+
+                    // Open the file automatically
+                    System.Diagnostics.Process.Start("explorer.exe", saveFileDialog.FileName);
+
+                    MessageBox.Show("Note saved and opened successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error while saving the file: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+       
     }
 }
+
 

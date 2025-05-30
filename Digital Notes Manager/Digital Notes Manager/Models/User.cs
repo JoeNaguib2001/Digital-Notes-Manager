@@ -1,4 +1,5 @@
-﻿namespace Digital_Notes_Manager.Models
+﻿
+namespace Digital_Notes_Manager.Models
 {
     public class User
     {

@@ -1,7 +1,7 @@
 ﻿using DevExpress.XtraBars;
 using DevExpress.XtraBars.Docking2010;
 using DevExpress.XtraBars.Ribbon;
-using DevExpress.XtraEditors;
+using Digital_Notes_Manager.Models;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
 
@@ -11,7 +11,9 @@ namespace Digital_Notes_Manager
     {
         private BarManager barManager;
         private PopupMenu popupMenu;
-
+        private DateTimeOffset NotficationDate;
+        private string _Title;
+        private readonly ManageNoteContext _ManageNoteContext = Utilities.manageNoteContext;
         public Note_Form()
         {
             InitializeComponent();
@@ -38,6 +40,9 @@ namespace Digital_Notes_Manager
             MakeFormDraggable(this);
 
             PopMenu();
+
+            GetCategory();
+
         }
         private void SetTextStyle()
         {
@@ -68,7 +73,7 @@ namespace Digital_Notes_Manager
                 richTextBox1.Font = new Font(richTextBox1.Font, style);
             }
         }
-        private void StylePanal_ButtonChecked(object sender, DevExpress.XtraBars.Docking2010.ButtonEventArgs e)
+        private void StylePanal_ButtonChecked(object sender, ButtonEventArgs e)
         {
 
             var clickedBtn = e.Button as WindowsUIButton;
@@ -100,13 +105,10 @@ namespace Digital_Notes_Manager
         {
 
             SetTextStyle();
-            //MessageBox.Show(e.Button.ToString());
-        }
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
 
         }
+
+
 
         protected override void OnPaint(PaintEventArgs e)
         {
@@ -120,6 +122,14 @@ namespace Digital_Notes_Manager
             path.AddArc(new Rectangle(0, Height - radius, radius, radius), 90, 90);
             path.CloseFigure();
             this.Region = new Region(path);
+        }
+
+
+        private void GetCategory()
+        {
+            var Categories = _ManageNoteContext.Notes.Select(N => N.Category).Distinct().ToList();
+            Categorybox.Properties.Items.AddRange(Categories);
+
         }
 
 
@@ -150,16 +160,8 @@ namespace Digital_Notes_Manager
             this.Close();
         }
 
-        private void dropDownButton1_Click(object sender, EventArgs e)
-        {
-            //new 
-            //popupMenu1.ShowPopup();
-        }
 
-        private void stylePanal_Click(object sender, EventArgs e)
-        {
 
-        }
 
         private void PopMenu()
         {
@@ -175,7 +177,7 @@ namespace Digital_Notes_Manager
 
 
             // Handle clicks
-            item1.ItemClick += (s, e) => XtraMessageBox.Show("Option 1 clicked");
+            item1.ItemClick += (s, e) => Calender.ShowPopup();
 
             // Add items to popup menu
             popupMenu.AddItem(item1);
@@ -191,17 +193,63 @@ namespace Digital_Notes_Manager
 
                 //popupMenu.ShowPopup(MousePosition); // show near cursor
             };
+
         }
 
-        private void Close_btn_Click_1(object sender, EventArgs e)
-        {
-            this.Close();
-        }
 
         private void MenuBtn_Click(object sender, EventArgs e)
         {
 
         }
 
+        //private void Calender_Click(object sender, EventArgs e)
+        //{
+        //    Calender.ShowPopup();
+        //}
+        private void saveBtn_Click(object sender, EventArgs e)
+        {
+            Note newNote = new Note
+            {
+                Title = _Title,
+                Content = "123",
+                CreationDate = DateTime.Now,
+                ReminderDate = NotficationDate,
+                Category = Category.Study,
+            };
+            _ManageNoteContext.Notes.Add(newNote);
+            _ManageNoteContext.SaveChanges();
+            Utilities.SetNotesGridControlDataSource();
+        }
+
+        private void Calender_EditValueChanged(object sender, EventArgs e)
+        {
+            NotficationDate = Calender.DateTimeOffset;
+            //MessageBox.Show("Confirmed selection: " + NotficationDate.ToString());
+        }
+
+        private void TitleBox_DoubleClick(object sender, EventArgs e)
+        {
+            TitleBox.Properties.ReadOnly = false;
+            TitleBox.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
+            TitleBox.Focus();
+            TitleBox.SelectAll();
+        }
+
+        private void TitleBox_Leave(object sender, EventArgs e)
+        {
+            TitleBox.Properties.ReadOnly = true;
+            TitleBox.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+        }
+
+        private void TitleBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Move focus to the form or another control
+                _Title = TitleBox.Text;
+                richTextBox1.Focus();
+
+            }
+        }
     }
 }

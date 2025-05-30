@@ -29,11 +29,13 @@
         private void InitializeComponent()
         {
             accordionControl1 = new DevExpress.XtraBars.Navigation.AccordionControl();
-            accordionControlElement1 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            NotesGroupAccordionElement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             Show_Notes_Accordion_Element = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             Add_A_New_Note_Accordion_Element = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            View_All_Notes_Popped = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
+            importNoteToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             MDI_Panel = new Panel();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
@@ -45,7 +47,7 @@
             accordionControl1.Appearance.AccordionControl.BackColor = Color.FromArgb(46, 49, 56);
             accordionControl1.Appearance.AccordionControl.Options.UseBackColor = true;
             accordionControl1.Dock = DockStyle.Left;
-            accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { accordionControlElement1 });
+            accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { NotesGroupAccordionElement });
             accordionControl1.Location = new Point(0, 24);
             accordionControl1.LookAndFeel.SkinName = "Office 2013 Dark Gray";
             accordionControl1.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -53,27 +55,28 @@
             accordionControl1.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Hidden;
             accordionControl1.Size = new Size(260, 681);
             accordionControl1.TabIndex = 0;
+            accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
             // 
-            // accordionControlElement1
+            // NotesGroupAccordionElement
             // 
-            accordionControlElement1.Appearance.Default.BackColor = Color.FromArgb(46, 49, 56);
-            accordionControlElement1.Appearance.Default.Font = new Font("Tahoma", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            accordionControlElement1.Appearance.Default.ForeColor = Color.White;
-            accordionControlElement1.Appearance.Default.Options.UseBackColor = true;
-            accordionControlElement1.Appearance.Default.Options.UseFont = true;
-            accordionControlElement1.Appearance.Default.Options.UseForeColor = true;
-            accordionControlElement1.Appearance.Hovered.BackColor = Color.FromArgb(205, 230, 247);
-            accordionControlElement1.Appearance.Hovered.ForeColor = Color.Black;
-            accordionControlElement1.Appearance.Hovered.Options.UseBackColor = true;
-            accordionControlElement1.Appearance.Hovered.Options.UseForeColor = true;
-            accordionControlElement1.Appearance.Pressed.BackColor = Color.FromArgb(205, 230, 247);
-            accordionControlElement1.Appearance.Pressed.ForeColor = Color.Black;
-            accordionControlElement1.Appearance.Pressed.Options.UseBackColor = true;
-            accordionControlElement1.Appearance.Pressed.Options.UseForeColor = true;
-            accordionControlElement1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { Show_Notes_Accordion_Element, Add_A_New_Note_Accordion_Element });
-            accordionControlElement1.Expanded = true;
-            accordionControlElement1.Name = "accordionControlElement1";
-            accordionControlElement1.Text = "My Notes";
+            NotesGroupAccordionElement.Appearance.Default.BackColor = Color.FromArgb(46, 49, 56);
+            NotesGroupAccordionElement.Appearance.Default.Font = new Font("Tahoma", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            NotesGroupAccordionElement.Appearance.Default.ForeColor = Color.White;
+            NotesGroupAccordionElement.Appearance.Default.Options.UseBackColor = true;
+            NotesGroupAccordionElement.Appearance.Default.Options.UseFont = true;
+            NotesGroupAccordionElement.Appearance.Default.Options.UseForeColor = true;
+            NotesGroupAccordionElement.Appearance.Hovered.BackColor = Color.FromArgb(205, 230, 247);
+            NotesGroupAccordionElement.Appearance.Hovered.ForeColor = Color.Black;
+            NotesGroupAccordionElement.Appearance.Hovered.Options.UseBackColor = true;
+            NotesGroupAccordionElement.Appearance.Hovered.Options.UseForeColor = true;
+            NotesGroupAccordionElement.Appearance.Pressed.BackColor = Color.FromArgb(205, 230, 247);
+            NotesGroupAccordionElement.Appearance.Pressed.ForeColor = Color.Black;
+            NotesGroupAccordionElement.Appearance.Pressed.Options.UseBackColor = true;
+            NotesGroupAccordionElement.Appearance.Pressed.Options.UseForeColor = true;
+            NotesGroupAccordionElement.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { Show_Notes_Accordion_Element, Add_A_New_Note_Accordion_Element, View_All_Notes_Popped });
+            NotesGroupAccordionElement.Expanded = true;
+            NotesGroupAccordionElement.Name = "NotesGroupAccordionElement";
+            NotesGroupAccordionElement.Text = "My Notes";
             // 
             // Show_Notes_Accordion_Element
             // 
@@ -115,6 +118,27 @@
             Add_A_New_Note_Accordion_Element.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             Add_A_New_Note_Accordion_Element.Text = "Add A New Note";
             // 
+            // View_All_Notes_Popped
+            // 
+            View_All_Notes_Popped.Appearance.Default.BackColor = Color.FromArgb(46, 49, 56);
+            View_All_Notes_Popped.Appearance.Default.Font = new Font("Tahoma", 10.2F);
+            View_All_Notes_Popped.Appearance.Default.ForeColor = Color.White;
+            View_All_Notes_Popped.Appearance.Default.Options.UseBackColor = true;
+            View_All_Notes_Popped.Appearance.Default.Options.UseFont = true;
+            View_All_Notes_Popped.Appearance.Default.Options.UseForeColor = true;
+            View_All_Notes_Popped.Appearance.Hovered.BackColor = Color.FromArgb(205, 230, 247);
+            View_All_Notes_Popped.Appearance.Hovered.ForeColor = Color.Black;
+            View_All_Notes_Popped.Appearance.Hovered.Options.UseBackColor = true;
+            View_All_Notes_Popped.Appearance.Hovered.Options.UseForeColor = true;
+            View_All_Notes_Popped.Appearance.Pressed.BackColor = Color.FromArgb(205, 230, 247);
+            View_All_Notes_Popped.Appearance.Pressed.ForeColor = Color.Black;
+            View_All_Notes_Popped.Appearance.Pressed.Options.UseBackColor = true;
+            View_All_Notes_Popped.Appearance.Pressed.Options.UseForeColor = true;
+            View_All_Notes_Popped.Name = "View_All_Notes_Popped";
+            View_All_Notes_Popped.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            View_All_Notes_Popped.Text = "View All Notes Popped";
+            View_All_Notes_Popped.Click += View_All_Notes_Popped_Click;
+            // 
             // menuStrip1
             // 
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem });
@@ -126,9 +150,17 @@
             // 
             // fileToolStripMenuItem
             // 
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { importNoteToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(37, 20);
             fileToolStripMenuItem.Text = "File";
+            // 
+            // importNoteToolStripMenuItem
+            // 
+            importNoteToolStripMenuItem.Name = "importNoteToolStripMenuItem";
+            importNoteToolStripMenuItem.Size = new Size(180, 22);
+            importNoteToolStripMenuItem.Text = "Import Note";
+            importNoteToolStripMenuItem.Click += importNoteToolStripMenuItem_Click;
             // 
             // helpToolStripMenuItem
             // 
@@ -167,12 +199,14 @@
         #endregion
 
         private DevExpress.XtraBars.Navigation.AccordionControl accordionControl1;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement1;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement NotesGroupAccordionElement;
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private Panel MDI_Panel;
         private DevExpress.XtraBars.Navigation.AccordionControlElement Show_Notes_Accordion_Element;
         private DevExpress.XtraBars.Navigation.AccordionControlElement Add_A_New_Note_Accordion_Element;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement View_All_Notes_Popped;
+        private ToolStripMenuItem importNoteToolStripMenuItem;
     }
 }
