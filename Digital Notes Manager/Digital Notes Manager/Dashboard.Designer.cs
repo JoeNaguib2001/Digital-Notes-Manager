@@ -29,54 +29,53 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Dashboard));
-            simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
-            NotePanel = new DevExpress.XtraEditors.PanelControl();
-            panel1 = new Panel();
-            ((System.ComponentModel.ISupportInitialize)NotePanel).BeginInit();
+            CloseBtn = new DevExpress.XtraEditors.SimpleButton();
+            sidePanel = new Panel();
+            NotePanel = new Panel();
             SuspendLayout();
             // 
-            // simpleButton1
+            // CloseBtn
             // 
-            simpleButton1.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("simpleButton1.ImageOptions.SvgImage");
-            simpleButton1.Location = new Point(742, 12);
-            simpleButton1.Name = "simpleButton1";
-            simpleButton1.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
-            simpleButton1.Size = new Size(34, 23);
-            simpleButton1.TabIndex = 0;
+            CloseBtn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("CloseBtn.ImageOptions.SvgImage");
+            CloseBtn.Location = new Point(742, 12);
+            CloseBtn.Name = "CloseBtn";
+            CloseBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
+            CloseBtn.Size = new Size(34, 23);
+            CloseBtn.TabIndex = 0;
+            CloseBtn.Click += CloseBtn_Click;
+            // 
+            // sidePanel
+            // 
+            sidePanel.Location = new Point(12, 41);
+            sidePanel.Name = "sidePanel";
+            sidePanel.Size = new Size(161, 389);
+            sidePanel.TabIndex = 1;
             // 
             // NotePanel
             // 
-            NotePanel.Location = new Point(243, 41);
+            NotePanel.Location = new Point(179, 41);
             NotePanel.Name = "NotePanel";
-            NotePanel.Size = new Size(545, 397);
-            NotePanel.TabIndex = 1;
-            // 
-            // panel1
-            // 
-            panel1.Location = new Point(12, 36);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(225, 402);
-            panel1.TabIndex = 2;
+            NotePanel.Size = new Size(609, 389);
+            NotePanel.TabIndex = 2;
             // 
             // Dashboard
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Controls.Add(panel1);
+            ClientSize = new Size(800, 442);
             Controls.Add(NotePanel);
-            Controls.Add(simpleButton1);
+            Controls.Add(sidePanel);
+            Controls.Add(CloseBtn);
             Name = "Dashboard";
             Text = "Dashboard";
             Load += Dashboard_Load;
-            ((System.ComponentModel.ISupportInitialize)NotePanel).EndInit();
             ResumeLayout(false);
         }
 
         #endregion
 
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
-        private DevExpress.XtraEditors.PanelControl NotePanel;
-        private Panel panel1;
+        private DevExpress.XtraEditors.SimpleButton CloseBtn;
+        private Panel sidePanel;
+        private Panel NotePanel;
     }
 }
