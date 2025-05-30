@@ -229,5 +229,29 @@ namespace Digital_Notes_Manager
             NotficationDate = Calender.DateTimeOffset;
             //MessageBox.Show("Confirmed selection: " + NotficationDate.ToString());
         }
+
+        private void TitleBox_DoubleClick(object sender, EventArgs e)
+        {
+            TitleBox.Properties.ReadOnly = false;
+            TitleBox.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
+            TitleBox.Focus();
+            TitleBox.SelectAll();
+        }
+
+        private void TitleBox_Leave(object sender, EventArgs e)
+        {
+            TitleBox.Properties.ReadOnly = true;
+            TitleBox.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+        }
+
+        private void TitleBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                // Move focus to the form or another control
+                richTextBox1.Focus();
+                MessageBox.Show(TitleBox.Text);
+            }
+        }
     }
 }

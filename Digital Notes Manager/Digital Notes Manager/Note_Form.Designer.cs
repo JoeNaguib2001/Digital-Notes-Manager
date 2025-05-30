@@ -35,7 +35,9 @@
             MenuBtn = new DevExpress.XtraEditors.SimpleButton();
             Close_btn = new DevExpress.XtraEditors.SimpleButton();
             Calender = new DevExpress.XtraEditors.DateTimeOffsetEdit();
+            TitleBox = new DevExpress.XtraEditors.TextEdit();
             ((System.ComponentModel.ISupportInitialize)Calender.Properties).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)TitleBox.Properties).BeginInit();
             SuspendLayout();
             // 
             // stylePanal
@@ -55,9 +57,9 @@
             // richTextBox1
             // 
             richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Location = new Point(2, 35);
+            richTextBox1.Location = new Point(12, 25);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(260, 183);
+            richTextBox1.Size = new Size(260, 193);
             richTextBox1.TabIndex = 3;
             richTextBox1.Text = "";
             richTextBox1.TextChanged += richTextBox1_TextChanged;
@@ -75,7 +77,7 @@
             // MenuBtn
             // 
             MenuBtn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("MenuBtn.ImageOptions.SvgImage");
-            MenuBtn.Location = new Point(190, 12);
+            MenuBtn.Location = new Point(12, 0);
             MenuBtn.Name = "MenuBtn";
             MenuBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             MenuBtn.Size = new Size(39, 23);
@@ -85,7 +87,7 @@
             // Close_btn
             // 
             Close_btn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("Close_btn.ImageOptions.SvgImage");
-            Close_btn.Location = new Point(235, 12);
+            Close_btn.Location = new Point(236, 0);
             Close_btn.Name = "Close_btn";
             Close_btn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             Close_btn.Size = new Size(37, 23);
@@ -95,7 +97,7 @@
             // Calender
             // 
             Calender.EditValue = null;
-            Calender.Location = new Point(91, 15);
+            Calender.Location = new Point(57, 3);
             Calender.Name = "Calender";
             Calender.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             Calender.Properties.DisplayFormat.FormatString = "d";
@@ -106,28 +108,51 @@
             Calender.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.DateTimeOffsetMaskManager));
             Calender.Properties.MaskSettings.Set("mask", "f");
             Calender.Properties.MaskSettings.Set("MaskManagerSignature", "allowNull=False");
-            Calender.Size = new Size(100, 20);
+            Calender.Size = new Size(21, 20);
             Calender.TabIndex = 7;
             Calender.Visible = false;
             Calender.EditValueChanged += Calender_EditValueChanged;
+            // 
+            // TitleBox
+            // 
+            TitleBox.EditValue = "Note";
+            TitleBox.Location = new Point(100, -1);
+            TitleBox.Name = "TitleBox";
+            TitleBox.Properties.AllowFocused = false;
+            TitleBox.Properties.Appearance.BackColor = Color.WhiteSmoke;
+            TitleBox.Properties.Appearance.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TitleBox.Properties.Appearance.Options.UseBackColor = true;
+            TitleBox.Properties.Appearance.Options.UseFont = true;
+            TitleBox.Properties.Appearance.Options.UseTextOptions = true;
+            TitleBox.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            TitleBox.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            TitleBox.Properties.ReadOnly = true;
+            TitleBox.Size = new Size(86, 24);
+            TitleBox.TabIndex = 8;
+            TitleBox.DoubleClick += TitleBox_DoubleClick;
+            TitleBox.KeyDown += TitleBox_KeyDown;
+            TitleBox.Leave += TitleBox_Leave;
             // 
             // Note_Form
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(278, 249);
+            ClientSize = new Size(285, 249);
             Controls.Add(Close_btn);
             Controls.Add(MenuBtn);
             Controls.Add(saveBtn);
             Controls.Add(richTextBox1);
             Controls.Add(stylePanal);
             Controls.Add(Calender);
+            Controls.Add(TitleBox);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Note_Form";
             Text = "Note";
             ((System.ComponentModel.ISupportInitialize)Calender.Properties).EndInit();
+            ((System.ComponentModel.ISupportInitialize)TitleBox.Properties).EndInit();
             ResumeLayout(false);
         }
 
@@ -138,5 +163,6 @@
         private DevExpress.XtraEditors.SimpleButton Close_btn;
         public RichTextBox richTextBox1;
         private DevExpress.XtraEditors.DateTimeOffsetEdit Calender;
+        private DevExpress.XtraEditors.TextEdit TitleBox;
     }
 }
