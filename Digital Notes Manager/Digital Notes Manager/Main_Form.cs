@@ -2,6 +2,8 @@
 using DevExpress.XtraEditors;
 using Digital_Notes_Manager.AlarmSystem;
 using Digital_Notes_Manager.Models;
+
+
 namespace Digital_Notes_Manager
 {
     public partial class Main_Form : XtraForm
@@ -76,9 +78,9 @@ namespace Digital_Notes_Manager
             //    note_form.Show();
 
             //}
-            Dashboard dashboard = new Dashboard();
+            NotesDashboard dashboard = new NotesDashboard();
             this.MDI_Panel.Controls.Clear();
-            MDI_Panel.Controls.Add(dashboard.NotePanel);
+            MDI_Panel.Controls.Add(dashboard.panel1);
         }
 
         private void importNoteToolStripMenuItem_Click(object sender, EventArgs e)

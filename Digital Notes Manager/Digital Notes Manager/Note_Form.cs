@@ -44,6 +44,19 @@ namespace Digital_Notes_Manager
             GetCategory();
 
         }
+        public Note_Form(Note note)
+        {
+            InitializeComponent();
+
+            TitleBox.Text = note.Title;
+            richTextBox1.Text = note.Content;
+            Calender.EditValue = note.ReminderDate;
+            Categorybox.Text = note.Category.ToString();
+
+            this.TopLevel = false;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Dock = DockStyle.Fill;
+        }
         private void SetTextStyle()
         {
             FontStyle style = FontStyle.Regular;
