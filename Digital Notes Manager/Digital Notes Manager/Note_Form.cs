@@ -257,7 +257,6 @@ namespace Digital_Notes_Manager
         //}
         private void saveBtn_Click(object sender, EventArgs e)
         {
-
             NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(+2));
             if (Mode == Mode.Add)
             {
