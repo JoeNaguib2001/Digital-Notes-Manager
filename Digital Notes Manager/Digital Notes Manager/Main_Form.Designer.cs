@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             accordionControl1 = new DevExpress.XtraBars.Navigation.AccordionControl();
+            button1 = new Button();
             NotesGroupAccordionElement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             Show_Notes_Accordion_Element = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             Add_A_New_Note_Accordion_Element = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -44,7 +45,7 @@
             // 
             // accordionControl1
             // 
-            accordionControl1.Appearance.AccordionControl.BackColor = Color.FromArgb(46, 49, 56);
+            accordionControl1.Appearance.AccordionControl.BackColor = Color.FromArgb(30, 30, 46);
             accordionControl1.Appearance.AccordionControl.Options.UseBackColor = true;
             accordionControl1.Dock = DockStyle.Left;
             accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { NotesGroupAccordionElement });
@@ -56,6 +57,16 @@
             accordionControl1.Size = new Size(260, 750);
             accordionControl1.TabIndex = 0;
             accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(92, 306);
+            button1.Name = "button1";
+            button1.Size = new Size(104, 53);
+            button1.TabIndex = 2;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // NotesGroupAccordionElement
             // 
@@ -74,7 +85,6 @@
             NotesGroupAccordionElement.Appearance.Pressed.Options.UseBackColor = true;
             NotesGroupAccordionElement.Appearance.Pressed.Options.UseForeColor = true;
             NotesGroupAccordionElement.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { Show_Notes_Accordion_Element, Add_A_New_Note_Accordion_Element, View_All_Notes_Popped });
-            NotesGroupAccordionElement.Expanded = true;
             NotesGroupAccordionElement.Name = "NotesGroupAccordionElement";
             NotesGroupAccordionElement.Text = "My Notes";
             // 
@@ -170,6 +180,8 @@
             // 
             // MDI_Panel
             // 
+            MDI_Panel.BackColor = Color.FromArgb(30, 30, 46);
+            MDI_Panel.Dock = DockStyle.Fill;
             MDI_Panel.Anchor = AnchorStyles.None;
             MDI_Panel.Location = new Point(260, 24);
             MDI_Panel.Name = "MDI_Panel";
