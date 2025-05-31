@@ -3,10 +3,13 @@ using Digital_Notes_Manager.Controller;
 using Digital_Notes_Manager.Models;
 using System.Data;
 using System.Drawing.Drawing2D;
+using DevExpress.XtraEditors;
 
 
 namespace Digital_Notes_Manager
 {
+
+
     public partial class Dashboard : RibbonForm
     {
         private List<Note_Form> noteForms = new List<Note_Form>();
@@ -15,6 +18,8 @@ namespace Digital_Notes_Manager
         private int noteWidth = 300;
         private int noteHeight = 180;
         private int margin = 10;
+
+
         public Dashboard()
         {
             InitializeComponent();

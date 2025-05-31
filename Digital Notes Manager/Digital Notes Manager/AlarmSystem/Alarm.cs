@@ -8,7 +8,7 @@ namespace Digital_Notes_Manager.AlarmSystem
         public static List<Note> notes;
         private static Queue<Note> noteQueue;
         private Main_Form mainFormInstance;
-
+        public static List<Note> EndReminerNotes;
 
 
         public Alarm(Main_Form form, List<Note> notesFromForm)
@@ -96,6 +96,7 @@ namespace Digital_Notes_Manager.AlarmSystem
                     }
                     else if (timeDifference < TimeSpan.Zero)
                     {
+                        await  NotifyEndReminderDate(note); 
                         noteQueue.Dequeue();
                     }
                 }
@@ -115,6 +116,10 @@ namespace Digital_Notes_Manager.AlarmSystem
         {
             SystemSounds.Asterisk.Play();
             mainFormInstance.IsMached(note);
+
+        }
+        public async Task NotifyEndReminderDate(Note note) {
+            EndReminerNotes.Add(note);
 
         }
 
