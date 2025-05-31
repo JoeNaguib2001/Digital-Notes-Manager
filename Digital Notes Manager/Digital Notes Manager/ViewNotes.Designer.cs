@@ -29,12 +29,7 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions2 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewNotes));
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject5 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject6 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject7 = new DevExpress.Utils.SerializableAppearanceObject();
-            DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject8 = new DevExpress.Utils.SerializableAppearanceObject();
             panel1 = new Panel();
             Notes_Grid = new DevExpress.XtraGrid.GridControl();
             gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
@@ -108,7 +103,7 @@
             // 
             // colTitle
             // 
-            colTitle.AppearanceCell.BackColor = Color.FromArgb(60, 63, 70);
+            colTitle.AppearanceCell.BackColor = Color.FromArgb(30, 30, 46);
             colTitle.AppearanceCell.Font = new Font("Tahoma", 17.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             colTitle.AppearanceCell.ForeColor = Color.White;
             colTitle.AppearanceCell.Options.UseBackColor = true;
@@ -117,7 +112,7 @@
             colTitle.AppearanceCell.Options.UseTextOptions = true;
             colTitle.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colTitle.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            colTitle.AppearanceHeader.BackColor = Color.FromArgb(46, 49, 56);
+            colTitle.AppearanceHeader.BackColor = Color.FromArgb(30, 30, 46);
             colTitle.AppearanceHeader.Font = new Font("Tahoma", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             colTitle.AppearanceHeader.ForeColor = Color.Black;
             colTitle.AppearanceHeader.Options.UseBackColor = true;
@@ -134,7 +129,7 @@
             // 
             // colCreationDate
             // 
-            colCreationDate.AppearanceCell.BackColor = Color.FromArgb(60, 63, 70);
+            colCreationDate.AppearanceCell.BackColor = Color.FromArgb(30, 30, 46);
             colCreationDate.AppearanceCell.Font = new Font("Tahoma", 17.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             colCreationDate.AppearanceCell.ForeColor = Color.White;
             colCreationDate.AppearanceCell.Options.UseBackColor = true;
@@ -143,7 +138,7 @@
             colCreationDate.AppearanceCell.Options.UseTextOptions = true;
             colCreationDate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colCreationDate.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            colCreationDate.AppearanceHeader.BackColor = Color.FromArgb(46, 49, 56);
+            colCreationDate.AppearanceHeader.BackColor = Color.FromArgb(30, 30, 46);
             colCreationDate.AppearanceHeader.Font = new Font("Tahoma", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             colCreationDate.AppearanceHeader.ForeColor = Color.Black;
             colCreationDate.AppearanceHeader.Options.UseBackColor = true;
@@ -160,7 +155,7 @@
             // 
             // colReminderDate
             // 
-            colReminderDate.AppearanceCell.BackColor = Color.FromArgb(60, 63, 70);
+            colReminderDate.AppearanceCell.BackColor = Color.FromArgb(30, 30, 46);
             colReminderDate.AppearanceCell.Font = new Font("Tahoma", 17.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             colReminderDate.AppearanceCell.ForeColor = Color.White;
             colReminderDate.AppearanceCell.Options.UseBackColor = true;
@@ -169,7 +164,7 @@
             colReminderDate.AppearanceCell.Options.UseTextOptions = true;
             colReminderDate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colReminderDate.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            colReminderDate.AppearanceHeader.BackColor = Color.FromArgb(46, 49, 56);
+            colReminderDate.AppearanceHeader.BackColor = Color.FromArgb(30, 30, 46);
             colReminderDate.AppearanceHeader.Font = new Font("Tahoma", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
             colReminderDate.AppearanceHeader.ForeColor = Color.Black;
             colReminderDate.AppearanceHeader.Options.UseBackColor = true;
@@ -188,7 +183,7 @@
             // 
             // colCategory
             // 
-            colCategory.AppearanceCell.BackColor = Color.FromArgb(60, 63, 70);
+            colCategory.AppearanceCell.BackColor = Color.FromArgb(30, 30, 46);
             colCategory.AppearanceCell.Font = new Font("Tahoma", 17.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             colCategory.AppearanceCell.ForeColor = Color.White;
             colCategory.AppearanceCell.Options.UseBackColor = true;
@@ -197,7 +192,7 @@
             colCategory.AppearanceCell.Options.UseTextOptions = true;
             colCategory.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colCategory.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            colCategory.AppearanceHeader.BackColor = Color.FromArgb(46, 49, 56);
+            colCategory.AppearanceHeader.BackColor = Color.FromArgb(30, 30, 46);
             colCategory.AppearanceHeader.Font = new Font("Tahoma", 20.25F, FontStyle.Bold);
             colCategory.AppearanceHeader.ForeColor = Color.White;
             colCategory.AppearanceHeader.Options.UseBackColor = true;
@@ -215,12 +210,12 @@
             // 
             // DeleteColumn
             // 
-            DeleteColumn.AppearanceCell.BackColor = Color.FromArgb(60, 63, 70);
+            DeleteColumn.AppearanceCell.BackColor = Color.FromArgb(30, 30, 46);
             DeleteColumn.AppearanceCell.Options.UseBackColor = true;
             DeleteColumn.AppearanceCell.Options.UseTextOptions = true;
             DeleteColumn.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             DeleteColumn.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            DeleteColumn.AppearanceHeader.BackColor = Color.FromArgb(46, 49, 56);
+            DeleteColumn.AppearanceHeader.BackColor = Color.FromArgb(30, 30, 46);
             DeleteColumn.AppearanceHeader.Options.UseBackColor = true;
             DeleteColumn.AppearanceHeader.Options.UseTextOptions = true;
             DeleteColumn.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -233,8 +228,7 @@
             // BtnDelete
             // 
             BtnDelete.AutoHeight = false;
-            editorButtonImageOptions2.Image = (Image)resources.GetObject("editorButtonImageOptions2.Image");
-            BtnDelete.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph, "", -1, true, true, false, editorButtonImageOptions2, new DevExpress.Utils.KeyShortcut(Keys.None), serializableAppearanceObject5, serializableAppearanceObject6, serializableAppearanceObject7, serializableAppearanceObject8, "", null, null, DevExpress.Utils.ToolTipAnchor.Default) });
+            BtnDelete.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Glyph) });
             BtnDelete.Name = "BtnDelete";
             BtnDelete.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.HideTextEditor;
             // 
@@ -269,6 +263,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.FromArgb(30, 30, 46);
             ClientSize = new Size(915, 565);
             Controls.Add(panel1);
             Icon = (Icon)resources.GetObject("$this.Icon");

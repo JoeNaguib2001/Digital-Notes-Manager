@@ -27,9 +27,9 @@ namespace Digital_Notes_Manager
             LoadingNotes();
 
             // تعديل مكان الأزرار لتكون تحت النوتس مباشرة
-            int buttonsY = 10 + noteHeight + 10; // أعلى النوتس + ارتفاع النوت + مسافة بسيطة
-            PreviousBtn.Location = new Point(10, buttonsY);
-            NextBtn.Location = new Point(10 + (notesToShow * (noteWidth + margin)) - NextBtn.Width, buttonsY);
+            //int buttonsY = 10 + noteHeight + 10; // أعلى النوتس + ارتفاع النوت + مسافة بسيطة
+            //PreviousBtn.Location = new Point(10, buttonsY);
+            //NextBtn.Location = new Point(10 + (notesToShow * (noteWidth + margin)) - NextBtn.Width, buttonsY);
 
             PreviousBtn.BringToFront();
             NextBtn.BringToFront();
