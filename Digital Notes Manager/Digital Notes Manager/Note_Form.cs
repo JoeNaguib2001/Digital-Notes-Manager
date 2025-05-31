@@ -1,6 +1,7 @@
 ﻿using DevExpress.XtraBars;
 using DevExpress.XtraBars.Docking2010;
 using DevExpress.XtraBars.Ribbon;
+using Digital_Notes_Manager.AlarmSystem;
 using Digital_Notes_Manager.Models;
 using System.Drawing.Drawing2D;
 using System.Runtime.InteropServices;
@@ -14,6 +15,7 @@ namespace Digital_Notes_Manager
     }
     public partial class Note_Form : RibbonForm
     {
+
         public Mode Mode { get; set; }
         public int noteId { get; set; }
 
@@ -84,7 +86,7 @@ namespace Digital_Notes_Manager
             //    var selectedColor = e.Item.HintColor; // Custom extension or mapping
             //};
         }
-        public Note_Form(Note note)
+        public Note_Form(Digital_Notes_Manager.Models.Note note)
         {
             InitializeComponent();
 
@@ -100,7 +102,7 @@ namespace Digital_Notes_Manager
         //change bell image
         public void ChangeBell()
         {
-            if (NotficationDate > DateTimeOffset.Now)
+            if (NotficationDate > DateTime.Now)
                 BellButton.ImageOptions.Image = Properties.Resources.bell2;
         }
         private void SetTextStyle()
@@ -255,20 +257,23 @@ namespace Digital_Notes_Manager
         //}
         private void saveBtn_Click(object sender, EventArgs e)
         {
+
+            NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(+2));
             if (Mode == Mode.Add)
             {
-                Note newNote = new Note
+                Digital_Notes_Manager.Models.Note newNote = new Digital_Notes_Manager.Models.Note
                 {
                     Title = _Title,
                     Content = richTextBox1.Rtf,
                     CreationDate = DateTime.Now,
-                    ReminderDate = NotficationDate,
+                    ReminderDate = NotficationDate.DateTime,
                     Category = (Category)Enum.Parse(typeof(Category), _Category),
                     UserID = Properties.Settings.Default.userID
                 };
 
                 _ManageNoteContext.Notes.Add(newNote);
                 _ManageNoteContext.SaveChanges();
+                Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
                 Utilities.SetNotesGridControlDataSource();
                 Mode = Mode.Edit;
                 noteId = newNote.ID;
@@ -282,17 +287,18 @@ namespace Digital_Notes_Manager
                 {
                     currentNote.Title = _Title;
                     currentNote.Content = richTextBox1.Rtf;
-                    currentNote.ReminderDate = NotficationDate;
+                    currentNote.ReminderDate = NotficationDate.DateTime;
                     currentNote.Category = (Category)Enum.Parse(typeof(Category), _Category);
                     _ManageNoteContext.Notes.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     _ManageNoteContext.SaveChanges();
-
+                    Alarm.AddNewNoteToAlarmSystemNotesList(currentNote);
                     _ManageNoteContext.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached; // هنا بتعمل ديتاتش
 
                     Utilities.SetNotesGridControlDataSource();
                 }
 
             }
+
         }
 
         private void Calender_EditValueChanged(object sender, EventArgs e)

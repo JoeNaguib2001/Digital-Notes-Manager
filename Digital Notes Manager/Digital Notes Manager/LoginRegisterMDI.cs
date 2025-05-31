@@ -13,8 +13,8 @@ namespace Digital_Notes_Manager
             //Utilities.LoginRegisterMDI = this;
             if (Utilities.RememberMe())
                 AutoLogin();
-            //else
-            //    LoadLogin();
+            else
+                LoadLogin();
         }
         private void AutoLogin()
         {
