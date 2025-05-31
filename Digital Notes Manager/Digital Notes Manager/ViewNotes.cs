@@ -132,7 +132,11 @@ namespace Digital_Notes_Manager
         {
             Note_Form noteForm = new Note_Form();
             var selectedRow = gridView1.GetFocusedRow() as Note;
-            noteForm.richTextBox1.Text = selectedRow?.Content ?? string.Empty;
+            RichTextBox rt = new RichTextBox();
+            rt.Rtf = selectedRow.Content;
+            noteForm.richTextBox1.Rtf = rt.Rtf;
+            noteForm._Title = selectedRow.Title;
+            noteForm.Categorybox.Text = selectedRow.Category.ToString();
             noteForm.Show();
         }
 
@@ -152,32 +156,15 @@ namespace Digital_Notes_Manager
                 try
                 {
 
-
                     RichTextBox richTextBox = new RichTextBox();
 
-
-
-                    richTextBox.SelectionAlignment = HorizontalAlignment.Center;
-                    richTextBox.SelectionFont = new Font("Arial", 20, FontStyle.Bold | FontStyle.Underline);
-                    richTextBox.SelectionColor = Color.DarkRed;
-                    richTextBox.AppendText($"{selectedRow.Title}\n\n");
-
-
-                    richTextBox.SelectionAlignment = HorizontalAlignment.Left;
-                    richTextBox.SelectionFont = new Font("Arial", 12, FontStyle.Bold | FontStyle.Italic);
-                    richTextBox.SelectionColor = Color.DarkGreen;
-                    richTextBox.AppendText($"Category: {selectedRow.Category}");
-                    richTextBox.AppendText($"                                ");
-                    richTextBox.AppendText($"Created On: {selectedRow.CreationDate:dd/MM/yyyy}\n");
-
-
-                    richTextBox.SelectionFont = new Font("Arial", 12, FontStyle.Regular);
-                    richTextBox.SelectionColor = Color.Gray;
-                    richTextBox.AppendText("------------------------------------------------------------------------------------------------------------\n\n");
-
-                    richTextBox.SelectionFont = new Font("Arial", 14, FontStyle.Regular);
                     richTextBox.SelectionColor = Color.Black;
-                    richTextBox.AppendText(selectedRow.Content ?? "");
+                    RichTextBox textBox = new RichTextBox();
+                    textBox.Rtf = selectedRow.Content;
+
+
+                    //richTextBox.SelectionFont = textBox.Font;
+                    richTextBox.Rtf = textBox.Rtf;
 
 
                     richTextBox.SaveFile(saveFileDialog.FileName, RichTextBoxStreamType.RichText);

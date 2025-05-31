@@ -37,11 +37,14 @@
             Calender = new DevExpress.XtraEditors.DateTimeOffsetEdit();
             TitleBox = new DevExpress.XtraEditors.TextEdit();
             Categorybox = new DevExpress.XtraEditors.ComboBoxEdit();
-            panel1 = new Panel();
+            DownPanel = new Panel();
+            BellButton = new DevExpress.XtraEditors.SimpleButton();
+            TopPanal = new Panel();
             ((System.ComponentModel.ISupportInitialize)Calender.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TitleBox.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Categorybox.Properties).BeginInit();
-            panel1.SuspendLayout();
+            DownPanel.SuspendLayout();
+            TopPanal.SuspendLayout();
             SuspendLayout();
             // 
             // stylePanal
@@ -60,9 +63,9 @@
             // richTextBox1
             // 
             richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Location = new Point(12, 25);
+            richTextBox1.Location = new Point(8, 37);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(260, 193);
+            richTextBox1.Size = new Size(260, 179);
             richTextBox1.TabIndex = 3;
             richTextBox1.Text = "";
             // 
@@ -78,29 +81,33 @@
             // 
             // MenuBtn
             // 
+            MenuBtn.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             MenuBtn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("MenuBtn.ImageOptions.SvgImage");
-            MenuBtn.Location = new Point(12, 0);
+            MenuBtn.Location = new Point(0, 0);
             MenuBtn.Name = "MenuBtn";
             MenuBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
-            MenuBtn.Size = new Size(39, 23);
+            MenuBtn.Size = new Size(62, 33);
             MenuBtn.TabIndex = 5;
-            MenuBtn.Click += MenuBtn_Click;
             // 
             // Close_btn
             // 
+            Close_btn.Appearance.Options.UseBackColor = true;
+            Close_btn.Appearance.Options.UseBorderColor = true;
+            Close_btn.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             Close_btn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("Close_btn.ImageOptions.SvgImage");
-            Close_btn.Location = new Point(243, 0);
+            Close_btn.Location = new Point(236, 0);
             Close_btn.Name = "Close_btn";
             Close_btn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
-            Close_btn.Size = new Size(30, 23);
+            Close_btn.Size = new Size(41, 33);
             Close_btn.TabIndex = 6;
             Close_btn.Click += Close_btn_Click;
             // 
             // Calender
             // 
             Calender.EditValue = null;
-            Calender.Location = new Point(57, 3);
+            Calender.Location = new Point(30, 8);
             Calender.Name = "Calender";
+            Calender.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             Calender.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             Calender.Properties.DisplayFormat.FormatString = "d";
             Calender.Properties.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
@@ -110,7 +117,8 @@
             Calender.Properties.MaskSettings.Set("MaskManagerType", typeof(DevExpress.Data.Mask.DateTimeOffsetMaskManager));
             Calender.Properties.MaskSettings.Set("mask", "f");
             Calender.Properties.MaskSettings.Set("MaskManagerSignature", "allowNull=False");
-            Calender.Size = new Size(21, 20);
+            Calender.Properties.PopupBorderStyle = DevExpress.XtraEditors.Controls.PopupBorderStyles.NoBorder;
+            Calender.Size = new Size(21, 18);
             Calender.TabIndex = 7;
             Calender.Visible = false;
             Calender.EditValueChanged += Calender_EditValueChanged;
@@ -118,7 +126,7 @@
             // TitleBox
             // 
             TitleBox.EditValue = "Note";
-            TitleBox.Location = new Point(100, -1);
+            TitleBox.Location = new Point(100, 3);
             TitleBox.Name = "TitleBox";
             TitleBox.Properties.AllowFocused = false;
             TitleBox.Properties.Appearance.BackColor = Color.WhiteSmoke;
@@ -140,32 +148,55 @@
             Categorybox.Location = new Point(162, 5);
             Categorybox.Name = "Categorybox";
             Categorybox.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
+            Categorybox.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
             Categorybox.Size = new Size(100, 20);
             Categorybox.TabIndex = 9;
+            Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
             // 
-            // panel1
+            // DownPanel
             // 
-            panel1.Controls.Add(stylePanal);
-            panel1.Controls.Add(Categorybox);
-            panel1.Controls.Add(saveBtn);
-            panel1.Dock = DockStyle.Bottom;
-            panel1.Location = new Point(0, 222);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(280, 28);
-            panel1.TabIndex = 10;
+            DownPanel.Controls.Add(stylePanal);
+            DownPanel.Controls.Add(Categorybox);
+            DownPanel.Controls.Add(saveBtn);
+            DownPanel.Dock = DockStyle.Bottom;
+            DownPanel.Location = new Point(0, 222);
+            DownPanel.Name = "DownPanel";
+            DownPanel.Size = new Size(277, 28);
+            DownPanel.TabIndex = 10;
+            // 
+            // BellButton
+            // 
+            BellButton.ImageOptions.Image = Properties.Resources.bell1;
+            BellButton.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
+            BellButton.Location = new Point(57, 0);
+            BellButton.Name = "BellButton";
+            BellButton.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
+            BellButton.Size = new Size(38, 33);
+            BellButton.TabIndex = 10;
+            // 
+            // TopPanal
+            // 
+            TopPanal.Controls.Add(Calender);
+            TopPanal.Controls.Add(BellButton);
+            TopPanal.Controls.Add(Close_btn);
+            TopPanal.Controls.Add(TitleBox);
+            TopPanal.Controls.Add(MenuBtn);
+            TopPanal.Dock = DockStyle.Top;
+            TopPanal.Location = new Point(0, 0);
+            TopPanal.Name = "TopPanal";
+            TopPanal.Size = new Size(277, 33);
+            TopPanal.TabIndex = 11;
+            TopPanal.MouseDown += TopPanal_MouseDown;
             // 
             // Note_Form
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(280, 250);
-            Controls.Add(panel1);
-            Controls.Add(Close_btn);
-            Controls.Add(MenuBtn);
+            ClientSize = new Size(277, 250);
+            Controls.Add(TopPanal);
+            Controls.Add(DownPanel);
             Controls.Add(richTextBox1);
-            Controls.Add(Calender);
-            Controls.Add(TitleBox);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -174,7 +205,8 @@
             ((System.ComponentModel.ISupportInitialize)Calender.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)TitleBox.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)Categorybox.Properties).EndInit();
-            panel1.ResumeLayout(false);
+            DownPanel.ResumeLayout(false);
+            TopPanal.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -186,7 +218,9 @@
         public RichTextBox richTextBox1;
         private DevExpress.XtraEditors.DateTimeOffsetEdit Calender;
         private DevExpress.XtraEditors.TextEdit TitleBox;
-        private DevExpress.XtraEditors.ComboBoxEdit Categorybox;
-        private Panel panel1;
+        private Panel DownPanel;
+        private DevExpress.XtraEditors.SimpleButton BellButton;
+        private Panel TopPanal;
+        public DevExpress.XtraEditors.ComboBoxEdit Categorybox;
     }
 }

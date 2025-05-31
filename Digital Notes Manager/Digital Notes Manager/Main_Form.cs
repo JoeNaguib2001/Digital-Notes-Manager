@@ -95,8 +95,10 @@ namespace Digital_Notes_Manager
                 {
                     Note_Form note = new Note_Form();
 
-                    note.richTextBox1.LoadFile(openFile.FileName, RichTextBoxStreamType.RichText);
 
+                    note.richTextBox1.LoadFile(openFile.FileName, RichTextBoxStreamType.RichText);
+                    string x = note.richTextBox1.Rtf;
+                    note.richTextBox1.Rtf = x;
                     note.Show();
                 }
                 catch (Exception ex)

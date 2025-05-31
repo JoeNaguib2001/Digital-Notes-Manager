@@ -218,7 +218,7 @@
             // importNoteToolStripMenuItem
             // 
             importNoteToolStripMenuItem.Name = "importNoteToolStripMenuItem";
-            importNoteToolStripMenuItem.Size = new Size(139, 22);
+            importNoteToolStripMenuItem.Size = new Size(180, 22);
             importNoteToolStripMenuItem.Text = "Import Note";
             importNoteToolStripMenuItem.Click += importNoteToolStripMenuItem_Click;
             // 
