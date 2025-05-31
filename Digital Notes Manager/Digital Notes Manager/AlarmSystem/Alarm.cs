@@ -96,7 +96,7 @@ namespace Digital_Notes_Manager.AlarmSystem
                     }
                     else if (timeDifference < TimeSpan.Zero)
                     {
-                        await  NotifyEndReminderDate(note); 
+                        await NotifyEndReminderDate(note);
                         noteQueue.Dequeue();
                     }
                 }
@@ -118,8 +118,9 @@ namespace Digital_Notes_Manager.AlarmSystem
             mainFormInstance.IsMached(note);
 
         }
-        public async Task NotifyEndReminderDate(Note note) {
-            EndReminerNotes.Add(note);
+        public async Task NotifyEndReminderDate(Note note)
+        {
+            // EndReminerNotes.Add(note);
 
         }
 
