@@ -11,26 +11,18 @@ namespace Digital_Notes_Manager
         public static LoginRegisterMDI LoginRegisterMDI { get; set; }
         public static void SetNotesGridControlDataSource()
         {
-            var list = manageNoteContext.Notes.Where(x => x.UserID == Properties.Settings.Default.UserID).ToList();
+            var list = manageNoteContext.Notes.Where(x => x.UserID == Properties.Settings.Default.userID).ToList();
 
             BindingList<Note> BLN = new BindingList<Note>(list);
             GridControl.DataSource = BLN;
         }
+
+
+        public static bool RememberMe()
+        {
+            return Properties.Settings.Default.rememberMe;
+        }
     }
 }
 
-
-//private void LoadNotesForm()
-//{
-//    this.MDI_Panel.Controls.Clear();
-//    viewNotes = new ViewNotes(manageNoteContext, this);
-//    SetDataSource(viewNotes.Notes_Grid);
-//    MDI_Panel.Controls.Add(viewNotes.panel1);
-//}
-//public void SetDataSource(GridControl GC)
-//{
-//    var list = manageNoteContext.Notes.ToList();
-//    BindingList<Note> BLN = new BindingList<Note>(list);
-//    GC.DataSource = BLN;
-//}
 

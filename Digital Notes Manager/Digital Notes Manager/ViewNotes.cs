@@ -194,8 +194,43 @@ namespace Digital_Notes_Manager
             }
         }
 
+        private void gridView1_CustomUnboundColumnData(object sender, CustomColumnDataEventArgs e)
+        {
+            if (e.Column.FieldName == "TimeDiff" && e.IsGetData)
+            {
+                var row = e.Row as Note;
+                if (row != null)
+                {
+                    var reminderDate = row.ReminderDate;
+                    var now = DateTime.Now;
+                    var diff = reminderDate - now;
 
+                    if (diff.TotalSeconds < 0)
+                    {
+                        e.Value = "";
+                    }
+                    else if (diff.TotalDays >= 1)
+                    {
+                        e.Value = $"{(int)diff.TotalDays} day(s)";
+                    }
+                    else if (diff.TotalHours >= 1)
+                    {
+                        e.Value = $"{(int)diff.TotalHours} hour(s)";
+                    }
+                    else
+                    {
+                        e.Value = $"{diff.Minutes} minute(s) and {diff.Seconds} second(s)";
+                    }
+                }
+            }
+        }
+
+        private void liveTimer_Tick(object sender, EventArgs e)
+        {
+            gridView1.RefreshData();
+        }
     }
 }
+
 
 

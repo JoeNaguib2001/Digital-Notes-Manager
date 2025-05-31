@@ -98,8 +98,8 @@
             ClientSize = new Size(673, 441);
             Controls.Add(loginRegisterMDIPanel);
             Controls.Add(panel1);
+            FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "LoginRegisterMDI";
-            Text = "LoginRegisterMDI";
             panel1.ResumeLayout(false);
             ResumeLayout(false);
         }

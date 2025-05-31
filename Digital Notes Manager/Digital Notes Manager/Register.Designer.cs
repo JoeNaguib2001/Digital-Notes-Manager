@@ -36,6 +36,7 @@
             passwordTxt = new DevExpress.XtraEditors.TextEdit();
             SinUpBtn = new DevExpress.XtraEditors.SimpleButton();
             registerPanel = new Panel();
+            RememberMeCheckBox = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)usernameTxt.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)passwordConfirmTxt.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)passwordTxt.Properties).BeginInit();
@@ -146,6 +147,7 @@
             // registerPanel
             // 
             registerPanel.BackColor = Color.FromArgb(30, 30, 46);
+            registerPanel.Controls.Add(RememberMeCheckBox);
             registerPanel.Controls.Add(SinUpBtn);
             registerPanel.Controls.Add(usernameLabel);
             registerPanel.Controls.Add(passwordTxt);
@@ -159,6 +161,18 @@
             registerPanel.Name = "registerPanel";
             registerPanel.Size = new Size(700, 404);
             registerPanel.TabIndex = 8;
+            // 
+            // RememberMeCheckBox
+            // 
+            RememberMeCheckBox.AutoSize = true;
+            RememberMeCheckBox.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            RememberMeCheckBox.ForeColor = Color.Gainsboro;
+            RememberMeCheckBox.Location = new Point(87, 243);
+            RememberMeCheckBox.Name = "RememberMeCheckBox";
+            RememberMeCheckBox.Size = new Size(223, 41);
+            RememberMeCheckBox.TabIndex = 8;
+            RememberMeCheckBox.Text = "Remember me";
+            RememberMeCheckBox.UseVisualStyleBackColor = true;
             // 
             // Register
             // 
@@ -188,5 +202,6 @@
         private DevExpress.XtraEditors.TextEdit passwordTxt;
         public Panel registerPanel;
         private DevExpress.XtraEditors.SimpleButton SinUpBtn;
+        private CheckBox RememberMeCheckBox;
     }
 }

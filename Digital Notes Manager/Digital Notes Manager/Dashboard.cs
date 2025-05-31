@@ -60,7 +60,7 @@ namespace Digital_Notes_Manager
             noteForms.Clear();
 
             UserController user = new UserController();
-            var notes = user.GetNotesByUserId(Properties.Settings.Default.UserID);
+            var notes = user.GetNotesByUserId(Properties.Settings.Default.userID);
 
             foreach (var note in notes)
             {

@@ -122,7 +122,7 @@ namespace Digital_Notes_Manager
         }
         private async void Notify_Load(object sender, EventArgs e)
         {
-            int userId = Properties.Settings.Default.UserID;
+            int userId = Properties.Settings.Default.userID;
             List<Note> list = manageNoteContext.Notes
                 .Where(x => x.UserID == userId)
                 .AsEnumerable()
@@ -132,26 +132,10 @@ namespace Digital_Notes_Manager
             _ = alarm.CompareTimeAsync();
         }
 
-        private void button1_Click(object sender, EventArgs e)
+
+
+        private void LogoutAccordionElement_Click(object sender, EventArgs e)
         {
-            using var context = new ManageNoteContext();
-            var reminderDate = new DateTimeOffset(2025, 5, 30, 21, 45, 0, TimeZoneInfo.Local.GetUtcOffset(DateTime.Now));
-
-            var newNote = new Note
-            {
-                Title = "New Note",
-                Content = "This is a new note added manually.",
-                Category = Category.Work,
-                CreationDate = DateTime.Now,
-                ReminderDate = reminderDate,
-                UserID = 2 // لازم تتأكد إن اليوزر ده موجود
-            };
-            //Alarm.AddNewNoteToAlarmSystemNotesList();
-
-            Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
-            //context.Notes.Add(newNote);
-            //context.SaveChanges();
-
 
         }
     }

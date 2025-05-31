@@ -30,36 +30,52 @@
         {
             accordionControl1 = new DevExpress.XtraBars.Navigation.AccordionControl();
             accordionControlElement1 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            dateTimePicker1 = new DateTimePicker();
+            accordionControlElement2 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            comboBox1 = new ComboBox();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
             SuspendLayout();
             // 
             // accordionControl1
             // 
-            accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { accordionControlElement1 });
+            accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { accordionControlElement1, accordionControlElement2 });
             accordionControl1.Location = new Point(22, 50);
+            accordionControl1.LookAndFeel.SkinMaskColor = Color.FromArgb(255, 192, 255);
+            accordionControl1.LookAndFeel.SkinMaskColor2 = Color.FromArgb(255, 224, 192);
+            accordionControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             accordionControl1.Name = "accordionControl1";
             accordionControl1.Size = new Size(260, 300);
             accordionControl1.TabIndex = 0;
             // 
             // accordionControlElement1
             // 
+            accordionControlElement1.Appearance.Normal.BackColor = Color.Red;
+            accordionControlElement1.Appearance.Normal.Options.UseBackColor = true;
             accordionControlElement1.Name = "accordionControlElement1";
+            accordionControlElement1.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             accordionControlElement1.Text = "Element1";
             // 
-            // dateTimePicker1
+            // accordionControlElement2
             // 
-            dateTimePicker1.Location = new Point(480, 97);
-            dateTimePicker1.Name = "dateTimePicker1";
-            dateTimePicker1.Size = new Size(200, 23);
-            dateTimePicker1.TabIndex = 1;
+            accordionControlElement2.Appearance.Normal.BackColor = Color.Red;
+            accordionControlElement2.Appearance.Normal.Options.UseBackColor = true;
+            accordionControlElement2.Name = "accordionControlElement2";
+            accordionControlElement2.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            accordionControlElement2.Text = "Element2";
+            // 
+            // comboBox1
+            // 
+            comboBox1.FormattingEnabled = true;
+            comboBox1.Location = new Point(308, 224);
+            comboBox1.Name = "comboBox1";
+            comboBox1.Size = new Size(121, 23);
+            comboBox1.TabIndex = 1;
             // 
             // Testing
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
-            Controls.Add(dateTimePicker1);
+            Controls.Add(comboBox1);
             Controls.Add(accordionControl1);
             Name = "Testing";
             Text = "Testing";
@@ -71,6 +87,7 @@
 
         private DevExpress.XtraBars.Navigation.AccordionControl accordionControl1;
         private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement1;
-        private DateTimePicker dateTimePicker1;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement2;
+        private ComboBox comboBox1;
     }
 }

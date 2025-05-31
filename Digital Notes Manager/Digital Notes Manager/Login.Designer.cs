@@ -34,6 +34,7 @@
             userNameTxt = new DevExpress.XtraEditors.TextEdit();
             passwordTxt = new DevExpress.XtraEditors.TextEdit();
             loginPanel = new Panel();
+            RememberMeCheckBox = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)userNameTxt.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)passwordTxt.Properties).BeginInit();
             loginPanel.SuspendLayout();
@@ -58,7 +59,7 @@
             passwordLabel.Appearance.ForeColor = Color.Gainsboro;
             passwordLabel.Appearance.Options.UseFont = true;
             passwordLabel.Appearance.Options.UseForeColor = true;
-            passwordLabel.Location = new Point(73, 166);
+            passwordLabel.Location = new Point(73, 141);
             passwordLabel.Margin = new Padding(4, 2, 4, 2);
             passwordLabel.Name = "passwordLabel";
             passwordLabel.Size = new Size(122, 36);
@@ -102,7 +103,7 @@
             // 
             // passwordTxt
             // 
-            passwordTxt.Location = new Point(285, 160);
+            passwordTxt.Location = new Point(285, 135);
             passwordTxt.Margin = new Padding(4, 3, 4, 3);
             passwordTxt.Name = "passwordTxt";
             passwordTxt.Properties.Appearance.BackColor = Color.FromArgb(45, 47, 59);
@@ -119,6 +120,7 @@
             // loginPanel
             // 
             loginPanel.BackColor = Color.FromArgb(30, 30, 46);
+            loginPanel.Controls.Add(RememberMeCheckBox);
             loginPanel.Controls.Add(loginBtn);
             loginPanel.Controls.Add(passwordTxt);
             loginPanel.Controls.Add(userNameTxt);
@@ -132,12 +134,24 @@
             loginPanel.Size = new Size(689, 367);
             loginPanel.TabIndex = 7;
             // 
+            // RememberMeCheckBox
+            // 
+            RememberMeCheckBox.AutoSize = true;
+            RememberMeCheckBox.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            RememberMeCheckBox.Location = new Point(73, 211);
+            RememberMeCheckBox.Name = "RememberMeCheckBox";
+            RememberMeCheckBox.Size = new Size(223, 41);
+            RememberMeCheckBox.TabIndex = 7;
+            RememberMeCheckBox.Text = "Remember me";
+            RememberMeCheckBox.UseVisualStyleBackColor = true;
+            // 
             // Login
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(689, 367);
             Controls.Add(loginPanel);
+            FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(4, 2, 4, 2);
             Name = "Login";
             Text = "Login";
@@ -156,5 +170,6 @@
         private DevExpress.XtraEditors.TextEdit userNameTxt;
         private DevExpress.XtraEditors.TextEdit passwordTxt;
         public Panel loginPanel;
+        private CheckBox RememberMeCheckBox;
     }
 }

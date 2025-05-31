@@ -8,39 +8,48 @@ namespace Digital_Notes_Manager
         public Login()
         {
             InitializeComponent();
-
         }
 
         private void loginBtn_Click(object sender, EventArgs e)
         {
-
             using (var context = new ManageNoteContext())
             {
                 string enteredUsername = userNameTxt.Text;
                 string enteredPassword = passwordTxt.Text;
 
-                var user = context.Users
-                    .FirstOrDefault(u => u.Username == enteredUsername && u.Password == enteredPassword);
+                var user = context.Users.FirstOrDefault(u => u.Username == enteredUsername && u.Password == enteredPassword);
 
                 if (user != null)
                 {
-                    Properties.Settings.Default.UserID = user.UserID;
+                    Properties.Settings.Default.userID = user.UserID;
+
+                    if (RememberMeCheckBox.Checked)
+                    {
+                        Properties.Settings.Default.rememberMe = true;
+                        Properties.Settings.Default.userName = enteredUsername;
+                    }
+                    else
+                    {
+                        Properties.Settings.Default.rememberMe = false;
+                        Properties.Settings.Default.userName = string.Empty;
+                    }
+
                     Properties.Settings.Default.Save();
 
-                    //XtraMessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    XtraMessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    Dashboard main = new Dashboard(user.UserID);
-                    main.Show();
-                    Utilities.LoginRegisterMDI.Hide();
-
+                    Main_Form mainForm = new Main_Form();
+                    mainForm.FormClosed += (s, args) => Application.Exit();
+                    mainForm.Show();
+                    this.Hide(); // أو Utilities.LoginRegisterMDI.Hide();
                 }
                 else
                 {
                     XtraMessageBox.Show("Wrong Username or Password");
-                    return;
                 }
-
             }
         }
     }
+
 }
+

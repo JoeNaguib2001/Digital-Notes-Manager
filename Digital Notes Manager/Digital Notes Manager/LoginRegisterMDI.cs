@@ -1,4 +1,6 @@
-﻿namespace Digital_Notes_Manager
+﻿using Digital_Notes_Manager.Models;
+
+namespace Digital_Notes_Manager
 {
     public partial class LoginRegisterMDI : Form
     {
@@ -8,9 +10,37 @@
         public LoginRegisterMDI()
         {
             InitializeComponent();
-            Utilities.LoginRegisterMDI = this;
-            LoadLogin();
+            //Utilities.LoginRegisterMDI = this;
+            if (Utilities.RememberMe())
+                AutoLogin();
+            //else
+            //    LoadLogin();
         }
+        private void AutoLogin()
+        {
+            using (var context = new ManageNoteContext())
+            {
+                var userName = Properties.Settings.Default.userName;
+                var user = context.Users.FirstOrDefault(u => u.Username == userName);
+
+                if (user != null)
+                {
+                    Properties.Settings.Default.userID = user.UserID;
+                    Properties.Settings.Default.Save();
+
+                    Main_Form mainForm = new Main_Form();
+                    mainForm.FormClosed += (s, args) => Application.Exit();
+                    mainForm.Shown += (s, e) => this.Hide();
+                    mainForm.Show();
+
+                }
+                else
+                {
+                    LoadLogin();
+                }
+            }
+        }
+
         private void LoadRegister()
         {
             if (register is null)

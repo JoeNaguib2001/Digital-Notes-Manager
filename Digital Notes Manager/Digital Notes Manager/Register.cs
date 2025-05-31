@@ -87,7 +87,7 @@ namespace Digital_Notes_Manager
                 context.Users.Add(newUser);
                 context.SaveChanges();
 
-                Properties.Settings.Default.UserID = newUser.UserID;
+                Properties.Settings.Default.userID = newUser.UserID;
                 Properties.Settings.Default.Save();
 
                 XtraMessageBox.Show("Registered successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -96,10 +96,23 @@ namespace Digital_Notes_Manager
                 usernameTxt.Text = "";
                 passwordTxt.Text = "";
                 passwordConfirmTxt.Text = "";
-
+                if (RememberMeCheckBox.Checked)
+                {
+                    Properties.Settings.Default.rememberMe = true;
+                    Properties.Settings.Default.userName = username;
+                }
+                else
+                {
+                    Properties.Settings.Default.rememberMe = false;
+                    Properties.Settings.Default.userName = string.Empty;
+                }
 
                 Main_Form main_Form = new Main_Form();
                 main_Form.Show();
+                main_Form.FormClosed += (s, args) =>
+                {
+                    Application.Exit();
+                };
                 Utilities.LoginRegisterMDI.Hide();
             }
         }
