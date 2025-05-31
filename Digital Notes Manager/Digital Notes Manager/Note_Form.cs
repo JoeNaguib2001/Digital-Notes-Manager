@@ -13,13 +13,18 @@ namespace Digital_Notes_Manager
         private PopupMenu popupMenu;
         private DateTimeOffset NotficationDate;
 
-        private string _Title;
-        private string _Category;
+        public string _Title { get; set; }
+
+        public string _Category { get; set; }
+
         private readonly ManageNoteContext _ManageNoteContext = Utilities.manageNoteContext;
+
+
         public Note_Form()
         {
             InitializeComponent();
             stylePanal.Buttons.Clear();
+            _Title = TitleBox.Text;
             WindowsUIButton btn1 = new WindowsUIButton("", ButtonStyle.CheckButton);
             WindowsUIButton btn2 = new WindowsUIButton("", ButtonStyle.CheckButton);
             WindowsUIButton btn3 = new WindowsUIButton("", ButtonStyle.CheckButton);
@@ -35,11 +40,14 @@ namespace Digital_Notes_Manager
             stylePanal.UseButtonBackgroundImages = false; // Removes circular borders
             stylePanal.ButtonInterval = 5; // Adjusts spacing between buttons
 
+            richTextBox1.BackColor = this.BackColor;
+            richTextBox1.ForeColor = this.ForeColor;
+
             SetButtonAppearance();
             richTextBox1.Select();
 
-            //drag drop the from from anu emty space
-            MakeFormDraggable(this);
+
+
             //pop the menu for notification
             PopMenu();
 
@@ -49,6 +57,24 @@ namespace Digital_Notes_Manager
 
             //check notfication
             ChangeBell();
+
+            TopPanal.BackColor = ColorTranslator.FromHtml("#2C3E50");
+            TitleBox.BackColor = TopPanal.BackColor;
+            Close_btn.Appearance.BackColor = Color.Tomato;
+
+            MenuBtn.Appearance.BackColor = Color.LightGray;
+            BellButton.Appearance.BackColor = Color.Orange;
+
+            //GalleryItemGroup group = new GalleryItemGroup();
+            //group.Items.Add(new GalleryItem(null, "", "", Color.Red));
+            //group.Items.Add(new GalleryItem(null, "", "", Color.Green));
+            //// Add more...
+
+            //galleryControl1.Gallery.Groups.Add(group);
+            //galleryControl1.Gallery.ItemClick += (s, e) =>
+            //{
+            //    var selectedColor = e.Item.HintColor; // Custom extension or mapping
+            //};
         }
         public Note_Form(Note note)
         {
@@ -169,17 +195,9 @@ namespace Digital_Notes_Manager
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HTCAPTION = 0x2;
 
-        private void MakeFormDraggable(Control control)
-        {
-            control.MouseDown += (s, e) =>
-            {
-                if (e.Button == MouseButtons.Left)
-                {
-                    ReleaseCapture();
-                    SendMessage(this.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
-                }
-            };
-        }
+
+
+
 
         private void Close_btn_Click(object sender, EventArgs e)
         {
@@ -200,15 +218,14 @@ namespace Digital_Notes_Manager
 
             // Step 3: Add items
             BarButtonItem item1 = new BarButtonItem(barManager, "Set Notification");
-
+            BarButtonItem item2 = new BarButtonItem(barManager, "change Color");
 
             // Handle clicks
             item1.ItemClick += (s, e) => Calender.ShowPopup();
 
             // Add items to popup menu
             popupMenu.AddItem(item1);
-
-
+            popupMenu.AddItem(item2);
             // Step 4: Attach to button click
             MenuBtn.Click += (s, e) =>
             {
@@ -223,10 +240,6 @@ namespace Digital_Notes_Manager
         }
 
 
-        private void MenuBtn_Click(object sender, EventArgs e)
-        {
-
-        }
 
         //private void Calender_Click(object sender, EventArgs e)
         //{
@@ -243,6 +256,7 @@ namespace Digital_Notes_Manager
                 Category = (Category)Enum.Parse(typeof(Category), _Category),
                 UserID = 1
             };
+
             _ManageNoteContext.Notes.Add(newNote);
             _ManageNoteContext.SaveChanges();
             Utilities.SetNotesGridControlDataSource();
@@ -274,6 +288,7 @@ namespace Digital_Notes_Manager
         {
             TitleBox.Properties.ReadOnly = true;
             TitleBox.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
+            _Title = TitleBox.Text;
         }
 
         private void TitleBox_KeyDown(object sender, KeyEventArgs e)
@@ -291,6 +306,17 @@ namespace Digital_Notes_Manager
         {
             _Category = Categorybox.Text;
             //Console.WriteLine("Changed to: " + selected);
+        }
+
+        private void TopPanal_MouseDown(object sender, MouseEventArgs e)
+        {
+
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture();
+                SendMessage(this.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+            }
+
         }
     }
 }

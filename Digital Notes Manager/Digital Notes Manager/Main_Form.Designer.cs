@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             accordionControl1 = new DevExpress.XtraBars.Navigation.AccordionControl();
-            
             NotesGroupAccordionElement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             Show_Notes_Accordion_Element = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             Add_A_New_Note_Accordion_Element = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -57,7 +56,6 @@
             accordionControl1.Size = new Size(260, 750);
             accordionControl1.TabIndex = 0;
             accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
-           
             // 
             // NotesGroupAccordionElement
             // 
@@ -159,7 +157,7 @@
             // importNoteToolStripMenuItem
             // 
             importNoteToolStripMenuItem.Name = "importNoteToolStripMenuItem";
-            importNoteToolStripMenuItem.Size = new Size(139, 22);
+            importNoteToolStripMenuItem.Size = new Size(180, 22);
             importNoteToolStripMenuItem.Text = "Import Note";
             importNoteToolStripMenuItem.Click += importNoteToolStripMenuItem_Click;
             // 
@@ -171,9 +169,8 @@
             // 
             // MDI_Panel
             // 
-            MDI_Panel.BackColor = Color.FromArgb(30, 30, 46);
-            MDI_Panel.Dock = DockStyle.Fill;
             MDI_Panel.Anchor = AnchorStyles.None;
+            MDI_Panel.BackColor = Color.FromArgb(30, 30, 46);
             MDI_Panel.Location = new Point(260, 24);
             MDI_Panel.Name = "MDI_Panel";
             MDI_Panel.Size = new Size(750, 750);

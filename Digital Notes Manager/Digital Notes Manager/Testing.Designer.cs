@@ -31,6 +31,9 @@
             accordionControl1 = new DevExpress.XtraBars.Navigation.AccordionControl();
             accordionControlElement1 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             dateTimePicker1 = new DateTimePicker();
+            richTextBox1 = new RichTextBox();
+            richTextBox2 = new RichTextBox();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
             SuspendLayout();
             // 
@@ -54,11 +57,40 @@
             dateTimePicker1.Size = new Size(200, 23);
             dateTimePicker1.TabIndex = 1;
             // 
+            // richTextBox1
+            // 
+            richTextBox1.Location = new Point(350, 237);
+            richTextBox1.Name = "richTextBox1";
+            richTextBox1.Size = new Size(100, 96);
+            richTextBox1.TabIndex = 2;
+            richTextBox1.Text = "";
+            // 
+            // richTextBox2
+            // 
+            richTextBox2.Location = new Point(513, 237);
+            richTextBox2.Name = "richTextBox2";
+            richTextBox2.Size = new Size(100, 96);
+            richTextBox2.TabIndex = 3;
+            richTextBox2.Text = "";
+            // 
+            // button1
+            // 
+            button1.Location = new Point(448, 370);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 4;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
+            // 
             // Testing
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button1);
+            Controls.Add(richTextBox2);
+            Controls.Add(richTextBox1);
             Controls.Add(dateTimePicker1);
             Controls.Add(accordionControl1);
             Name = "Testing";
@@ -72,5 +104,8 @@
         private DevExpress.XtraBars.Navigation.AccordionControl accordionControl1;
         private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement1;
         private DateTimePicker dateTimePicker1;
+        private RichTextBox richTextBox1;
+        private RichTextBox richTextBox2;
+        private Button button1;
     }
 }
