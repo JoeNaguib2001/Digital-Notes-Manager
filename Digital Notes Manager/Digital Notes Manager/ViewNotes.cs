@@ -136,6 +136,8 @@ namespace Digital_Notes_Manager
             rt.Rtf = selectedRow.Content;
             noteForm.richTextBox1.Rtf = rt.Rtf;
             noteForm._Title = selectedRow.Title;
+            noteForm.Mode = Mode.Edit;
+            noteForm.noteId = selectedRow.ID;
             noteForm.Categorybox.Text = selectedRow.Category.ToString();
             noteForm.Show();
         }

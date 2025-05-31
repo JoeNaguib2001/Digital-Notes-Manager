@@ -7,8 +7,16 @@ using System.Runtime.InteropServices;
 
 namespace Digital_Notes_Manager
 {
+    public enum Mode
+    {
+        Add,
+        Edit
+    }
     public partial class Note_Form : RibbonForm
     {
+        public Mode Mode { get; set; }
+        public int noteId { get; set; }
+
         private BarManager barManager;
         private PopupMenu popupMenu;
         private DateTimeOffset NotficationDate;
@@ -247,19 +255,41 @@ namespace Digital_Notes_Manager
         //}
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            Note newNote = new Note
+            if (Mode == Mode.Add)
             {
-                Title = _Title,
-                Content = richTextBox1.Rtf,
-                CreationDate = DateTime.Now,
-                ReminderDate = NotficationDate,
-                Category = (Category)Enum.Parse(typeof(Category), _Category),
-                UserID = 1
-            };
+                Note newNote = new Note
+                {
+                    Title = _Title,
+                    Content = richTextBox1.Rtf,
+                    CreationDate = DateTime.Now,
+                    ReminderDate = NotficationDate,
+                    Category = (Category)Enum.Parse(typeof(Category), _Category),
+                    UserID = Properties.Settings.Default.userID
+                };
 
-            _ManageNoteContext.Notes.Add(newNote);
-            _ManageNoteContext.SaveChanges();
-            Utilities.SetNotesGridControlDataSource();
+                _ManageNoteContext.Notes.Add(newNote);
+                _ManageNoteContext.SaveChanges();
+                Utilities.SetNotesGridControlDataSource();
+            }
+
+            else if (Mode == Mode.Edit)
+            {
+                var currentNote = _ManageNoteContext.Notes.FirstOrDefault(n => n.ID == noteId);
+                if (currentNote != null)
+                {
+                    currentNote.Title = _Title;
+                    currentNote.Content = richTextBox1.Rtf;
+                    currentNote.ReminderDate = NotficationDate;
+                    currentNote.Category = (Category)Enum.Parse(typeof(Category), _Category);
+                    _ManageNoteContext.Notes.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    _ManageNoteContext.SaveChanges();
+
+                    _ManageNoteContext.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached; // هنا بتعمل ديتاتش
+
+                    Utilities.SetNotesGridControlDataSource();
+                }
+
+            }
         }
 
         private void Calender_EditValueChanged(object sender, EventArgs e)
