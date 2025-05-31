@@ -270,6 +270,9 @@ namespace Digital_Notes_Manager
                 _ManageNoteContext.Notes.Add(newNote);
                 _ManageNoteContext.SaveChanges();
                 Utilities.SetNotesGridControlDataSource();
+                Mode = Mode.Edit;
+                noteId = newNote.ID;
+                _ManageNoteContext.Notes.Entry(newNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
             }
 
             else if (Mode == Mode.Edit)

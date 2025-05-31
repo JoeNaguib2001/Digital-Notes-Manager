@@ -29,13 +29,15 @@
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
+            DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewNotes));
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject4 = new DevExpress.Utils.SerializableAppearanceObject();
-            panel1 = new Panel();
+            detailView = new DevExpress.XtraGrid.Views.Grid.GridView();
+            gridColumn1 = new DevExpress.XtraGrid.Columns.GridColumn();
             Notes_Grid = new DevExpress.XtraGrid.GridControl();
             gridView1 = new DevExpress.XtraGrid.Views.Grid.GridView();
             colTitle = new DevExpress.XtraGrid.Columns.GridColumn();
@@ -45,38 +47,62 @@
             DeleteColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             BtnDelete = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
+            panel1 = new Panel();
             contextMenuStrip1 = new ContextMenuStrip(components);
             openToolStripMenuItem = new ToolStripMenuItem();
             deleteAllSeToolStripMenuItem = new ToolStripMenuItem();
             saveInYourDeviceToolStripMenuItem = new ToolStripMenuItem();
             liveTimer = new System.Windows.Forms.Timer(components);
-            panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)detailView).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Notes_Grid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)BtnDelete).BeginInit();
+            panel1.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // detailView
             // 
-            panel1.Controls.Add(Notes_Grid);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(915, 565);
-            panel1.TabIndex = 0;
+            detailView.ColumnPanelRowHeight = 60;
+            detailView.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { gridColumn1 });
+            detailView.GridControl = Notes_Grid;
+            detailView.Name = "detailView";
+            detailView.RowHeight = 50;
+            // 
+            // gridColumn1
+            // 
+            gridColumn1.AppearanceCell.Font = new Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            gridColumn1.AppearanceCell.Options.UseFont = true;
+            gridColumn1.AppearanceCell.Options.UseTextOptions = true;
+            gridColumn1.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            gridColumn1.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            gridColumn1.AppearanceHeader.BackColor = Color.FromArgb(222, 233, 239);
+            gridColumn1.AppearanceHeader.Font = new Font("Tahoma", 20.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            gridColumn1.AppearanceHeader.Options.UseBackColor = true;
+            gridColumn1.AppearanceHeader.Options.UseFont = true;
+            gridColumn1.AppearanceHeader.Options.UseTextOptions = true;
+            gridColumn1.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            gridColumn1.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            gridColumn1.Caption = "Content";
+            gridColumn1.FieldName = "Content";
+            gridColumn1.Name = "gridColumn1";
+            gridColumn1.Visible = true;
+            gridColumn1.VisibleIndex = 0;
             // 
             // Notes_Grid
             // 
             Notes_Grid.DataSource = typeof(Models.Note);
             Notes_Grid.Dock = DockStyle.Fill;
+            gridLevelNode1.LevelTemplate = detailView;
+            gridLevelNode1.RelationName = "detailView";
+            Notes_Grid.LevelTree.Nodes.AddRange(new DevExpress.XtraGrid.GridLevelNode[] { gridLevelNode1 });
             Notes_Grid.Location = new Point(0, 0);
             Notes_Grid.MainView = gridView1;
             Notes_Grid.Name = "Notes_Grid";
             Notes_Grid.RepositoryItems.AddRange(new DevExpress.XtraEditors.Repository.RepositoryItem[] { BtnDelete });
             Notes_Grid.Size = new Size(915, 565);
             Notes_Grid.TabIndex = 0;
-            Notes_Grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1 });
+            Notes_Grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1, detailView });
             // 
             // gridView1
             // 
@@ -104,6 +130,7 @@
             gridView1.OptionsSelection.MultiSelect = true;
             gridView1.OptionsSelection.MultiSelectMode = DevExpress.XtraGrid.Views.Grid.GridMultiSelectMode.CheckBoxRowSelect;
             gridView1.RowHeight = 50;
+            gridView1.RowStyle += gridView1_RowStyle;
             gridView1.PopupMenuShowing += gridView1_PopupMenuShowing;
             gridView1.CellValueChanged += gridView1_CellValueChanged;
             gridView1.RowUpdated += gridView1_RowUpdated;
@@ -111,12 +138,8 @@
             // 
             // colTitle
             // 
-            colTitle.AppearanceCell.BackColor = Color.FromArgb(236, 245, 250);
             colTitle.AppearanceCell.Font = new Font("Tahoma", 17.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            colTitle.AppearanceCell.ForeColor = Color.Black;
-            colTitle.AppearanceCell.Options.UseBackColor = true;
             colTitle.AppearanceCell.Options.UseFont = true;
-            colTitle.AppearanceCell.Options.UseForeColor = true;
             colTitle.AppearanceCell.Options.UseTextOptions = true;
             colTitle.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colTitle.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -137,12 +160,8 @@
             // 
             // colCreationDate
             // 
-            colCreationDate.AppearanceCell.BackColor = Color.FromArgb(236, 245, 250);
             colCreationDate.AppearanceCell.Font = new Font("Tahoma", 17.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            colCreationDate.AppearanceCell.ForeColor = Color.Black;
-            colCreationDate.AppearanceCell.Options.UseBackColor = true;
             colCreationDate.AppearanceCell.Options.UseFont = true;
-            colCreationDate.AppearanceCell.Options.UseForeColor = true;
             colCreationDate.AppearanceCell.Options.UseTextOptions = true;
             colCreationDate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colCreationDate.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -163,12 +182,8 @@
             // 
             // colReminderDate
             // 
-            colReminderDate.AppearanceCell.BackColor = Color.FromArgb(236, 245, 250);
             colReminderDate.AppearanceCell.Font = new Font("Tahoma", 17.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            colReminderDate.AppearanceCell.ForeColor = Color.Black;
-            colReminderDate.AppearanceCell.Options.UseBackColor = true;
             colReminderDate.AppearanceCell.Options.UseFont = true;
-            colReminderDate.AppearanceCell.Options.UseForeColor = true;
             colReminderDate.AppearanceCell.Options.UseTextOptions = true;
             colReminderDate.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colReminderDate.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -191,12 +206,8 @@
             // 
             // colCategory
             // 
-            colCategory.AppearanceCell.BackColor = Color.FromArgb(236, 245, 250);
             colCategory.AppearanceCell.Font = new Font("Tahoma", 17.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            colCategory.AppearanceCell.ForeColor = Color.Black;
-            colCategory.AppearanceCell.Options.UseBackColor = true;
             colCategory.AppearanceCell.Options.UseFont = true;
-            colCategory.AppearanceCell.Options.UseForeColor = true;
             colCategory.AppearanceCell.Options.UseTextOptions = true;
             colCategory.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             colCategory.AppearanceCell.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
@@ -218,7 +229,7 @@
             // 
             // DeleteColumn
             // 
-            DeleteColumn.AppearanceCell.BackColor = Color.FromArgb(236, 245, 250);
+            DeleteColumn.AppearanceCell.BackColor = Color.White;
             DeleteColumn.AppearanceCell.ForeColor = Color.Black;
             DeleteColumn.AppearanceCell.Options.UseBackColor = true;
             DeleteColumn.AppearanceCell.Options.UseForeColor = true;
@@ -247,9 +258,7 @@
             // 
             // gridColumn2
             // 
-            gridColumn2.AppearanceCell.BackColor = Color.FromArgb(236, 245, 250);
             gridColumn2.AppearanceCell.Font = new Font("Tahoma", 17.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            gridColumn2.AppearanceCell.Options.UseBackColor = true;
             gridColumn2.AppearanceCell.Options.UseFont = true;
             gridColumn2.AppearanceCell.Options.UseTextOptions = true;
             gridColumn2.AppearanceCell.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
@@ -261,13 +270,22 @@
             gridColumn2.AppearanceHeader.Options.UseTextOptions = true;
             gridColumn2.AppearanceHeader.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             gridColumn2.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
-            gridColumn2.Caption = "TimeAgo";
+            gridColumn2.Caption = "Timer";
             gridColumn2.FieldName = "TimeDiff";
             gridColumn2.Name = "gridColumn2";
             gridColumn2.UnboundDataType = typeof(string);
             gridColumn2.Visible = true;
             gridColumn2.VisibleIndex = 5;
             gridColumn2.Width = 102;
+            // 
+            // panel1
+            // 
+            panel1.Controls.Add(Notes_Grid);
+            panel1.Dock = DockStyle.Fill;
+            panel1.Location = new Point(0, 0);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(915, 565);
+            panel1.TabIndex = 0;
             // 
             // contextMenuStrip1
             // 
@@ -298,6 +316,8 @@
             // 
             // liveTimer
             // 
+            liveTimer.Enabled = true;
+            liveTimer.Interval = 1000;
             liveTimer.Tick += liveTimer_Tick;
             // 
             // ViewNotes
@@ -310,10 +330,11 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ViewNotes";
             Text = "View Notes";
-            panel1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)detailView).EndInit();
             ((System.ComponentModel.ISupportInitialize)Notes_Grid).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)BtnDelete).EndInit();
+            panel1.ResumeLayout(false);
             contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -336,5 +357,6 @@
         private ToolStripMenuItem saveInYourDeviceToolStripMenuItem;
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
         private System.Windows.Forms.Timer liveTimer;
+        private DevExpress.XtraGrid.Views.Grid.GridView detailView;
     }
 }
