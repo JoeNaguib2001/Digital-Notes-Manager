@@ -18,6 +18,8 @@ namespace Digital_Notes_Manager.AlarmSystem
 
             noteQueue = new Queue<Note>(notes);
 
+            EndReminerNotes = new List<Note>();
+
         }
         public static void AddNewNoteToAlarmSystemNotesList(Note note)
         {
@@ -70,10 +72,11 @@ namespace Digital_Notes_Manager.AlarmSystem
                 if (noteQueue.Any())
                 {
                     var note = noteQueue.First();
-                    var timeDifference = note.ReminderDate - DateTimeOffset.Now;
+                    var timeDifference = note.ReminderDate - DateTime.Now;
 
                     // لو داخل 5 دقايق ولسه ما اتحذرش
                     if (timeDifference <= TimeSpan.FromMinutes(5) && timeDifference > TimeSpan.Zero)
+                    //if (true)
                     {
                         if (!soonNotified.ContainsKey(note.ID))
                         {
@@ -120,7 +123,7 @@ namespace Digital_Notes_Manager.AlarmSystem
         }
         public async Task NotifyEndReminderDate(Note note)
         {
-            // EndReminerNotes.Add(note);
+            EndReminerNotes.Add(note);
 
         }
 

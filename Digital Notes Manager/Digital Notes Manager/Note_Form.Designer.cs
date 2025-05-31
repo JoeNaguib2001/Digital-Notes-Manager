@@ -159,9 +159,9 @@
             DownPanel.Controls.Add(Categorybox);
             DownPanel.Controls.Add(saveBtn);
             DownPanel.Dock = DockStyle.Bottom;
-            DownPanel.Location = new Point(0, 222);
+            DownPanel.Location = new Point(0, 194);
             DownPanel.Name = "DownPanel";
-            DownPanel.Size = new Size(277, 28);
+            DownPanel.Size = new Size(274, 28);
             DownPanel.TabIndex = 10;
             // 
             // BellButton
@@ -184,7 +184,7 @@
             TopPanal.Dock = DockStyle.Top;
             TopPanal.Location = new Point(0, 0);
             TopPanal.Name = "TopPanal";
-            TopPanal.Size = new Size(277, 33);
+            TopPanal.Size = new Size(274, 33);
             TopPanal.TabIndex = 11;
             TopPanal.MouseDown += TopPanal_MouseDown;
             // 
@@ -193,7 +193,7 @@
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(277, 250);
+            ClientSize = new Size(274, 222);
             Controls.Add(TopPanal);
             Controls.Add(DownPanel);
             Controls.Add(richTextBox1);

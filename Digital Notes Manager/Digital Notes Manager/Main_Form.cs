@@ -128,7 +128,7 @@ namespace Digital_Notes_Manager
             List<Note> list = manageNoteContext.Notes
                 .Where(x => x.UserID == userId)
                 .AsEnumerable()
-                .OrderBy(x => x.ReminderDate.UtcDateTime)
+                .OrderBy(x => x.ReminderDate)
                 .ToList();
             Alarm alarm = new Alarm(this, list);
             _ = alarm.CompareTimeAsync();
