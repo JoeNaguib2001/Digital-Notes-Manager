@@ -38,6 +38,7 @@
             TitleBox = new DevExpress.XtraEditors.TextEdit();
             Categorybox = new DevExpress.XtraEditors.ComboBoxEdit();
             panel1 = new Panel();
+            BellButton = new DevExpress.XtraEditors.SimpleButton();
             ((System.ComponentModel.ISupportInitialize)Calender.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TitleBox.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Categorybox.Properties).BeginInit();
@@ -142,6 +143,7 @@
             Categorybox.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             Categorybox.Size = new Size(100, 20);
             Categorybox.TabIndex = 9;
+            Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
             // 
             // panel1
             // 
@@ -154,12 +156,21 @@
             panel1.Size = new Size(280, 28);
             panel1.TabIndex = 10;
             // 
+            // BellButton
+            // 
+            BellButton.ImageOptions.Image = Properties.Resources.bell1;
+            BellButton.Location = new Point(57, 1);
+            BellButton.Name = "BellButton";
+            BellButton.Size = new Size(24, 23);
+            BellButton.TabIndex = 10;
+            // 
             // Note_Form
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(280, 250);
+            Controls.Add(BellButton);
             Controls.Add(panel1);
             Controls.Add(Close_btn);
             Controls.Add(MenuBtn);
@@ -188,5 +199,6 @@
         private DevExpress.XtraEditors.TextEdit TitleBox;
         private DevExpress.XtraEditors.ComboBoxEdit Categorybox;
         private Panel panel1;
+        private DevExpress.XtraEditors.SimpleButton BellButton;
     }
 }

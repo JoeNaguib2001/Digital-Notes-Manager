@@ -29,7 +29,7 @@ namespace Digital_Notes_Manager
 
                     //XtraMessageBox.Show("Login successful!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-                    Dashboard main = new Dashboard(user.UserID);
+                    Dashboard main = new Dashboard();
                     main.Show();
                     Utilities.LoginRegisterMDI.Hide();
 

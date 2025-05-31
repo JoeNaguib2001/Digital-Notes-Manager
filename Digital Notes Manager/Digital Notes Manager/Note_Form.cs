@@ -12,7 +12,9 @@ namespace Digital_Notes_Manager
         private BarManager barManager;
         private PopupMenu popupMenu;
         private DateTimeOffset NotficationDate;
+
         private string _Title;
+        private string _Category;
         private readonly ManageNoteContext _ManageNoteContext = Utilities.manageNoteContext;
         public Note_Form()
         {
@@ -38,11 +40,15 @@ namespace Digital_Notes_Manager
 
             //drag drop the from from anu emty space
             MakeFormDraggable(this);
-
+            //pop the menu for notification
             PopMenu();
 
+            //load category
             GetCategory();
+            Categorybox.SelectedIndex = 0;
 
+            //check notfication
+            ChangeBell();
         }
         public Note_Form(Note note)
         {
@@ -56,6 +62,12 @@ namespace Digital_Notes_Manager
             this.TopLevel = false;
             this.FormBorderStyle = FormBorderStyle.None;
             this.Dock = DockStyle.Fill;
+        }
+        //change bell image
+        public void ChangeBell()
+        {
+            if (NotficationDate > DateTimeOffset.Now)
+                BellButton.ImageOptions.Image = Properties.Resources.bell2;
         }
         private void SetTextStyle()
         {
@@ -140,7 +152,8 @@ namespace Digital_Notes_Manager
 
         private void GetCategory()
         {
-            var Categories = _ManageNoteContext.Notes.Select(N => N.Category).Distinct().ToList();
+
+            var Categories = Enum.GetNames(typeof(Category));
             Categorybox.Properties.Items.AddRange(Categories);
 
         }
@@ -224,10 +237,11 @@ namespace Digital_Notes_Manager
             Note newNote = new Note
             {
                 Title = _Title,
-                Content = "123",
+                Content = richTextBox1.Rtf,
                 CreationDate = DateTime.Now,
                 ReminderDate = NotficationDate,
-                Category = Category.Study,
+                Category = (Category)Enum.Parse(typeof(Category), _Category),
+                UserID = 1
             };
             _ManageNoteContext.Notes.Add(newNote);
             _ManageNoteContext.SaveChanges();
@@ -236,7 +250,15 @@ namespace Digital_Notes_Manager
 
         private void Calender_EditValueChanged(object sender, EventArgs e)
         {
-            NotficationDate = Calender.DateTimeOffset;
+            if (Calender.DateTimeOffset > DateTimeOffset.Now)
+            {
+                NotficationDate = Calender.DateTimeOffset;
+                ChangeBell();
+            }
+            else
+            {
+                MessageBox.Show("invalid");
+            }
             //MessageBox.Show("Confirmed selection: " + NotficationDate.ToString());
         }
 
@@ -263,6 +285,12 @@ namespace Digital_Notes_Manager
                 richTextBox1.Focus();
 
             }
+        }
+
+        private void Categorybox_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            _Category = Categorybox.Text;
+            //Console.WriteLine("Changed to: " + selected);
         }
     }
 }

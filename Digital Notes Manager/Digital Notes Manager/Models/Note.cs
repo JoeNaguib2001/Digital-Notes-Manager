@@ -21,6 +21,6 @@ namespace Digital_Notes_Manager.Models
 
         public DateTime EndDate { get; set; }
         [NotMapped]
-        public DateTime Duration { get; set; }  
+        public DateTime Duration { get; set; }
     }
 }

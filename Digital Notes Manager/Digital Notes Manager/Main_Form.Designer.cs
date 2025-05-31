@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             accordionControl1 = new DevExpress.XtraBars.Navigation.AccordionControl();
-            button1 = new Button();
+            
             NotesGroupAccordionElement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             Show_Notes_Accordion_Element = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             Add_A_New_Note_Accordion_Element = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -57,16 +57,7 @@
             accordionControl1.Size = new Size(260, 750);
             accordionControl1.TabIndex = 0;
             accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(92, 306);
-            button1.Name = "button1";
-            button1.Size = new Size(104, 53);
-            button1.TabIndex = 2;
-            button1.Text = "button1";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
+           
             // 
             // NotesGroupAccordionElement
             // 
