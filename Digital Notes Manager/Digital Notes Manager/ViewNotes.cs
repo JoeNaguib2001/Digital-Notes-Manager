@@ -243,7 +243,6 @@ namespace Digital_Notes_Manager
                 if (row != null)
                 {
                     var diff = row.ReminderDate - DateTime.Now;
-
                     if (diff.TotalSeconds <= 0)
                     {
                         e.Value = "";
@@ -256,6 +255,8 @@ namespace Digital_Notes_Manager
 
                         e.Value = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
                     }
+                    
+                    
                 }
             }
         }
