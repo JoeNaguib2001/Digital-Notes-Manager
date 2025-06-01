@@ -92,12 +92,12 @@ namespace Digital_Notes_Manager
 
             TitleBox.Text = note.Title;
             richTextBox1.Text = note.Content;
-            Calender.EditValue = note.ReminderDate;
+            NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(2));
             Categorybox.Text = note.Category.ToString();
 
-            this.TopLevel = false;
-            this.FormBorderStyle = FormBorderStyle.None;
-            this.Dock = DockStyle.Fill;
+            //this.TopLevel = false;
+            //this.FormBorderStyle = FormBorderStyle.None;
+            //this.Dock = DockStyle.Fill;
         }
         //change bell image
         public void ChangeBell()

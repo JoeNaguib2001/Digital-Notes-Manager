@@ -1,5 +1,4 @@
-﻿using DevExpress.XtraEditors;
-using Digital_Notes_Manager;
+﻿using Digital_Notes_Manager;
 using Digital_Notes_Manager.Customs;
 using Digital_Notes_Manager.Models;
 using System.Data;
@@ -93,17 +92,17 @@ namespace Test
                 // إضافة حدث النقر لعرض الملاحظات الخاصة بالفئة
                 card.Click += (s, e) =>
                 {
-                    FlowLayoutPanel notesPanel = new FlowLayoutPanel
-                    {
-                        Dock = DockStyle.Fill,
-                        AutoScroll = true,
-                        FlowDirection = FlowDirection.LeftToRight,
-                        WrapContents = true,
-                        Padding = new Padding(10)
-                    };
+                    //FlowLayoutPanel notesPanel = new FlowLayoutPanel
+                    //{
+                    //    Dock = DockStyle.Fill,
+                    //    AutoScroll = true,
+                    //    FlowDirection = FlowDirection.LeftToRight,
+                    //    WrapContents = true,
+                    //    Padding = new Padding(10)
+                    //};
 
-                    NotesPanel.Controls.Clear();
-                    NotesPanel.Controls.Add(notesPanel);
+                    //NotesPanel.Controls.Clear();
+                    //NotesPanel.Controls.Add(notesPanel);
 
                     var notes = _dbContext.Notes
                         .Where(n => n.Category == parsedCategory && n.UserID == Utilities.UserId())
@@ -111,8 +110,10 @@ namespace Test
 
                     foreach (var note in notes)
                     {
-                        Panel noteCard = CreateNoteCard(note);
+                        Form noteCard = CreateNoteCard(note);
+                        noteCard.TopLevel = false;
                         notesPanel.Controls.Add(noteCard);
+
                     }
                 };
             }
@@ -120,9 +121,10 @@ namespace Test
 
         }
 
-        private Panel CreateNoteCard(Digital_Notes_Manager.Models.Note note)
+        private Form CreateNoteCard(Digital_Notes_Manager.Models.Note note)
         {
-            // إنشاء Panel لتمثيل بطاقة الملاحظة
+            #region Maged
+            //إنشاء Panel لتمثيل بطاقة الملاحظة
             RoundedPanel card = new RoundedPanel
             {
                 Size = new Size(300, 250),
@@ -134,154 +136,158 @@ namespace Test
                 BorderColor = Color.FromArgb(180, 180, 200), // لون حواف أنيق
                 BorderThickness = 1
             };
-            card.BackColor = GetRandomPastelColor();
+            //card.BackColor = GetRandomPastelColor();
 
-            // إضافة Label لعنوان الملاحظة
-            Label titleLabel = new Label
-            {
-                Text = note.Title,
-                Font = new Font("Tahoma", 14, FontStyle.Bold),
-                Location = new Point(10, 10),
-                AutoSize = true
-            };
-            card.Controls.Add(titleLabel);
+            //// إضافة Label لعنوان الملاحظة
+            //Label titleLabel = new Label
+            //{
+            //    Text = note.Title,
+            //    Font = new Font("Tahoma", 14, FontStyle.Bold),
+            //    Location = new Point(10, 10),
+            //    AutoSize = true
+            //};
+            //card.Controls.Add(titleLabel);
 
-            Label line = new Label
-            {
-                Text = "------------------------------------",
-                Font = new Font("Tahoma", 8, FontStyle.Bold),
-                Location = new Point(10, 35),
-                AutoSize = true
-            };
-            card.Controls.Add(line);
-
-
-            // إضافة Label لاسم الفئة
-            Label categoryLabel = new Label
-            {
-                Text = $"Category: {note.Category.ToString() ?? "UnCategorized"}",
-                Font = new Font("Tahoma", 10, FontStyle.Italic),
-                Location = new Point(10, 55),
-                AutoSize = true
-            };
-            card.Controls.Add(categoryLabel);
-
-            // إضافة Label لمحتوى الملاحظة
-            Label contentLabel = new Label
-            {
-                Text = note.Content.Length > 80 ? note.Content.Substring(0, 80) + "..." : note.Content,
-                Font = new Font("Tahoma", 12, FontStyle.Bold),
-                Location = new Point(10, 80),
-                Size = new Size(230, 60),
-                AutoSize = false
-            };
-            card.Controls.Add(contentLabel);
-
-            // إضافة Label لتاريخ التذكير
-            Label reminderLabel = new Label
-            {
-                Text = $"Reminder Date: {note.ReminderDate:dd/MM/yyyy}",
-                Font = new Font("Tahoma", 10, FontStyle.Bold),
-                Location = new Point(10, 150),
-                AutoSize = true
-            };
-            card.Controls.Add(reminderLabel);
+            //Label line = new Label
+            //{
+            //    Text = "------------------------------------",
+            //    Font = new Font("Tahoma", 8, FontStyle.Bold),
+            //    Location = new Point(10, 35),
+            //    AutoSize = true
+            //};
+            //card.Controls.Add(line);
 
 
-            SimpleButton editButton = new SimpleButton
-            {
-                Text = "Edit",
-                Location = new Point(50, 200),
-                Size = new Size(80, 30),
-                Appearance =
-                            {
-                                BackColor = Color.FromArgb(33, 150, 243), // أحمر ماتيريال
-                                Font = new Font("Tahoma", 9F, FontStyle.Bold),
-                                ForeColor = Color.White
-                            },
-                LookAndFeel =
-                            {
-                                UseDefaultLookAndFeel = false,
-                                Style = DevExpress.LookAndFeel.LookAndFeelStyle.Flat
-                            },
-                BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
-            };
+            //// إضافة Label لاسم الفئة
+            //Label categoryLabel = new Label
+            //{
+            //    Text = $"Category: {note.Category.ToString() ?? "UnCategorized"}",
+            //    Font = new Font("Tahoma", 10, FontStyle.Italic),
+            //    Location = new Point(10, 55),
+            //    AutoSize = true
+            //};
+            //card.Controls.Add(categoryLabel);
 
-            // تمكين الخصائص
-            editButton.Appearance.Options.UseBackColor = true;
-            editButton.Appearance.Options.UseForeColor = true;
-            editButton.Appearance.Options.UseFont = true;
+            //// إضافة Label لمحتوى الملاحظة
+            //Label contentLabel = new Label
+            //{
+            //    Text = note.Content.Length > 80 ? note.Content.Substring(0, 80) + "..." : note.Content,
+            //    Font = new Font("Tahoma", 12, FontStyle.Bold),
+            //    Location = new Point(10, 80),
+            //    Size = new Size(230, 60),
+            //    AutoSize = false
+            //};
+            //card.Controls.Add(contentLabel);
 
-            // إضافة الرادياس
-            editButton.Paint += (s, e) =>
-            {
-                var btn = s as SimpleButton;
-                btn.Region = new Region(GetRoundedRectanglePath(btn.ClientRectangle, 10)); // Radius = 10
-            };
-
-            editButton.Click += (s, e) =>
-            {
-                MessageBox.Show($"Edit Note: {note.Title}");
-                // يمكنك فتح نموذج لتعديل الملاحظة هنا
-            };
-
-            card.Controls.Add(editButton);
-
-            // زرار Delete مودرن
-            SimpleButton deleteButton = new SimpleButton
-            {
-                Text = "Delete",
-                Location = new Point(170, 200),
-                Size = new Size(80, 30),
-                Appearance =
-                            {
-                                BackColor = Color.FromArgb(244, 67, 54), // أحمر ماتيريال
-                                Font = new Font("Tahoma", 9F, FontStyle.Bold),
-                                ForeColor = Color.White
-                            },
-                LookAndFeel =
-                            {
-                                UseDefaultLookAndFeel = false,
-                                Style = DevExpress.LookAndFeel.LookAndFeelStyle.Flat
-                            },
-                BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
-            };
-
-            // تمكين الخصائص
-            deleteButton.Appearance.Options.UseBackColor = true;
-            deleteButton.Appearance.Options.UseForeColor = true;
-            deleteButton.Appearance.Options.UseFont = true;
-
-            // إضافة الرادياس
-            deleteButton.Paint += (s, e) =>
-            {
-                var btn = s as SimpleButton;
-                btn.Region = new Region(GetRoundedRectanglePath(btn.ClientRectangle, 10)); // Radius = 10
-            };
+            //// إضافة Label لتاريخ التذكير
+            //Label reminderLabel = new Label
+            //{
+            //    Text = $"Reminder Date: {note.ReminderDate:dd/MM/yyyy}",
+            //    Font = new Font("Tahoma", 10, FontStyle.Bold),
+            //    Location = new Point(10, 150),
+            //    AutoSize = true
+            //};
+            //card.Controls.Add(reminderLabel);
 
 
-            deleteButton.Click += (s, e) =>
-            {
-                if (MessageBox.Show($"Are you Sure to Delete This Note: {note.Title}؟", "Yes", MessageBoxButtons.YesNo) == DialogResult.Yes)
-                {
-                    _dbContext = new ManageNoteContext();
-                    _dbContext.Notes.Remove(note);
-                    _dbContext.SaveChanges();
-                    CategoryPanel.Controls.Clear();
-                    NotesPanel.Controls.Clear();
-                    LoadCategories(); // إعادة تحميل الفئات والملاحظات
-                }
-            };
-            card.Controls.Add(deleteButton);
+            //SimpleButton editButton = new SimpleButton
+            //{
+            //    Text = "Edit",
+            //    Location = new Point(50, 200),
+            //    Size = new Size(80, 30),
+            //    Appearance =
+            //                {
+            //                    BackColor = Color.FromArgb(33, 150, 243), // أحمر ماتيريال
+            //                    Font = new Font("Tahoma", 9F, FontStyle.Bold),
+            //                    ForeColor = Color.White
+            //                },
+            //    LookAndFeel =
+            //                {
+            //                    UseDefaultLookAndFeel = false,
+            //                    Style = DevExpress.LookAndFeel.LookAndFeelStyle.Flat
+            //                },
+            //    BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
+            //};
 
-            // إضافة حدث النقر على البطاقة
-            card.Click += (s, e) =>
-            {
-                Note_Form noteForm = new Note_Form(note);
-                noteForm.Show();
-            };
+            //// تمكين الخصائص
+            //editButton.Appearance.Options.UseBackColor = true;
+            //editButton.Appearance.Options.UseForeColor = true;
+            //editButton.Appearance.Options.UseFont = true;
 
-            return card;
+            //// إضافة الرادياس
+            //editButton.Paint += (s, e) =>
+            //{
+            //    var btn = s as SimpleButton;
+            //    btn.Region = new Region(GetRoundedRectanglePath(btn.ClientRectangle, 10)); // Radius = 10
+            //};
+
+            //editButton.Click += (s, e) =>
+            //{
+            //    MessageBox.Show($"Edit Note: {note.Title}");
+            //    // يمكنك فتح نموذج لتعديل الملاحظة هنا
+            //};
+
+            //card.Controls.Add(editButton);
+
+            //// زرار Delete مودرن
+            //SimpleButton deleteButton = new SimpleButton
+            //{
+            //    Text = "Delete",
+            //    Location = new Point(170, 200),
+            //    Size = new Size(80, 30),
+            //    Appearance =
+            //                {
+            //                    BackColor = Color.FromArgb(244, 67, 54), // أحمر ماتيريال
+            //                    Font = new Font("Tahoma", 9F, FontStyle.Bold),
+            //                    ForeColor = Color.White
+            //                },
+            //    LookAndFeel =
+            //                {
+            //                    UseDefaultLookAndFeel = false,
+            //                    Style = DevExpress.LookAndFeel.LookAndFeelStyle.Flat
+            //                },
+            //    BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
+            //};
+
+            //// تمكين الخصائص
+            //deleteButton.Appearance.Options.UseBackColor = true;
+            //deleteButton.Appearance.Options.UseForeColor = true;
+            //deleteButton.Appearance.Options.UseFont = true;
+
+            //// إضافة الرادياس
+            //deleteButton.Paint += (s, e) =>
+            //{
+            //    var btn = s as SimpleButton;
+            //    btn.Region = new Region(GetRoundedRectanglePath(btn.ClientRectangle, 10)); // Radius = 10
+            //};
+
+
+            //deleteButton.Click += (s, e) =>
+            //{
+            //    if (MessageBox.Show($"Are you Sure to Delete This Note: {note.Title}؟", "Yes", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            //    {
+            //        _dbContext = new ManageNoteContext();
+            //        _dbContext.Notes.Remove(note);
+            //        _dbContext.SaveChanges();
+            //        CategoryPanel.Controls.Clear();
+            //        NotesPanel.Controls.Clear();
+            //        LoadCategories(); // إعادة تحميل الفئات والملاحظات
+            //    }
+            //};
+            //card.Controls.Add(deleteButton);
+
+            //// إضافة حدث النقر على البطاقة
+            //card.Click += (s, e) =>
+            //{
+            //    Note_Form noteForm = new Note_Form(note);
+            //    noteForm.Show();
+            //};
+
+            //return card;
+            #endregion
+            Note_Form formPanel = new Note_Form(note);
+
+            return formPanel;
         }
 
         private GraphicsPath GetRoundedRectanglePath(Rectangle rect, int radius)
