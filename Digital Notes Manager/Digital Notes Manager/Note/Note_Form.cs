@@ -96,7 +96,10 @@ namespace Digital_Notes_Manager
             SetupNoteForm();
 
             TitleBox.Text = note.Title;
-            richTextBox1.Text = note.Content;
+            RichTextBox rt = new RichTextBox();
+            rt.Rtf = note.Content;
+            richTextBox1.Rtf = rt.Rtf;
+
             NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(0));
             Categorybox.Text = note.Category.ToString();
 
