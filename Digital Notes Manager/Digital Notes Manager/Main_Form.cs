@@ -78,9 +78,9 @@ namespace Digital_Notes_Manager
             //    note_form.Show();
 
             //}
-            NotesDashboard dashboard = new NotesDashboard();
-            this.MDI_Panel.Controls.Clear();
-            MDI_Panel.Controls.Add(dashboard.panel1);
+            //NotesDashboard dashboard = new NotesDashboard();
+            //this.MDI_Panel.Controls.Clear();
+            //MDI_Panel.Controls.Add(dashboard.panel1);
         }
 
         private void importNoteToolStripMenuItem_Click(object sender, EventArgs e)
