@@ -157,7 +157,7 @@ namespace Digital_Notes_Manager
                 .ToList();
 
             ReportsForm reportsForm = new ReportsForm(notes);
-            reportsForm.Show();
+            IsMdiContainer
         }
 
         private void LogoutAccordionElement_Click(object sender, EventArgs e)

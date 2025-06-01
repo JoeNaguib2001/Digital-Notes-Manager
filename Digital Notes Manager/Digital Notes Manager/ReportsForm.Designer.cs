@@ -38,7 +38,7 @@
             // 
             // chartControlCategory
             // 
-            chartControlCategory.Location = new Point(3, 221);
+            chartControlCategory.Location = new Point(3, 228);
             chartControlCategory.Name = "chartControlCategory";
             chartControlCategory.Size = new Size(770, 213);
             chartControlCategory.TabIndex = 0;
@@ -58,12 +58,13 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Controls.Add(chartControlCategory, 0, 1);
             tableLayoutPanel1.Controls.Add(chartControlReminder, 0, 0);
-            tableLayoutPanel1.Location = new Point(12, 1);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(776, 437);
+            tableLayoutPanel1.Size = new Size(800, 450);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // ReportsForm
@@ -84,6 +85,6 @@
 
         private DevExpress.XtraCharts.ChartControl chartControlCategory;
         private DevExpress.XtraCharts.ChartControl chartControlReminder;
-        private TableLayoutPanel tableLayoutPanel1;
+        public TableLayoutPanel tableLayoutPanel1;
     }
 }
