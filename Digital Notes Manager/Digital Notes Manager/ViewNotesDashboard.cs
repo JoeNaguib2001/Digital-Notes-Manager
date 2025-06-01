@@ -110,10 +110,10 @@ namespace Test
 
                     foreach (var note in notes)
                     {
-                        Form noteCard = CreateNoteCard(note);
-                        noteCard.TopLevel = false;
-                        notesPanel.Controls.Add(noteCard);
-
+                        Note_Form noteForm = new Note_Form(note);
+                        notesPanel.Controls.Clear();
+                        noteForm.Container.Dock = DockStyle.None;
+                        notesPanel.Controls.Add(noteForm.Container);
                     }
                 };
             }
@@ -121,19 +121,18 @@ namespace Test
 
         }
 
-        private Form CreateNoteCard(Digital_Notes_Manager.Models.Note note)
+        private Panel CreateNoteCard(Note note)
         {
             #region Maged
-            //إنشاء Panel لتمثيل بطاقة الملاحظة
             RoundedPanel card = new RoundedPanel
             {
                 Size = new Size(300, 250),
                 AutoScroll = true,
-                BackColor = Color.FromArgb(245, 245, 255), // لون مودرن – خلفية ناعمة
+                BackColor = Color.FromArgb(245, 245, 255),
                 Padding = new Padding(10),
-                Margin = new Padding(15), // مسافة بين البطاقات
+                Margin = new Padding(15),
                 BorderRadius = 20,
-                BorderColor = Color.FromArgb(180, 180, 200), // لون حواف أنيق
+                BorderColor = Color.FromArgb(180, 180, 200),
                 BorderThickness = 1
             };
             //card.BackColor = GetRandomPastelColor();
@@ -285,9 +284,12 @@ namespace Test
 
             //return card;
             #endregion
-            Note_Form formPanel = new Note_Form(note);
-
-            return formPanel;
+            Note_Form noteForm = new Note_Form(note);
+            Form f = new Form();
+            f.Size = new Size(400, 300);
+            f.Controls.Add(noteForm.Container);
+            f.Show();
+            return noteForm.Container;
         }
 
         private GraphicsPath GetRoundedRectanglePath(Rectangle rect, int radius)

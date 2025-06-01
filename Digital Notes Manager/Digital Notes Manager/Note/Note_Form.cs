@@ -33,6 +33,21 @@ namespace Digital_Notes_Manager
         public Note_Form()
         {
             InitializeComponent();
+            SetupNoteForm();
+
+            //GalleryItemGroup group = new GalleryItemGroup();
+            //group.Items.Add(new GalleryItem(null, "", "", Color.Red));
+            //group.Items.Add(new GalleryItem(null, "", "", Color.Green));
+            //// Add more...
+
+            //galleryControl1.Gallery.Groups.Add(group);
+            //galleryControl1.Gallery.ItemClick += (s, e) =>
+            //{
+            //    var selectedColor = e.Item.HintColor; // Custom extension or mapping
+            //};
+        }
+        private void SetupNoteForm()
+        {
             stylePanal.Buttons.Clear();
             _Title = TitleBox.Text;
             WindowsUIButton btn1 = new WindowsUIButton("", ButtonStyle.CheckButton);
@@ -74,21 +89,11 @@ namespace Digital_Notes_Manager
 
             MenuBtn.Appearance.BackColor = Color.LightGray;
             BellButton.Appearance.BackColor = Color.Orange;
-
-            //GalleryItemGroup group = new GalleryItemGroup();
-            //group.Items.Add(new GalleryItem(null, "", "", Color.Red));
-            //group.Items.Add(new GalleryItem(null, "", "", Color.Green));
-            //// Add more...
-
-            //galleryControl1.Gallery.Groups.Add(group);
-            //galleryControl1.Gallery.ItemClick += (s, e) =>
-            //{
-            //    var selectedColor = e.Item.HintColor; // Custom extension or mapping
-            //};
         }
-        public Note_Form(Digital_Notes_Manager.Models.Note note)
+        public Note_Form(Note note)
         {
             InitializeComponent();
+            SetupNoteForm();
 
             TitleBox.Text = note.Title;
             richTextBox1.Text = note.Content;
