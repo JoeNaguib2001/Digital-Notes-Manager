@@ -28,13 +28,12 @@ namespace Digital_Notes_Manager
         public string _Category { get; set; }
 
         private readonly ManageNoteContext _ManageNoteContext = Utilities.manageNoteContext;
-
+        public Note CurrentNote { get; set; }
 
         public Note_Form()
         {
             InitializeComponent();
             SetupNoteForm();
-
             //GalleryItemGroup group = new GalleryItemGroup();
             //group.Items.Add(new GalleryItem(null, "", "", Color.Red));
             //group.Items.Add(new GalleryItem(null, "", "", Color.Green));
@@ -49,6 +48,7 @@ namespace Digital_Notes_Manager
         public Note_Form(Note note)
         {
             InitializeComponent();
+            CurrentNote = note;
             SetupNoteForm();
 
             TitleBox.Text = note.Title;
@@ -383,6 +383,11 @@ namespace Digital_Notes_Manager
                 SendMessage(this.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
             }
 
+        }
+
+        private void Note_Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Utilities.OpenedNotes.Remove(CurrentNote);
         }
     }
 }
