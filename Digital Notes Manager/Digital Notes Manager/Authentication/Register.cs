@@ -1,36 +1,30 @@
-﻿using DevExpress.XtraBars.Ribbon;
-using DevExpress.XtraEditors;
+﻿using DevExpress.XtraEditors;
 using Digital_Notes_Manager.Models;
-using System.Drawing.Drawing2D;
 
 namespace Digital_Notes_Manager
 {
-    public partial class Register : RibbonForm
+    public partial class Register : Form
     {
         public Register()
         {
             InitializeComponent();
         }
-        protected override void OnPaint(PaintEventArgs e)
-        {
-            base.OnPaint(e);
-            GraphicsPath path = new GraphicsPath();
-            int radius = 20; // adjust corner radius
-            path.StartFigure();
-            path.AddArc(new Rectangle(0, 0, radius, radius), 180, 90);
-            path.AddArc(new Rectangle(Width - radius, 0, radius, radius), 270, 90);
-            path.AddArc(new Rectangle(Width - radius, Height - radius, radius, radius), 0, 90);
-            path.AddArc(new Rectangle(0, Height - radius, radius, radius), 90, 90);
-            path.CloseFigure();
-            this.Region = new Region(path);
-        }
+        //protected override void OnPaint(PaintEventArgs e)
+        //{
+        //    base.OnPaint(e);
+        //    GraphicsPath path = new GraphicsPath();
+        //    int radius = 20; // adjust corner radius
+        //    path.StartFigure();
+        //    path.AddArc(new Rectangle(0, 0, radius, radius), 180, 90);
+        //    path.AddArc(new Rectangle(Width - radius, 0, radius, radius), 270, 90);
+        //    path.AddArc(new Rectangle(Width - radius, Height - radius, radius, radius), 0, 90);
+        //    path.AddArc(new Rectangle(0, Height - radius, radius, radius), 90, 90);
+        //    path.CloseFigure();
+        //    this.Region = new Region(path);
+        //}
 
 
-        private void simpleButton1_Click(object sender, EventArgs e)
-        {
 
-            this.Close();
-        }
 
         private void SinUpBtn_Click(object sender, EventArgs e)
         {
@@ -93,7 +87,7 @@ namespace Digital_Notes_Manager
                 context.Users.Add(newUser);
                 context.SaveChanges();
 
-                Properties.Settings.Default.UserID = newUser.UserID;
+                Properties.Settings.Default.userID = newUser.UserID;
                 Properties.Settings.Default.Save();
 
                 XtraMessageBox.Show("Registered successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -102,10 +96,24 @@ namespace Digital_Notes_Manager
                 usernameTxt.Text = "";
                 passwordTxt.Text = "";
                 passwordConfirmTxt.Text = "";
+                if (RememberMeCheckBox.Checked)
+                {
+                    Properties.Settings.Default.rememberMe = true;
+                    Properties.Settings.Default.userName = username;
+                }
+                else
+                {
+                    Properties.Settings.Default.rememberMe = false;
+                    Properties.Settings.Default.userName = string.Empty;
+                }
 
-                this.Hide();
                 Main_Form main_Form = new Main_Form();
                 main_Form.Show();
+                main_Form.FormClosed += (s, args) =>
+                {
+                    Application.Exit();
+                };
+                Utilities.LoginRegisterMDI.Hide();
             }
         }
     }

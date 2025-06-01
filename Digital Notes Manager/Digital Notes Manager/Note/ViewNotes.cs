@@ -1,12 +1,10 @@
 ﻿using DevExpress.XtraEditors;
+using DevExpress.XtraEditors.Repository;
 using DevExpress.XtraGrid.Columns;
 using DevExpress.XtraGrid.Views.Base;
 using DevExpress.XtraGrid.Views.Grid;
-using DevExpress.XtraRichEdit.Forms;
 using Digital_Notes_Manager.Models;
 using Microsoft.EntityFrameworkCore;
-using System.IO;
-using static DevExpress.XtraPrinting.Native.ExportOptionsPropertiesNames;
 
 namespace Digital_Notes_Manager
 {
@@ -20,9 +18,7 @@ namespace Digital_Notes_Manager
             gridView1.Columns["ReminderDate"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             gridView1.Columns["ReminderDate"].DisplayFormat.FormatString = "dd/MM/yyyy HH:mm:ss";
 
-            var combo = new DevExpress.XtraEditors.Repository.RepositoryItemComboBox();
-
-            // نضيف القيم اللي انت عايزها تظهر (القيم الحقيقية من الـ Enum)
+            var combo = new RepositoryItemComboBox();
             foreach (Category cat in Enum.GetValues(typeof(Category)))
             {
                 combo.Items.Add(cat);
@@ -32,20 +28,74 @@ namespace Digital_Notes_Manager
             gridView1.Columns["Category"].ColumnEdit = combo;
             combo.EditValueChanged += (s, e) =>
             {
-                gridView1.PostEditor();           // يحفظ القيمة جوه الخلية
-                gridView1.CloseEditor();          // يقفل الـ editor
-                gridView1.UpdateCurrentRow();     // يعمل commit للتغيير علطول
+                gridView1.PostEditor();
+                gridView1.CloseEditor();
+                gridView1.UpdateCurrentRow();
             };
-            combo.AppearanceDropDown.Font = new Font("Segoe UI", 12); // حجم 12 أو أي حجم يعجبك
+            combo.AppearanceDropDown.Font = new Font("Segoe UI", 12);
             combo.AppearanceDropDown.Options.UseFont = true;
-            gridView1.RowCellClick += gridView1_RowCellClick; // ربط الحدث
+            gridView1.RowCellClick += gridView1_RowCellClick;
             gridView1.SortInfo.Clear();
             gridView1.SortInfo.AddRange(new[] {
             new GridColumnSortInfo(gridView1.Columns["CreationDate"], DevExpress.Data.ColumnSortOrder.Descending)
     });
             Utilities.GridControl = Notes_Grid;
             Utilities.SetNotesGridControlDataSource();
+
+
+
+            detailView.OptionsBehavior.Editable = false;
+
+            gridView1.MasterRowGetRelationCount += (s, e) =>
+            {
+                e.RelationCount = 1;
+            };
+
+            gridView1.MasterRowGetRelationName += (s, e) =>
+            {
+                e.RelationName = "NoteDetails";
+            };
+
+            gridView1.MasterRowGetChildList += (s, e) =>
+            {
+                var masterRow = gridView1.GetRow(e.RowHandle) as Note;
+                if (masterRow != null)
+                {
+                    e.ChildList = new List<object>
+                {
+                    new { Content = ConvertRtfToPlainText(masterRow.Content)}
+                };
+                }
+            };
+
+            gridView1.MasterRowGetRelationDisplayCaption += (s, e) =>
+            {
+                e.RelationName = "NoteDetails";
+            };
+
+            Notes_Grid.LevelTree.Nodes.Add("NoteDetails", detailView);
+
         }
+
+        private string ConvertRtfToPlainText(string rtf)
+        {
+            if (string.IsNullOrWhiteSpace(rtf))
+                return string.Empty;
+
+            using (RichTextBox rtb = new RichTextBox())
+            {
+                try
+                {
+                    rtb.Rtf = rtf;
+                    return rtb.Text;
+                }
+                catch
+                {
+                    return "[Invalid RTF]";
+                }
+            }
+        }
+
 
         private ManageNoteContext ManageNoteContext = Utilities.manageNoteContext;
         private void gridView1_RowCellClick(object sender, RowCellClickEventArgs e)
@@ -90,10 +140,9 @@ namespace Digital_Notes_Manager
 
         private void deleteAllSeToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if (MessageBox.Show("Are you sure you want to delete the selected notes ?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.Yes)
+            if (MessageBox.Show("Are you sure you want to delete the selected notes ?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.No)
                 return;
 
-            // خزن الـ IDs أو الكيانات اللي متعلم عليها
             var selectedRows = gridView1.GetSelectedRows();
 
             if (selectedRows.Length == 0)
@@ -106,7 +155,7 @@ namespace Digital_Notes_Manager
             {
                 foreach (var rowHandle in selectedRows)
                 {
-                    var row = gridView1.GetRow(rowHandle) as Note_Form;
+                    var row = gridView1.GetRow(rowHandle) as Note;
 
                     if (row != null)
                     {
@@ -135,7 +184,13 @@ namespace Digital_Notes_Manager
         {
             Note_Form noteForm = new Note_Form();
             var selectedRow = gridView1.GetFocusedRow() as Note;
-            noteForm.richTextBox1.Text = selectedRow?.Content ?? string.Empty;
+            RichTextBox rt = new RichTextBox();
+            rt.Rtf = selectedRow.Content;
+            noteForm.richTextBox1.Rtf = rt.Rtf;
+            noteForm._Title = selectedRow.Title;
+            noteForm.Mode = Mode.Edit;
+            noteForm.noteId = selectedRow.ID;
+            noteForm.Categorybox.Text = selectedRow.Category.ToString();
             noteForm.Show();
         }
 
@@ -155,32 +210,15 @@ namespace Digital_Notes_Manager
                 try
                 {
 
-
                     RichTextBox richTextBox = new RichTextBox();
 
-
-
-                    richTextBox.SelectionAlignment = HorizontalAlignment.Center;
-                    richTextBox.SelectionFont = new Font("Arial", 20, FontStyle.Bold | FontStyle.Underline);
-                    richTextBox.SelectionColor = Color.DarkRed;
-                    richTextBox.AppendText($"{selectedRow.Title}\n\n");
-
-
-                    richTextBox.SelectionAlignment = HorizontalAlignment.Left;
-                    richTextBox.SelectionFont = new Font("Arial", 12, FontStyle.Bold | FontStyle.Italic);
-                    richTextBox.SelectionColor = Color.DarkGreen;
-                    richTextBox.AppendText($"Category: {selectedRow.Category}");
-                    richTextBox.AppendText($"                                ");
-                    richTextBox.AppendText($"Created On: {selectedRow.CreationDate:dd/MM/yyyy}\n");
-
-
-                    richTextBox.SelectionFont = new Font("Arial", 12, FontStyle.Regular);
-                    richTextBox.SelectionColor = Color.Gray;
-                    richTextBox.AppendText("------------------------------------------------------------------------------------------------------------\n\n");
-
-                    richTextBox.SelectionFont = new Font("Arial", 14, FontStyle.Regular);
                     richTextBox.SelectionColor = Color.Black;
-                    richTextBox.AppendText(selectedRow.Content ?? "");
+                    RichTextBox textBox = new RichTextBox();
+                    textBox.Rtf = selectedRow.Content;
+
+
+                    //richTextBox.SelectionFont = textBox.Font;
+                    richTextBox.Rtf = textBox.Rtf;
 
 
                     richTextBox.SaveFile(saveFileDialog.FileName, RichTextBoxStreamType.RichText);
@@ -197,8 +235,84 @@ namespace Digital_Notes_Manager
             }
         }
 
-       
+        private void gridView1_CustomUnboundColumnData(object sender, DevExpress.XtraGrid.Views.Base.CustomColumnDataEventArgs e)
+        {
+            if (e.Column.FieldName == "TimeDiff" && e.IsGetData)
+            {
+                var row = e.Row as Note;
+                if (row != null)
+                {
+                    var diff = row.ReminderDate - DateTime.Now;
+                    if (diff.TotalSeconds <= 0)
+                    {
+                        e.Value = "";
+                    }
+                    else
+                    {
+                        int hours = (int)diff.TotalHours;
+                        int minutes = diff.Minutes;
+                        int seconds = diff.Seconds;
+
+                        e.Value = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
+                    }
+                    
+                    
+                }
+            }
+        }
+
+        private void liveTimer_Tick(object sender, EventArgs e)
+        {
+            Utilities.RefreshNotesGrid();
+        }
+
+
+
+        private void gridView1_RowStyle(object sender, DevExpress.XtraGrid.Views.Grid.RowStyleEventArgs e)
+        {
+            var view = sender as DevExpress.XtraGrid.Views.Grid.GridView;
+
+            if (e.RowHandle >= 0)
+            {
+                var row = view.GetRow(e.RowHandle) as Note;
+                if (row != null)
+                {
+                    var diff = row.ReminderDate - DateTime.Now;
+                    double totalHours = diff.TotalHours;
+
+                    if (totalHours < 0)
+                    {
+                        e.Appearance.BackColor = Color.LightGray;
+                        e.Appearance.ForeColor = Color.Black;
+                    }
+                    else if (totalHours > 5 && totalHours <= 25)
+                    {
+                        e.Appearance.BackColor = Color.Yellow;
+                        e.Appearance.ForeColor = Color.Black;
+                    }
+                    else if (totalHours > 25 && totalHours <= 50)
+                    {
+                        // لون تاني لو حابب (مثلاً برتقالي فاتح)
+                        e.Appearance.BackColor = Color.Orange;
+                        e.Appearance.ForeColor = Color.Black;
+                    }
+                    else if (totalHours >= 50)
+                    {
+                        e.Appearance.BackColor = Color.Red;
+                        e.Appearance.ForeColor = Color.White;
+                    }
+
+                    else
+                    {
+                        // لون طبيعي عادي
+                        e.Appearance.BackColor = Color.Green;
+                        e.Appearance.ForeColor = Color.White;
+                    }
+                }
+            }
+        }
     }
 }
+
 
 

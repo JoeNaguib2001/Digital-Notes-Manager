@@ -1,0 +1,219 @@
+﻿using Digital_Notes_Manager;
+using Digital_Notes_Manager.Customs;
+using Digital_Notes_Manager.Models;
+using System.Data;
+using System.Drawing.Drawing2D;
+
+
+namespace Test
+{
+    public partial class ViewNotesDashboard : DevExpress.XtraBars.FluentDesignSystem.FluentDesignForm
+    {
+        private ManageNoteContext _dbContext;
+        int _userId = Utilities.GetCurrentLoggedInUserId();
+        public ViewNotesDashboard()
+        {
+            InitializeComponent();
+            LoadCategories();
+            _dbContext = new ManageNoteContext();
+            var firstNonEmptyCategory = _dbContext.Notes
+                .Where(x => x.UserID == _userId)
+                .GroupBy(x => x.Category)
+                .Where(g => g.Any())
+                .OrderByDescending(g => g.Count())
+                .Select(g => g.Key)
+                .FirstOrDefault();
+
+
+            //Get First Category That Has Any Notes
+            // If no notes exist, default to Study category
+            if (!Enum.IsDefined(typeof(Category), firstNonEmptyCategory))
+            {
+                firstNonEmptyCategory = Category.Study;
+            }
+            LoadNotesForSpecficCategory(firstNonEmptyCategory, CategoryColors[firstNonEmptyCategory]);
+        }
+
+        private readonly Dictionary<Category, Color> CategoryColors = new Dictionary<Category, Color>
+        {
+            { Category.Study, Color.FromArgb(173, 216, 230) },      // Light Blue
+            { Category.Work, Color.FromArgb(255, 239, 153) },       // Light Yellow
+            { Category.Ideas, Color.FromArgb(204, 255, 204) },      // Light Green
+            { Category.Reminders, ColorTranslator.FromHtml("#d5cabd") }, // Beige
+            { Category.Personal, ColorTranslator.FromHtml("#adc5cf") },  // Light Blue-Gray
+        };
+
+
+        private void LoadCategories()
+        {
+            //Adding A new Floylayout Panel in Run Time
+            FlowLayoutPanel CategoryflowLayoutPanel = new FlowLayoutPanel()
+            {
+                Dock = DockStyle.Fill,
+                AutoScroll = true,
+                FlowDirection = FlowDirection.LeftToRight,
+                WrapContents = true,
+                Padding = new Padding(10),
+            };
+            CategoryPanel.Controls.Add(CategoryflowLayoutPanel);
+
+            //Creating A New Card For Each Category
+            try
+            {
+                _dbContext = new ManageNoteContext();
+                Panel cardCategoryAll = CreateCategoryCard("All Categories");
+                CategoryflowLayoutPanel.Controls.Add(cardCategoryAll);
+                foreach (var category in Enum.GetNames(typeof(Category)))
+                {
+                    Panel card = CreateCategoryCard(category);
+                    CategoryflowLayoutPanel.Controls.Add(card);
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error on load Categories: {ex.Message}");
+            }
+        }
+        private Panel CreateCategoryCard(string category)
+        {
+            RoundedPanel card = new RoundedPanel
+            {
+                Size = new Size(250, 200),
+                AutoScroll = true,
+                Padding = new Padding(10),
+                Margin = new Padding(15),
+                BorderRadius = 20,
+                BorderColor = Color.FromArgb(180, 180, 200),
+                BorderThickness = 2
+            };
+
+            // إضافة Label لعنوان الملاحظة
+            Label titleLabel = new Label
+            {
+                Text = category,
+                Font = new Font("Tahoma", 16, FontStyle.Bold),
+                Location = new Point(10, 10),
+                AutoSize = true
+            };
+            card.Controls.Add(titleLabel);
+
+
+            Category parsedCategory;
+            if (Enum.TryParse(category, out parsedCategory))
+            {
+                int noteCount = _dbContext.Notes.Count(n => n.UserID == _userId && n.Category == parsedCategory);
+
+                Label countLabel = new Label
+                {
+                    Text = $"Notes Count: {noteCount}",
+                    Font = new Font("Tahoma", 10),
+                    Location = new Point(10, 50),
+                    AutoSize = true
+                };
+                card.Controls.Add(countLabel);
+                card.BackColor = CategoryColors[parsedCategory];
+
+                // إضافة حدث النقر لعرض الملاحظات الخاصة بالفئة
+                card.Click += (s, e) =>
+                {
+                    LoadNotesForSpecficCategory(parsedCategory, card.BackColor);
+                };
+            }
+            else
+            {
+                int noteCount = _dbContext.Notes.Count(n => n.UserID == _userId);
+
+                Label countLabel = new Label
+                {
+                    Text = $"Notes Count: {noteCount}",
+                    Font = new Font("Tahoma", 10),
+                    Location = new Point(10, 50),
+                    AutoSize = true
+                };
+                card.Controls.Add(countLabel);
+                card.BackColor = Color.Pink;
+
+                // إضافة حدث النقر لعرض الملاحظات الخاصة بالفئة
+                card.Click += (s, e) =>
+                {
+                    LoadNotesForSpecficCategory("All Categories", card.BackColor);
+                };
+            }
+
+            return card;
+
+        }
+        private Panel CreateNoteCard(Note note)
+        {
+            RoundedPanel card = new RoundedPanel
+            {
+                Size = new Size(300, 250),
+                AutoScroll = true,
+                BackColor = Color.FromArgb(245, 245, 255),
+                Padding = new Padding(10),
+                Margin = new Padding(15),
+                BorderRadius = 20,
+                BorderColor = Color.FromArgb(180, 180, 200),
+                BorderThickness = 1
+            };
+            Note_Form noteForm = new Note_Form(note);
+            return noteForm.Container;
+        }
+        private void LoadNotesForSpecficCategory(Category category, Color c)
+        {
+            var notes = _dbContext.Notes
+                       .Where(n => n.Category == category && n.UserID == _userId)
+                       .ToList();
+            if (notes.Count == 0)
+            {
+                MessageBox.Show("You Have No Notes For This Category !!!");
+                return;
+            }
+
+            notesPanel.Controls.Clear();
+            foreach (var note in notes)
+            {
+                Note_Form noteForm = new Note_Form(note);
+                noteForm.TopPanal.BackColor = c; // Set the background color of the note card
+                noteForm.TitleBox.BackColor = c;
+                noteForm.Container.Dock = DockStyle.None;
+                notesPanel.Controls.Add(noteForm.Container);
+            }
+        }
+        private void LoadNotesForSpecficCategory(string category, Color c)
+        {
+            var notes = _dbContext.Notes
+                       .Where(n => n.UserID == _userId)
+                       .ToList();
+            if (notes.Count == 0)
+            {
+                MessageBox.Show("You Have No Notes For This Category !!!");
+                return;
+            }
+
+            notesPanel.Controls.Clear();
+            foreach (var note in notes)
+            {
+                Note_Form noteForm = new Note_Form(note);
+                noteForm.TopPanal.BackColor = c; // Set the background color of the note card
+                noteForm.TitleBox.BackColor = c;
+                noteForm.Container.Dock = DockStyle.None;
+                notesPanel.Controls.Add(noteForm.Container);
+            }
+        }
+        private GraphicsPath GetRoundedRectanglePath(Rectangle rect, int radius)
+        {
+            GraphicsPath path = new GraphicsPath();
+            int r = radius;
+            path.AddArc(rect.X, rect.Y, r, r, 180, 90);
+            path.AddArc(rect.Right - r, rect.Y, r, r, 270, 90);
+            path.AddArc(rect.Right - r, rect.Bottom - r, r, r, 0, 90);
+            path.AddArc(rect.X, rect.Bottom - r, r, r, 90, 90);
+            path.CloseFigure();
+            return path;
+        }
+
+    }
+}

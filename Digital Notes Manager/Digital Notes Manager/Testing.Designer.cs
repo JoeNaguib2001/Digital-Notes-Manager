@@ -29,28 +29,47 @@
         private void InitializeComponent()
         {
             accordionControl1 = new DevExpress.XtraBars.Navigation.AccordionControl();
-            accordionControlElement1 = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            flowLayoutPanel1 = new FlowLayoutPanel();
+            button1 = new Button();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
             SuspendLayout();
             // 
             // accordionControl1
             // 
-            accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { accordionControlElement1 });
             accordionControl1.Location = new Point(22, 50);
+            accordionControl1.LookAndFeel.SkinMaskColor = Color.FromArgb(255, 192, 255);
+            accordionControl1.LookAndFeel.SkinMaskColor2 = Color.FromArgb(255, 224, 192);
+            accordionControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             accordionControl1.Name = "accordionControl1";
             accordionControl1.Size = new Size(260, 300);
             accordionControl1.TabIndex = 0;
             // 
-            // accordionControlElement1
+            // flowLayoutPanel1
             // 
-            accordionControlElement1.Name = "accordionControlElement1";
-            accordionControlElement1.Text = "Element1";
+            flowLayoutPanel1.Dock = DockStyle.Top;
+            flowLayoutPanel1.Location = new Point(0, 0);
+            flowLayoutPanel1.Name = "flowLayoutPanel1";
+            flowLayoutPanel1.Size = new Size(800, 224);
+            flowLayoutPanel1.TabIndex = 1;
+            // 
+            // button1
+            // 
+            button1.Dock = DockStyle.Fill;
+            button1.Location = new Point(0, 224);
+            button1.Name = "button1";
+            button1.Size = new Size(800, 226);
+            button1.TabIndex = 2;
+            button1.Text = "button1";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button1_Click;
             // 
             // Testing
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(800, 450);
+            Controls.Add(button1);
+            Controls.Add(flowLayoutPanel1);
             Controls.Add(accordionControl1);
             Name = "Testing";
             Text = "Testing";
@@ -61,6 +80,7 @@
         #endregion
 
         private DevExpress.XtraBars.Navigation.AccordionControl accordionControl1;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement accordionControlElement1;
+        private FlowLayoutPanel flowLayoutPanel1;
+        private Button button1;
     }
 }

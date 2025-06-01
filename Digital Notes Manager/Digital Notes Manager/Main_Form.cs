@@ -1,17 +1,30 @@
-using DevExpress.XtraBars.Navigation;
+﻿using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraEditors;
+using Digital_Notes_Manager.AlarmSystem;
 using Digital_Notes_Manager.Models;
+using Test;
+
+
 namespace Digital_Notes_Manager
 {
     public partial class Main_Form : XtraForm
     {
+        private DevExpress.XtraBars.Alerter.AlertControl alertControl;
+
         public Main_Form()
         {
             InitializeComponent();
+            this.Shown += Notify_Load;
+
             Add_A_New_Note_Accordion_Element.Click += AccordionElementClick;
             Show_Notes_Accordion_Element.Click += AccordionElementClick;
+            View_All_Notes_Popped.Click += AccordionElementClick;
+            Logout_AccordionElement.Click += LogoutAccordionElement_Click;
+            alertControl = new DevExpress.XtraBars.Alerter.AlertControl();
+
             LoadNotesForm();
         }
+
 
         private void AccordionElementClick(object sender, EventArgs e)
         {
@@ -31,7 +44,16 @@ namespace Digital_Notes_Manager
                             noteForm.Show();
                         }
                         break;
-
+                    case "View_All_Notes_Popped":
+                        {
+                            LoadAllNotesPoppedOut();
+                        }
+                        break;
+                    case "Logout_AccordionElement":
+                        {
+                            Logout();
+                        }
+                        break;
                     default:
                         XtraMessageBox.Show("Unknown action.");
                         break;
@@ -48,32 +70,33 @@ namespace Digital_Notes_Manager
             this.MDI_Panel.Controls.Clear();
             viewNotes = new ViewNotes();
             MDI_Panel.Controls.Add(viewNotes.panel1);
-        }
-
-
-        private void MDI_Panel_Paint(object sender, PaintEventArgs e)
-        {
-            //manageNoteContext = new ManageNoteContext();
-            //viewNotes = new ViewNotes(manageNoteContext, this);
-            //var list = manageNoteContext.Notes.ToList();
-            //BindingList<Note> BLN = new BindingList<Note>(list);
-            //viewNotes.Notes_Grid.DataSource = BLN;
-
-        }
-
-
-        private void View_All_Notes_Popped_Click(object sender, EventArgs e)
-        {
-            var list = manageNoteContext.Notes.ToList();
-            for (int i = 0; i < 5; i++)
+            var resources = typeof(Program).Assembly.GetManifestResourceNames();
+            foreach (var res in resources)
             {
-                Note_Form note_form = new Note_Form();
-                note_form.richTextBox1.Text = list[i].Content;
-                note_form.Text = list[i].Title;
-                note_form.Show();
-
+                System.Diagnostics.Debug.WriteLine(res);
             }
         }
+
+        private void Logout()
+        {
+            this.Hide();
+            Utilities.LoginRegisterMDI.Show();
+            Utilities.LoginRegisterMDI.LoadLogin();
+            Properties.Settings.Default.userID = 0;
+            Properties.Settings.Default.userName = string.Empty;
+            Properties.Settings.Default.rememberMe = false;
+            Properties.Settings.Default.Save();
+
+        }
+
+        private void LoadAllNotesPoppedOut()
+        {
+            MDI_Panel.Controls.Clear();
+            ViewNotesDashboard viewNotesDashboard = new ViewNotesDashboard();
+            MDI_Panel.Controls.Add(viewNotesDashboard.TableLayoutMDI);
+        }
+
+
 
         private void importNoteToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -87,8 +110,10 @@ namespace Digital_Notes_Manager
                 {
                     Note_Form note = new Note_Form();
 
-                    note.richTextBox1.LoadFile(openFile.FileName, RichTextBoxStreamType.RichText);
 
+                    note.richTextBox1.LoadFile(openFile.FileName, RichTextBoxStreamType.RichText);
+                    string x = note.richTextBox1.Rtf;
+                    note.richTextBox1.Rtf = x;
                     note.Show();
                 }
                 catch (Exception ex)
@@ -97,5 +122,47 @@ namespace Digital_Notes_Manager
                 }
             }
         }
+
+        public void IsMached(Note note)
+        {
+            this.Invoke((MethodInvoker)(() =>
+            {
+                alertControl.Show(null, "⏰ Reminder", $"🔔 {note.Title} is due now!");
+            }));
+        }
+        public void ShowSoonMessage(Note note)
+        {
+            this.Invoke((MethodInvoker)(() =>
+            {
+                alertControl.Show(null, "⏰ Reminder", $"Note {note.Title} is coming soon!");
+            }));
+        }
+        private async void Notify_Load(object sender, EventArgs e)
+        {
+            int userId = Properties.Settings.Default.userID;
+            List<Note> list = manageNoteContext.Notes
+                .Where(x => x.UserID == userId)
+                .AsEnumerable()
+                .OrderBy(x => x.ReminderDate)
+                .ToList();
+            Alarm alarm = new Alarm(this, list);
+            _ = alarm.CompareTimeAsync();
+        }
+
+        private void LoadReportsForm()
+        {
+            int userId = Properties.Settings.Default.userID;
+            var notes = manageNoteContext.Notes
+                .Where(n => n.UserID == userId)
+                .ToList();
+
+            ReportsForm reportsForm = new ReportsForm(notes);
+            reportsForm.Show();
+        }
+
+        private void LogoutAccordionElement_Click(object sender, EventArgs e)
+        {
+        }
+
     }
 }

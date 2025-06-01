@@ -9,4 +9,5 @@ namespace Digital_Notes_Manager.Models
         public virtual List<Note> Notes { get; set; }
 
     }
+
 }
