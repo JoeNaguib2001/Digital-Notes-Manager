@@ -40,11 +40,13 @@
             DownPanel = new Panel();
             BellButton = new DevExpress.XtraEditors.SimpleButton();
             TopPanal = new Panel();
+            Container = new Panel();
             ((System.ComponentModel.ISupportInitialize)Calender.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TitleBox.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Categorybox.Properties).BeginInit();
             DownPanel.SuspendLayout();
             TopPanal.SuspendLayout();
+            Container.SuspendLayout();
             SuspendLayout();
             // 
             // stylePanal
@@ -63,9 +65,11 @@
             // richTextBox1
             // 
             richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Location = new Point(8, 37);
+            richTextBox1.Dock = DockStyle.Fill;
+            richTextBox1.Font = new Font("Tahoma", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            richTextBox1.Location = new Point(0, 33);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(260, 179);
+            richTextBox1.Size = new Size(279, 188);
             richTextBox1.TabIndex = 3;
             richTextBox1.Text = "";
             // 
@@ -126,7 +130,7 @@
             // TitleBox
             // 
             TitleBox.EditValue = "Note";
-            TitleBox.Location = new Point(100, 3);
+            TitleBox.Location = new Point(115, 3);
             TitleBox.Name = "TitleBox";
             TitleBox.Properties.AllowFocused = false;
             TitleBox.Properties.Appearance.BackColor = Color.WhiteSmoke;
@@ -137,7 +141,7 @@
             TitleBox.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             TitleBox.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             TitleBox.Properties.ReadOnly = true;
-            TitleBox.Size = new Size(86, 24);
+            TitleBox.Size = new Size(71, 24);
             TitleBox.TabIndex = 8;
             TitleBox.DoubleClick += TitleBox_DoubleClick;
             TitleBox.KeyDown += TitleBox_KeyDown;
@@ -159,9 +163,9 @@
             DownPanel.Controls.Add(Categorybox);
             DownPanel.Controls.Add(saveBtn);
             DownPanel.Dock = DockStyle.Bottom;
-            DownPanel.Location = new Point(0, 194);
+            DownPanel.Location = new Point(0, 221);
             DownPanel.Name = "DownPanel";
-            DownPanel.Size = new Size(274, 28);
+            DownPanel.Size = new Size(279, 28);
             DownPanel.TabIndex = 10;
             // 
             // BellButton
@@ -184,19 +188,28 @@
             TopPanal.Dock = DockStyle.Top;
             TopPanal.Location = new Point(0, 0);
             TopPanal.Name = "TopPanal";
-            TopPanal.Size = new Size(274, 33);
+            TopPanal.Size = new Size(279, 33);
             TopPanal.TabIndex = 11;
             TopPanal.MouseDown += TopPanal_MouseDown;
+            // 
+            // Container
+            // 
+            Container.Controls.Add(richTextBox1);
+            Container.Controls.Add(TopPanal);
+            Container.Controls.Add(DownPanel);
+            Container.Dock = DockStyle.Fill;
+            Container.Location = new Point(0, 0);
+            Container.Name = "Container";
+            Container.Size = new Size(279, 249);
+            Container.TabIndex = 12;
             // 
             // Note_Form
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(274, 222);
-            Controls.Add(TopPanal);
-            Controls.Add(DownPanel);
-            Controls.Add(richTextBox1);
+            ClientSize = new Size(279, 249);
+            Controls.Add(Container);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
@@ -207,6 +220,7 @@
             ((System.ComponentModel.ISupportInitialize)Categorybox.Properties).EndInit();
             DownPanel.ResumeLayout(false);
             TopPanal.ResumeLayout(false);
+            Container.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -222,5 +236,6 @@
         private DevExpress.XtraEditors.SimpleButton BellButton;
         private Panel TopPanal;
         public DevExpress.XtraEditors.ComboBoxEdit Categorybox;
+        public Panel Container;
     }
 }

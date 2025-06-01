@@ -33,8 +33,8 @@
             TableLayoutMDI = new TableLayoutPanel();
             label2 = new Label();
             label3 = new Label();
-            NotesPanel = new Panel();
             CategoryPanel = new Panel();
+            notesPanel = new FlowLayoutPanel();
             fluentFormDefaultManager1 = new DevExpress.XtraBars.FluentDesignSystem.FluentFormDefaultManager(components);
             fluentDesignFormControl1 = new DevExpress.XtraBars.FluentDesignSystem.FluentDesignFormControl();
             fluentDesignFormContainer1.SuspendLayout();
@@ -59,8 +59,8 @@
             TableLayoutMDI.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             TableLayoutMDI.Controls.Add(label2, 0, 2);
             TableLayoutMDI.Controls.Add(label3, 0, 0);
-            TableLayoutMDI.Controls.Add(NotesPanel, 0, 3);
             TableLayoutMDI.Controls.Add(CategoryPanel, 0, 1);
+            TableLayoutMDI.Controls.Add(notesPanel, 0, 3);
             TableLayoutMDI.Dock = DockStyle.Fill;
             TableLayoutMDI.Location = new Point(0, 0);
             TableLayoutMDI.Margin = new Padding(3, 2, 3, 2);
@@ -95,15 +95,6 @@
             label3.TabIndex = 3;
             label3.Text = "My Categories";
             // 
-            // NotesPanel
-            // 
-            NotesPanel.Dock = DockStyle.Fill;
-            NotesPanel.Location = new Point(3, 269);
-            NotesPanel.Margin = new Padding(3, 2, 3, 2);
-            NotesPanel.Name = "NotesPanel";
-            NotesPanel.Size = new Size(1023, 348);
-            NotesPanel.TabIndex = 3;
-            // 
             // CategoryPanel
             // 
             CategoryPanel.AutoScroll = true;
@@ -113,6 +104,16 @@
             CategoryPanel.Name = "CategoryPanel";
             CategoryPanel.Size = new Size(1023, 211);
             CategoryPanel.TabIndex = 2;
+            // 
+            // notesPanel
+            // 
+            notesPanel.AutoScroll = true;
+            notesPanel.Dock = DockStyle.Fill;
+            notesPanel.Location = new Point(3, 270);
+            notesPanel.Name = "notesPanel";
+            notesPanel.Padding = new Padding(10);
+            notesPanel.Size = new Size(1023, 346);
+            notesPanel.TabIndex = 4;
             // 
             // fluentFormDefaultManager1
             // 
@@ -156,11 +157,11 @@
         private DevExpress.XtraBars.FluentDesignSystem.FluentDesignFormControl fluentDesignFormControl1;
         private DevExpress.XtraBars.FluentDesignSystem.FluentFormDefaultManager fluentFormDefaultManager1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
-        private System.Windows.Forms.Panel NotesPanel;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel CategoryPanel;
         private System.Windows.Forms.Label label3;
         public TableLayoutPanel TableLayoutMDI;
+        private FlowLayoutPanel notesPanel;
     }
 }
 
