@@ -149,7 +149,16 @@ namespace Digital_Notes_Manager
             _ = alarm.CompareTimeAsync();
         }
 
+        private void LoadReportsForm()
+        {
+            int userId = Properties.Settings.Default.userID;
+            var notes = manageNoteContext.Notes
+                .Where(n => n.UserID == userId)
+                .ToList();
 
+            ReportsForm reportsForm = new ReportsForm(notes);
+            IsMdiContainer
+        }
 
         private void LogoutAccordionElement_Click(object sender, EventArgs e)
         {
