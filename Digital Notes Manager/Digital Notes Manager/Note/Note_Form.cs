@@ -92,7 +92,7 @@ namespace Digital_Notes_Manager
 
             TitleBox.Text = note.Title;
             richTextBox1.Text = note.Content;
-            NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(2));
+            NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(0));
             Categorybox.Text = note.Category.ToString();
 
             //this.TopLevel = false;
@@ -365,6 +365,7 @@ namespace Digital_Notes_Manager
         private void Categorybox_SelectedIndexChanged(object sender, EventArgs e)
         {
             _Category = Categorybox.Text;
+            ToastForm.ShowToast("cat changed", 3000);
             //Console.WriteLine("Changed to: " + selected);
         }
 
