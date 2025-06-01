@@ -86,6 +86,7 @@ namespace Digital_Notes_Manager
             Properties.Settings.Default.userName = string.Empty;
             Properties.Settings.Default.rememberMe = false;
             Properties.Settings.Default.Save();
+
         }
 
         private void LoadAllNotesPoppedOut()

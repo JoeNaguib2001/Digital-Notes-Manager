@@ -1,10 +1,5 @@
 ﻿using DevExpress.XtraScheduler;
-using DevExpress.XtraGantt;
-using System;
-using System.Collections.Generic;
-using System.Windows.Forms;
 using Digital_Notes_Manager.Models;
-using System.Drawing;
 
 namespace Digital_Notes_Manager
 {
@@ -15,16 +10,16 @@ namespace Digital_Notes_Manager
         public GanttForm()
         {
             InitializeComponent(); // لازم تستدعيها علشان تجهز الكنترولز
+            //Properties.Settings.Default.
+            //ganttView1 = schedulerControl1.Views.GanttView;
+            //schedulerControl1.ActiveViewType = SchedulerViewType.Gantt;
 
-            ganttView1 = schedulerControl1.Views.GanttView;
-            schedulerControl1.ActiveViewType = SchedulerViewType.Gantt;
+            //schedulerControl1.Start = new DateTime(2025, 6, 1);
+            //schedulerControl1.DayView.TimeScale = TimeSpan.FromHours(24);
 
-            schedulerControl1.Start = new DateTime(2025, 6, 1);
-            schedulerControl1.DayView.TimeScale = TimeSpan.FromHours(24);
+            //AddTasksToScheduler(GetSampleTasks());
 
-            AddTasksToScheduler(GetSampleTasks());
-
-            schedulerControl1.Refresh();
+            //schedulerControl1.Refresh();
         }
 
         private void AddTasksToScheduler(List<TaskModel> tasks)
