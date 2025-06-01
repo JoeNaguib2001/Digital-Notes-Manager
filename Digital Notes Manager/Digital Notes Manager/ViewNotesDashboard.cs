@@ -10,9 +10,12 @@ namespace Test
     public partial class ViewNotesDashboard : DevExpress.XtraBars.FluentDesignSystem.FluentDesignForm
     {
         private ManageNoteContext _dbContext;
+        public Category SelectedCategory { get; set; }
+        public bool IsCategorySelected { get; set; } = false;
         int _userId = Utilities.GetCurrentLoggedInUserId();
         public ViewNotesDashboard()
         {
+            Utilities.ViewNotesDashboard = this;
             InitializeComponent();
             LoadCategories();
             _dbContext = new ManageNoteContext();
@@ -31,10 +34,10 @@ namespace Test
             {
                 firstNonEmptyCategory = Category.Study;
             }
-            LoadNotesForSpecficCategory(firstNonEmptyCategory, CategoryColors[firstNonEmptyCategory]);
+            LoadNotesForSpecficCategory("All Categories");
         }
 
-        private readonly Dictionary<Category, Color> CategoryColors = new Dictionary<Category, Color>
+        public static readonly Dictionary<Category, Color> CategoryColors = new Dictionary<Category, Color>
         {
             { Category.Study, Color.FromArgb(173, 216, 230) },      // Light Blue
             { Category.Work, Color.FromArgb(255, 239, 153) },       // Light Yellow
@@ -89,7 +92,7 @@ namespace Test
                 BorderThickness = 2
             };
 
-            // إضافة Label لعنوان الملاحظة
+            // Category Title
             Label titleLabel = new Label
             {
                 Text = category,
@@ -104,6 +107,7 @@ namespace Test
             if (Enum.TryParse(category, out parsedCategory))
             {
                 int noteCount = _dbContext.Notes.Count(n => n.UserID == _userId && n.Category == parsedCategory);
+                SelectedCategory = parsedCategory;
 
                 Label countLabel = new Label
                 {
@@ -115,7 +119,7 @@ namespace Test
                 card.Controls.Add(countLabel);
                 card.BackColor = CategoryColors[parsedCategory];
 
-                // إضافة حدث النقر لعرض الملاحظات الخاصة بالفئة
+                //Category Card Click
                 card.Click += (s, e) =>
                 {
                     LoadNotesForSpecficCategory(parsedCategory, card.BackColor);
@@ -138,7 +142,8 @@ namespace Test
                 // إضافة حدث النقر لعرض الملاحظات الخاصة بالفئة
                 card.Click += (s, e) =>
                 {
-                    LoadNotesForSpecficCategory("All Categories", card.BackColor);
+                    IsCategorySelected = false; // Reset the category selection
+                    LoadNotesForSpecficCategory("All Categories");
                 };
             }
 
@@ -161,7 +166,7 @@ namespace Test
             Note_Form noteForm = new Note_Form(note);
             return noteForm.Container;
         }
-        private void LoadNotesForSpecficCategory(Category category, Color c)
+        public void LoadNotesForSpecficCategory(Category category, Color c)
         {
             var notes = _dbContext.Notes
                        .Where(n => n.Category == category && n.UserID == _userId)
@@ -182,7 +187,7 @@ namespace Test
                 notesPanel.Controls.Add(noteForm.Container);
             }
         }
-        private void LoadNotesForSpecficCategory(string category, Color c)
+        public void LoadNotesForSpecficCategory(string category)
         {
             var notes = _dbContext.Notes
                        .Where(n => n.UserID == _userId)
@@ -197,7 +202,10 @@ namespace Test
             foreach (var note in notes)
             {
                 Note_Form noteForm = new Note_Form(note);
-                noteForm.TopPanal.BackColor = c; // Set the background color of the note card
+                noteForm.noteId = note.ID;
+                noteForm.Mode = Mode.Edit;
+                Color c = CategoryColors.ContainsKey(note.Category) ? CategoryColors[note.Category] : Color.Pink;
+                noteForm.TopPanal.BackColor = c;
                 noteForm.TitleBox.BackColor = c;
                 noteForm.Container.Dock = DockStyle.None;
                 notesPanel.Controls.Add(noteForm.Container);

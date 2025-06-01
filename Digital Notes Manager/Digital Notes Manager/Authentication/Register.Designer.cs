@@ -90,8 +90,10 @@
             usernameTxt.Name = "usernameTxt";
             usernameTxt.Properties.Appearance.BackColor = Color.FromArgb(45, 47, 59);
             usernameTxt.Properties.Appearance.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            usernameTxt.Properties.Appearance.ForeColor = Color.White;
             usernameTxt.Properties.Appearance.Options.UseBackColor = true;
             usernameTxt.Properties.Appearance.Options.UseFont = true;
+            usernameTxt.Properties.Appearance.Options.UseForeColor = true;
             usernameTxt.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             usernameTxt.Size = new Size(230, 42);
             usernameTxt.TabIndex = 3;
@@ -103,8 +105,10 @@
             passwordConfirmTxt.Name = "passwordConfirmTxt";
             passwordConfirmTxt.Properties.Appearance.BackColor = Color.FromArgb(45, 47, 59);
             passwordConfirmTxt.Properties.Appearance.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            passwordConfirmTxt.Properties.Appearance.ForeColor = Color.White;
             passwordConfirmTxt.Properties.Appearance.Options.UseBackColor = true;
             passwordConfirmTxt.Properties.Appearance.Options.UseFont = true;
+            passwordConfirmTxt.Properties.Appearance.Options.UseForeColor = true;
             passwordConfirmTxt.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             passwordConfirmTxt.Properties.PasswordChar = '*';
             passwordConfirmTxt.Size = new Size(230, 42);
@@ -118,8 +122,10 @@
             passwordTxt.Name = "passwordTxt";
             passwordTxt.Properties.Appearance.BackColor = Color.FromArgb(45, 47, 59);
             passwordTxt.Properties.Appearance.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            passwordTxt.Properties.Appearance.ForeColor = Color.White;
             passwordTxt.Properties.Appearance.Options.UseBackColor = true;
             passwordTxt.Properties.Appearance.Options.UseFont = true;
+            passwordTxt.Properties.Appearance.Options.UseForeColor = true;
             passwordTxt.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             passwordTxt.Properties.PasswordChar = '*';
             passwordTxt.Size = new Size(230, 42);

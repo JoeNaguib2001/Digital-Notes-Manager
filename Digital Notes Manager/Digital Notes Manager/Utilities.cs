@@ -1,6 +1,7 @@
 ﻿using DevExpress.XtraGrid;
 using Digital_Notes_Manager.Models;
 using System.ComponentModel;
+using Test;
 
 namespace Digital_Notes_Manager
 {
@@ -9,6 +10,7 @@ namespace Digital_Notes_Manager
         public static GridControl GridControl { get; set; }
         public static ManageNoteContext manageNoteContext { get; } = new ManageNoteContext();
         public static LoginRegisterMDI LoginRegisterMDI { get; set; }
+        public static ViewNotesDashboard ViewNotesDashboard { get; set; }
         public static List<Note> notes { get; set; } = new List<Note>();
         //public static List<DateTimeOffset> dateTimeOffsets { get; set; }
         public static void SetNotesGridControlDataSource()

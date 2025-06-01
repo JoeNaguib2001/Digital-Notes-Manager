@@ -32,7 +32,6 @@ namespace Digital_Notes_Manager
                     mainForm.FormClosed += (s, args) => Application.Exit();
                     mainForm.Shown += (s, e) => this.Hide();
                     mainForm.Show();
-
                 }
                 else
                 {
