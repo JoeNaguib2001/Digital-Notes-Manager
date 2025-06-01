@@ -258,14 +258,14 @@ namespace Digital_Notes_Manager
         private void saveBtn_Click(object sender, EventArgs e)
         {
 
-            if (NotficationDate == default)
-            {
-                NotficationDate = new DateTimeOffset(DateTime.Today.AddDays(1), TimeSpan.FromHours(2));
-            }
-            else
-            {
-                NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
-            }
+            //if (NotficationDate == default)
+            //{
+            //   NotficationDate = new DateTimeOffset(DateTime.Today.AddDays(1), TimeSpan.FromHours(2));
+            //}
+            //else
+            //{
+            //    NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
+            //}
             if (Mode == Mode.Add)
             {
                 Digital_Notes_Manager.Models.Note newNote = new Digital_Notes_Manager.Models.Note
@@ -310,9 +310,13 @@ namespace Digital_Notes_Manager
 
         private void Calender_EditValueChanged(object sender, EventArgs e)
         {
-            if (NotficationDate == default)
+
+            NotficationDate = Calender.DateTimeOffset;
+            DateTime d = NotficationDate.DateTime;
+
+            if (d > DateTime.Now)
             {
-                NotficationDate = new DateTimeOffset(DateTime.Today.AddDays(1), TimeSpan.FromHours(2));
+                ChangeBell();
             }
             else
             {
