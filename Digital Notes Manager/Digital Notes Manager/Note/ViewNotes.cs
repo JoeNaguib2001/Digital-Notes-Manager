@@ -182,16 +182,25 @@ namespace Digital_Notes_Manager
         List<Note_Form> note_Forms = new List<Note_Form>();
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Note_Form noteForm = new Note_Form();
             var selectedRow = gridView1.GetFocusedRow() as Note;
-            RichTextBox rt = new RichTextBox();
-            rt.Rtf = selectedRow.Content;
-            noteForm.richTextBox1.Rtf = rt.Rtf;
-            noteForm._Title = selectedRow.Title;
-            noteForm.Mode = Mode.Edit;
-            noteForm.noteId = selectedRow.ID;
-            noteForm.Categorybox.Text = selectedRow.Category.ToString();
-            noteForm.Show();
+            if (Utilities.OpenedNotes.Any(n => n.ID == selectedRow.ID))
+            {
+                XtraMessageBox.Show("This note is already opened.");
+                return;
+            }
+            else
+            {
+                Note_Form noteForm = new Note_Form(selectedRow);
+                RichTextBox rt = new RichTextBox();
+                rt.Rtf = selectedRow.Content;
+                noteForm.richTextBox1.Rtf = rt.Rtf;
+                noteForm._Title = selectedRow.Title;
+                noteForm.Mode = Mode.Edit;
+                noteForm.noteId = selectedRow.ID;
+                noteForm.Categorybox.Text = selectedRow.Category.ToString();
+                noteForm.Show();
+                Utilities.OpenedNotes.Add(selectedRow);
+            }
         }
 
         private void saveInYourDeviceToolStripMenuItem_Click(object sender, EventArgs e)
@@ -255,8 +264,8 @@ namespace Digital_Notes_Manager
 
                         e.Value = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
                     }
-                    
-                    
+
+
                 }
             }
         }

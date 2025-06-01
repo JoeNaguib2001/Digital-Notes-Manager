@@ -28,13 +28,12 @@ namespace Digital_Notes_Manager
         public string _Category { get; set; }
 
         private readonly ManageNoteContext _ManageNoteContext = Utilities.manageNoteContext;
-
+        public Note CurrentNote { get; set; }
 
         public Note_Form()
         {
             InitializeComponent();
             SetupNoteForm();
-
             //GalleryItemGroup group = new GalleryItemGroup();
             //group.Items.Add(new GalleryItem(null, "", "", Color.Red));
             //group.Items.Add(new GalleryItem(null, "", "", Color.Green));
@@ -45,6 +44,21 @@ namespace Digital_Notes_Manager
             //{
             //    var selectedColor = e.Item.HintColor; // Custom extension or mapping
             //};
+        }
+        public Note_Form(Note note)
+        {
+            InitializeComponent();
+            CurrentNote = note;
+            SetupNoteForm();
+
+            TitleBox.Text = note.Title;
+            RichTextBox rt = new RichTextBox();
+            rt.Rtf = note.Content;
+            richTextBox1.Rtf = rt.Rtf;
+            Categorybox.SelectedIndexChanged -= Categorybox_SelectedIndexChanged;
+            NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(0));
+            Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
+            Categorybox.Text = note.Category.ToString();
         }
         private void SetupNoteForm()
         {
@@ -89,23 +103,6 @@ namespace Digital_Notes_Manager
 
             MenuBtn.Appearance.BackColor = Color.LightGray;
             BellButton.Appearance.BackColor = Color.Orange;
-        }
-        public Note_Form(Note note)
-        {
-            InitializeComponent();
-            SetupNoteForm();
-
-            TitleBox.Text = note.Title;
-            RichTextBox rt = new RichTextBox();
-            rt.Rtf = note.Content;
-            richTextBox1.Rtf = rt.Rtf;
-
-            NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(0));
-            Categorybox.Text = note.Category.ToString();
-
-            //this.TopLevel = false;
-            //this.FormBorderStyle = FormBorderStyle.None;
-            //this.Dock = DockStyle.Fill;
         }
         //change bell image
         public void ChangeBell()
@@ -219,6 +216,7 @@ namespace Digital_Notes_Manager
 
         private void Close_btn_Click(object sender, EventArgs e)
         {
+            Container.Visible = false;
             this.Close();
         }
 
@@ -265,15 +263,6 @@ namespace Digital_Notes_Manager
         //}
         private void saveBtn_Click(object sender, EventArgs e)
         {
-
-            //if (NotficationDate == default)
-            //{
-            //   NotficationDate = new DateTimeOffset(DateTime.Today.AddDays(1), TimeSpan.FromHours(2));
-            //}
-            //else
-            //{
-            //    NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
-            //}
             if (Mode == Mode.Add)
             {
                 Digital_Notes_Manager.Models.Note newNote = new Digital_Notes_Manager.Models.Note
@@ -370,11 +359,19 @@ namespace Digital_Notes_Manager
             }
         }
 
-        private void Categorybox_SelectedIndexChanged(object sender, EventArgs e)
+        public void Categorybox_SelectedIndexChanged(object sender, EventArgs e)
         {
             _Category = Categorybox.Text;
-            ToastForm.ShowToast("cat changed", 3000);
-            //Console.WriteLine("Changed to: " + selected);
+            //ToastForm.ShowToast("cat changed", 3000);
+            //if (Utilities.ViewNotesDashboard.IsCategorySelected == false)
+            //{
+            //    Utilities.ViewNotesDashboard.LoadNotesForSpecficCategory("All Categories");
+            //}
+            //else
+            //{
+            //    var category = Utilities.ViewNotesDashboard.SelectedCategory;
+            //    Utilities.ViewNotesDashboard.LoadNotesForSpecficCategory(category, ViewNotesDashboard.CategoryColors[category]);
+            //}
         }
 
         private void TopPanal_MouseDown(object sender, MouseEventArgs e)
@@ -386,6 +383,11 @@ namespace Digital_Notes_Manager
                 SendMessage(this.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
             }
 
+        }
+
+        private void Note_Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Utilities.OpenedNotes.Remove(CurrentNote);
         }
     }
 }

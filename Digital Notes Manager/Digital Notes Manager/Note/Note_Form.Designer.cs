@@ -218,6 +218,7 @@
             MinimizeBox = false;
             Name = "Note_Form";
             Text = "Note";
+            FormClosed += Note_Form_FormClosed;
             ((System.ComponentModel.ISupportInitialize)Calender.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)TitleBox.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)Categorybox.Properties).EndInit();

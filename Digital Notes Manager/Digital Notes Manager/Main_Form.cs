@@ -19,7 +19,7 @@ namespace Digital_Notes_Manager
             Add_A_New_Note_Accordion_Element.Click += AccordionElementClick;
             Show_Notes_Accordion_Element.Click += AccordionElementClick;
             View_All_Notes_Popped.Click += AccordionElementClick;
-            Logout_AccordionElement.Click += LogoutAccordionElement_Click;
+            Logout_AccordionElement.Click += AccordionElementClick;
             alertControl = new DevExpress.XtraBars.Alerter.AlertControl();
 
             LoadNotesForm();
