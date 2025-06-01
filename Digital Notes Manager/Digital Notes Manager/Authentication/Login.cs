@@ -41,7 +41,7 @@ namespace Digital_Notes_Manager
                     Main_Form mainForm = new Main_Form();
                     mainForm.FormClosed += (s, args) => Application.Exit();
                     mainForm.Show();
-                    this.Hide(); // أو Utilities.LoginRegisterMDI.Hide();
+                    Utilities.LoginRegisterMDI.Hide();
                 }
                 else
                 {

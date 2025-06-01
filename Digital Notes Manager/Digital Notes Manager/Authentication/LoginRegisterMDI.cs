@@ -10,7 +10,7 @@ namespace Digital_Notes_Manager
         public LoginRegisterMDI()
         {
             InitializeComponent();
-            //Utilities.LoginRegisterMDI = this;
+            Utilities.LoginRegisterMDI = this;
             if (Utilities.RememberMe())
                 AutoLogin();
             else
@@ -52,7 +52,7 @@ namespace Digital_Notes_Manager
             loginRegisterMDIPanel.Controls.Add(register.registerPanel);
 
         }
-        private void LoadLogin()
+        public void LoadLogin()
         {
 
             if (login is null)

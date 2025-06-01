@@ -38,7 +38,7 @@
             View_All_Notes_Popped = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             accordionControlSeparator5 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
             accordionControlSeparator1 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
-            LogoutAccordionElement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            Logout_AccordionElement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             accordionControlSeparator2 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
@@ -54,7 +54,7 @@
             accordionControl1.Appearance.AccordionControl.BackColor = Color.FromArgb(222, 233, 239);
             accordionControl1.Appearance.AccordionControl.Options.UseBackColor = true;
             accordionControl1.Dock = DockStyle.Left;
-            accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { NotesGroupAccordionElement, accordionControlSeparator1, LogoutAccordionElement, accordionControlSeparator2 });
+            accordionControl1.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { NotesGroupAccordionElement, accordionControlSeparator1, Logout_AccordionElement, accordionControlSeparator2 });
             accordionControl1.Location = new Point(0, 24);
             accordionControl1.LookAndFeel.SkinName = "Visual Studio 2013 Blue";
             accordionControl1.LookAndFeel.UseDefaultLookAndFeel = false;
@@ -161,7 +161,6 @@
             View_All_Notes_Popped.Name = "View_All_Notes_Popped";
             View_All_Notes_Popped.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             View_All_Notes_Popped.Text = "View All Notes Popped";
-            View_All_Notes_Popped.Click += View_All_Notes_Popped_Click;
             // 
             // accordionControlSeparator5
             // 
@@ -171,29 +170,28 @@
             // 
             accordionControlSeparator1.Name = "accordionControlSeparator1";
             // 
-            // LogoutAccordionElement
+            // Logout_AccordionElement
             // 
-            LogoutAccordionElement.Appearance.Default.Font = new Font("Tahoma", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            LogoutAccordionElement.Appearance.Default.ForeColor = Color.White;
-            LogoutAccordionElement.Appearance.Default.Options.UseFont = true;
-            LogoutAccordionElement.Appearance.Default.Options.UseForeColor = true;
-            LogoutAccordionElement.Appearance.Hovered.BackColor = Color.FromArgb(205, 230, 247);
-            LogoutAccordionElement.Appearance.Hovered.ForeColor = Color.Black;
-            LogoutAccordionElement.Appearance.Hovered.Options.UseBackColor = true;
-            LogoutAccordionElement.Appearance.Hovered.Options.UseForeColor = true;
-            LogoutAccordionElement.Appearance.Normal.BackColor = Color.FromArgb(222, 233, 239);
-            LogoutAccordionElement.Appearance.Normal.ForeColor = Color.Black;
-            LogoutAccordionElement.Appearance.Normal.Options.UseBackColor = true;
-            LogoutAccordionElement.Appearance.Normal.Options.UseForeColor = true;
-            LogoutAccordionElement.Appearance.Pressed.BackColor = Color.FromArgb(205, 230, 247);
-            LogoutAccordionElement.Appearance.Pressed.ForeColor = Color.Black;
-            LogoutAccordionElement.Appearance.Pressed.Options.UseBackColor = true;
-            LogoutAccordionElement.Appearance.Pressed.Options.UseForeColor = true;
-            LogoutAccordionElement.ImageOptions.Image = (Image)resources.GetObject("LogoutAccordionElement.ImageOptions.Image");
-            LogoutAccordionElement.Name = "LogoutAccordionElement";
-            LogoutAccordionElement.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            LogoutAccordionElement.Text = "Logout";
-            LogoutAccordionElement.Click += LogoutAccordionElement_Click;
+            Logout_AccordionElement.Appearance.Default.Font = new Font("Tahoma", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Logout_AccordionElement.Appearance.Default.ForeColor = Color.White;
+            Logout_AccordionElement.Appearance.Default.Options.UseFont = true;
+            Logout_AccordionElement.Appearance.Default.Options.UseForeColor = true;
+            Logout_AccordionElement.Appearance.Hovered.BackColor = Color.FromArgb(205, 230, 247);
+            Logout_AccordionElement.Appearance.Hovered.ForeColor = Color.Black;
+            Logout_AccordionElement.Appearance.Hovered.Options.UseBackColor = true;
+            Logout_AccordionElement.Appearance.Hovered.Options.UseForeColor = true;
+            Logout_AccordionElement.Appearance.Normal.BackColor = Color.FromArgb(222, 233, 239);
+            Logout_AccordionElement.Appearance.Normal.ForeColor = Color.Black;
+            Logout_AccordionElement.Appearance.Normal.Options.UseBackColor = true;
+            Logout_AccordionElement.Appearance.Normal.Options.UseForeColor = true;
+            Logout_AccordionElement.Appearance.Pressed.BackColor = Color.FromArgb(205, 230, 247);
+            Logout_AccordionElement.Appearance.Pressed.ForeColor = Color.Black;
+            Logout_AccordionElement.Appearance.Pressed.Options.UseBackColor = true;
+            Logout_AccordionElement.Appearance.Pressed.Options.UseForeColor = true;
+            Logout_AccordionElement.ImageOptions.Image = (Image)resources.GetObject("LogoutAccordionElement.ImageOptions.Image");
+            Logout_AccordionElement.Name = "Logout_AccordionElement";
+            Logout_AccordionElement.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            Logout_AccordionElement.Text = "Logout";
             // 
             // accordionControlSeparator2
             // 
@@ -218,7 +216,7 @@
             // importNoteToolStripMenuItem
             // 
             importNoteToolStripMenuItem.Name = "importNoteToolStripMenuItem";
-            importNoteToolStripMenuItem.Size = new Size(180, 22);
+            importNoteToolStripMenuItem.Size = new Size(139, 22);
             importNoteToolStripMenuItem.Text = "Import Note";
             importNoteToolStripMenuItem.Click += importNoteToolStripMenuItem_Click;
             // 
@@ -270,7 +268,7 @@
         private DevExpress.XtraBars.Navigation.AccordionControlElement Add_A_New_Note_Accordion_Element;
         private DevExpress.XtraBars.Navigation.AccordionControlElement View_All_Notes_Popped;
         private ToolStripMenuItem importNoteToolStripMenuItem;
-        private DevExpress.XtraBars.Navigation.AccordionControlElement LogoutAccordionElement;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement Logout_AccordionElement;
         private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator3;
         private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator4;
         private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator5;

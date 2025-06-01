@@ -2,6 +2,7 @@
 using DevExpress.XtraEditors;
 using Digital_Notes_Manager.AlarmSystem;
 using Digital_Notes_Manager.Models;
+using Test;
 
 
 namespace Digital_Notes_Manager
@@ -17,10 +18,13 @@ namespace Digital_Notes_Manager
 
             Add_A_New_Note_Accordion_Element.Click += AccordionElementClick;
             Show_Notes_Accordion_Element.Click += AccordionElementClick;
+            View_All_Notes_Popped.Click += AccordionElementClick;
+            Logout_AccordionElement.Click += LogoutAccordionElement_Click;
             alertControl = new DevExpress.XtraBars.Alerter.AlertControl();
 
             LoadNotesForm();
         }
+
 
         private void AccordionElementClick(object sender, EventArgs e)
         {
@@ -40,7 +44,16 @@ namespace Digital_Notes_Manager
                             noteForm.Show();
                         }
                         break;
-
+                    case "View_All_Notes_Popped":
+                        {
+                            LoadAllNotesPoppedOut();
+                        }
+                        break;
+                    case "Logout_AccordionElement":
+                        {
+                            Logout();
+                        }
+                        break;
                     default:
                         XtraMessageBox.Show("Unknown action.");
                         break;
@@ -64,24 +77,25 @@ namespace Digital_Notes_Manager
             }
         }
 
-
-
-
-        private void View_All_Notes_Popped_Click(object sender, EventArgs e)
+        private void Logout()
         {
-            //var list = manageNoteContext.Notes.ToList();
-            //for (int i = 0; i < 5; i++)
-            //{
-            //    Note_Form note_form = new Note_Form();
-            //    note_form.richTextBox1.Text = list[i].Content;
-            //    note_form.Text = list[i].Title;
-            //    note_form.Show();
-
-            //}
-            NotesDashboard dashboard = new NotesDashboard();
-            this.MDI_Panel.Controls.Clear();
-            MDI_Panel.Controls.Add(dashboard.panel1);
+            this.Hide();
+            Utilities.LoginRegisterMDI.Show();
+            Utilities.LoginRegisterMDI.LoadLogin();
+            Properties.Settings.Default.userID = 0;
+            Properties.Settings.Default.userName = string.Empty;
+            Properties.Settings.Default.rememberMe = false;
+            Properties.Settings.Default.Save();
         }
+
+        private void LoadAllNotesPoppedOut()
+        {
+            MDI_Panel.Controls.Clear();
+            ViewNotesDashboard viewNotesDashboard = new ViewNotesDashboard();
+            MDI_Panel.Controls.Add(viewNotesDashboard.TableLayoutMDI);
+        }
+
+
 
         private void importNoteToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -138,7 +152,7 @@ namespace Digital_Notes_Manager
 
         private void LogoutAccordionElement_Click(object sender, EventArgs e)
         {
-
         }
+
     }
 }

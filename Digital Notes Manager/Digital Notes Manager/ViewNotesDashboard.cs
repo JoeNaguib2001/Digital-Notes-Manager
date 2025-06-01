@@ -1,28 +1,16 @@
-﻿using DevExpress.Utils.Html.Internal;
-using DevExpress.XtraBars;
-using DevExpress.XtraEditors;
-using Digital_Notes_Manager.Models;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
+﻿using DevExpress.XtraEditors;
+using Digital_Notes_Manager;
 using Digital_Notes_Manager.Customs;
+using Digital_Notes_Manager.Models;
+using System.Data;
 using System.Drawing.Drawing2D;
-using DevExpress.XtraRichEdit.Model;
 
 
 namespace Test
 {
     public partial class ViewNotesDashboard : DevExpress.XtraBars.FluentDesignSystem.FluentDesignForm
     {
-
         private ManageNoteContext _dbContext;
-
         public ViewNotesDashboard()
         {
             InitializeComponent();
@@ -47,14 +35,14 @@ namespace Test
             try
             {
                 _dbContext = new ManageNoteContext();
-                // جلب الفئات من قاعدة البيانات
-                foreach (var category in Enum.GetNames(typeof(Category))) {
+                foreach (var category in Enum.GetNames(typeof(Category)))
+                {
 
                     Panel card = CreateCategoryCard(category);
                     CategoryflowLayoutPanel.Controls.Add(card);
                 }
 
-                
+
             }
             catch (Exception ex)
             {
@@ -90,7 +78,7 @@ namespace Test
             Category parsedCategory;
             if (Enum.TryParse(category, out parsedCategory))
             {
-                int noteCount = _dbContext.Notes.Count(n => n.UserID == 1 && n.Category == parsedCategory);
+                int noteCount = _dbContext.Notes.Count(n => n.UserID == Utilities.UserId() && n.Category == parsedCategory);
 
                 Label countLabel = new Label
                 {
@@ -118,7 +106,7 @@ namespace Test
                     NotesPanel.Controls.Add(notesPanel);
 
                     var notes = _dbContext.Notes
-                        .Where(n => n.Category == parsedCategory && n.UserID == 1)
+                        .Where(n => n.Category == parsedCategory && n.UserID == Utilities.UserId())
                         .ToList();
 
                     foreach (var note in notes)
@@ -287,7 +275,11 @@ namespace Test
             card.Controls.Add(deleteButton);
 
             // إضافة حدث النقر على البطاقة
-            card.Click += (s, e) => MessageBox.Show($"Title: {note.Title}\nContent: {note.Content}\nCategory: {note.Category.ToString()}\nReminder Date: {note.ReminderDate:dd/MM/yyyy}");
+            card.Click += (s, e) =>
+            {
+                Note_Form noteForm = new Note_Form(note);
+                noteForm.Show();
+            };
 
             return card;
         }
@@ -311,6 +303,6 @@ namespace Test
             int blue = (rand.Next(128) + 127);
             return Color.FromArgb(red, green, blue);
         }
-       
+
     }
 }

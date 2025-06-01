@@ -108,7 +108,7 @@
             passwordConfirmTxt.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             passwordConfirmTxt.Properties.PasswordChar = '*';
             passwordConfirmTxt.Size = new Size(230, 42);
-            passwordConfirmTxt.TabIndex = 4;
+            passwordConfirmTxt.TabIndex = 5;
             // 
             // passwordTxt
             // 
@@ -123,7 +123,7 @@
             passwordTxt.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.Simple;
             passwordTxt.Properties.PasswordChar = '*';
             passwordTxt.Size = new Size(230, 42);
-            passwordTxt.TabIndex = 5;
+            passwordTxt.TabIndex = 4;
             // 
             // SinUpBtn
             // 
@@ -136,7 +136,7 @@
             SinUpBtn.Appearance.Options.UseFont = true;
             SinUpBtn.Appearance.Options.UseForeColor = true;
             SinUpBtn.Cursor = Cursors.Hand;
-            SinUpBtn.Location = new Point(255, 290);
+            SinUpBtn.Location = new Point(255, 308);
             SinUpBtn.Margin = new Padding(4, 3, 4, 3);
             SinUpBtn.Name = "SinUpBtn";
             SinUpBtn.Size = new Size(183, 66);
@@ -167,7 +167,7 @@
             RememberMeCheckBox.AutoSize = true;
             RememberMeCheckBox.Font = new Font("Segoe UI", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             RememberMeCheckBox.ForeColor = Color.Gainsboro;
-            RememberMeCheckBox.Location = new Point(87, 243);
+            RememberMeCheckBox.Location = new Point(87, 255);
             RememberMeCheckBox.Name = "RememberMeCheckBox";
             RememberMeCheckBox.Size = new Size(223, 41);
             RememberMeCheckBox.TabIndex = 8;

@@ -310,18 +310,26 @@ namespace Digital_Notes_Manager
 
         private void Calender_EditValueChanged(object sender, EventArgs e)
         {
-            var date = (DateTime)Calender.EditValue;
-
-            if (date > DateTime.Now)
+            if (NotficationDate == default)
             {
-                NotficationDate = Calender.DateTimeOffset;
-                ChangeBell();
+                NotficationDate = new DateTimeOffset(DateTime.Today.AddDays(1), TimeSpan.FromHours(2));
             }
             else
             {
-                MessageBox.Show("invalid");
+                NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
             }
-            //MessageBox.Show("Confirmed selection: " + NotficationDate.ToString());
+            // أبو السيد أرجو النظر هنا
+            //var date = (DateTime)Calender.EditValue;
+
+            //if (date > DateTime.Now)
+            //{
+            //    NotficationDate = Calender.DateTimeOffset;
+            //    ChangeBell();
+            //}
+            //else
+            //{
+            //    MessageBox.Show("invalid");
+            //}
         }
 
         private void TitleBox_DoubleClick(object sender, EventArgs e)

@@ -36,6 +36,11 @@ namespace Digital_Notes_Manager
         {
             return Properties.Settings.Default.rememberMe;
         }
+
+        public static int UserId()
+        {
+            return Properties.Settings.Default.userID;
+        }
     }
 }
 
