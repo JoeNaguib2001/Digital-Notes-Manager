@@ -62,8 +62,8 @@ namespace Digital_Notes_Manager
             btn3.Checked = false;
 
             stylePanal.Buttons.AddRange(new WindowsUIButton[] { btn1, btn2, btn3 });
-            stylePanal.UseButtonBackgroundImages = false; // Removes circular borders
-            stylePanal.ButtonInterval = 5; // Adjusts spacing between buttons
+            stylePanal.UseButtonBackgroundImages = false;
+            stylePanal.ButtonInterval = 5;
 
             richTextBox1.BackColor = this.BackColor;
             richTextBox1.ForeColor = this.ForeColor;

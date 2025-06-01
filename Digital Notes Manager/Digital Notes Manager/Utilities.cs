@@ -37,7 +37,7 @@ namespace Digital_Notes_Manager
             return Properties.Settings.Default.rememberMe;
         }
 
-        public static int UserId()
+        public static int GetCurrentLoggedInUserId()
         {
             return Properties.Settings.Default.userID;
         }

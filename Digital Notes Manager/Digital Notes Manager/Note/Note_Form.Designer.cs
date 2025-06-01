@@ -65,11 +65,10 @@
             // richTextBox1
             // 
             richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Dock = DockStyle.Fill;
             richTextBox1.Font = new Font("Tahoma", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            richTextBox1.Location = new Point(0, 33);
+            richTextBox1.Location = new Point(12, 50);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(279, 188);
+            richTextBox1.Size = new Size(339, 259);
             richTextBox1.TabIndex = 3;
             richTextBox1.Text = "";
             // 
@@ -99,7 +98,7 @@
             Close_btn.Appearance.Options.UseBorderColor = true;
             Close_btn.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             Close_btn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("Close_btn.ImageOptions.SvgImage");
-            Close_btn.Location = new Point(236, 0);
+            Close_btn.Location = new Point(329, 0);
             Close_btn.Name = "Close_btn";
             Close_btn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             Close_btn.Size = new Size(41, 33);
@@ -130,18 +129,18 @@
             // TitleBox
             // 
             TitleBox.EditValue = "Note";
-            TitleBox.Location = new Point(115, 3);
+            TitleBox.Location = new Point(147, 3);
             TitleBox.Name = "TitleBox";
             TitleBox.Properties.AllowFocused = false;
-            TitleBox.Properties.Appearance.BackColor = Color.WhiteSmoke;
-            TitleBox.Properties.Appearance.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            TitleBox.Properties.Appearance.Options.UseBackColor = true;
+            TitleBox.Properties.Appearance.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TitleBox.Properties.Appearance.ForeColor = Color.Black;
             TitleBox.Properties.Appearance.Options.UseFont = true;
+            TitleBox.Properties.Appearance.Options.UseForeColor = true;
             TitleBox.Properties.Appearance.Options.UseTextOptions = true;
             TitleBox.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             TitleBox.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             TitleBox.Properties.ReadOnly = true;
-            TitleBox.Size = new Size(71, 24);
+            TitleBox.Size = new Size(71, 30);
             TitleBox.TabIndex = 8;
             TitleBox.DoubleClick += TitleBox_DoubleClick;
             TitleBox.KeyDown += TitleBox_KeyDown;
@@ -149,11 +148,13 @@
             // 
             // Categorybox
             // 
-            Categorybox.Location = new Point(162, 5);
+            Categorybox.Location = new Point(257, 5);
             Categorybox.Name = "Categorybox";
+            Categorybox.Properties.Appearance.Font = new Font("Tahoma", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Categorybox.Properties.Appearance.Options.UseFont = true;
             Categorybox.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             Categorybox.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            Categorybox.Size = new Size(100, 20);
+            Categorybox.Size = new Size(108, 22);
             Categorybox.TabIndex = 9;
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
             // 
@@ -163,9 +164,9 @@
             DownPanel.Controls.Add(Categorybox);
             DownPanel.Controls.Add(saveBtn);
             DownPanel.Dock = DockStyle.Bottom;
-            DownPanel.Location = new Point(0, 221);
+            DownPanel.Location = new Point(0, 323);
             DownPanel.Name = "DownPanel";
-            DownPanel.Size = new Size(279, 28);
+            DownPanel.Size = new Size(372, 34);
             DownPanel.TabIndex = 10;
             // 
             // BellButton
@@ -188,19 +189,21 @@
             TopPanal.Dock = DockStyle.Top;
             TopPanal.Location = new Point(0, 0);
             TopPanal.Name = "TopPanal";
-            TopPanal.Size = new Size(279, 33);
+            TopPanal.Size = new Size(372, 33);
             TopPanal.TabIndex = 11;
             TopPanal.MouseDown += TopPanal_MouseDown;
             // 
             // Container
             // 
+            Container.BackColor = Color.White;
+            Container.BorderStyle = BorderStyle.FixedSingle;
             Container.Controls.Add(richTextBox1);
             Container.Controls.Add(TopPanal);
             Container.Controls.Add(DownPanel);
             Container.Dock = DockStyle.Fill;
             Container.Location = new Point(0, 0);
             Container.Name = "Container";
-            Container.Size = new Size(279, 249);
+            Container.Size = new Size(374, 359);
             Container.TabIndex = 12;
             // 
             // Note_Form
@@ -208,7 +211,7 @@
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(279, 249);
+            ClientSize = new Size(374, 359);
             Controls.Add(Container);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
@@ -231,11 +234,11 @@
         private DevExpress.XtraEditors.SimpleButton Close_btn;
         public RichTextBox richTextBox1;
         private DevExpress.XtraEditors.DateTimeOffsetEdit Calender;
-        private DevExpress.XtraEditors.TextEdit TitleBox;
-        private Panel DownPanel;
         private DevExpress.XtraEditors.SimpleButton BellButton;
-        private Panel TopPanal;
         public DevExpress.XtraEditors.ComboBoxEdit Categorybox;
         public Panel Container;
+        public Panel DownPanel;
+        public Panel TopPanal;
+        public DevExpress.XtraEditors.TextEdit TitleBox;
     }
 }

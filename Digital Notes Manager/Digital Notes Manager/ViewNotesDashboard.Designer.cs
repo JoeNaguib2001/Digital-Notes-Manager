@@ -66,53 +66,61 @@
             TableLayoutMDI.Margin = new Padding(3, 2, 3, 2);
             TableLayoutMDI.Name = "TableLayoutMDI";
             TableLayoutMDI.RowCount = 4;
-            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
-            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 38.03919F));
-            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Absolute, 26F));
-            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 61.96081F));
+            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 5.55555534F));
+            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 22.2222214F));
+            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 5.55555534F));
+            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 66.6666641F));
             TableLayoutMDI.Size = new Size(1029, 619);
             TableLayoutMDI.TabIndex = 1;
             // 
             // label2
             // 
             label2.AutoSize = true;
+            label2.BackColor = Color.FromArgb(53, 150, 181);
             label2.Dock = DockStyle.Fill;
             label2.Font = new Font("Tahoma", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.Location = new Point(3, 241);
+            label2.ForeColor = Color.White;
+            label2.Location = new Point(3, 171);
             label2.Name = "label2";
-            label2.Size = new Size(1023, 26);
+            label2.Padding = new Padding(10, 5, 10, 10);
+            label2.Size = new Size(1023, 34);
             label2.TabIndex = 1;
-            label2.Text = "My Notes";
+            label2.Text = "Notes";
             // 
             // label3
             // 
             label3.AutoSize = true;
+            label3.BackColor = Color.FromArgb(53, 150, 181);
             label3.Dock = DockStyle.Fill;
             label3.Font = new Font("Tahoma", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.ForeColor = Color.White;
             label3.Location = new Point(3, 0);
             label3.Name = "label3";
-            label3.Size = new Size(1023, 26);
+            label3.Padding = new Padding(10, 5, 5, 5);
+            label3.Size = new Size(1023, 34);
             label3.TabIndex = 3;
-            label3.Text = "My Categories";
+            label3.Text = "Categories";
             // 
             // CategoryPanel
             // 
             CategoryPanel.AutoScroll = true;
+            CategoryPanel.BackColor = Color.FromArgb(222, 233, 239);
             CategoryPanel.Dock = DockStyle.Fill;
-            CategoryPanel.Location = new Point(3, 28);
+            CategoryPanel.Location = new Point(3, 36);
             CategoryPanel.Margin = new Padding(3, 2, 3, 2);
             CategoryPanel.Name = "CategoryPanel";
-            CategoryPanel.Size = new Size(1023, 211);
+            CategoryPanel.Size = new Size(1023, 133);
             CategoryPanel.TabIndex = 2;
             // 
             // notesPanel
             // 
             notesPanel.AutoScroll = true;
+            notesPanel.BackColor = Color.FromArgb(222, 233, 239);
             notesPanel.Dock = DockStyle.Fill;
-            notesPanel.Location = new Point(3, 270);
+            notesPanel.Location = new Point(3, 208);
             notesPanel.Name = "notesPanel";
             notesPanel.Padding = new Padding(10);
-            notesPanel.Size = new Size(1023, 346);
+            notesPanel.Size = new Size(1023, 408);
             notesPanel.TabIndex = 4;
             // 
             // fluentFormDefaultManager1
