@@ -79,6 +79,7 @@ namespace Digital_Notes_Manager
 
         private void Logout()
         {
+<<<<<<< Updated upstream
             this.Hide();
             Utilities.LoginRegisterMDI.Show();
             Utilities.LoginRegisterMDI.LoadLogin();
@@ -86,6 +87,18 @@ namespace Digital_Notes_Manager
             Properties.Settings.Default.userName = string.Empty;
             Properties.Settings.Default.rememberMe = false;
             Properties.Settings.Default.Save();
+=======
+            //var list = manageNoteContext.Notes.ToList();
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    Note_Form note_form = new Note_Form();
+            //    note_form.richTextBox1.Text = list[i].Content;
+            //    note_form.Text = list[i].Title;
+            //    note_form.Show();
+
+            //}
+            this.MDI_Panel.Controls.Clear();
+>>>>>>> Stashed changes
         }
 
         private void LoadAllNotesPoppedOut()
