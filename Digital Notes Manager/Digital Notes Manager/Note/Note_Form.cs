@@ -433,5 +433,17 @@ namespace Digital_Notes_Manager
 
             TopPanal.Region = new Region(path);
         }
+
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            var StoredNote = _ManageNoteContext.Notes.FirstOrDefault(n => n.ID == CurrentNote.ID);
+            if (StoredNote != null)
+            {
+
+                _ManageNoteContext.Remove(StoredNote);
+                _ManageNoteContext.SaveChanges();
+                Utilities.SetNotesGridControlDataSource();
+            }
+        }
     }
 }
