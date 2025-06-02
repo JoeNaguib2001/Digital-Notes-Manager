@@ -49,6 +49,7 @@ namespace Test
 
         private void LoadCategories()
         {
+            CategoryPanel.Controls.Clear();
             //Adding A new Floylayout Panel in Run Time
             FlowLayoutPanel CategoryflowLayoutPanel = new FlowLayoutPanel()
             {
@@ -79,6 +80,8 @@ namespace Test
                 MessageBox.Show($"Error on load Categories: {ex.Message}");
             }
         }
+
+        // 2 events => all categories click & specfic category click
         private Panel CreateCategoryCard(string category)
         {
             RoundedPanel card = new RoundedPanel
@@ -122,6 +125,8 @@ namespace Test
                 //Category Card Click
                 card.Click += (s, e) =>
                 {
+                    IsCategorySelected = true;
+                    SelectedCategory = parsedCategory;
                     LoadNotesForSpecficCategory(parsedCategory, card.BackColor, "");
                 };
             }
@@ -261,7 +266,13 @@ namespace Test
 
         private void refreshNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            RefreshPoppedOutNotes();
+        }
+
+        public void RefreshPoppedOutNotes()
+        {
             SearchTextBox.Text = "";
+            LoadCategories();
             if (IsCategorySelected == true)
                 LoadNotesForSpecficCategory(SelectedCategory, CategoryColors[SelectedCategory], "");
             else

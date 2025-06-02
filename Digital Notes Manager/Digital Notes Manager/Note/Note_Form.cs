@@ -58,6 +58,7 @@ namespace Digital_Notes_Manager
         public Note_Form(Note note)
         {
             InitializeComponent();
+            _Category = note.Category.ToString();
             CurrentNote = note;
             Categorybox.SelectedIndexChanged -= Categorybox_SelectedIndexChanged;
             SetupNoteForm();
@@ -305,6 +306,7 @@ namespace Digital_Notes_Manager
                     _ManageNoteContext.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached; // هنا بتعمل ديتاتش
 
                     Utilities.SetNotesGridControlDataSource();
+                    Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
                 }
 
             }
@@ -370,7 +372,7 @@ namespace Digital_Notes_Manager
         public void Categorybox_SelectedIndexChanged(object sender, EventArgs e)
         {
             _Category = Categorybox.Text;
-            ToastForm.ShowToast("cat changed", 3000);
+            ToastForm.ShowToast($"Category Changed To {Categorybox.Text}", 3000);
             //if (Utilities.ViewNotesDashboard.IsCategorySelected == false)
             //{
             //    Utilities.ViewNotesDashboard.LoadNotesForSpecficCategory("All Categories");
