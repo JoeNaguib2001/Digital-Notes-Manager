@@ -56,6 +56,7 @@ namespace Digital_Notes_Manager
 
         private void NotificationBell_BellClicked(object sender, EventArgs e)
         {
+            notificationBell1.ResetCounter();
             var bell = sender as NotificationBell;
 
 

@@ -67,7 +67,7 @@ namespace Digital_Notes_Manager.AlarmSystem
         {
             while (true)
             {
-                await Task.Delay(1500); // كل ثانية
+                await Task.Delay(1500); 
 
                 if (noteQueue.Any())
                 {

@@ -58,11 +58,12 @@ namespace Digital_Notes_Manager
             {
                 Panel card = new Panel
                 {
-                    Size = new Size(containerPanel.Width - 5, 60),
+                    Size = new Size(containerPanel.Width - 30, 60),
                     Location = new Point(0, y),
                     BackColor = Color.FromArgb(245, 245, 245),
                     BorderStyle = BorderStyle.FixedSingle,
-                    Padding = new Padding(8)
+                    Padding = new Padding(8),
+                    Tag = msg
                 };
 
                 PictureBox icon = new PictureBox
@@ -77,20 +78,53 @@ namespace Digital_Notes_Manager
                 {
                     Text = msg,
                     Location = new Point(35, 8),
-                    Size = new Size(card.Width - 40, 40),
+                    Size = new Size(card.Width - 20 - 30, 40),
                     Font = new Font("Segoe UI", 9),
                     AutoSize = false
                 };
 
+                Button deleteButton = new Button
+                {
+
+                    Text = "x",
+                    Font = new Font("Segoe UI",7, FontStyle.Bold),
+                    Size = new Size(20, 20),
+                    FlatStyle = FlatStyle.Flat,
+                    ForeColor = Color.Red,
+                    Anchor = AnchorStyles.Top | AnchorStyles.Right
+
+                };
+                label.Size = new Size(card.Width - deleteButton.Width - 50, 40);
+                deleteButton.Location = new Point(card.ClientSize.Width - deleteButton.Width - 8, 1);
+
+                deleteButton.FlatAppearance.BorderSize = 0;
+
+                deleteButton.Click += (s, e) =>
+                {
+                    containerPanel.Controls.Remove(card);
+                    messages.Remove(msg);
+                    RearrangeCards(containerPanel);
+                };
+
+
                 card.Controls.Add(icon);
                 card.Controls.Add(label);
+                card.Controls.Add(deleteButton);
                 containerPanel.Controls.Add(card);
                 y += 65;
             }
 
             this.Controls.Add(containerPanel);
         }
-
+        private void RearrangeCards(Panel containerPanel)
+        {
+            int y = 0;
+            foreach (Control ctrl in containerPanel.Controls)
+            {
+                ctrl.Location = new Point(0, y);
+                y += 65;
+            }
+        }
         private GraphicsPath RoundedRect(Rectangle bounds, int radius)
         {
             int diameter = radius * 2;
