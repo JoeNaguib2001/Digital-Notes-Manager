@@ -35,10 +35,16 @@
             label3 = new Label();
             CategoryPanel = new Panel();
             notesPanel = new FlowLayoutPanel();
+            contextMenuStrip1 = new ContextMenuStrip(components);
+            refreshNotesToolStripMenuItem = new ToolStripMenuItem();
+            tableLayoutPanel1 = new TableLayoutPanel();
+            SearchTextBox = new TextBox();
             fluentFormDefaultManager1 = new DevExpress.XtraBars.FluentDesignSystem.FluentFormDefaultManager(components);
             fluentDesignFormControl1 = new DevExpress.XtraBars.FluentDesignSystem.FluentDesignFormControl();
             fluentDesignFormContainer1.SuspendLayout();
             TableLayoutMDI.SuspendLayout();
+            contextMenuStrip1.SuspendLayout();
+            tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)fluentFormDefaultManager1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)fluentDesignFormControl1).BeginInit();
             SuspendLayout();
@@ -57,19 +63,21 @@
             // 
             TableLayoutMDI.ColumnCount = 1;
             TableLayoutMDI.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            TableLayoutMDI.Controls.Add(label2, 0, 2);
-            TableLayoutMDI.Controls.Add(label3, 0, 0);
-            TableLayoutMDI.Controls.Add(CategoryPanel, 0, 1);
-            TableLayoutMDI.Controls.Add(notesPanel, 0, 3);
+            TableLayoutMDI.Controls.Add(label2, 0, 3);
+            TableLayoutMDI.Controls.Add(label3, 0, 1);
+            TableLayoutMDI.Controls.Add(CategoryPanel, 0, 2);
+            TableLayoutMDI.Controls.Add(notesPanel, 0, 4);
+            TableLayoutMDI.Controls.Add(tableLayoutPanel1, 0, 0);
             TableLayoutMDI.Dock = DockStyle.Fill;
             TableLayoutMDI.Location = new Point(0, 0);
             TableLayoutMDI.Margin = new Padding(3, 2, 3, 2);
             TableLayoutMDI.Name = "TableLayoutMDI";
-            TableLayoutMDI.RowCount = 4;
-            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 5.55555534F));
-            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 22.2222214F));
-            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 5.55555534F));
-            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 66.6666641F));
+            TableLayoutMDI.RowCount = 5;
+            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 7.76549959F));
+            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 5.115599F));
+            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 20.4623966F));
+            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 5.11559963F));
+            TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 61.540905F));
             TableLayoutMDI.Size = new Size(1029, 619);
             TableLayoutMDI.TabIndex = 1;
             // 
@@ -80,10 +88,10 @@
             label2.Dock = DockStyle.Fill;
             label2.Font = new Font("Tahoma", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(3, 171);
+            label2.Location = new Point(3, 205);
             label2.Name = "label2";
             label2.Padding = new Padding(10, 5, 10, 10);
-            label2.Size = new Size(1023, 34);
+            label2.Size = new Size(1023, 31);
             label2.TabIndex = 1;
             label2.Text = "Notes";
             // 
@@ -94,10 +102,10 @@
             label3.Dock = DockStyle.Fill;
             label3.Font = new Font("Tahoma", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.White;
-            label3.Location = new Point(3, 0);
+            label3.Location = new Point(3, 48);
             label3.Name = "label3";
             label3.Padding = new Padding(10, 5, 5, 5);
-            label3.Size = new Size(1023, 34);
+            label3.Size = new Size(1023, 31);
             label3.TabIndex = 3;
             label3.Text = "Categories";
             // 
@@ -106,22 +114,61 @@
             CategoryPanel.AutoScroll = true;
             CategoryPanel.BackColor = Color.FromArgb(222, 233, 239);
             CategoryPanel.Dock = DockStyle.Fill;
-            CategoryPanel.Location = new Point(3, 36);
+            CategoryPanel.Location = new Point(3, 81);
             CategoryPanel.Margin = new Padding(3, 2, 3, 2);
             CategoryPanel.Name = "CategoryPanel";
-            CategoryPanel.Size = new Size(1023, 133);
+            CategoryPanel.Size = new Size(1023, 122);
             CategoryPanel.TabIndex = 2;
             // 
             // notesPanel
             // 
             notesPanel.AutoScroll = true;
             notesPanel.BackColor = Color.FromArgb(222, 233, 239);
+            notesPanel.ContextMenuStrip = contextMenuStrip1;
             notesPanel.Dock = DockStyle.Fill;
-            notesPanel.Location = new Point(3, 208);
+            notesPanel.Location = new Point(3, 239);
             notesPanel.Name = "notesPanel";
             notesPanel.Padding = new Padding(10);
-            notesPanel.Size = new Size(1023, 408);
+            notesPanel.Size = new Size(1023, 377);
             notesPanel.TabIndex = 4;
+            // 
+            // contextMenuStrip1
+            // 
+            contextMenuStrip1.Items.AddRange(new ToolStripItem[] { refreshNotesToolStripMenuItem });
+            contextMenuStrip1.Name = "contextMenuStrip1";
+            contextMenuStrip1.Size = new Size(169, 30);
+            // 
+            // refreshNotesToolStripMenuItem
+            // 
+            refreshNotesToolStripMenuItem.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            refreshNotesToolStripMenuItem.Name = "refreshNotesToolStripMenuItem";
+            refreshNotesToolStripMenuItem.Size = new Size(168, 26);
+            refreshNotesToolStripMenuItem.Text = "refresh notes";
+            refreshNotesToolStripMenuItem.Click += refreshNotesToolStripMenuItem_Click;
+            // 
+            // tableLayoutPanel1
+            // 
+            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
+            tableLayoutPanel1.Controls.Add(SearchTextBox, 0, 0);
+            tableLayoutPanel1.Dock = DockStyle.Fill;
+            tableLayoutPanel1.Location = new Point(3, 3);
+            tableLayoutPanel1.Name = "tableLayoutPanel1";
+            tableLayoutPanel1.RowCount = 1;
+            tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            tableLayoutPanel1.Size = new Size(1023, 42);
+            tableLayoutPanel1.TabIndex = 5;
+            // 
+            // SearchTextBox
+            // 
+            SearchTextBox.Dock = DockStyle.Fill;
+            SearchTextBox.Font = new Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            SearchTextBox.Location = new Point(3, 3);
+            SearchTextBox.Name = "SearchTextBox";
+            SearchTextBox.Size = new Size(505, 33);
+            SearchTextBox.TabIndex = 0;
+            SearchTextBox.TextChanged += SerachBox_TextChanged;
             // 
             // fluentFormDefaultManager1
             // 
@@ -155,6 +202,9 @@
             fluentDesignFormContainer1.ResumeLayout(false);
             TableLayoutMDI.ResumeLayout(false);
             TableLayoutMDI.PerformLayout();
+            contextMenuStrip1.ResumeLayout(false);
+            tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)fluentFormDefaultManager1).EndInit();
             ((System.ComponentModel.ISupportInitialize)fluentDesignFormControl1).EndInit();
             ResumeLayout(false);
@@ -170,6 +220,9 @@
         private System.Windows.Forms.Label label3;
         public TableLayoutPanel TableLayoutMDI;
         private FlowLayoutPanel notesPanel;
+        private ContextMenuStrip contextMenuStrip1;
+        private ToolStripMenuItem refreshNotesToolStripMenuItem;
+        private TextBox SearchTextBox;
     }
 }
 

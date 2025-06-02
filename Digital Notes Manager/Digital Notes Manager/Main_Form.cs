@@ -20,6 +20,7 @@ namespace Digital_Notes_Manager
             Show_Notes_Accordion_Element.Click += AccordionElementClick;
             View_All_Notes_Popped.Click += AccordionElementClick;
             Logout_AccordionElement.Click += AccordionElementClick;
+            Report_ControlElement.Click += AccordionElementClick;
             alertControl = new DevExpress.XtraBars.Alerter.AlertControl();
 
             LoadNotesForm();
@@ -54,6 +55,11 @@ namespace Digital_Notes_Manager
                             Logout();
                         }
                         break;
+                    case "Report_ControlElement":
+                        {
+                            LoadReportsForm();
+                        }
+                        break;
                     default:
                         XtraMessageBox.Show("Unknown action.");
                         break;
@@ -69,7 +75,7 @@ namespace Digital_Notes_Manager
         {
             this.MDI_Panel.Controls.Clear();
             viewNotes = new ViewNotes();
-            MDI_Panel.Controls.Add(viewNotes.panel1);
+            MDI_Panel.Controls.Add(viewNotes.Pn_Container);
             var resources = typeof(Program).Assembly.GetManifestResourceNames();
             foreach (var res in resources)
             {
@@ -157,7 +163,8 @@ namespace Digital_Notes_Manager
                 .ToList();
 
             ReportsForm reportsForm = new ReportsForm(notes);
-            IsMdiContainer
+            MDI_Panel.Controls.Clear();
+            MDI_Panel.Controls.Add(reportsForm.tableLayoutPanel1);
         }
 
         private void LogoutAccordionElement_Click(object sender, EventArgs e)

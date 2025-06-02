@@ -37,6 +37,7 @@
             accordionControlSeparator4 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
             View_All_Notes_Popped = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             accordionControlSeparator5 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
+            Report_ControlElement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             accordionControlSeparator1 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
             Logout_AccordionElement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             accordionControlSeparator2 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
@@ -82,7 +83,7 @@
             NotesGroupAccordionElement.Appearance.Pressed.ForeColor = Color.Black;
             NotesGroupAccordionElement.Appearance.Pressed.Options.UseBackColor = true;
             NotesGroupAccordionElement.Appearance.Pressed.Options.UseForeColor = true;
-            NotesGroupAccordionElement.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { Show_Notes_Accordion_Element, accordionControlSeparator3, Add_A_New_Note_Accordion_Element, accordionControlSeparator4, View_All_Notes_Popped, accordionControlSeparator5 });
+            NotesGroupAccordionElement.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { Show_Notes_Accordion_Element, accordionControlSeparator3, Add_A_New_Note_Accordion_Element, accordionControlSeparator4, View_All_Notes_Popped, accordionControlSeparator5, Report_ControlElement });
             NotesGroupAccordionElement.Expanded = true;
             NotesGroupAccordionElement.ImageOptions.Image = (Image)resources.GetObject("NotesGroupAccordionElement.ImageOptions.Image");
             NotesGroupAccordionElement.Name = "NotesGroupAccordionElement";
@@ -166,6 +167,28 @@
             // 
             accordionControlSeparator5.Name = "accordionControlSeparator5";
             // 
+            // Report_ControlElement
+            // 
+            Report_ControlElement.Appearance.Default.Font = new Font("Tahoma", 10.2F);
+            Report_ControlElement.Appearance.Default.ForeColor = Color.White;
+            Report_ControlElement.Appearance.Default.Options.UseFont = true;
+            Report_ControlElement.Appearance.Default.Options.UseForeColor = true;
+            Report_ControlElement.Appearance.Hovered.BackColor = Color.FromArgb(205, 230, 247);
+            Report_ControlElement.Appearance.Hovered.ForeColor = Color.Black;
+            Report_ControlElement.Appearance.Hovered.Options.UseBackColor = true;
+            Report_ControlElement.Appearance.Hovered.Options.UseForeColor = true;
+            Report_ControlElement.Appearance.Normal.BackColor = Color.FromArgb(222, 233, 239);
+            Report_ControlElement.Appearance.Normal.ForeColor = Color.Black;
+            Report_ControlElement.Appearance.Normal.Options.UseBackColor = true;
+            Report_ControlElement.Appearance.Normal.Options.UseForeColor = true;
+            Report_ControlElement.Appearance.Pressed.BackColor = Color.FromArgb(205, 230, 247);
+            Report_ControlElement.Appearance.Pressed.ForeColor = Color.Black;
+            Report_ControlElement.Appearance.Pressed.Options.UseBackColor = true;
+            Report_ControlElement.Appearance.Pressed.Options.UseForeColor = true;
+            Report_ControlElement.Name = "Report_ControlElement";
+            Report_ControlElement.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            Report_ControlElement.Text = "Report";
+            // 
             // accordionControlSeparator1
             // 
             accordionControlSeparator1.Name = "accordionControlSeparator1";
@@ -188,7 +211,7 @@
             Logout_AccordionElement.Appearance.Pressed.ForeColor = Color.Black;
             Logout_AccordionElement.Appearance.Pressed.Options.UseBackColor = true;
             Logout_AccordionElement.Appearance.Pressed.Options.UseForeColor = true;
-            Logout_AccordionElement.ImageOptions.Image = (Image)resources.GetObject("LogoutAccordionElement.ImageOptions.Image");
+            Logout_AccordionElement.ImageOptions.Image = (Image)resources.GetObject("Logout_AccordionElement.ImageOptions.Image");
             Logout_AccordionElement.Name = "Logout_AccordionElement";
             Logout_AccordionElement.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             Logout_AccordionElement.Text = "Logout";
@@ -274,5 +297,6 @@
         private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator5;
         private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator1;
         private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator2;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement Report_ControlElement;
     }
 }

@@ -19,22 +19,22 @@ namespace Test
             InitializeComponent();
             LoadCategories();
             _dbContext = new ManageNoteContext();
-            var firstNonEmptyCategory = _dbContext.Notes
-                .Where(x => x.UserID == _userId)
-                .GroupBy(x => x.Category)
-                .Where(g => g.Any())
-                .OrderByDescending(g => g.Count())
-                .Select(g => g.Key)
-                .FirstOrDefault();
+            //var firstNonEmptyCategory = _dbContext.Notes
+            //    .Where(x => x.UserID == _userId)
+            //    .GroupBy(x => x.Category)
+            //    .Where(g => g.Any())
+            //    .OrderByDescending(g => g.Count())
+            //    .Select(g => g.Key)
+            //    .FirstOrDefault();
 
 
             //Get First Category That Has Any Notes
             // If no notes exist, default to Study category
-            if (!Enum.IsDefined(typeof(Category), firstNonEmptyCategory))
-            {
-                firstNonEmptyCategory = Category.Study;
-            }
-            LoadNotesForSpecficCategory("All Categories");
+            //if (!Enum.IsDefined(typeof(Category), firstNonEmptyCategory))
+            //{
+            //    firstNonEmptyCategory = Category.Study;
+            //}
+            LoadNotesForAllCategories("");
         }
 
         public static readonly Dictionary<Category, Color> CategoryColors = new Dictionary<Category, Color>
@@ -122,7 +122,7 @@ namespace Test
                 //Category Card Click
                 card.Click += (s, e) =>
                 {
-                    LoadNotesForSpecficCategory(parsedCategory, card.BackColor);
+                    LoadNotesForSpecficCategory(parsedCategory, card.BackColor, "");
                 };
             }
             else
@@ -143,7 +143,7 @@ namespace Test
                 card.Click += (s, e) =>
                 {
                     IsCategorySelected = false; // Reset the category selection
-                    LoadNotesForSpecficCategory("All Categories");
+                    LoadNotesForAllCategories("");
                 };
             }
 
@@ -166,19 +166,42 @@ namespace Test
             Note_Form noteForm = new Note_Form(note);
             return noteForm.Container;
         }
-        public void LoadNotesForSpecficCategory(Category category, Color c)
+        private string ConvertRtfToPlainText(string rtfText)
         {
-            var notes = _dbContext.Notes
-                       .Where(n => n.Category == category && n.UserID == _userId)
-                       .ToList();
-            if (notes.Count == 0)
+            using (var richTextBox = new System.Windows.Forms.RichTextBox())
             {
-                MessageBox.Show("You Have No Notes For This Category !!!");
-                return;
+                richTextBox.Rtf = rtfText;
+                return richTextBox.Text;
+            }
+        }
+
+        public void LoadNotesForSpecficCategory(Category category, Color c, string searchFor)
+        {
+            var notesFromDb = _dbContext.Notes
+                .Where(n => n.UserID == _userId && n.Category == category)
+                .ToList();
+
+            List<Note> filteredNotes;
+
+            if (string.IsNullOrWhiteSpace(searchFor))
+            {
+                filteredNotes = notesFromDb;
+            }
+            else
+            {
+                filteredNotes = notesFromDb
+                    .Where(n => ConvertRtfToPlainText(n.Content).Contains(searchFor))
+                    .ToList();
             }
 
+            //if (notes.Count == 0)
+            //{
+            //    MessageBox.Show("You Have No Notes For This Category !!!");
+            //    return;
+            //}
+
             notesPanel.Controls.Clear();
-            foreach (var note in notes)
+            foreach (var note in filteredNotes)
             {
                 Note_Form noteForm = new Note_Form(note);
                 noteForm.TopPanal.BackColor = c; // Set the background color of the note card
@@ -187,19 +210,32 @@ namespace Test
                 notesPanel.Controls.Add(noteForm.Container);
             }
         }
-        public void LoadNotesForSpecficCategory(string category)
+        public void LoadNotesForAllCategories(string searchFor)
         {
-            var notes = _dbContext.Notes
-                       .Where(n => n.UserID == _userId)
-                       .ToList();
-            if (notes.Count == 0)
+            var notesFromDb = _dbContext.Notes
+                .Where(n => n.UserID == _userId)
+                .ToList();
+
+            List<Note> filteredNotes;
+
+            if (string.IsNullOrWhiteSpace(searchFor))
             {
-                MessageBox.Show("You Have No Notes For This Category !!!");
-                return;
+                filteredNotes = notesFromDb;
             }
+            else
+            {
+                filteredNotes = notesFromDb
+                    .Where(n => ConvertRtfToPlainText(n.Content).Contains(searchFor))
+                    .ToList();
+            }
+            //if (notes.Count == 0)
+            //{
+            //    MessageBox.Show("You Have No Notes For This Category !!!");
+            //    return;
+            //}
 
             notesPanel.Controls.Clear();
-            foreach (var note in notes)
+            foreach (var note in filteredNotes)
             {
                 Note_Form noteForm = new Note_Form(note);
                 noteForm.noteId = note.ID;
@@ -223,5 +259,22 @@ namespace Test
             return path;
         }
 
+        private void refreshNotesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SearchTextBox.Text = "";
+            if (IsCategorySelected == true)
+                LoadNotesForSpecficCategory(SelectedCategory, CategoryColors[SelectedCategory], "");
+            else
+                LoadNotesForAllCategories("");
+        }
+
+        private void SerachBox_TextChanged(object sender, EventArgs e)
+        {
+            if (IsCategorySelected == true)
+                LoadNotesForSpecficCategory(SelectedCategory, CategoryColors[SelectedCategory], SearchTextBox.Text);
+            else
+                LoadNotesForAllCategories(SearchTextBox.Text);
+
+        }
     }
 }

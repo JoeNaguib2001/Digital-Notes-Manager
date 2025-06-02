@@ -38,17 +38,19 @@
             // 
             // chartControlCategory
             // 
-            chartControlCategory.Location = new Point(3, 228);
+            chartControlCategory.Dock = DockStyle.Fill;
+            chartControlCategory.Location = new Point(3, 360);
             chartControlCategory.Name = "chartControlCategory";
-            chartControlCategory.Size = new Size(770, 213);
+            chartControlCategory.Size = new Size(886, 351);
             chartControlCategory.TabIndex = 0;
             // 
             // chartControlReminder
             // 
+            chartControlReminder.Dock = DockStyle.Fill;
             chartControlReminder.Legend.Visibility = DevExpress.Utils.DefaultBoolean.True;
             chartControlReminder.Location = new Point(3, 3);
             chartControlReminder.Name = "chartControlReminder";
-            chartControlReminder.Size = new Size(770, 212);
+            chartControlReminder.Size = new Size(886, 351);
             chartControlReminder.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -64,14 +66,14 @@
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(800, 450);
+            tableLayoutPanel1.Size = new Size(892, 714);
             tableLayoutPanel1.TabIndex = 2;
             // 
             // ReportsForm
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(892, 714);
             Controls.Add(tableLayoutPanel1);
             Name = "ReportsForm";
             Text = "ReportsForm";
