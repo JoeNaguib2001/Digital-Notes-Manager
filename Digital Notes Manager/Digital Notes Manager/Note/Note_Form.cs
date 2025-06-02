@@ -8,15 +8,11 @@ using System.Runtime.InteropServices;
 
 namespace Digital_Notes_Manager
 {
-    public enum Mode
-    {
-        Add,
-        Edit
-    }
+
     public partial class Note_Form : RibbonForm
     {
 
-        public Mode Mode { get; set; }
+
         public int noteId { get; set; }
 
         private BarManager barManager;
@@ -129,7 +125,7 @@ namespace Digital_Notes_Manager
                 Content = richTextBox1.Rtf,
                 CreationDate = DateTime.Now,
                 ReminderDate = NotficationDate.DateTime,
-                Category = (Category)Enum.Parse(typeof(Category), Categorybox.SelectedIndex.ToString()),
+                Category = (Category)Enum.Parse(typeof(Category), Categorybox.Text),
                 UserID = Properties.Settings.Default.userID
             };
 
@@ -137,7 +133,7 @@ namespace Digital_Notes_Manager
             _ManageNoteContext.SaveChanges();
             Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
             Utilities.SetNotesGridControlDataSource();
-            Mode = Mode.Edit;
+
             noteId = newNote.ID;
             _ManageNoteContext.Notes.Entry(newNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
         }
@@ -298,47 +294,44 @@ namespace Digital_Notes_Manager
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-            if (Mode == Mode.Add)
+
+            //Digital_Notes_Manager.Models.Note newNote = new Digital_Notes_Manager.Models.Note
+            //{
+            //    Title = _Title,
+            //    Content = richTextBox1.Rtf,
+            //    CreationDate = DateTime.Now,
+            //    ReminderDate = NotficationDate.DateTime,
+            //    Category = (Category)Enum.Parse(typeof(Category), _Category),
+            //    UserID = Properties.Settings.Default.userID
+            //};
+
+            //_ManageNoteContext.Notes.Add(newNote);
+            //_ManageNoteContext.SaveChanges();
+            //Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
+            //Utilities.SetNotesGridControlDataSource();
+            //Mode = Mode.Edit;
+            //noteId = newNote.ID;
+            //_ManageNoteContext.Notes.Entry(newNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+
+
+
+
+            var currentNote = _ManageNoteContext.Notes.FirstOrDefault(n => n.ID == noteId);
+            if (currentNote != null)
             {
-                //Digital_Notes_Manager.Models.Note newNote = new Digital_Notes_Manager.Models.Note
-                //{
-                //    Title = _Title,
-                //    Content = richTextBox1.Rtf,
-                //    CreationDate = DateTime.Now,
-                //    ReminderDate = NotficationDate.DateTime,
-                //    Category = (Category)Enum.Parse(typeof(Category), _Category),
-                //    UserID = Properties.Settings.Default.userID
-                //};
+                currentNote.Title = _Title;
+                currentNote.Content = richTextBox1.Rtf;
+                currentNote.ReminderDate = NotficationDate.DateTime;
+                currentNote.Category = (Category)Enum.Parse(typeof(Category), Categorybox.Text);
+                _ManageNoteContext.Notes.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                _ManageNoteContext.SaveChanges();
+                Alarm.AddNewNoteToAlarmSystemNotesList(currentNote);
+                _ManageNoteContext.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached; // هنا بتعمل ديتاتش
 
-                //_ManageNoteContext.Notes.Add(newNote);
-                //_ManageNoteContext.SaveChanges();
-                //Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
-                //Utilities.SetNotesGridControlDataSource();
-                //Mode = Mode.Edit;
-                //noteId = newNote.ID;
-                //_ManageNoteContext.Notes.Entry(newNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-
+                Utilities.SetNotesGridControlDataSource();
+                Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
             }
 
-            else if (Mode == Mode.Edit)
-            {
-                var currentNote = _ManageNoteContext.Notes.FirstOrDefault(n => n.ID == noteId);
-                if (currentNote != null)
-                {
-                    currentNote.Title = _Title;
-                    currentNote.Content = richTextBox1.Rtf;
-                    currentNote.ReminderDate = NotficationDate.DateTime;
-                    currentNote.Category = (Category)Enum.Parse(typeof(Category), Categorybox.SelectedIndex.ToString());
-                    _ManageNoteContext.Notes.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                    _ManageNoteContext.SaveChanges();
-                    Alarm.AddNewNoteToAlarmSystemNotesList(currentNote);
-                    _ManageNoteContext.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached; // هنا بتعمل ديتاتش
-
-                    Utilities.SetNotesGridControlDataSource();
-                    Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
-                }
-
-            }
             saveBtn.ImageOptions.Image = Properties.Resources.disk2;
         }
 

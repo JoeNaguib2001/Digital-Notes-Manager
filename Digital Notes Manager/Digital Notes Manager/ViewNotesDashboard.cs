@@ -248,7 +248,7 @@ namespace Test
             {
                 Note_Form noteForm = new Note_Form(note);
                 noteForm.noteId = note.ID;
-                noteForm.Mode = Mode.Edit;
+
                 Color c = CategoryColors.ContainsKey(note.Category) ? CategoryColors[note.Category] : Color.Pink;
                 noteForm.TopPanal.BackColor = c;
                 noteForm.TitleBox.BackColor = c;
