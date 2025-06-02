@@ -475,6 +475,7 @@ namespace Digital_Notes_Manager
                 _ManageNoteContext.SaveChanges();
                 Utilities.SetNotesGridControlDataSource();
                 TrashBtn.ImageOptions.Image = Properties.Resources.trash2;
+                Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
             }
         }
     }
