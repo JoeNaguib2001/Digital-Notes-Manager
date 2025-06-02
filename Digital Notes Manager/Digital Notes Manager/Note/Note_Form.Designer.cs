@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Note_Form));
             stylePanal = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             richTextBox1 = new RichTextBox();
             saveBtn = new DevExpress.XtraEditors.SimpleButton();
@@ -38,6 +37,7 @@
             TitleBox = new DevExpress.XtraEditors.TextEdit();
             Categorybox = new DevExpress.XtraEditors.ComboBoxEdit();
             DownPanel = new Panel();
+            TrashBtn = new DevExpress.XtraEditors.SimpleButton();
             BellButton = new DevExpress.XtraEditors.SimpleButton();
             TopPanal = new Panel();
             Container = new Panel();
@@ -75,7 +75,7 @@
             // saveBtn
             // 
             saveBtn.ImageOptions.Image = Properties.Resources.disk1;
-            saveBtn.Location = new Point(100, 5);
+            saveBtn.Location = new Point(100, 6);
             saveBtn.Name = "saveBtn";
             saveBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             saveBtn.Size = new Size(21, 20);
@@ -85,12 +85,12 @@
             // MenuBtn
             // 
             MenuBtn.Dock = DockStyle.Left;
+            MenuBtn.ImageOptions.Image = Properties.Resources.menu;
             MenuBtn.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            MenuBtn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("MenuBtn.ImageOptions.SvgImage");
             MenuBtn.Location = new Point(0, 0);
             MenuBtn.Name = "MenuBtn";
             MenuBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
-            MenuBtn.Size = new Size(62, 33);
+            MenuBtn.Size = new Size(36, 33);
             MenuBtn.TabIndex = 5;
             // 
             // Close_btn
@@ -98,8 +98,8 @@
             Close_btn.Appearance.Options.UseBackColor = true;
             Close_btn.Appearance.Options.UseBorderColor = true;
             Close_btn.Dock = DockStyle.Right;
+            Close_btn.ImageOptions.Image = Properties.Resources.cross;
             Close_btn.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            Close_btn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("Close_btn.ImageOptions.SvgImage");
             Close_btn.Location = new Point(333, 0);
             Close_btn.Name = "Close_btn";
             Close_btn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
@@ -164,6 +164,7 @@
             // 
             // DownPanel
             // 
+            DownPanel.Controls.Add(TrashBtn);
             DownPanel.Controls.Add(stylePanal);
             DownPanel.Controls.Add(Categorybox);
             DownPanel.Controls.Add(saveBtn);
@@ -172,6 +173,16 @@
             DownPanel.Name = "DownPanel";
             DownPanel.Size = new Size(374, 34);
             DownPanel.TabIndex = 10;
+            // 
+            // TrashBtn
+            // 
+            TrashBtn.ImageOptions.Image = Properties.Resources.trash1;
+            TrashBtn.Location = new Point(137, 6);
+            TrashBtn.Name = "TrashBtn";
+            TrashBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
+            TrashBtn.Size = new Size(20, 20);
+            TrashBtn.TabIndex = 11;
+            TrashBtn.Click += simpleButton1_Click;
             // 
             // BellButton
             // 
@@ -247,5 +258,6 @@
         public Panel DownPanel;
         public Panel TopPanal;
         public DevExpress.XtraEditors.TextEdit TitleBox;
+        private DevExpress.XtraEditors.SimpleButton TrashBtn;
     }
 }

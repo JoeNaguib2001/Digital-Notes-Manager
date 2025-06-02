@@ -53,7 +53,9 @@ namespace Digital_Notes_Manager
             //{
             //    var selectedColor = e.Item.HintColor; // Custom extension or mapping
             //};
+            CreateNote();
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
+
         }
         public Note_Form(Note note)
         {
@@ -70,7 +72,9 @@ namespace Digital_Notes_Manager
             NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(0));
             Categorybox.Text = note.Category.ToString();
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
+
         }
+
         private void SetupNoteForm()
         {
             stylePanal.Buttons.Clear();
@@ -116,6 +120,28 @@ namespace Digital_Notes_Manager
             BellButton.Appearance.BackColor = Color.Orange;
         }
         //change bell image
+        private void CreateNote()
+        {
+
+            Digital_Notes_Manager.Models.Note newNote = new Digital_Notes_Manager.Models.Note
+            {
+                Title = _Title,
+                Content = richTextBox1.Rtf,
+                CreationDate = DateTime.Now,
+                ReminderDate = NotficationDate.DateTime,
+                Category = (Category)Enum.Parse(typeof(Category), Categorybox.SelectedIndex.ToString()),
+                UserID = Properties.Settings.Default.userID
+            };
+
+            _ManageNoteContext.Notes.Add(newNote);
+            _ManageNoteContext.SaveChanges();
+            Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
+            Utilities.SetNotesGridControlDataSource();
+            Mode = Mode.Edit;
+            noteId = newNote.ID;
+            _ManageNoteContext.Notes.Entry(newNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+        }
+
         public void ChangeBell()
         {
             if (NotficationDate > DateTime.Now)
@@ -207,7 +233,7 @@ namespace Digital_Notes_Manager
         {
 
             var Categories = Enum.GetNames(typeof(Category));
-            Categorybox.Properties.Items.Add("Select a category");
+            //Categorybox.Properties.Items.Add("Select a category");
             Categorybox.Properties.Items.AddRange(Categories);
 
         }
@@ -267,27 +293,30 @@ namespace Digital_Notes_Manager
         //{
         //    Calender.ShowPopup();
         //}
+
+
+
         private void saveBtn_Click(object sender, EventArgs e)
         {
             if (Mode == Mode.Add)
             {
-                Digital_Notes_Manager.Models.Note newNote = new Digital_Notes_Manager.Models.Note
-                {
-                    Title = _Title,
-                    Content = richTextBox1.Rtf,
-                    CreationDate = DateTime.Now,
-                    ReminderDate = NotficationDate.DateTime,
-                    Category = (Category)Enum.Parse(typeof(Category), _Category),
-                    UserID = Properties.Settings.Default.userID
-                };
+                //Digital_Notes_Manager.Models.Note newNote = new Digital_Notes_Manager.Models.Note
+                //{
+                //    Title = _Title,
+                //    Content = richTextBox1.Rtf,
+                //    CreationDate = DateTime.Now,
+                //    ReminderDate = NotficationDate.DateTime,
+                //    Category = (Category)Enum.Parse(typeof(Category), _Category),
+                //    UserID = Properties.Settings.Default.userID
+                //};
 
-                _ManageNoteContext.Notes.Add(newNote);
-                _ManageNoteContext.SaveChanges();
-                Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
-                Utilities.SetNotesGridControlDataSource();
-                Mode = Mode.Edit;
-                noteId = newNote.ID;
-                _ManageNoteContext.Notes.Entry(newNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+                //_ManageNoteContext.Notes.Add(newNote);
+                //_ManageNoteContext.SaveChanges();
+                //Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
+                //Utilities.SetNotesGridControlDataSource();
+                //Mode = Mode.Edit;
+                //noteId = newNote.ID;
+                //_ManageNoteContext.Notes.Entry(newNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
 
             }
 
@@ -434,6 +463,19 @@ namespace Digital_Notes_Manager
             path.CloseFigure();
 
             TopPanal.Region = new Region(path);
+        }
+
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            var StoredNote = _ManageNoteContext.Notes.FirstOrDefault(n => n.ID == CurrentNote.ID);
+            if (StoredNote != null)
+            {
+
+                _ManageNoteContext.Remove(StoredNote);
+                _ManageNoteContext.SaveChanges();
+                Utilities.SetNotesGridControlDataSource();
+                TrashBtn.ImageOptions.Image = Properties.Resources.trash2;
+            }
         }
     }
 }
