@@ -25,6 +25,7 @@ namespace Digital_Notes_Manager
 
         private readonly ManageNoteContext _ManageNoteContext = Utilities.manageNoteContext;
         public Note CurrentNote { get; set; }
+        private Note ToDeleteNote;
 
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
@@ -131,6 +132,7 @@ namespace Digital_Notes_Manager
 
             _ManageNoteContext.Notes.Add(newNote);
             _ManageNoteContext.SaveChanges();
+            ToDeleteNote = newNote;
             Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
             Utilities.SetNotesGridControlDataSource();
 
@@ -460,16 +462,28 @@ namespace Digital_Notes_Manager
 
         private void simpleButton1_Click(object sender, EventArgs e)
         {
-            var StoredNote = _ManageNoteContext.Notes.FirstOrDefault(n => n.ID == CurrentNote.ID);
-            if (StoredNote != null)
+            if (ToDeleteNote != null)
             {
+                _ManageNoteContext.Remove(ToDeleteNote);
+            }
+            else
+            {
+                var StoredNote = _ManageNoteContext.Notes.FirstOrDefault(n => n.ID == CurrentNote.ID);
+                if (StoredNote != null)
+                {
 
-                _ManageNoteContext.Remove(StoredNote);
-                _ManageNoteContext.SaveChanges();
-                Utilities.SetNotesGridControlDataSource();
-                TrashBtn.ImageOptions.Image = Properties.Resources.trash2;
+                    _ManageNoteContext.Remove(StoredNote);
+                }
+            }
+            _ManageNoteContext.SaveChanges();
+            Utilities.SetNotesGridControlDataSource();
+            TrashBtn.ImageOptions.Image = Properties.Resources.trash2;
+            if (Utilities.ViewNotesDashboard != null)
+            {
                 Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
             }
+            this.Close();
+
         }
     }
 }

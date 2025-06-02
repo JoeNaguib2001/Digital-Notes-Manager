@@ -114,7 +114,6 @@ namespace Test
             if (Enum.TryParse(category, out parsedCategory))
             {
                 int noteCount = _dbContext.Notes.Count(n => n.UserID == _userId && n.Category == parsedCategory);
-                SelectedCategory = parsedCategory;
 
                 Label countLabel = new Label
                 {
