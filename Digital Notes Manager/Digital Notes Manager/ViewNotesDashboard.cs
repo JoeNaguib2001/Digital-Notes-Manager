@@ -10,15 +10,48 @@ namespace Test
     public partial class ViewNotesDashboard : DevExpress.XtraBars.FluentDesignSystem.FluentDesignForm
     {
         private ManageNoteContext _dbContext;
+        public Category SelectedCategory { get; set; }
+        public bool IsCategorySelected { get; set; } = false;
+        int _userId = Utilities.GetCurrentLoggedInUserId();
         public ViewNotesDashboard()
         {
+            Utilities.ViewNotesDashboard = this;
             InitializeComponent();
             LoadCategories();
+            _dbContext = new ManageNoteContext();
+            //var firstNonEmptyCategory = _dbContext.Notes
+            //    .Where(x => x.UserID == _userId)
+            //    .GroupBy(x => x.Category)
+            //    .Where(g => g.Any())
+            //    .OrderByDescending(g => g.Count())
+            //    .Select(g => g.Key)
+            //    .FirstOrDefault();
+
+
+            //Get First Category That Has Any Notes
+            // If no notes exist, default to Study category
+            //if (!Enum.IsDefined(typeof(Category), firstNonEmptyCategory))
+            //{
+            //    firstNonEmptyCategory = Category.Study;
+            //}
+            LoadNotesForAllCategories("");
         }
+
+        public static readonly Dictionary<Category, Color> CategoryColors = new Dictionary<Category, Color>
+        {
+            { Category.None, Color.Pink },      // Light Blue
+            { Category.Study, Color.FromArgb(173, 216, 230) },      // Light Blue
+            { Category.Work, Color.FromArgb(255, 239, 153) },       // Light Yellow
+            { Category.Ideas, Color.FromArgb(204, 255, 204) },      // Light Green
+            { Category.Reminders, ColorTranslator.FromHtml("#d5cabd") }, // Beige
+            { Category.Personal, ColorTranslator.FromHtml("#adc5cf") },  // Light Blue-Gray
+        };
 
 
         private void LoadCategories()
         {
+            CategoryPanel.Controls.Clear();
+            //Adding A new Floylayout Panel in Run Time
             FlowLayoutPanel CategoryflowLayoutPanel = new FlowLayoutPanel()
             {
                 Dock = DockStyle.Fill,
@@ -27,18 +60,21 @@ namespace Test
                 WrapContents = true,
                 Padding = new Padding(10),
             };
-
-
             CategoryPanel.Controls.Add(CategoryflowLayoutPanel);
 
+            //Creating A New Card For Each Category
             try
             {
                 _dbContext = new ManageNoteContext();
+                Panel cardCategoryAll = CreateCategoryCard("All Categories");
+                CategoryflowLayoutPanel.Controls.Add(cardCategoryAll);
                 foreach (var category in Enum.GetNames(typeof(Category)))
                 {
-
-                    Panel card = CreateCategoryCard(category);
-                    CategoryflowLayoutPanel.Controls.Add(card);
+                    if (category != "None")
+                    {
+                        Panel card = CreateCategoryCard(category);
+                        CategoryflowLayoutPanel.Controls.Add(card);
+                    }
                 }
 
 
@@ -49,21 +85,21 @@ namespace Test
             }
         }
 
+        // 2 events => all categories click & specfic category click
         private Panel CreateCategoryCard(string category)
         {
             RoundedPanel card = new RoundedPanel
             {
                 Size = new Size(250, 200),
                 AutoScroll = true,
-                BackColor = Color.FromArgb(245, 245, 255), // لون مودرن – خلفية ناعمة
                 Padding = new Padding(10),
-                Margin = new Padding(15), // مسافة بين البطاقات
+                Margin = new Padding(15),
                 BorderRadius = 20,
-                BorderColor = Color.FromArgb(180, 180, 200), // لون حواف أنيق
+                BorderColor = Color.FromArgb(180, 180, 200),
                 BorderThickness = 2
             };
 
-            // إضافة Label لعنوان الملاحظة
+            // Category Title
             Label titleLabel = new Label
             {
                 Text = category,
@@ -77,7 +113,7 @@ namespace Test
             Category parsedCategory;
             if (Enum.TryParse(category, out parsedCategory))
             {
-                int noteCount = _dbContext.Notes.Count(n => n.UserID == Utilities.UserId() && n.Category == parsedCategory);
+                int noteCount = _dbContext.Notes.Count(n => n.UserID == _userId && n.Category == parsedCategory);
 
                 Label countLabel = new Label
                 {
@@ -87,43 +123,43 @@ namespace Test
                     AutoSize = true
                 };
                 card.Controls.Add(countLabel);
-                card.BackColor = GetRandomPastelColor();
+                card.BackColor = CategoryColors[parsedCategory];
+
+                //Category Card Click
+                card.Click += (s, e) =>
+                {
+                    IsCategorySelected = true;
+                    SelectedCategory = parsedCategory;
+                    LoadNotesForSpecficCategory(parsedCategory, card.BackColor, "");
+                };
+            }
+            else
+            {
+                int noteCount = _dbContext.Notes.Count(n => n.UserID == _userId);
+
+                Label countLabel = new Label
+                {
+                    Text = $"Notes Count: {noteCount}",
+                    Font = new Font("Tahoma", 10),
+                    Location = new Point(10, 50),
+                    AutoSize = true
+                };
+                card.Controls.Add(countLabel);
+                card.BackColor = Color.Pink;
 
                 // إضافة حدث النقر لعرض الملاحظات الخاصة بالفئة
                 card.Click += (s, e) =>
                 {
-                    //FlowLayoutPanel notesPanel = new FlowLayoutPanel
-                    //{
-                    //    Dock = DockStyle.Fill,
-                    //    AutoScroll = true,
-                    //    FlowDirection = FlowDirection.LeftToRight,
-                    //    WrapContents = true,
-                    //    Padding = new Padding(10)
-                    //};
-
-                    //NotesPanel.Controls.Clear();
-                    //NotesPanel.Controls.Add(notesPanel);
-
-                    var notes = _dbContext.Notes
-                        .Where(n => n.Category == parsedCategory && n.UserID == Utilities.UserId())
-                        .ToList();
-
-                    foreach (var note in notes)
-                    {
-                        Note_Form noteForm = new Note_Form(note);
-                        notesPanel.Controls.Clear();
-                        noteForm.Container.Dock = DockStyle.None;
-                        notesPanel.Controls.Add(noteForm.Container);
-                    }
+                    IsCategorySelected = false; // Reset the category selection
+                    LoadNotesForAllCategories("");
                 };
             }
+
             return card;
 
         }
-
         private Panel CreateNoteCard(Note note)
         {
-            #region Maged
             RoundedPanel card = new RoundedPanel
             {
                 Size = new Size(300, 250),
@@ -135,163 +171,90 @@ namespace Test
                 BorderColor = Color.FromArgb(180, 180, 200),
                 BorderThickness = 1
             };
-            //card.BackColor = GetRandomPastelColor();
-
-            //// إضافة Label لعنوان الملاحظة
-            //Label titleLabel = new Label
-            //{
-            //    Text = note.Title,
-            //    Font = new Font("Tahoma", 14, FontStyle.Bold),
-            //    Location = new Point(10, 10),
-            //    AutoSize = true
-            //};
-            //card.Controls.Add(titleLabel);
-
-            //Label line = new Label
-            //{
-            //    Text = "------------------------------------",
-            //    Font = new Font("Tahoma", 8, FontStyle.Bold),
-            //    Location = new Point(10, 35),
-            //    AutoSize = true
-            //};
-            //card.Controls.Add(line);
-
-
-            //// إضافة Label لاسم الفئة
-            //Label categoryLabel = new Label
-            //{
-            //    Text = $"Category: {note.Category.ToString() ?? "UnCategorized"}",
-            //    Font = new Font("Tahoma", 10, FontStyle.Italic),
-            //    Location = new Point(10, 55),
-            //    AutoSize = true
-            //};
-            //card.Controls.Add(categoryLabel);
-
-            //// إضافة Label لمحتوى الملاحظة
-            //Label contentLabel = new Label
-            //{
-            //    Text = note.Content.Length > 80 ? note.Content.Substring(0, 80) + "..." : note.Content,
-            //    Font = new Font("Tahoma", 12, FontStyle.Bold),
-            //    Location = new Point(10, 80),
-            //    Size = new Size(230, 60),
-            //    AutoSize = false
-            //};
-            //card.Controls.Add(contentLabel);
-
-            //// إضافة Label لتاريخ التذكير
-            //Label reminderLabel = new Label
-            //{
-            //    Text = $"Reminder Date: {note.ReminderDate:dd/MM/yyyy}",
-            //    Font = new Font("Tahoma", 10, FontStyle.Bold),
-            //    Location = new Point(10, 150),
-            //    AutoSize = true
-            //};
-            //card.Controls.Add(reminderLabel);
-
-
-            //SimpleButton editButton = new SimpleButton
-            //{
-            //    Text = "Edit",
-            //    Location = new Point(50, 200),
-            //    Size = new Size(80, 30),
-            //    Appearance =
-            //                {
-            //                    BackColor = Color.FromArgb(33, 150, 243), // أحمر ماتيريال
-            //                    Font = new Font("Tahoma", 9F, FontStyle.Bold),
-            //                    ForeColor = Color.White
-            //                },
-            //    LookAndFeel =
-            //                {
-            //                    UseDefaultLookAndFeel = false,
-            //                    Style = DevExpress.LookAndFeel.LookAndFeelStyle.Flat
-            //                },
-            //    BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
-            //};
-
-            //// تمكين الخصائص
-            //editButton.Appearance.Options.UseBackColor = true;
-            //editButton.Appearance.Options.UseForeColor = true;
-            //editButton.Appearance.Options.UseFont = true;
-
-            //// إضافة الرادياس
-            //editButton.Paint += (s, e) =>
-            //{
-            //    var btn = s as SimpleButton;
-            //    btn.Region = new Region(GetRoundedRectanglePath(btn.ClientRectangle, 10)); // Radius = 10
-            //};
-
-            //editButton.Click += (s, e) =>
-            //{
-            //    MessageBox.Show($"Edit Note: {note.Title}");
-            //    // يمكنك فتح نموذج لتعديل الملاحظة هنا
-            //};
-
-            //card.Controls.Add(editButton);
-
-            //// زرار Delete مودرن
-            //SimpleButton deleteButton = new SimpleButton
-            //{
-            //    Text = "Delete",
-            //    Location = new Point(170, 200),
-            //    Size = new Size(80, 30),
-            //    Appearance =
-            //                {
-            //                    BackColor = Color.FromArgb(244, 67, 54), // أحمر ماتيريال
-            //                    Font = new Font("Tahoma", 9F, FontStyle.Bold),
-            //                    ForeColor = Color.White
-            //                },
-            //    LookAndFeel =
-            //                {
-            //                    UseDefaultLookAndFeel = false,
-            //                    Style = DevExpress.LookAndFeel.LookAndFeelStyle.Flat
-            //                },
-            //    BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder
-            //};
-
-            //// تمكين الخصائص
-            //deleteButton.Appearance.Options.UseBackColor = true;
-            //deleteButton.Appearance.Options.UseForeColor = true;
-            //deleteButton.Appearance.Options.UseFont = true;
-
-            //// إضافة الرادياس
-            //deleteButton.Paint += (s, e) =>
-            //{
-            //    var btn = s as SimpleButton;
-            //    btn.Region = new Region(GetRoundedRectanglePath(btn.ClientRectangle, 10)); // Radius = 10
-            //};
-
-
-            //deleteButton.Click += (s, e) =>
-            //{
-            //    if (MessageBox.Show($"Are you Sure to Delete This Note: {note.Title}؟", "Yes", MessageBoxButtons.YesNo) == DialogResult.Yes)
-            //    {
-            //        _dbContext = new ManageNoteContext();
-            //        _dbContext.Notes.Remove(note);
-            //        _dbContext.SaveChanges();
-            //        CategoryPanel.Controls.Clear();
-            //        NotesPanel.Controls.Clear();
-            //        LoadCategories(); // إعادة تحميل الفئات والملاحظات
-            //    }
-            //};
-            //card.Controls.Add(deleteButton);
-
-            //// إضافة حدث النقر على البطاقة
-            //card.Click += (s, e) =>
-            //{
-            //    Note_Form noteForm = new Note_Form(note);
-            //    noteForm.Show();
-            //};
-
-            //return card;
-            #endregion
             Note_Form noteForm = new Note_Form(note);
-            Form f = new Form();
-            f.Size = new Size(400, 300);
-            f.Controls.Add(noteForm.Container);
-            f.Show();
             return noteForm.Container;
         }
+        private string ConvertRtfToPlainText(string rtfText)
+        {
+            using (var richTextBox = new System.Windows.Forms.RichTextBox())
+            {
+                richTextBox.Rtf = rtfText;
+                return richTextBox.Text;
+            }
+        }
 
+        public void LoadNotesForSpecficCategory(Category category, Color c, string searchFor)
+        {
+            var notesFromDb = _dbContext.Notes
+                .Where(n => n.UserID == _userId && n.Category == category)
+                .ToList();
+
+            List<Note> filteredNotes;
+
+            if (string.IsNullOrWhiteSpace(searchFor))
+            {
+                filteredNotes = notesFromDb;
+            }
+            else
+            {
+                filteredNotes = notesFromDb
+                    .Where(n => ConvertRtfToPlainText(n.Content).Contains(searchFor))
+                    .ToList();
+            }
+
+            //if (notes.Count == 0)
+            //{
+            //    MessageBox.Show("You Have No Notes For This Category !!!");
+            //    return;
+            //}
+
+            notesPanel.Controls.Clear();
+            foreach (var note in filteredNotes)
+            {
+                Note_Form noteForm = new Note_Form(note);
+                noteForm.TopPanal.BackColor = c; // Set the background color of the note card
+                noteForm.TitleBox.BackColor = c;
+                noteForm.Container.Dock = DockStyle.None;
+                notesPanel.Controls.Add(noteForm.Container);
+            }
+        }
+        public void LoadNotesForAllCategories(string searchFor)
+        {
+            var notesFromDb = _dbContext.Notes
+                .Where(n => n.UserID == _userId)
+                .ToList();
+
+            List<Note> filteredNotes;
+
+            if (string.IsNullOrWhiteSpace(searchFor))
+            {
+                filteredNotes = notesFromDb;
+            }
+            else
+            {
+                filteredNotes = notesFromDb
+                    .Where(n => ConvertRtfToPlainText(n.Content).Contains(searchFor))
+                    .ToList();
+            }
+            //if (notes.Count == 0)
+            //{
+            //    MessageBox.Show("You Have No Notes For This Category !!!");
+            //    return;
+            //}
+
+            notesPanel.Controls.Clear();
+            foreach (var note in filteredNotes)
+            {
+                Note_Form noteForm = new Note_Form(note);
+                noteForm.noteId = note.ID;
+
+                Color c = CategoryColors.ContainsKey(note.Category) ? CategoryColors[note.Category] : Color.Pink;
+                noteForm.TopPanal.BackColor = c;
+                noteForm.TitleBox.BackColor = c;
+                noteForm.Container.Dock = DockStyle.None;
+                notesPanel.Controls.Add(noteForm.Container);
+            }
+        }
         private GraphicsPath GetRoundedRectanglePath(Rectangle rect, int radius)
         {
             GraphicsPath path = new GraphicsPath();
@@ -303,14 +266,29 @@ namespace Test
             path.CloseFigure();
             return path;
         }
-        private Color GetRandomPastelColor()
+
+        private void refreshNotesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Random rand = new Random(Guid.NewGuid().GetHashCode());
-            int red = (rand.Next(128) + 127);  // 127-255
-            int green = (rand.Next(128) + 127);
-            int blue = (rand.Next(128) + 127);
-            return Color.FromArgb(red, green, blue);
+            RefreshPoppedOutNotes();
         }
 
+        public void RefreshPoppedOutNotes()
+        {
+            SearchTextBox.Text = "";
+            LoadCategories();
+            if (IsCategorySelected == true)
+                LoadNotesForSpecficCategory(SelectedCategory, CategoryColors[SelectedCategory], "");
+            else
+                LoadNotesForAllCategories("");
+        }
+
+        private void SerachBox_TextChanged(object sender, EventArgs e)
+        {
+            if (IsCategorySelected == true)
+                LoadNotesForSpecficCategory(SelectedCategory, CategoryColors[SelectedCategory], SearchTextBox.Text);
+            else
+                LoadNotesForAllCategories(SearchTextBox.Text);
+
+        }
     }
 }

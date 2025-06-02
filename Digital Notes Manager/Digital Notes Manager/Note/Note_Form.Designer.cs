@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Note_Form));
             stylePanal = new DevExpress.XtraBars.Docking2010.WindowsUIButtonPanel();
             richTextBox1 = new RichTextBox();
             saveBtn = new DevExpress.XtraEditors.SimpleButton();
@@ -38,6 +37,7 @@
             TitleBox = new DevExpress.XtraEditors.TextEdit();
             Categorybox = new DevExpress.XtraEditors.ComboBoxEdit();
             DownPanel = new Panel();
+            TrashBtn = new DevExpress.XtraEditors.SimpleButton();
             BellButton = new DevExpress.XtraEditors.SimpleButton();
             TopPanal = new Panel();
             Container = new Panel();
@@ -65,18 +65,17 @@
             // richTextBox1
             // 
             richTextBox1.BorderStyle = BorderStyle.None;
-            richTextBox1.Dock = DockStyle.Fill;
             richTextBox1.Font = new Font("Tahoma", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            richTextBox1.Location = new Point(0, 33);
+            richTextBox1.Location = new Point(12, 50);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(279, 188);
+            richTextBox1.Size = new Size(339, 259);
             richTextBox1.TabIndex = 3;
             richTextBox1.Text = "";
             // 
             // saveBtn
             // 
-            saveBtn.ImageOptions.Image = (Image)resources.GetObject("saveBtn.ImageOptions.Image");
-            saveBtn.Location = new Point(100, 5);
+            saveBtn.ImageOptions.Image = Properties.Resources.disk1;
+            saveBtn.Location = new Point(100, 6);
             saveBtn.Name = "saveBtn";
             saveBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             saveBtn.Size = new Size(21, 20);
@@ -85,21 +84,23 @@
             // 
             // MenuBtn
             // 
+            MenuBtn.Dock = DockStyle.Left;
+            MenuBtn.ImageOptions.Image = Properties.Resources.menu;
             MenuBtn.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            MenuBtn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("MenuBtn.ImageOptions.SvgImage");
             MenuBtn.Location = new Point(0, 0);
             MenuBtn.Name = "MenuBtn";
             MenuBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
-            MenuBtn.Size = new Size(62, 33);
+            MenuBtn.Size = new Size(36, 33);
             MenuBtn.TabIndex = 5;
             // 
             // Close_btn
             // 
             Close_btn.Appearance.Options.UseBackColor = true;
             Close_btn.Appearance.Options.UseBorderColor = true;
+            Close_btn.Dock = DockStyle.Right;
+            Close_btn.ImageOptions.Image = Properties.Resources.cross;
             Close_btn.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            Close_btn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("Close_btn.ImageOptions.SvgImage");
-            Close_btn.Location = new Point(236, 0);
+            Close_btn.Location = new Point(333, 0);
             Close_btn.Name = "Close_btn";
             Close_btn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             Close_btn.Size = new Size(41, 33);
@@ -130,18 +131,20 @@
             // TitleBox
             // 
             TitleBox.EditValue = "Note";
-            TitleBox.Location = new Point(115, 3);
+            TitleBox.Location = new Point(147, 3);
             TitleBox.Name = "TitleBox";
             TitleBox.Properties.AllowFocused = false;
-            TitleBox.Properties.Appearance.BackColor = Color.WhiteSmoke;
-            TitleBox.Properties.Appearance.Font = new Font("Segoe UI", 11.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TitleBox.Properties.Appearance.BackColor = Color.FromArgb(44, 62, 80);
+            TitleBox.Properties.Appearance.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            TitleBox.Properties.Appearance.ForeColor = Color.White;
             TitleBox.Properties.Appearance.Options.UseBackColor = true;
             TitleBox.Properties.Appearance.Options.UseFont = true;
+            TitleBox.Properties.Appearance.Options.UseForeColor = true;
             TitleBox.Properties.Appearance.Options.UseTextOptions = true;
             TitleBox.Properties.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
             TitleBox.Properties.BorderStyle = DevExpress.XtraEditors.Controls.BorderStyles.NoBorder;
             TitleBox.Properties.ReadOnly = true;
-            TitleBox.Size = new Size(71, 24);
+            TitleBox.Size = new Size(71, 30);
             TitleBox.TabIndex = 8;
             TitleBox.DoubleClick += TitleBox_DoubleClick;
             TitleBox.KeyDown += TitleBox_KeyDown;
@@ -149,24 +152,37 @@
             // 
             // Categorybox
             // 
-            Categorybox.Location = new Point(162, 5);
+            Categorybox.Location = new Point(257, 5);
             Categorybox.Name = "Categorybox";
+            Categorybox.Properties.Appearance.Font = new Font("Tahoma", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            Categorybox.Properties.Appearance.Options.UseFont = true;
             Categorybox.Properties.Buttons.AddRange(new DevExpress.XtraEditors.Controls.EditorButton[] { new DevExpress.XtraEditors.Controls.EditorButton(DevExpress.XtraEditors.Controls.ButtonPredefines.Combo) });
             Categorybox.Properties.TextEditStyle = DevExpress.XtraEditors.Controls.TextEditStyles.DisableTextEditor;
-            Categorybox.Size = new Size(100, 20);
+            Categorybox.Size = new Size(108, 22);
             Categorybox.TabIndex = 9;
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
             // 
             // DownPanel
             // 
+            DownPanel.Controls.Add(TrashBtn);
             DownPanel.Controls.Add(stylePanal);
             DownPanel.Controls.Add(Categorybox);
             DownPanel.Controls.Add(saveBtn);
             DownPanel.Dock = DockStyle.Bottom;
-            DownPanel.Location = new Point(0, 221);
+            DownPanel.Location = new Point(0, 325);
             DownPanel.Name = "DownPanel";
-            DownPanel.Size = new Size(279, 28);
+            DownPanel.Size = new Size(374, 34);
             DownPanel.TabIndex = 10;
+            // 
+            // TrashBtn
+            // 
+            TrashBtn.ImageOptions.Image = Properties.Resources.trash1;
+            TrashBtn.Location = new Point(137, 6);
+            TrashBtn.Name = "TrashBtn";
+            TrashBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
+            TrashBtn.Size = new Size(20, 20);
+            TrashBtn.TabIndex = 11;
+            TrashBtn.Click += simpleButton1_Click;
             // 
             // BellButton
             // 
@@ -180,6 +196,7 @@
             // 
             // TopPanal
             // 
+            TopPanal.BackColor = Color.FromArgb(44, 62, 80);
             TopPanal.Controls.Add(Calender);
             TopPanal.Controls.Add(BellButton);
             TopPanal.Controls.Add(Close_btn);
@@ -188,33 +205,37 @@
             TopPanal.Dock = DockStyle.Top;
             TopPanal.Location = new Point(0, 0);
             TopPanal.Name = "TopPanal";
-            TopPanal.Size = new Size(279, 33);
+            TopPanal.Size = new Size(374, 33);
             TopPanal.TabIndex = 11;
+            TopPanal.Paint += TopPanal_Paint;
             TopPanal.MouseDown += TopPanal_MouseDown;
             // 
             // Container
             // 
+            Container.BackColor = Color.White;
             Container.Controls.Add(richTextBox1);
             Container.Controls.Add(TopPanal);
             Container.Controls.Add(DownPanel);
             Container.Dock = DockStyle.Fill;
             Container.Location = new Point(0, 0);
             Container.Name = "Container";
-            Container.Size = new Size(279, 249);
+            Container.Size = new Size(374, 359);
             Container.TabIndex = 12;
+            Container.Paint += Container_Paint;
             // 
             // Note_Form
             // 
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(279, 249);
+            ClientSize = new Size(374, 359);
             Controls.Add(Container);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
             Name = "Note_Form";
             Text = "Note";
+            FormClosed += Note_Form_FormClosed;
             ((System.ComponentModel.ISupportInitialize)Calender.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)TitleBox.Properties).EndInit();
             ((System.ComponentModel.ISupportInitialize)Categorybox.Properties).EndInit();
@@ -231,11 +252,12 @@
         private DevExpress.XtraEditors.SimpleButton Close_btn;
         public RichTextBox richTextBox1;
         private DevExpress.XtraEditors.DateTimeOffsetEdit Calender;
-        private DevExpress.XtraEditors.TextEdit TitleBox;
-        private Panel DownPanel;
         private DevExpress.XtraEditors.SimpleButton BellButton;
-        private Panel TopPanal;
         public DevExpress.XtraEditors.ComboBoxEdit Categorybox;
         public Panel Container;
+        public Panel DownPanel;
+        public Panel TopPanal;
+        public DevExpress.XtraEditors.TextEdit TitleBox;
+        private DevExpress.XtraEditors.SimpleButton TrashBtn;
     }
 }

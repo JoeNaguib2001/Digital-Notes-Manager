@@ -109,6 +109,9 @@ namespace Digital_Notes_Manager
 
                 Main_Form main_Form = new Main_Form();
                 main_Form.Show();
+                passwordConfirmTxt.Clear();
+                passwordTxt.Clear();
+                usernameTxt.Clear();
                 main_Form.FormClosed += (s, args) =>
                 {
                     Application.Exit();

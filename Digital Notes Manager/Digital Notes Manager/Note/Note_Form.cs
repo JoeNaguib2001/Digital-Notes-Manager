@@ -8,15 +8,11 @@ using System.Runtime.InteropServices;
 
 namespace Digital_Notes_Manager
 {
-    public enum Mode
-    {
-        Add,
-        Edit
-    }
+
     public partial class Note_Form : RibbonForm
     {
 
-        public Mode Mode { get; set; }
+
         public int noteId { get; set; }
 
         private BarManager barManager;
@@ -28,13 +24,22 @@ namespace Digital_Notes_Manager
         public string _Category { get; set; }
 
         private readonly ManageNoteContext _ManageNoteContext = Utilities.manageNoteContext;
+        public Note CurrentNote { get; set; }
+        private Note ToDeleteNote;
 
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
 
+        [DllImport("user32.dll")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HTCAPTION = 0x2;
         public Note_Form()
         {
             InitializeComponent();
+            Categorybox.SelectedIndexChanged -= Categorybox_SelectedIndexChanged;
             SetupNoteForm();
-
             //GalleryItemGroup group = new GalleryItemGroup();
             //group.Items.Add(new GalleryItem(null, "", "", Color.Red));
             //group.Items.Add(new GalleryItem(null, "", "", Color.Green));
@@ -45,7 +50,28 @@ namespace Digital_Notes_Manager
             //{
             //    var selectedColor = e.Item.HintColor; // Custom extension or mapping
             //};
+            CreateNote();
+            Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
+
         }
+        public Note_Form(Note note)
+        {
+            InitializeComponent();
+            _Category = note.Category.ToString();
+            CurrentNote = note;
+            Categorybox.SelectedIndexChanged -= Categorybox_SelectedIndexChanged;
+            SetupNoteForm();
+
+            TitleBox.Text = note.Title;
+            RichTextBox rt = new RichTextBox();
+            rt.Rtf = note.Content;
+            richTextBox1.Rtf = rt.Rtf;
+            NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(0));
+            Categorybox.Text = note.Category.ToString();
+            Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
+
+        }
+
         private void SetupNoteForm()
         {
             stylePanal.Buttons.Clear();
@@ -62,8 +88,8 @@ namespace Digital_Notes_Manager
             btn3.Checked = false;
 
             stylePanal.Buttons.AddRange(new WindowsUIButton[] { btn1, btn2, btn3 });
-            stylePanal.UseButtonBackgroundImages = false; // Removes circular borders
-            stylePanal.ButtonInterval = 5; // Adjusts spacing between buttons
+            stylePanal.UseButtonBackgroundImages = false;
+            stylePanal.ButtonInterval = 5;
 
             richTextBox1.BackColor = this.BackColor;
             richTextBox1.ForeColor = this.ForeColor;
@@ -83,31 +109,37 @@ namespace Digital_Notes_Manager
             //check notfication
             ChangeBell();
 
-            TopPanal.BackColor = ColorTranslator.FromHtml("#2C3E50");
+            //TopPanal.BackColor = ColorTranslator.FromHtml("#2C3E50");
             TitleBox.BackColor = TopPanal.BackColor;
             Close_btn.Appearance.BackColor = Color.Tomato;
 
             MenuBtn.Appearance.BackColor = Color.LightGray;
             BellButton.Appearance.BackColor = Color.Orange;
         }
-        public Note_Form(Note note)
-        {
-            InitializeComponent();
-            SetupNoteForm();
-
-            TitleBox.Text = note.Title;
-            RichTextBox rt = new RichTextBox();
-            rt.Rtf = note.Content;
-            richTextBox1.Rtf = rt.Rtf;
-
-            NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(0));
-            Categorybox.Text = note.Category.ToString();
-
-            //this.TopLevel = false;
-            //this.FormBorderStyle = FormBorderStyle.None;
-            //this.Dock = DockStyle.Fill;
-        }
         //change bell image
+        private void CreateNote()
+        {
+
+            Digital_Notes_Manager.Models.Note newNote = new Digital_Notes_Manager.Models.Note
+            {
+                Title = _Title,
+                Content = richTextBox1.Rtf,
+                CreationDate = DateTime.Now,
+                ReminderDate = NotficationDate.DateTime,
+                Category = (Category)Enum.Parse(typeof(Category), Categorybox.Text),
+                UserID = Properties.Settings.Default.userID
+            };
+
+            _ManageNoteContext.Notes.Add(newNote);
+            _ManageNoteContext.SaveChanges();
+            ToDeleteNote = newNote;
+            Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
+            Utilities.SetNotesGridControlDataSource();
+
+            noteId = newNote.ID;
+            _ManageNoteContext.Notes.Entry(newNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+        }
+
         public void ChangeBell()
         {
             if (NotficationDate > DateTime.Now)
@@ -184,6 +216,7 @@ namespace Digital_Notes_Manager
             base.OnPaint(e);
             GraphicsPath path = new GraphicsPath();
             int radius = 20; // adjust corner radius
+
             path.StartFigure();
             path.AddArc(new Rectangle(0, 0, radius, radius), 180, 90);
             path.AddArc(new Rectangle(Width - radius, 0, radius, radius), 270, 90);
@@ -198,20 +231,14 @@ namespace Digital_Notes_Manager
         {
 
             var Categories = Enum.GetNames(typeof(Category));
+            //Categorybox.Properties.Items.Add("Select a category");
             Categorybox.Properties.Items.AddRange(Categories);
 
         }
 
 
 
-        [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
 
-        [DllImport("user32.dll")]
-        public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-
-        private const int WM_NCLBUTTONDOWN = 0xA1;
-        private const int HTCAPTION = 0x2;
 
 
 
@@ -219,6 +246,7 @@ namespace Digital_Notes_Manager
 
         private void Close_btn_Click(object sender, EventArgs e)
         {
+            Container.Visible = false;
             this.Close();
         }
 
@@ -263,58 +291,53 @@ namespace Digital_Notes_Manager
         //{
         //    Calender.ShowPopup();
         //}
+
+
+
         private void saveBtn_Click(object sender, EventArgs e)
         {
 
-            //if (NotficationDate == default)
+            //Digital_Notes_Manager.Models.Note newNote = new Digital_Notes_Manager.Models.Note
             //{
-            //   NotficationDate = new DateTimeOffset(DateTime.Today.AddDays(1), TimeSpan.FromHours(2));
-            //}
-            //else
-            //{
-            //    NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
-            //}
-            if (Mode == Mode.Add)
-            {
-                Digital_Notes_Manager.Models.Note newNote = new Digital_Notes_Manager.Models.Note
-                {
-                    Title = _Title,
-                    Content = richTextBox1.Rtf,
-                    CreationDate = DateTime.Now,
-                    ReminderDate = NotficationDate.DateTime,
-                    Category = (Category)Enum.Parse(typeof(Category), _Category),
-                    UserID = Properties.Settings.Default.userID
-                };
+            //    Title = _Title,
+            //    Content = richTextBox1.Rtf,
+            //    CreationDate = DateTime.Now,
+            //    ReminderDate = NotficationDate.DateTime,
+            //    Category = (Category)Enum.Parse(typeof(Category), _Category),
+            //    UserID = Properties.Settings.Default.userID
+            //};
 
-                _ManageNoteContext.Notes.Add(newNote);
+            //_ManageNoteContext.Notes.Add(newNote);
+            //_ManageNoteContext.SaveChanges();
+            //Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
+            //Utilities.SetNotesGridControlDataSource();
+            //Mode = Mode.Edit;
+            //noteId = newNote.ID;
+            //_ManageNoteContext.Notes.Entry(newNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+
+
+
+
+            var currentNote = _ManageNoteContext.Notes.FirstOrDefault(n => n.ID == noteId);
+            if (currentNote != null)
+            {
+                currentNote.Title = _Title;
+                currentNote.Content = richTextBox1.Rtf;
+                currentNote.ReminderDate = NotficationDate.DateTime;
+                currentNote.Category = (Category)Enum.Parse(typeof(Category), Categorybox.Text);
+                _ManageNoteContext.Notes.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _ManageNoteContext.SaveChanges();
-                Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
+                Alarm.AddNewNoteToAlarmSystemNotesList(currentNote);
+                _ManageNoteContext.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached; // هنا بتعمل ديتاتش
+
                 Utilities.SetNotesGridControlDataSource();
-                Mode = Mode.Edit;
-                noteId = newNote.ID;
-                _ManageNoteContext.Notes.Entry(newNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+                Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
             }
 
-            else if (Mode == Mode.Edit)
-            {
-                var currentNote = _ManageNoteContext.Notes.FirstOrDefault(n => n.ID == noteId);
-                if (currentNote != null)
-                {
-                    currentNote.Title = _Title;
-                    currentNote.Content = richTextBox1.Rtf;
-                    currentNote.ReminderDate = NotficationDate.DateTime;
-                    currentNote.Category = (Category)Enum.Parse(typeof(Category), _Category);
-                    _ManageNoteContext.Notes.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
-                    _ManageNoteContext.SaveChanges();
-                    Alarm.AddNewNoteToAlarmSystemNotesList(currentNote);
-                    _ManageNoteContext.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached; // هنا بتعمل ديتاتش
-
-                    Utilities.SetNotesGridControlDataSource();
-                }
-
-            }
-
+            saveBtn.ImageOptions.Image = Properties.Resources.disk2;
         }
+
+
 
         private void Calender_EditValueChanged(object sender, EventArgs e)
         {
@@ -370,11 +393,19 @@ namespace Digital_Notes_Manager
             }
         }
 
-        private void Categorybox_SelectedIndexChanged(object sender, EventArgs e)
+        public void Categorybox_SelectedIndexChanged(object sender, EventArgs e)
         {
             _Category = Categorybox.Text;
-            ToastForm.ShowToast("cat changed", 3000);
-            //Console.WriteLine("Changed to: " + selected);
+            ToastForm.ShowToast($"Category Changed To {Categorybox.Text}", 3000);
+            //if (Utilities.ViewNotesDashboard.IsCategorySelected == false)
+            //{
+            //    Utilities.ViewNotesDashboard.LoadNotesForSpecficCategory("All Categories");
+            //}
+            //else
+            //{
+            //    var category = Utilities.ViewNotesDashboard.SelectedCategory;
+            //    Utilities.ViewNotesDashboard.LoadNotesForSpecficCategory(category, ViewNotesDashboard.CategoryColors[category]);
+            //}
         }
 
         private void TopPanal_MouseDown(object sender, MouseEventArgs e)
@@ -385,6 +416,73 @@ namespace Digital_Notes_Manager
                 ReleaseCapture();
                 SendMessage(this.Handle, WM_NCLBUTTONDOWN, HTCAPTION, 0);
             }
+
+        }
+
+        private void Note_Form_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Utilities.OpenedNotes.Remove(CurrentNote);
+        }
+
+        private void Container_Paint(object sender, PaintEventArgs e)
+        {
+            int radius = 20; // Radius of the curve
+
+            Graphics g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+
+            Rectangle bounds = Container.ClientRectangle;
+            GraphicsPath path = new GraphicsPath();
+
+            path.AddArc(bounds.X, bounds.Y, radius, radius, 180, 90); // Top-left
+            path.AddArc(bounds.Right - radius, bounds.Y, radius, radius, 270, 90); // Top-right
+            path.AddArc(bounds.Right - radius, bounds.Bottom - radius, radius, radius, 0, 90); // Bottom-right
+            path.AddArc(bounds.X, bounds.Bottom - radius, radius, radius, 90, 90); // Bottom-left
+            path.CloseFigure();
+
+            Container.Region = new Region(path);
+        }
+
+        private void TopPanal_Paint(object sender, PaintEventArgs e)
+        {
+            int radius = 20;
+            Graphics g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+
+            Rectangle bounds = TopPanal.ClientRectangle;
+            GraphicsPath path = new GraphicsPath();
+
+            path.AddArc(bounds.X, bounds.Y, radius, radius, 180, 90); // Top-left
+            path.AddArc(bounds.Right - radius, bounds.Y, radius, radius, 270, 90); // Top-right
+            path.AddLine(bounds.Right, bounds.Bottom, bounds.X, bounds.Bottom); // Straight bottom
+            path.CloseFigure();
+
+            TopPanal.Region = new Region(path);
+        }
+
+        private void simpleButton1_Click(object sender, EventArgs e)
+        {
+            if (ToDeleteNote != null)
+            {
+                _ManageNoteContext.Remove(ToDeleteNote);
+            }
+            else
+            {
+                var StoredNote = _ManageNoteContext.Notes.FirstOrDefault(n => n.ID == CurrentNote.ID);
+                if (StoredNote != null)
+                {
+
+                    _ManageNoteContext.Remove(StoredNote);
+                }
+            }
+            _ManageNoteContext.SaveChanges();
+            Utilities.SetNotesGridControlDataSource();
+            TrashBtn.ImageOptions.Image = Properties.Resources.trash2;
+            if (Utilities.ViewNotesDashboard != null)
+            {
+                Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
+            }
+            this.Close();
 
         }
     }

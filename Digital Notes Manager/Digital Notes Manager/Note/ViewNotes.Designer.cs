@@ -47,7 +47,7 @@
             DeleteColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             BtnDelete = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            panel1 = new Panel();
+            Pn_Container = new Panel();
             contextMenuStrip1 = new ContextMenuStrip(components);
             openToolStripMenuItem = new ToolStripMenuItem();
             deleteAllSeToolStripMenuItem = new ToolStripMenuItem();
@@ -57,7 +57,7 @@
             ((System.ComponentModel.ISupportInitialize)Notes_Grid).BeginInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)BtnDelete).BeginInit();
-            panel1.SuspendLayout();
+            Pn_Container.SuspendLayout();
             contextMenuStrip1.SuspendLayout();
             SuspendLayout();
             // 
@@ -103,6 +103,7 @@
             Notes_Grid.Size = new Size(915, 565);
             Notes_Grid.TabIndex = 0;
             Notes_Grid.ViewCollection.AddRange(new DevExpress.XtraGrid.Views.Base.BaseView[] { gridView1, detailView });
+            Notes_Grid.Layout += Notes_Grid_Layout;
             // 
             // gridView1
             // 
@@ -156,7 +157,7 @@
             colTitle.Name = "colTitle";
             colTitle.Visible = true;
             colTitle.VisibleIndex = 1;
-            colTitle.Width = 168;
+            colTitle.Width = 145;
             // 
             // colCreationDate
             // 
@@ -178,7 +179,7 @@
             colCreationDate.Name = "colCreationDate";
             colCreationDate.Visible = true;
             colCreationDate.VisibleIndex = 3;
-            colCreationDate.Width = 168;
+            colCreationDate.Width = 145;
             // 
             // colReminderDate
             // 
@@ -202,7 +203,7 @@
             colReminderDate.Name = "colReminderDate";
             colReminderDate.Visible = true;
             colReminderDate.VisibleIndex = 4;
-            colReminderDate.Width = 206;
+            colReminderDate.Width = 177;
             // 
             // colCategory
             // 
@@ -225,7 +226,7 @@
             colCategory.Name = "colCategory";
             colCategory.Visible = true;
             colCategory.VisibleIndex = 2;
-            colCategory.Width = 168;
+            colCategory.Width = 145;
             // 
             // DeleteColumn
             // 
@@ -246,7 +247,6 @@
             DeleteColumn.Name = "DeleteColumn";
             DeleteColumn.Visible = true;
             DeleteColumn.VisibleIndex = 6;
-            DeleteColumn.Width = 57;
             // 
             // BtnDelete
             // 
@@ -276,16 +276,16 @@
             gridColumn2.UnboundDataType = typeof(string);
             gridColumn2.Visible = true;
             gridColumn2.VisibleIndex = 5;
-            gridColumn2.Width = 102;
+            gridColumn2.Width = 88;
             // 
-            // panel1
+            // Pn_Container
             // 
-            panel1.Controls.Add(Notes_Grid);
-            panel1.Dock = DockStyle.Fill;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(915, 565);
-            panel1.TabIndex = 0;
+            Pn_Container.Controls.Add(Notes_Grid);
+            Pn_Container.Dock = DockStyle.Fill;
+            Pn_Container.Location = new Point(0, 0);
+            Pn_Container.Name = "Pn_Container";
+            Pn_Container.Size = new Size(915, 565);
+            Pn_Container.TabIndex = 0;
             // 
             // contextMenuStrip1
             // 
@@ -326,7 +326,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.FromArgb(30, 30, 46);
             ClientSize = new Size(915, 565);
-            Controls.Add(panel1);
+            Controls.Add(Pn_Container);
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "ViewNotes";
             Text = "View Notes";
@@ -334,14 +334,14 @@
             ((System.ComponentModel.ISupportInitialize)Notes_Grid).EndInit();
             ((System.ComponentModel.ISupportInitialize)gridView1).EndInit();
             ((System.ComponentModel.ISupportInitialize)BtnDelete).EndInit();
-            panel1.ResumeLayout(false);
+            Pn_Container.ResumeLayout(false);
             contextMenuStrip1.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        public Panel panel1;
+        public Panel Pn_Container;
         private DevExpress.XtraGrid.Views.Grid.GridView gridView1;
         public DevExpress.XtraGrid.GridControl Notes_Grid;
         private DevExpress.XtraGrid.Columns.GridColumn colTitle;
