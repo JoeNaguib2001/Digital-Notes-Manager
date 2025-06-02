@@ -33,21 +33,22 @@ namespace Digital_Notes_Manager
             panel1.Resize += (s, e) =>
             {
                 notificationBell1.Location = new Point(panel1.Width - notificationBell1.Width - 10, 10);
-               
-                Point mainFormLocation = this.Location;
+                if(notificationPopup != null)
+                {
+                    Point mainFormLocation = this.Location;
 
                 Point notificationBellLocation = notificationBell1.PointToScreen(Point.Empty);
 
+                
+                    notificationPopup.StartPosition = FormStartPosition.Manual;
+                    notificationPopup.Location = new Point(
+                        notificationBellLocation.X - 260,
+                        notificationBellLocation.Y + notificationBell1.Height
+                    );
 
-                notificationPopup.StartPosition = FormStartPosition.Manual;
-                notificationPopup.Location = new Point(
-                    notificationBellLocation.X - 260,
-                    notificationBellLocation.Y + notificationBell1.Height
-                );
 
-
+                }
             };
-
 
             LoadNotesForm();
         }
