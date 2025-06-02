@@ -1,6 +1,7 @@
 ﻿using DevExpress.XtraBars.Navigation;
 using DevExpress.XtraEditors;
 using Digital_Notes_Manager.AlarmSystem;
+using Digital_Notes_Manager.Customs;
 using Digital_Notes_Manager.Models;
 using Test;
 
@@ -11,6 +12,7 @@ namespace Digital_Notes_Manager
     {
         private DevExpress.XtraBars.Alerter.AlertControl alertControl;
         public ViewNotes viewNotes;
+        public NotificationPopupForm notificationPopup;
         ManageNoteContext manageNoteContext = Utilities.manageNoteContext;
         public Main_Form()
         {
@@ -24,7 +26,59 @@ namespace Digital_Notes_Manager
             Report_ControlElement.Click += AccordionElementClick;
             alertControl = new DevExpress.XtraBars.Alerter.AlertControl();
 
+            notificationBell1.Size = new Size(40, 40);
+            notificationBell1.Location = new Point(panel1.Width - notificationBell1.Width - 10, 10);
+            notificationBell1.BellClicked += NotificationBell_BellClicked;
+
+            panel1.Resize += (s, e) =>
+            {
+                notificationBell1.Location = new Point(panel1.Width - notificationBell1.Width - 10, 10);
+               
+                Point mainFormLocation = this.Location;
+
+                Point notificationBellLocation = notificationBell1.PointToScreen(Point.Empty);
+
+
+                notificationPopup.StartPosition = FormStartPosition.Manual;
+                notificationPopup.Location = new Point(
+                    notificationBellLocation.X - 260,
+                    notificationBellLocation.Y + notificationBell1.Height
+                );
+
+
+            };
+
+
             LoadNotesForm();
+        }
+
+
+        private void NotificationBell_BellClicked(object sender, EventArgs e)
+        {
+            var bell = sender as NotificationBell;
+
+
+            if (notificationPopup != null && !notificationPopup.IsDisposed)
+            {
+                notificationPopup.Close();
+            }
+            else
+            {
+                notificationPopup = new NotificationPopupForm(bell.GetNotifications());
+                Point mainFormLocation = this.Location;
+
+
+                Point notificationBellLocation = notificationBell1.PointToScreen(Point.Empty);
+
+
+                notificationPopup.StartPosition = FormStartPosition.Manual;
+                notificationPopup.Location = new Point(
+                    notificationBellLocation.X - 260,
+                    notificationBellLocation.Y + notificationBell1.Height
+                );
+
+                notificationPopup.Show();
+            }
         }
 
 
@@ -133,7 +187,10 @@ namespace Digital_Notes_Manager
                 }
             }
         }
-
+        public async void LateNotifyReminderDates(Note note)
+        {
+            notificationBell1.AddNotification($"⏰ Reminder 🔔 {note.Title} last {note.ReminderDate}!");
+        }
         public void IsMached(Note note)
         {
             this.Invoke((MethodInvoker)(() =>

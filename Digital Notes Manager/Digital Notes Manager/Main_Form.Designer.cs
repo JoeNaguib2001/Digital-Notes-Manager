@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Form));
             accordionControl1 = new DevExpress.XtraBars.Navigation.AccordionControl();
             NotesGroupAccordionElement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
@@ -46,8 +47,12 @@
             importNoteToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             MDI_Panel = new Panel();
+            panel1 = new Panel();
+            notifyIcon1 = new NotifyIcon(components);
+            notificationBell1 = new Customs.NotificationBell();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
             menuStrip1.SuspendLayout();
+            panel1.SuspendLayout();
             SuspendLayout();
             // 
             // accordionControl1
@@ -258,11 +263,34 @@
             MDI_Panel.Size = new Size(750, 750);
             MDI_Panel.TabIndex = 2;
             // 
+            // panel1
+            // 
+            panel1.Controls.Add(notificationBell1);
+            panel1.Dock = DockStyle.Top;
+            panel1.Location = new Point(260, 24);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(750, 42);
+            panel1.TabIndex = 4;
+            // 
+            // notifyIcon1
+            // 
+            notifyIcon1.Text = "notifyIcon1";
+            notifyIcon1.Visible = true;
+            // 
+            // notificationBell1
+            // 
+            notificationBell1.Location = new Point(714, 11);
+            notificationBell1.Name = "notificationBell1";
+            notificationBell1.Size = new Size(24, 23);
+            notificationBell1.TabIndex = 0;
+            notificationBell1.Text = "notificationBell1";
+            // 
             // Main_Form
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1010, 774);
+            Controls.Add(panel1);
             Controls.Add(MDI_Panel);
             Controls.Add(accordionControl1);
             Controls.Add(menuStrip1);
@@ -274,6 +302,7 @@
             ((System.ComponentModel.ISupportInitialize)accordionControl1).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
+            panel1.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
         }
@@ -298,5 +327,8 @@
         private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator1;
         private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator2;
         private DevExpress.XtraBars.Navigation.AccordionControlElement Report_ControlElement;
+        private Panel panel1;
+        private NotifyIcon notifyIcon1;
+        private Customs.NotificationBell notificationBell1;
     }
 }

@@ -21,13 +21,13 @@ namespace Digital_Notes_Manager.Customs
         public void AddNotification(string message)
         {
             notifications.Add(message);
-            this.Invalidate(); // يعيد رسم العنصر
+            this.Invalidate(); 
         }
 
         public List<string> GetNotifications()
         {
             var result = new List<string>(notifications);
-            this.Invalidate(); // يخفي العدد
+            this.Invalidate(); 
             return result;
         }
 
@@ -43,13 +43,11 @@ namespace Digital_Notes_Manager.Customs
             var g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-            // ارسم صورة الجرس
-            if (Properties.Resources.bell2 != null)
+            if (Properties.Resources.pngegg != null)
             {
-                g.DrawImage(Properties.Resources.bell2, 0, 0, 20,20); // حجم الجرس
+                g.DrawImage(Properties.Resources.pngegg, 0, 0, 20,20); 
             }
 
-            // عدد الإشعارات (badge)
             if (notifications.Count > 0)
             {
                 g.FillEllipse(Brushes.Red, 20, 0, 16, 16);

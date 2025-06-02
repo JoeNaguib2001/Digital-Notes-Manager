@@ -15,7 +15,7 @@ namespace Digital_Notes_Manager
             this.FormBorderStyle = FormBorderStyle.None;
             this.StartPosition = FormStartPosition.Manual;
             this.BackColor = Color.White;
-            this.Size = new Size(300, 300); // ثابت أو ممكن نحسبه حسب عدد الرسائل
+            this.Size = new Size(300, 300); 
             this.TopMost = true;
 
            
@@ -32,7 +32,6 @@ namespace Digital_Notes_Manager
                 }
             };
 
-            // زر الإغلاق
             var closeButton = new Button
             {
                 Text = "×",
@@ -46,7 +45,6 @@ namespace Digital_Notes_Manager
             closeButton.Click += (s, e) => this.Close();
             this.Controls.Add(closeButton);
 
-            // Panel داخلي يحتوي الإشعارات (و Scroll لو زادت)
             Panel containerPanel = new Panel
             {
                 Location = new Point(10, 40),
@@ -69,7 +67,7 @@ namespace Digital_Notes_Manager
 
                 PictureBox icon = new PictureBox
                 {
-                    Image = Properties.Resources.bell2,
+                    Image = Properties.Resources.pngegg,
                     Size = new Size(24, 24),
                     Location = new Point(5, 5),
                     SizeMode = PictureBoxSizeMode.StretchImage
