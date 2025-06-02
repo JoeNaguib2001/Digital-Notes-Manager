@@ -328,7 +328,7 @@ namespace Digital_Notes_Manager
                     currentNote.Title = _Title;
                     currentNote.Content = richTextBox1.Rtf;
                     currentNote.ReminderDate = NotficationDate.DateTime;
-                    currentNote.Category = (Category)Enum.Parse(typeof(Category), _Category);
+                    currentNote.Category = (Category)Enum.Parse(typeof(Category), Categorybox.SelectedIndex.ToString());
                     _ManageNoteContext.Notes.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     _ManageNoteContext.SaveChanges();
                     Alarm.AddNewNoteToAlarmSystemNotesList(currentNote);

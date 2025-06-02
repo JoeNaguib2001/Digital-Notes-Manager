@@ -39,6 +39,7 @@ namespace Test
 
         public static readonly Dictionary<Category, Color> CategoryColors = new Dictionary<Category, Color>
         {
+            { Category.None, Color.Pink },      // Light Blue
             { Category.Study, Color.FromArgb(173, 216, 230) },      // Light Blue
             { Category.Work, Color.FromArgb(255, 239, 153) },       // Light Yellow
             { Category.Ideas, Color.FromArgb(204, 255, 204) },      // Light Green
@@ -69,8 +70,11 @@ namespace Test
                 CategoryflowLayoutPanel.Controls.Add(cardCategoryAll);
                 foreach (var category in Enum.GetNames(typeof(Category)))
                 {
-                    Panel card = CreateCategoryCard(category);
-                    CategoryflowLayoutPanel.Controls.Add(card);
+                    if (category != "None")
+                    {
+                        Panel card = CreateCategoryCard(category);
+                        CategoryflowLayoutPanel.Controls.Add(card);
+                    }
                 }
 
 
