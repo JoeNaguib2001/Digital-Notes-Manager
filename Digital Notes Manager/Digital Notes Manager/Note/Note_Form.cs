@@ -33,6 +33,7 @@ namespace Digital_Notes_Manager
         public Note_Form()
         {
             InitializeComponent();
+            Categorybox.SelectedIndexChanged -= Categorybox_SelectedIndexChanged;
             SetupNoteForm();
             //GalleryItemGroup group = new GalleryItemGroup();
             //group.Items.Add(new GalleryItem(null, "", "", Color.Red));
@@ -49,13 +50,13 @@ namespace Digital_Notes_Manager
         {
             InitializeComponent();
             CurrentNote = note;
+            Categorybox.SelectedIndexChanged -= Categorybox_SelectedIndexChanged;
             SetupNoteForm();
 
             TitleBox.Text = note.Title;
             RichTextBox rt = new RichTextBox();
             rt.Rtf = note.Content;
             richTextBox1.Rtf = rt.Rtf;
-            Categorybox.SelectedIndexChanged -= Categorybox_SelectedIndexChanged;
             NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(0));
             Categorybox.Text = note.Category.ToString();
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
