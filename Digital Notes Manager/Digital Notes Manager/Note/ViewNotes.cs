@@ -266,11 +266,12 @@ namespace Digital_Notes_Manager
                     }
                     else
                     {
-                        int hours = (int)diff.TotalHours;
+                        int days = diff.Days;
+                        int hours = diff.Hours;       // ساعات بعد استثناء الأيام
                         int minutes = diff.Minutes;
                         int seconds = diff.Seconds;
 
-                        e.Value = $"{hours:D2}:{minutes:D2}:{seconds:D2}";
+                        e.Value = $"{days}:{hours:D2}:{minutes:D2}:{seconds:D2}";
                     }
 
 

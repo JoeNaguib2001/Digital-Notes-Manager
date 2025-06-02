@@ -57,8 +57,8 @@ namespace Digital_Notes_Manager
             richTextBox1.Rtf = rt.Rtf;
             Categorybox.SelectedIndexChanged -= Categorybox_SelectedIndexChanged;
             NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(0));
-            Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
             Categorybox.Text = note.Category.ToString();
+            Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
         }
         private void SetupNoteForm()
         {
@@ -362,7 +362,7 @@ namespace Digital_Notes_Manager
         public void Categorybox_SelectedIndexChanged(object sender, EventArgs e)
         {
             _Category = Categorybox.Text;
-            //ToastForm.ShowToast("cat changed", 3000);
+            ToastForm.ShowToast("cat changed", 3000);
             //if (Utilities.ViewNotesDashboard.IsCategorySelected == false)
             //{
             //    Utilities.ViewNotesDashboard.LoadNotesForSpecficCategory("All Categories");

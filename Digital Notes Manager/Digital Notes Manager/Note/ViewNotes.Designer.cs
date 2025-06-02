@@ -47,7 +47,6 @@
             DeleteColumn = new DevExpress.XtraGrid.Columns.GridColumn();
             BtnDelete = new DevExpress.XtraEditors.Repository.RepositoryItemButtonEdit();
             gridColumn2 = new DevExpress.XtraGrid.Columns.GridColumn();
-            colContent = new DevExpress.XtraGrid.Columns.GridColumn();
             Pn_Container = new Panel();
             contextMenuStrip1 = new ContextMenuStrip(components);
             openToolStripMenuItem = new ToolStripMenuItem();
@@ -123,7 +122,7 @@
             gridView1.Appearance.SelectedRow.ForeColor = Color.White;
             gridView1.Appearance.SelectedRow.Options.UseForeColor = true;
             gridView1.ColumnPanelRowHeight = 75;
-            gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colTitle, colCreationDate, colReminderDate, colCategory, DeleteColumn, gridColumn2, colContent });
+            gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colTitle, colCreationDate, colReminderDate, colCategory, DeleteColumn, gridColumn2 });
             gridView1.GridControl = Notes_Grid;
             gridView1.Name = "gridView1";
             gridView1.OptionsSelection.EnableAppearanceFocusedCell = false;
@@ -279,14 +278,6 @@
             gridColumn2.VisibleIndex = 5;
             gridColumn2.Width = 88;
             // 
-            // colContent
-            // 
-            colContent.FieldName = "Content";
-            colContent.Name = "colContent";
-            colContent.Visible = true;
-            colContent.VisibleIndex = 7;
-            colContent.Width = 20;
-            // 
             // Pn_Container
             // 
             Pn_Container.Controls.Add(Notes_Grid);
@@ -367,6 +358,5 @@
         private DevExpress.XtraGrid.Columns.GridColumn gridColumn2;
         private System.Windows.Forms.Timer liveTimer;
         private DevExpress.XtraGrid.Views.Grid.GridView detailView;
-        private DevExpress.XtraGrid.Columns.GridColumn colContent;
     }
 }
