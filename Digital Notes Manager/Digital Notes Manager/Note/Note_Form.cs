@@ -30,9 +30,18 @@ namespace Digital_Notes_Manager
         private readonly ManageNoteContext _ManageNoteContext = Utilities.manageNoteContext;
         public Note CurrentNote { get; set; }
 
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        [DllImport("user32.dll")]
+        public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+
+        private const int WM_NCLBUTTONDOWN = 0xA1;
+        private const int HTCAPTION = 0x2;
         public Note_Form()
         {
             InitializeComponent();
+            Categorybox.SelectedIndexChanged -= Categorybox_SelectedIndexChanged;
             SetupNoteForm();
             //GalleryItemGroup group = new GalleryItemGroup();
             //group.Items.Add(new GalleryItem(null, "", "", Color.Red));
@@ -44,18 +53,19 @@ namespace Digital_Notes_Manager
             //{
             //    var selectedColor = e.Item.HintColor; // Custom extension or mapping
             //};
+            Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
         }
         public Note_Form(Note note)
         {
             InitializeComponent();
             CurrentNote = note;
+            Categorybox.SelectedIndexChanged -= Categorybox_SelectedIndexChanged;
             SetupNoteForm();
 
             TitleBox.Text = note.Title;
             RichTextBox rt = new RichTextBox();
             rt.Rtf = note.Content;
             richTextBox1.Rtf = rt.Rtf;
-            Categorybox.SelectedIndexChanged -= Categorybox_SelectedIndexChanged;
             NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(0));
             Categorybox.Text = note.Category.ToString();
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
@@ -97,7 +107,7 @@ namespace Digital_Notes_Manager
             //check notfication
             ChangeBell();
 
-            TopPanal.BackColor = ColorTranslator.FromHtml("#2C3E50");
+            //TopPanal.BackColor = ColorTranslator.FromHtml("#2C3E50");
             TitleBox.BackColor = TopPanal.BackColor;
             Close_btn.Appearance.BackColor = Color.Tomato;
 
@@ -181,6 +191,7 @@ namespace Digital_Notes_Manager
             base.OnPaint(e);
             GraphicsPath path = new GraphicsPath();
             int radius = 20; // adjust corner radius
+
             path.StartFigure();
             path.AddArc(new Rectangle(0, 0, radius, radius), 180, 90);
             path.AddArc(new Rectangle(Width - radius, 0, radius, radius), 270, 90);
@@ -195,20 +206,14 @@ namespace Digital_Notes_Manager
         {
 
             var Categories = Enum.GetNames(typeof(Category));
+            Categorybox.Properties.Items.Add("Select a category");
             Categorybox.Properties.Items.AddRange(Categories);
 
         }
 
 
 
-        [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
 
-        [DllImport("user32.dll")]
-        public static extern IntPtr SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-
-        private const int WM_NCLBUTTONDOWN = 0xA1;
-        private const int HTCAPTION = 0x2;
 
 
 
@@ -282,6 +287,7 @@ namespace Digital_Notes_Manager
                 Mode = Mode.Edit;
                 noteId = newNote.ID;
                 _ManageNoteContext.Notes.Entry(newNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
+
             }
 
             else if (Mode == Mode.Edit)
@@ -302,8 +308,10 @@ namespace Digital_Notes_Manager
                 }
 
             }
-
+            saveBtn.ImageOptions.Image = Properties.Resources.disk2;
         }
+
+
 
         private void Calender_EditValueChanged(object sender, EventArgs e)
         {
@@ -388,6 +396,42 @@ namespace Digital_Notes_Manager
         private void Note_Form_FormClosed(object sender, FormClosedEventArgs e)
         {
             Utilities.OpenedNotes.Remove(CurrentNote);
+        }
+
+        private void Container_Paint(object sender, PaintEventArgs e)
+        {
+            int radius = 20; // Radius of the curve
+
+            Graphics g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+
+            Rectangle bounds = Container.ClientRectangle;
+            GraphicsPath path = new GraphicsPath();
+
+            path.AddArc(bounds.X, bounds.Y, radius, radius, 180, 90); // Top-left
+            path.AddArc(bounds.Right - radius, bounds.Y, radius, radius, 270, 90); // Top-right
+            path.AddArc(bounds.Right - radius, bounds.Bottom - radius, radius, radius, 0, 90); // Bottom-right
+            path.AddArc(bounds.X, bounds.Bottom - radius, radius, radius, 90, 90); // Bottom-left
+            path.CloseFigure();
+
+            Container.Region = new Region(path);
+        }
+
+        private void TopPanal_Paint(object sender, PaintEventArgs e)
+        {
+            int radius = 20;
+            Graphics g = e.Graphics;
+            g.SmoothingMode = SmoothingMode.AntiAlias;
+
+            Rectangle bounds = TopPanal.ClientRectangle;
+            GraphicsPath path = new GraphicsPath();
+
+            path.AddArc(bounds.X, bounds.Y, radius, radius, 180, 90); // Top-left
+            path.AddArc(bounds.Right - radius, bounds.Y, radius, radius, 270, 90); // Top-right
+            path.AddLine(bounds.Right, bounds.Bottom, bounds.X, bounds.Bottom); // Straight bottom
+            path.CloseFigure();
+
+            TopPanal.Region = new Region(path);
         }
     }
 }

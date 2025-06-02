@@ -74,7 +74,7 @@
             // 
             // saveBtn
             // 
-            saveBtn.ImageOptions.Image = (Image)resources.GetObject("saveBtn.ImageOptions.Image");
+            saveBtn.ImageOptions.Image = Properties.Resources.disk1;
             saveBtn.Location = new Point(100, 5);
             saveBtn.Name = "saveBtn";
             saveBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
@@ -84,6 +84,7 @@
             // 
             // MenuBtn
             // 
+            MenuBtn.Dock = DockStyle.Left;
             MenuBtn.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             MenuBtn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("MenuBtn.ImageOptions.SvgImage");
             MenuBtn.Location = new Point(0, 0);
@@ -96,9 +97,10 @@
             // 
             Close_btn.Appearance.Options.UseBackColor = true;
             Close_btn.Appearance.Options.UseBorderColor = true;
+            Close_btn.Dock = DockStyle.Right;
             Close_btn.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
             Close_btn.ImageOptions.SvgImage = (DevExpress.Utils.Svg.SvgImage)resources.GetObject("Close_btn.ImageOptions.SvgImage");
-            Close_btn.Location = new Point(329, 0);
+            Close_btn.Location = new Point(333, 0);
             Close_btn.Name = "Close_btn";
             Close_btn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             Close_btn.Size = new Size(41, 33);
@@ -132,8 +134,10 @@
             TitleBox.Location = new Point(147, 3);
             TitleBox.Name = "TitleBox";
             TitleBox.Properties.AllowFocused = false;
+            TitleBox.Properties.Appearance.BackColor = Color.FromArgb(44, 62, 80);
             TitleBox.Properties.Appearance.Font = new Font("Segoe UI", 14.25F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            TitleBox.Properties.Appearance.ForeColor = Color.Black;
+            TitleBox.Properties.Appearance.ForeColor = Color.White;
+            TitleBox.Properties.Appearance.Options.UseBackColor = true;
             TitleBox.Properties.Appearance.Options.UseFont = true;
             TitleBox.Properties.Appearance.Options.UseForeColor = true;
             TitleBox.Properties.Appearance.Options.UseTextOptions = true;
@@ -164,9 +168,9 @@
             DownPanel.Controls.Add(Categorybox);
             DownPanel.Controls.Add(saveBtn);
             DownPanel.Dock = DockStyle.Bottom;
-            DownPanel.Location = new Point(0, 323);
+            DownPanel.Location = new Point(0, 325);
             DownPanel.Name = "DownPanel";
-            DownPanel.Size = new Size(372, 34);
+            DownPanel.Size = new Size(374, 34);
             DownPanel.TabIndex = 10;
             // 
             // BellButton
@@ -181,6 +185,7 @@
             // 
             // TopPanal
             // 
+            TopPanal.BackColor = Color.FromArgb(44, 62, 80);
             TopPanal.Controls.Add(Calender);
             TopPanal.Controls.Add(BellButton);
             TopPanal.Controls.Add(Close_btn);
@@ -189,14 +194,14 @@
             TopPanal.Dock = DockStyle.Top;
             TopPanal.Location = new Point(0, 0);
             TopPanal.Name = "TopPanal";
-            TopPanal.Size = new Size(372, 33);
+            TopPanal.Size = new Size(374, 33);
             TopPanal.TabIndex = 11;
+            TopPanal.Paint += TopPanal_Paint;
             TopPanal.MouseDown += TopPanal_MouseDown;
             // 
             // Container
             // 
             Container.BackColor = Color.White;
-            Container.BorderStyle = BorderStyle.FixedSingle;
             Container.Controls.Add(richTextBox1);
             Container.Controls.Add(TopPanal);
             Container.Controls.Add(DownPanel);
@@ -205,6 +210,7 @@
             Container.Name = "Container";
             Container.Size = new Size(374, 359);
             Container.TabIndex = 12;
+            Container.Paint += Container_Paint;
             // 
             // Note_Form
             // 
