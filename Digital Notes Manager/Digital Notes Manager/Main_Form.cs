@@ -10,7 +10,8 @@ namespace Digital_Notes_Manager
     public partial class Main_Form : XtraForm
     {
         private DevExpress.XtraBars.Alerter.AlertControl alertControl;
-
+        public ViewNotes viewNotes;
+        ManageNoteContext manageNoteContext = Utilities.manageNoteContext;
         public Main_Form()
         {
             InitializeComponent();
@@ -41,8 +42,13 @@ namespace Digital_Notes_Manager
                         break;
                     case "Add_A_New_Note_Accordion_Element":
                         {
+
                             Note_Form noteForm = new Note_Form();
                             noteForm.Show();
+
+
+
+
                         }
                         break;
                     case "View_All_Notes_Popped":
@@ -67,8 +73,7 @@ namespace Digital_Notes_Manager
             }
         }
 
-        public ViewNotes viewNotes;
-        ManageNoteContext manageNoteContext = Utilities.manageNoteContext;
+
 
 
         private void LoadNotesForm()

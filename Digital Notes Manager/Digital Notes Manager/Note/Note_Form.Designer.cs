@@ -37,7 +37,7 @@
             TitleBox = new DevExpress.XtraEditors.TextEdit();
             Categorybox = new DevExpress.XtraEditors.ComboBoxEdit();
             DownPanel = new Panel();
-            simpleButton1 = new DevExpress.XtraEditors.SimpleButton();
+            TrashBtn = new DevExpress.XtraEditors.SimpleButton();
             BellButton = new DevExpress.XtraEditors.SimpleButton();
             TopPanal = new Panel();
             Container = new Panel();
@@ -164,7 +164,7 @@
             // 
             // DownPanel
             // 
-            DownPanel.Controls.Add(simpleButton1);
+            DownPanel.Controls.Add(TrashBtn);
             DownPanel.Controls.Add(stylePanal);
             DownPanel.Controls.Add(Categorybox);
             DownPanel.Controls.Add(saveBtn);
@@ -174,15 +174,15 @@
             DownPanel.Size = new Size(374, 34);
             DownPanel.TabIndex = 10;
             // 
-            // simpleButton1
+            // TrashBtn
             // 
-            simpleButton1.ImageOptions.Image = Properties.Resources.trash1;
-            simpleButton1.Location = new Point(137, 6);
-            simpleButton1.Name = "simpleButton1";
-            simpleButton1.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
-            simpleButton1.Size = new Size(20, 20);
-            simpleButton1.TabIndex = 11;
-            simpleButton1.Click += simpleButton1_Click;
+            TrashBtn.ImageOptions.Image = Properties.Resources.trash1;
+            TrashBtn.Location = new Point(137, 6);
+            TrashBtn.Name = "TrashBtn";
+            TrashBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
+            TrashBtn.Size = new Size(20, 20);
+            TrashBtn.TabIndex = 11;
+            TrashBtn.Click += simpleButton1_Click;
             // 
             // BellButton
             // 
@@ -258,6 +258,6 @@
         public Panel DownPanel;
         public Panel TopPanal;
         public DevExpress.XtraEditors.TextEdit TitleBox;
-        private DevExpress.XtraEditors.SimpleButton simpleButton1;
+        private DevExpress.XtraEditors.SimpleButton TrashBtn;
     }
 }
