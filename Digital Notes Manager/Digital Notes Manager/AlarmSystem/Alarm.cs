@@ -82,7 +82,7 @@ namespace Digital_Notes_Manager.AlarmSystem
             }
         }
 
-
+        //
 
         public async Task NotifySoon(Note note)
         {
