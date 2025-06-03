@@ -40,6 +40,7 @@
             TrashBtn = new DevExpress.XtraEditors.SimpleButton();
             BellButton = new DevExpress.XtraEditors.SimpleButton();
             TopPanal = new Panel();
+            IsCompleted = new CheckBox();
             Container = new Panel();
             ((System.ComponentModel.ISupportInitialize)Calender.Properties).BeginInit();
             ((System.ComponentModel.ISupportInitialize)TitleBox.Properties).BeginInit();
@@ -199,6 +200,7 @@
             // TopPanal
             // 
             TopPanal.BackColor = Color.FromArgb(44, 62, 80);
+            TopPanal.Controls.Add(IsCompleted);
             TopPanal.Controls.Add(Calender);
             TopPanal.Controls.Add(BellButton);
             TopPanal.Controls.Add(Close_btn);
@@ -211,6 +213,19 @@
             TopPanal.TabIndex = 11;
             TopPanal.Paint += TopPanal_Paint;
             TopPanal.MouseDown += TopPanal_MouseDown;
+            // 
+            // IsCompleted
+            // 
+            IsCompleted.AutoSize = true;
+            IsCompleted.ForeColor = Color.White;
+            IsCompleted.Location = new Point(250, 10);
+            IsCompleted.Name = "IsCompleted";
+            IsCompleted.Size = new Size(77, 17);
+            IsCompleted.TabIndex = 11;
+            IsCompleted.Text = "checkBox1";
+            IsCompleted.UseVisualStyleBackColor = true;
+            IsCompleted.Visible = false;
+            IsCompleted.CheckedChanged += IsCompleted_CheckedChanged;
             // 
             // Container
             // 
@@ -243,6 +258,7 @@
             ((System.ComponentModel.ISupportInitialize)Categorybox.Properties).EndInit();
             DownPanel.ResumeLayout(false);
             TopPanal.ResumeLayout(false);
+            TopPanal.PerformLayout();
             Container.ResumeLayout(false);
             ResumeLayout(false);
         }
@@ -261,5 +277,6 @@
         public Panel TopPanal;
         public DevExpress.XtraEditors.TextEdit TitleBox;
         private DevExpress.XtraEditors.SimpleButton TrashBtn;
+        private CheckBox IsCompleted;
     }
 }
