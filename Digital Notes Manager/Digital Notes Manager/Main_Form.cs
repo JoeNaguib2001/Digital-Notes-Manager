@@ -80,8 +80,7 @@ namespace Digital_Notes_Manager
                     notificationBellLocation.X - 260,
                     notificationBellLocation.Y + notificationBell1.Height
                 );
-
-                notificationPopup.Show();
+                notificationPopup.Show(this); 
             }
         }
 
