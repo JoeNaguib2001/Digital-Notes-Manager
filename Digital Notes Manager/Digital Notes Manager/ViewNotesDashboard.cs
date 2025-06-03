@@ -154,9 +154,7 @@ namespace Test
                     LoadNotesForAllCategories("");
                 };
             }
-
             return card;
-
         }
         private Panel CreateNoteCard(Note note)
         {
