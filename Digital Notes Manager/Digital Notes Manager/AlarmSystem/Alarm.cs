@@ -39,16 +39,17 @@ namespace Digital_Notes_Manager.AlarmSystem
 
         public async Task CompareTimeAsync()
         {
+
             while (true)
             {
-                await Task.Delay(1500); 
+                await Task.Delay(1500);
 
                 if (noteQueue.Any())
                 {
                     var note = noteQueue.First();
                     var timeDifference = note.ReminderDate - DateTime.Now;
 
-                    if (timeDifference <= TimeSpan.FromMinutes(5) && timeDifference > TimeSpan.Zero)
+                    if (timeDifference <= TimeSpan.FromMinutes(5) && timeDifference > TimeSpan.FromMinutes(4))
                     {
                         if (!soonNotified.ContainsKey(note.ID))
                         {
@@ -66,10 +67,12 @@ namespace Digital_Notes_Manager.AlarmSystem
                         noteQueue.Dequeue();
                     }
 
-                    if (timeDifference < TimeSpan.FromMinutes(-1) && !notified.ContainsKey(note.ID))
+                    if (timeDifference < TimeSpan.FromMinutes(-2) && !notified.ContainsKey(note.ID))
                     {
                         await NotifyEndReminderDate(note);
                         notified[note.ID] = true;
+                        noteQueue.Dequeue();
+
                     }
 
 
