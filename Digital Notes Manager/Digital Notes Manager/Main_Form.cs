@@ -17,6 +17,8 @@ namespace Digital_Notes_Manager
         public Main_Form()
         {
             InitializeComponent();
+            viewNotesDashboard = new ViewNotesDashboard();
+            viewNotes = new ViewNotes();
             this.Shown += Notify_Load;
 
             Add_A_New_Note_Accordion_Element.Click += AccordionElementClick;
@@ -25,8 +27,7 @@ namespace Digital_Notes_Manager
             Logout_AccordionElement.Click += AccordionElementClick;
             Report_ControlElement.Click += AccordionElementClick;
             alertControl = new DevExpress.XtraBars.Alerter.AlertControl();
-            LoadNotesForm();
-            viewNotesDashboard = new ViewNotesDashboard();
+            LoadAllNotesPoppedOut();
         }
 
 
