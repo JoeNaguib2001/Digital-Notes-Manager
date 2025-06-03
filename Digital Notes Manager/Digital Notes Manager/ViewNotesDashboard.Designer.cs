@@ -33,8 +33,6 @@
             TableLayoutMDI = new Panel();
             TableLayoutMDIInsider = new TableLayoutPanel();
             CategoryPanel = new Panel();
-            label2 = new Label();
-            label3 = new Label();
             notesPanel = new FlowLayoutPanel();
             contextMenuStrip1 = new ContextMenuStrip(components);
             refreshNotesToolStripMenuItem = new ToolStripMenuItem();
@@ -63,6 +61,7 @@
             // 
             // TableLayoutMDI
             // 
+            TableLayoutMDI.BackColor = Color.FromArgb(228, 235, 241);
             TableLayoutMDI.Controls.Add(TableLayoutMDIInsider);
             TableLayoutMDI.Controls.Add(tableLayoutPanel1);
             TableLayoutMDI.Dock = DockStyle.Fill;
@@ -75,19 +74,16 @@
             // 
             TableLayoutMDIInsider.ColumnCount = 1;
             TableLayoutMDIInsider.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            TableLayoutMDIInsider.Controls.Add(CategoryPanel, 0, 1);
-            TableLayoutMDIInsider.Controls.Add(label2, 0, 2);
-            TableLayoutMDIInsider.Controls.Add(label3, 0, 0);
-            TableLayoutMDIInsider.Controls.Add(notesPanel, 0, 3);
+            TableLayoutMDIInsider.Controls.Add(CategoryPanel, 0, 0);
+            TableLayoutMDIInsider.Controls.Add(notesPanel, 0, 1);
             TableLayoutMDIInsider.Dock = DockStyle.Fill;
             TableLayoutMDIInsider.Location = new Point(0, 46);
             TableLayoutMDIInsider.Margin = new Padding(3, 2, 3, 2);
             TableLayoutMDIInsider.Name = "TableLayoutMDIInsider";
-            TableLayoutMDIInsider.RowCount = 4;
-            TableLayoutMDIInsider.RowStyles.Add(new RowStyle(SizeType.Percent, 5.5462966F));
-            TableLayoutMDIInsider.RowStyles.Add(new RowStyle(SizeType.Percent, 22.1851864F));
-            TableLayoutMDIInsider.RowStyles.Add(new RowStyle(SizeType.Percent, 5.546298F));
-            TableLayoutMDIInsider.RowStyles.Add(new RowStyle(SizeType.Percent, 66.72222F));
+            TableLayoutMDIInsider.RowCount = 2;
+            TableLayoutMDIInsider.RowStyles.Add(new RowStyle(SizeType.Percent, 24.95314F));
+            TableLayoutMDIInsider.RowStyles.Add(new RowStyle(SizeType.Percent, 75.04686F));
+            TableLayoutMDIInsider.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             TableLayoutMDIInsider.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             TableLayoutMDIInsider.Size = new Size(1029, 573);
             TableLayoutMDIInsider.TabIndex = 1;
@@ -97,39 +93,11 @@
             CategoryPanel.AutoScroll = true;
             CategoryPanel.BackColor = Color.FromArgb(228, 235, 241);
             CategoryPanel.Dock = DockStyle.Fill;
-            CategoryPanel.Location = new Point(3, 33);
+            CategoryPanel.Location = new Point(3, 2);
             CategoryPanel.Margin = new Padding(3, 2, 3, 2);
             CategoryPanel.Name = "CategoryPanel";
-            CategoryPanel.Size = new Size(1023, 123);
+            CategoryPanel.Size = new Size(1023, 138);
             CategoryPanel.TabIndex = 2;
-            // 
-            // label2
-            // 
-            label2.AutoSize = true;
-            label2.BackColor = Color.FromArgb(203, 216, 234);
-            label2.Dock = DockStyle.Fill;
-            label2.Font = new Font("Tahoma", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label2.ForeColor = Color.White;
-            label2.Location = new Point(3, 158);
-            label2.Name = "label2";
-            label2.Padding = new Padding(10, 5, 10, 10);
-            label2.Size = new Size(1023, 31);
-            label2.TabIndex = 1;
-            label2.Text = "Notes";
-            // 
-            // label3
-            // 
-            label3.AutoSize = true;
-            label3.BackColor = Color.FromArgb(203, 216, 234);
-            label3.Dock = DockStyle.Fill;
-            label3.Font = new Font("Tahoma", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label3.ForeColor = Color.White;
-            label3.Location = new Point(3, 0);
-            label3.Name = "label3";
-            label3.Padding = new Padding(10, 5, 5, 5);
-            label3.Size = new Size(1023, 31);
-            label3.TabIndex = 3;
-            label3.Text = "Categories";
             // 
             // notesPanel
             // 
@@ -137,10 +105,10 @@
             notesPanel.BackColor = Color.FromArgb(228, 235, 241);
             notesPanel.ContextMenuStrip = contextMenuStrip1;
             notesPanel.Dock = DockStyle.Fill;
-            notesPanel.Location = new Point(3, 192);
+            notesPanel.Location = new Point(3, 145);
             notesPanel.Name = "notesPanel";
             notesPanel.Padding = new Padding(10);
-            notesPanel.Size = new Size(1023, 378);
+            notesPanel.Size = new Size(1023, 425);
             notesPanel.TabIndex = 4;
             // 
             // contextMenuStrip1
@@ -215,7 +183,6 @@
             fluentDesignFormContainer1.ResumeLayout(false);
             TableLayoutMDI.ResumeLayout(false);
             TableLayoutMDIInsider.ResumeLayout(false);
-            TableLayoutMDIInsider.PerformLayout();
             contextMenuStrip1.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             tableLayoutPanel1.PerformLayout();
@@ -228,9 +195,7 @@
         private DevExpress.XtraBars.FluentDesignSystem.FluentDesignFormContainer fluentDesignFormContainer1;
         private DevExpress.XtraBars.FluentDesignSystem.FluentDesignFormControl fluentDesignFormControl1;
         private DevExpress.XtraBars.FluentDesignSystem.FluentFormDefaultManager fluentFormDefaultManager1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Panel CategoryPanel;
-        private System.Windows.Forms.Label label3;
         public TableLayoutPanel TableLayoutMDIInsider;
         private FlowLayoutPanel notesPanel;
         private ContextMenuStrip contextMenuStrip1;
