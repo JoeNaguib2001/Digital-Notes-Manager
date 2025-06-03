@@ -352,7 +352,7 @@ namespace Digital_Notes_Manager
             }
             else
             {
-                NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
+                // NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
             }
             saveBtn.ImageOptions.Image = Properties.Resources.disk1;
         }

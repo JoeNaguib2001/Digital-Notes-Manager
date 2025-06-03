@@ -1,24 +1,28 @@
 ﻿using Digital_Notes_Manager;
 using Digital_Notes_Manager.Customs;
 using Digital_Notes_Manager.Models;
-using System.Data;
 using System.Drawing.Drawing2D;
-
 
 namespace Test
 {
     public partial class ViewNotesDashboard : DevExpress.XtraBars.FluentDesignSystem.FluentDesignForm
     {
+
         private ManageNoteContext _dbContext;
         public Category SelectedCategory { get; set; }
         public bool IsCategorySelected { get; set; } = false;
         int _userId = Utilities.GetCurrentLoggedInUserId();
+        private bool isSecondColumnVisible = true;
         public ViewNotesDashboard()
         {
             Utilities.ViewNotesDashboard = this;
             InitializeComponent();
             LoadCategories();
             _dbContext = new ManageNoteContext();
+            ViewNotesHamubrger viewNotesHamubrger = new ViewNotesHamubrger();
+            TableLayoutMDI.Controls.Add(viewNotesHamubrger.Pn_Container, 1, 0); // (control, columnIndex, rowIndex)
+
+
             //var firstNonEmptyCategory = _dbContext.Notes
             //    .Where(x => x.UserID == _userId)
             //    .GroupBy(x => x.Category)
@@ -76,8 +80,6 @@ namespace Test
                         CategoryflowLayoutPanel.Controls.Add(card);
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -289,6 +291,48 @@ namespace Test
             else
                 LoadNotesForAllCategories(SearchTextBox.Text);
 
+        }
+
+        private void ShoeHideBtn_Click(object sender, EventArgs e)
+        {
+            int targetColumn = 1;
+
+            if (isSecondColumnVisible)
+            {
+                // نخفي العمود التاني: نمسح الكنترولات منه ونخفيه
+                for (int row = 0; row < TableLayoutMDI.RowCount; row++)
+                {
+                    var control = TableLayoutMDI.GetControlFromPosition(targetColumn, row);
+                    if (control != null)
+                    {
+                        control.Visible = false;
+                    }
+                }
+
+                TableLayoutMDI.ColumnStyles[targetColumn].SizeType = SizeType.Absolute;
+                TableLayoutMDI.ColumnStyles[targetColumn].Width = 0;
+                isSecondColumnVisible = false;
+                TableLayoutMDI.ColumnStyles[2].SizeType = SizeType.Absolute;
+                TableLayoutMDI.ColumnStyles[2].Width = 50;
+                ShoeHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.arrow_button; // Update the icon to show
+            }
+            else
+            {
+                for (int row = 0; row < TableLayoutMDI.RowCount; row++)
+                {
+                    var control = TableLayoutMDI.GetControlFromPosition(targetColumn, row);
+                    if (control != null)
+                    {
+                        control.Visible = true;
+                    }
+                }
+
+                TableLayoutMDI.ColumnStyles[targetColumn].SizeType = SizeType.Percent;
+                TableLayoutMDI.ColumnStyles[targetColumn].Width = 30;
+                isSecondColumnVisible = true;
+                ShoeHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.right_arrow_solid_square_button; // Update the icon to show
+
+            }
         }
     }
 }

@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Digital_Notes_Manager
 {
-    public partial class ViewNotes : Form
+    public partial class ViewNotesHamubrger : Form
     {
-        public ViewNotes()
+        public ViewNotesHamubrger()
         {
             InitializeComponent();
             gridView1.Columns["CreationDate"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
@@ -119,6 +119,7 @@ namespace Digital_Notes_Manager
                         ManageNoteContext.SaveChanges();
                         XtraMessageBox.Show("Note Deleted Successfully");
                         Utilities.SetNotesGridControlDataSource();
+                        Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
                     }
                 }
                 else
@@ -146,6 +147,7 @@ namespace Digital_Notes_Manager
             ManageNoteContext.SaveChanges();
         }
 
+        // This method is called when the user clicks the "Delete All" menu item in the context menu.
         private void deleteAllSeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to delete the selected notes ?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.No)
@@ -176,6 +178,7 @@ namespace Digital_Notes_Manager
 
             XtraMessageBox.Show("Deleted Successfully");
             Utilities.SetNotesGridControlDataSource();
+            Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
         }
 
         private void gridView1_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
@@ -187,7 +190,6 @@ namespace Digital_Notes_Manager
 
         }
 
-        List<Note_Form> note_Forms = new List<Note_Form>();
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var selectedRow = gridView1.GetFocusedRow() as Note;
@@ -234,7 +236,6 @@ namespace Digital_Notes_Manager
                     textBox.Rtf = selectedRow.Content;
 
 
-                    //richTextBox.SelectionFont = textBox.Font;
                     richTextBox.Rtf = textBox.Rtf;
 
 
