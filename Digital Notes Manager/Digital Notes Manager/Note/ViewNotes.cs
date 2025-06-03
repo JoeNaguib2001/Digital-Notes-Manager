@@ -213,9 +213,9 @@ namespace Digital_Notes_Manager
 
         private void saveInYourDeviceToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Note_Form noteForm = new Note_Form();
             var selectedRow = gridView1.GetFocusedRow() as Note;
-            noteForm.richTextBox1.Text = selectedRow?.Content ?? string.Empty;
+            //Note_Form noteForm = new Note_Form(selectedRow);
+            //noteForm.richTextBox1.Text = selectedRow?.Content ?? string.Empty;
 
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Rich Text File (*.rtf) | *.rtf";

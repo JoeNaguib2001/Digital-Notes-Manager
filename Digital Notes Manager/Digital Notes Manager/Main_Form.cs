@@ -204,10 +204,10 @@ namespace Digital_Notes_Manager
             int userId = Properties.Settings.Default.userID;
 
             List<Note> list = manageNoteContext.Notes
-                .Where(x => x.UserID == userId && !x.IsCompleted)
-                .AsEnumerable()
-                .OrderBy(x => x.ReminderDate)
-                .ToList();
+          .Where(x => x.UserID == userId && !x.IsCompleted && x.ReminderDate != DateTime.MinValue)
+          .OrderByDescending(x => x.ReminderDate)
+          .ToList();
+                
 
             Alarm alarm = new Alarm(this, list);
             _ = alarm.CompareTimeAsync();

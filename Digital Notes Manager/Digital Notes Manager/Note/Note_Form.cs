@@ -27,6 +27,7 @@ namespace Digital_Notes_Manager
         public Note CurrentNote { get; set; }
         private Note ToDeleteNote;
 
+        private bool Completed;
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
 
@@ -52,7 +53,7 @@ namespace Digital_Notes_Manager
             //};
             CreateNote();
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
-
+            //59, 76, 57 || 47, 47, 47 || 75, 44, 44 || 27, 42, 73
         }
         public Note_Form(Note note)
         {
@@ -298,27 +299,6 @@ namespace Digital_Notes_Manager
         private void saveBtn_Click(object sender, EventArgs e)
         {
 
-            //Digital_Notes_Manager.Models.Note newNote = new Digital_Notes_Manager.Models.Note
-            //{
-            //    Title = _Title,
-            //    Content = richTextBox1.Rtf,
-            //    CreationDate = DateTime.Now,
-            //    ReminderDate = NotficationDate.DateTime,
-            //    Category = (Category)Enum.Parse(typeof(Category), _Category),
-            //    UserID = Properties.Settings.Default.userID
-            //};
-
-            //_ManageNoteContext.Notes.Add(newNote);
-            //_ManageNoteContext.SaveChanges();
-            //Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
-            //Utilities.SetNotesGridControlDataSource();
-            //Mode = Mode.Edit;
-            //noteId = newNote.ID;
-            //_ManageNoteContext.Notes.Entry(newNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-
-
-
-
             var currentNote = _ManageNoteContext.Notes.FirstOrDefault(n => n.ID == noteId);
             if (currentNote != null)
             {
@@ -326,6 +306,7 @@ namespace Digital_Notes_Manager
                 currentNote.Content = richTextBox1.Rtf;
                 currentNote.ReminderDate = NotficationDate.DateTime;
                 currentNote.Category = (Category)Enum.Parse(typeof(Category), Categorybox.Text);
+                currentNote.IsCompleted = Completed;
                 _ManageNoteContext.Notes.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _ManageNoteContext.SaveChanges();
                 Alarm.AddNewNoteToAlarmSystemNotesList(currentNote);
@@ -350,11 +331,10 @@ namespace Digital_Notes_Manager
             {
                 ChangeBell();
             }
-            else
-            {
-                // NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
-            }
             saveBtn.ImageOptions.Image = Properties.Resources.disk1;
+
+            IsCompleted.Visible = true;
+            IsCompleted.Text = "Not Completed";
         }
 
         private void TitleBox_DoubleClick(object sender, EventArgs e)
@@ -387,15 +367,7 @@ namespace Digital_Notes_Manager
         {
             _Category = Categorybox.Text;
             ToastForm.ShowToast($"Category Changed To {Categorybox.Text}", 3000);
-            //if (Utilities.ViewNotesDashboard.IsCategorySelected == false)
-            //{
-            //    Utilities.ViewNotesDashboard.LoadNotesForSpecficCategory("All Categories");
-            //}
-            //else
-            //{
-            //    var category = Utilities.ViewNotesDashboard.SelectedCategory;
-            //    Utilities.ViewNotesDashboard.LoadNotesForSpecficCategory(category, ViewNotesDashboard.CategoryColors[category]);
-            //}
+
         }
 
         private void TopPanal_MouseDown(object sender, MouseEventArgs e)
@@ -485,5 +457,12 @@ namespace Digital_Notes_Manager
         {
             saveBtn.ImageOptions.Image = Properties.Resources.disk1;
         }
+
+        private void IsCompleted_CheckedChanged(object sender, EventArgs e)
+        {
+            IsCompleted.Text = "Complete";
+            Completed = true;
+        }
+
     }
 }

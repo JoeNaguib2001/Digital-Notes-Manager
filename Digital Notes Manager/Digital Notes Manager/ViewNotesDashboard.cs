@@ -43,12 +43,12 @@ namespace Test
 
         public static readonly Dictionary<Category, Color> CategoryColors = new Dictionary<Category, Color>
         {
-            { Category.None, Color.Pink },      // Light Blue
-            { Category.Study, Color.FromArgb(173, 216, 230) },      // Light Blue
-            { Category.Work, Color.FromArgb(255, 239, 153) },       // Light Yellow
-            { Category.Ideas, Color.FromArgb(204, 255, 204) },      // Light Green
-            { Category.Reminders, ColorTranslator.FromHtml("#d5cabd") }, // Beige
-            { Category.Personal, ColorTranslator.FromHtml("#adc5cf") },  // Light Blue-Gray
+            { Category.None, Color.FromArgb(44, 62, 80)},      // Light Blue
+            { Category.Study, Color.FromArgb(59, 76, 57) },      // Light Blue
+            { Category.Work, ColorTranslator.FromHtml("#505050") },       // Light Yellow
+            { Category.Ideas,  ColorTranslator.FromHtml("#6f5a40") },      // Light Green
+            { Category.Reminders, ColorTranslator.FromHtml("#2A3C6A") },  // Beige
+            { Category.Personal, ColorTranslator.FromHtml("#406f48")},  // Light Blue-Gray
         };
 
 
@@ -92,7 +92,7 @@ namespace Test
         {
             RoundedPanel card = new RoundedPanel
             {
-                Size = new Size(250, 200),
+                Size = new Size(200, 100),
                 AutoScroll = true,
                 Padding = new Padding(10),
                 Margin = new Padding(15),
@@ -108,7 +108,9 @@ namespace Test
                 Font = new Font("Tahoma", 16, FontStyle.Bold),
                 Location = new Point(10, 10),
                 AutoSize = true
+
             };
+            titleLabel.ForeColor = Color.White;
             card.Controls.Add(titleLabel);
 
 
@@ -147,7 +149,7 @@ namespace Test
                     AutoSize = true
                 };
                 card.Controls.Add(countLabel);
-                card.BackColor = Color.Pink;
+                card.BackColor = ColorTranslator.FromHtml("#3d4546");
 
                 // إضافة حدث النقر لعرض الملاحظات الخاصة بالفئة
                 card.Click += (s, e) =>
