@@ -53,7 +53,7 @@ namespace Digital_Notes_Manager
             //};
             CreateNote();
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
-            TopPanal.BackColor = Color.FromArgb(32, 41, 50);
+            //59, 76, 57 || 47, 47, 47 || 75, 44, 44 || 27, 42, 73
         }
         public Note_Form(Note note)
         {

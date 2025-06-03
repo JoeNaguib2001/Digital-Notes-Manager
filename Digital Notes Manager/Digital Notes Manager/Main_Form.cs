@@ -210,7 +210,7 @@ namespace Digital_Notes_Manager
             List<Note> list = manageNoteContext.Notes
                 .Where(x => x.UserID == userId && !x.IsCompleted)
                 .AsEnumerable()
-                .OrderBy(x => x.ReminderDate)
+                .OrderByDescending(x => x.ReminderDate)
                 .ToList();
 
             Alarm alarm = new Alarm(this, list);
