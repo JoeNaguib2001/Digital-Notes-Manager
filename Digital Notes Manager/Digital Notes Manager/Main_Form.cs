@@ -211,6 +211,7 @@ namespace Digital_Notes_Manager
           .Where(x => x.UserID == userId && !x.IsCompleted && x.ReminderDate != DateTime.MinValue)
           .OrderByDescending(x => x.ReminderDate)
           .ToList();
+                
 
             Alarm alarm = new Alarm(this, list);
             _ = alarm.CompareTimeAsync();

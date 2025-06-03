@@ -23,12 +23,13 @@ namespace Digital_Notes_Manager.AlarmSystem
         }
         public static void AddNewNoteToAlarmSystemNotesList(Note note)
         {
-            if (note != null && !note.IsCompleted && !notes.Any(n => n.ID == note.ID))
+            if (note != null && !note.IsCompleted)
             {
                 notes.Add(note);
             notes = notes.Where(x=>!x.IsCompleted && x.ReminderDate != DateTime.MinValue)
                     .OrderByDescending(n => n.ReminderDate).ToList();
             noteQueue = new Queue<Note>(notes);
+
             }
 
         }
