@@ -95,7 +95,7 @@
             // CategoryPanel
             // 
             CategoryPanel.AutoScroll = true;
-            CategoryPanel.BackColor = Color.FromArgb(222, 233, 239);
+            CategoryPanel.BackColor = Color.FromArgb(228, 235, 241);
             CategoryPanel.Dock = DockStyle.Fill;
             CategoryPanel.Location = new Point(3, 33);
             CategoryPanel.Margin = new Padding(3, 2, 3, 2);
@@ -106,7 +106,7 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.BackColor = Color.FromArgb(53, 150, 181);
+            label2.BackColor = Color.FromArgb(203, 216, 234);
             label2.Dock = DockStyle.Fill;
             label2.Font = new Font("Tahoma", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
@@ -120,7 +120,7 @@
             // label3
             // 
             label3.AutoSize = true;
-            label3.BackColor = Color.FromArgb(53, 150, 181);
+            label3.BackColor = Color.FromArgb(203, 216, 234);
             label3.Dock = DockStyle.Fill;
             label3.Font = new Font("Tahoma", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.White;
@@ -134,7 +134,7 @@
             // notesPanel
             // 
             notesPanel.AutoScroll = true;
-            notesPanel.BackColor = Color.FromArgb(222, 233, 239);
+            notesPanel.BackColor = Color.FromArgb(228, 235, 241);
             notesPanel.ContextMenuStrip = contextMenuStrip1;
             notesPanel.Dock = DockStyle.Fill;
             notesPanel.Location = new Point(3, 192);

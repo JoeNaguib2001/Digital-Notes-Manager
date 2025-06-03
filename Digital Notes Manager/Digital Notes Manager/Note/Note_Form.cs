@@ -53,7 +53,7 @@ namespace Digital_Notes_Manager
             //};
             CreateNote();
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
-
+            //59, 76, 57 || 47, 47, 47 || 75, 44, 44 || 27, 42, 73
         }
         public Note_Form(Note note)
         {
@@ -331,10 +331,10 @@ namespace Digital_Notes_Manager
             {
                 ChangeBell();
             }
-            else
-            {
-                NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
-            }
+            //else
+            //{
+            //    NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
+            //}
             saveBtn.ImageOptions.Image = Properties.Resources.disk1;
 
             IsCompleted.Visible = true;
