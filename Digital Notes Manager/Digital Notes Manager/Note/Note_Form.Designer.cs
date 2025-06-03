@@ -71,6 +71,7 @@
             richTextBox1.Size = new Size(339, 259);
             richTextBox1.TabIndex = 3;
             richTextBox1.Text = "";
+            richTextBox1.TextChanged += richTextBox1_TextChanged;
             // 
             // saveBtn
             // 
@@ -146,6 +147,7 @@
             TitleBox.Properties.ReadOnly = true;
             TitleBox.Size = new Size(71, 30);
             TitleBox.TabIndex = 8;
+            TitleBox.TextChanged += TitleBox_TextChanged;
             TitleBox.DoubleClick += TitleBox_DoubleClick;
             TitleBox.KeyDown += TitleBox_KeyDown;
             TitleBox.Leave += TitleBox_Leave;

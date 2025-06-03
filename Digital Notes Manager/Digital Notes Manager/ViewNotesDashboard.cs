@@ -187,6 +187,7 @@ namespace Test
         {
             var notesFromDb = _dbContext.Notes
                 .Where(n => n.UserID == _userId && n.Category == category)
+                .OrderByDescending(x => x.CreationDate)
                 .ToList();
 
             List<Note> filteredNotes;
@@ -222,6 +223,7 @@ namespace Test
         {
             var notesFromDb = _dbContext.Notes
                 .Where(n => n.UserID == _userId)
+                .OrderByDescending(x => x.CreationDate)
                 .ToList();
 
             List<Note> filteredNotes;
