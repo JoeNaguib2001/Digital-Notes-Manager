@@ -53,7 +53,7 @@ namespace Digital_Notes_Manager
             //};
             CreateNote();
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
-
+            TopPanal.BackColor = Color.FromArgb(32, 41, 50);
         }
         public Note_Form(Note note)
         {
@@ -331,10 +331,10 @@ namespace Digital_Notes_Manager
             {
                 ChangeBell();
             }
-            else
-            {
-                NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
-            }
+            //else
+            //{
+            //    NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
+            //}
             saveBtn.ImageOptions.Image = Properties.Resources.disk1;
 
             IsCompleted.Visible = true;

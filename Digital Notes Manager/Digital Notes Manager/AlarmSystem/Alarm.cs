@@ -23,11 +23,11 @@ namespace Digital_Notes_Manager.AlarmSystem
         }
         public static void AddNewNoteToAlarmSystemNotesList(Note note)
         {
-            if (note != null && !note.IsCompleted && !notes.Any(n => n.ID == note.ID))
+            if (note != null && !note.IsCompleted)
             {
                 notes.Add(note);
-            notes = notes.OrderBy(n => n.ReminderDate).ToList();
-            noteQueue = new Queue<Note>(notes);
+                notes = notes.OrderByDescending(n => n.ReminderDate).ToList();
+                noteQueue = new Queue<Note>(notes);
             }
 
         }
@@ -41,7 +41,7 @@ namespace Digital_Notes_Manager.AlarmSystem
         {
             while (true)
             {
-                await Task.Delay(1500); 
+                await Task.Delay(1500);
 
                 if (noteQueue.Any())
                 {
