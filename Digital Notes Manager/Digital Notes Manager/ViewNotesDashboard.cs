@@ -122,6 +122,7 @@ namespace Test
                 Label countLabel = new Label
                 {
                     Text = $"Notes Count: {noteCount}",
+                    ForeColor = Color.White,
                     Font = new Font("Tahoma", 10),
                     Location = new Point(10, 50),
                     AutoSize = true
@@ -144,6 +145,7 @@ namespace Test
                 Label countLabel = new Label
                 {
                     Text = $"Notes Count: {noteCount}",
+                    ForeColor = Color.White,
                     Font = new Font("Tahoma", 10),
                     Location = new Point(10, 50),
                     AutoSize = true
@@ -151,7 +153,6 @@ namespace Test
                 card.Controls.Add(countLabel);
                 card.BackColor = ColorTranslator.FromHtml("#3d4546");
 
-                // إضافة حدث النقر لعرض الملاحظات الخاصة بالفئة
                 card.Click += (s, e) =>
                 {
                     IsCategorySelected = false; // Reset the category selection
