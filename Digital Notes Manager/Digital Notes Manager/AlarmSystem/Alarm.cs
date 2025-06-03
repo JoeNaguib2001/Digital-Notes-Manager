@@ -26,13 +26,13 @@ namespace Digital_Notes_Manager.AlarmSystem
             if (note != null && !note.IsCompleted && !notes.Any(n => n.ID == note.ID))
             {
                 notes.Add(note);
-            notes = notes.OrderBy(n => n.ReminderDate).ToList();
+            notes = notes.Where(x=>!x.IsCompleted && x.ReminderDate != DateTime.MinValue)
+                    .OrderByDescending(n => n.ReminderDate).ToList();
             noteQueue = new Queue<Note>(notes);
             }
 
         }
 
-        private Dictionary<int, bool> ReminderNotified = new();
 
         private Dictionary<int, bool> soonNotified = new();
         private Dictionary<int, bool> notified = new();
@@ -66,10 +66,10 @@ namespace Digital_Notes_Manager.AlarmSystem
                         noteQueue.Dequeue();
                     }
 
-                    if (timeDifference < TimeSpan.FromMinutes(-1) && !ReminderNotified.ContainsKey(note.ID))
+                    if (timeDifference < TimeSpan.FromMinutes(-1) && !notified.ContainsKey(note.ID))
                     {
                         await NotifyEndReminderDate(note);
-                        ReminderNotified[note.ID] = true;
+                        notified[note.ID] = true;
                     }
 
 
