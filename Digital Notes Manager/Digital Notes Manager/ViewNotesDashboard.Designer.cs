@@ -134,20 +134,10 @@
             CategoriesNotesPanel.Location = new Point(3, 56);
             CategoriesNotesPanel.Name = "CategoriesNotesPanel";
             CategoriesNotesPanel.RowCount = 2;
-            CategoriesNotesPanel.RowStyles.Add(new RowStyle());
-            CategoriesNotesPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            CategoriesNotesPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 25.9259262F));
+            CategoriesNotesPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 74.07407F));
             CategoriesNotesPanel.Size = new Size(906, 556);
             CategoriesNotesPanel.TabIndex = 3;
-            // 
-            // CategoryPanel
-            // 
-            CategoryPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            CategoryPanel.BackColor = Color.FromArgb(228, 235, 241);
-            CategoryPanel.Location = new Point(3, 2);
-            CategoryPanel.Margin = new Padding(3, 2, 3, 2);
-            CategoryPanel.Name = "CategoryPanel";
-            CategoryPanel.Size = new Size(900, 112);
-            CategoryPanel.TabIndex = 2;
             // 
             // notesPanel
             // 
@@ -155,10 +145,10 @@
             notesPanel.BackColor = Color.FromArgb(228, 235, 241);
             notesPanel.ContextMenuStrip = contextMenuStrip1;
             notesPanel.Dock = DockStyle.Fill;
-            notesPanel.Location = new Point(3, 119);
+            notesPanel.Location = new Point(3, 147);
             notesPanel.Name = "notesPanel";
             notesPanel.Padding = new Padding(10);
-            notesPanel.Size = new Size(900, 434);
+            notesPanel.Size = new Size(900, 406);
             notesPanel.TabIndex = 4;
             // 
             // contextMenuStrip1
@@ -174,6 +164,17 @@
             refreshNotesToolStripMenuItem.Size = new Size(168, 26);
             refreshNotesToolStripMenuItem.Text = "refresh notes";
             refreshNotesToolStripMenuItem.Click += refreshNotesToolStripMenuItem_Click;
+            // 
+            // CategoryPanel
+            // 
+            CategoryPanel.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            CategoryPanel.BackColor = Color.FromArgb(228, 235, 241);
+            CategoryPanel.Dock = DockStyle.Fill;
+            CategoryPanel.Location = new Point(3, 2);
+            CategoryPanel.Margin = new Padding(3, 2, 3, 2);
+            CategoryPanel.Name = "CategoryPanel";
+            CategoryPanel.Size = new Size(900, 140);
+            CategoryPanel.TabIndex = 2;
             // 
             // tableLayoutPanel2
             // 

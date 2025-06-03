@@ -20,7 +20,9 @@ namespace Test
             LoadCategories();
             _dbContext = new ManageNoteContext();
             ViewNotesHamubrger viewNotesHamubrger = new ViewNotesHamubrger();
-            TableLayoutMDI.Controls.Add(viewNotesHamubrger.Pn_Container, 1, 0); // (control, columnIndex, rowIndex)
+            TableLayoutMDI.Controls.Add(viewNotesHamubrger.Pn_Container, 1, 0);
+
+
 
 
             //var firstNonEmptyCategory = _dbContext.Notes
@@ -59,7 +61,7 @@ namespace Test
             FlowLayoutPanel CategoryflowLayoutPanel = new FlowLayoutPanel()
             {
                 Dock = DockStyle.Fill,
-                AutoScroll = true,
+                AutoScroll = false,
                 FlowDirection = FlowDirection.LeftToRight,
                 WrapContents = true,
                 Padding = new Padding(10),
