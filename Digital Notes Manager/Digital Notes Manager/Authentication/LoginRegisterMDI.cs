@@ -42,26 +42,35 @@ namespace Digital_Notes_Manager
 
         private void LoadRegister()
         {
-            if (register is null)
+            if (register is null || register.IsDisposed)
             {
                 register = new Register();
+                register.TopLevel = false;
+                register.FormBorderStyle = FormBorderStyle.None;
+                register.Dock = DockStyle.Fill;
             }
 
+            register.usernameTxt.Clear();
+            register.passwordTxt.Clear();
+            register.passwordConfirmTxt.Clear();
             loginRegisterMDIPanel.Controls.Clear();
             loginRegisterMDIPanel.Controls.Add(register.registerPanel);
 
         }
         public void LoadLogin()
         {
-
-            if (login is null)
+            if (login is null || login.IsDisposed)
             {
                 login = new Login();
+                login.TopLevel = false;
+                login.FormBorderStyle = FormBorderStyle.None;
+                login.Dock = DockStyle.Fill;
             }
-
+            login.userNameTxt.Clear();
+            login.passwordTxt.Clear();
             loginRegisterMDIPanel.Controls.Clear();
-            loginRegisterMDIPanel.Controls.Add(login.loginPanel);
-
+            loginRegisterMDIPanel.Controls.Add(login);
+            login.Show();
         }
 
         private void loginBtnFromMDI_Click(object sender, EventArgs e)
@@ -72,6 +81,26 @@ namespace Digital_Notes_Manager
         private void registerBtnFromMDI_Click(object sender, EventArgs e)
         {
             LoadRegister();
+        }
+
+        private void LoginRegisterMDI_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                foreach (Control control in loginRegisterMDIPanel.Controls)
+                {
+                    if (control is Button btn)
+                    {
+                        if (btn.Tag != null && (btn.Tag.ToString() == "loginBtn" || btn.Tag.ToString() == "signupBtn"))
+                        {
+                            btn.PerformClick();
+                            break;
+                        }
+                    }
+                }
+
+                e.Handled = true;
+            }
         }
     }
 }

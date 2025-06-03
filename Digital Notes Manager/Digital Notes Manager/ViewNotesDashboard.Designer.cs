@@ -142,7 +142,7 @@
             // 
             // SearchTextBox
             // 
-            SearchTextBox.BackColor = Color.FromArgb(128, 255, 128);
+            SearchTextBox.BackColor = Color.FromArgb(53, 150, 181);
             SearchTextBox.Dock = DockStyle.Fill;
             SearchTextBox.Font = new Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             SearchTextBox.Location = new Point(8, 8);
