@@ -7,18 +7,22 @@ namespace Digital_Notes_Manager
 {
     internal static class Utilities
     {
+        //Reference To The GridControl In The ViewNotes Form
         public static GridControl GridControl { get; set; }
         public static ManageNoteContext manageNoteContext { get; } = new ManageNoteContext();
         public static LoginRegisterMDI LoginRegisterMDI { get; set; }
+        //Reference To The ViewNotesDashboard Form
         public static ViewNotesDashboard ViewNotesDashboard { get; set; }
+        //Notes That Are Opened Are Added In This List To Deny Opening Them Again
         public static List<Note> OpenedNotes { get; set; } = new List<Note>();
+        //List oF Updated Notes From Database
         public static List<Note> notes { get; set; } = new List<Note>();
+        //List Of Edites Notes
+        public static List<Note> updatedNotes { get; set; } = new List<Note>();
 
-        //public static List<DateTimeOffset> dateTimeOffsets { get; set; }
         public static void SetNotesGridControlDataSource()
         {
             var list = manageNoteContext.Notes.Where(x => x.UserID == Properties.Settings.Default.userID).ToList();
-
             BindingList<Note> BLN = new BindingList<Note>(list);
             GridControl.DataSource = BLN;
             notes = list;
