@@ -23,43 +23,17 @@ namespace Digital_Notes_Manager.AlarmSystem
         }
         public static void AddNewNoteToAlarmSystemNotesList(Note note)
         {
-            notes.Add(note);
+            if (note != null && !note.IsCompleted && !notes.Any(n => n.ID == note.ID))
+            {
+                notes.Add(note);
             notes = notes.OrderBy(n => n.ReminderDate).ToList();
-
             noteQueue = new Queue<Note>(notes);
+            }
+
         }
 
+        private Dictionary<int, bool> ReminderNotified = new();
 
-        //public async Task CompareTimeAsync()
-        //{
-        //    bool hasNotificationInFiveMinutes = false;
-        //    while (true)
-        //    {
-        //        //await Task.Delay(1000);
-
-        //        if (noteQueue.Any())
-        //        {
-        //            var note = noteQueue.First();
-
-        //            var timeDifference = note.ReminderDate - DateTimeOffset.Now;
-
-        //            if (timeDifference <= TimeSpan.FromMinutes(5) && timeDifference > TimeSpan.Zero)
-        //            {
-        //                if (!hasNotificationInFiveMinutes)
-        //                {
-        //                    NotifySoon(note);
-        //                    hasNotificationInFiveMinutes = true;
-        //                }
-        //            }
-        //            else if (timeDifference <= TimeSpan.Zero)
-        //            {
-        //                Notify(note);
-        //                noteQueue.Dequeue();
-        //                hasNotificationInFiveMinutes = false;
-        //            }
-        //        }
-        //    }
-        //}
         private Dictionary<int, bool> soonNotified = new();
         private Dictionary<int, bool> notified = new();
 
@@ -74,34 +48,32 @@ namespace Digital_Notes_Manager.AlarmSystem
                     var note = noteQueue.First();
                     var timeDifference = note.ReminderDate - DateTime.Now;
 
-                    // لو داخل 5 دقايق ولسه ما اتحذرش
                     if (timeDifference <= TimeSpan.FromMinutes(5) && timeDifference > TimeSpan.Zero)
-                    //if (true)
                     {
                         if (!soonNotified.ContainsKey(note.ID))
                         {
                             await NotifySoon(note);
+                            await NotifyEndReminderDate(note);
                             soonNotified[note.ID] = true;
                         }
                     }
 
-                    // لو جه الوقت أو عداه ولسه ما اتحذرش
-                    else if (timeDifference == TimeSpan.Zero)
+                    if (timeDifference <= TimeSpan.Zero && timeDifference >= TimeSpan.FromMinutes(-1) && !notified.ContainsKey(note.ID))
                     {
-                        if (!notified.ContainsKey(note.ID))
-                        {
-                            await Notify(note);
-                            notified[note.ID] = true;
-
-                            // شيله من الكيو بعد ما وقت التنبيه ييجي
-                            noteQueue.Dequeue();
-                        }
-                    }
-                    else if (timeDifference < TimeSpan.Zero)
-                    {
+                        await Notify(note);
                         await NotifyEndReminderDate(note);
+                        notified[note.ID] = true;
                         noteQueue.Dequeue();
                     }
+
+                    if (timeDifference < TimeSpan.FromMinutes(-1) && !ReminderNotified.ContainsKey(note.ID))
+                    {
+                        await NotifyEndReminderDate(note);
+                        ReminderNotified[note.ID] = true;
+                    }
+
+
+
                 }
             }
         }
@@ -113,7 +85,6 @@ namespace Digital_Notes_Manager.AlarmSystem
             SoundPlayer player = new SoundPlayer(typeof(Program).Assembly.GetManifestResourceStream("Digital_Notes_Manager.AlarmSounds.Alarm1.wav"));
             player.Play();
             mainFormInstance.ShowSoonMessage(note);
-            mainFormInstance.LateNotifyReminderDates(note);
 
         }
 

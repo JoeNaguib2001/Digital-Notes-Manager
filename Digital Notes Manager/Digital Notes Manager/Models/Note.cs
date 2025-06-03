@@ -15,11 +15,12 @@ namespace Digital_Notes_Manager.Models
 
         public int UserID { get; set; }
         public virtual User User { get; set; }
-        [NotMapped]
 
+        public bool IsCompleted { get; set; } = false;
+
+        [NotMapped]
         public DateTime StartDate { get; set; }
         [NotMapped]
-
         public DateTime EndDate { get; set; }
         [NotMapped]
         public DateTime Duration { get; set; }

@@ -210,15 +210,16 @@ namespace Digital_Notes_Manager
         private async void Notify_Load(object sender, EventArgs e)
         {
             int userId = Properties.Settings.Default.userID;
+
             List<Note> list = manageNoteContext.Notes
-                .Where(x => x.UserID == userId)
+                .Where(x => x.UserID == userId && !x.IsCompleted)
                 .AsEnumerable()
                 .OrderBy(x => x.ReminderDate)
                 .ToList();
+
             Alarm alarm = new Alarm(this, list);
             _ = alarm.CompareTimeAsync();
         }
-
         private void LoadReportsForm()
         {
             int userId = Properties.Settings.Default.userID;
