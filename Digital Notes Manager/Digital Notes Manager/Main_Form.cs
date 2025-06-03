@@ -12,6 +12,8 @@ namespace Digital_Notes_Manager
         private DevExpress.XtraBars.Alerter.AlertControl alertControl;
         public ViewNotes viewNotes;
         ManageNoteContext manageNoteContext = Utilities.manageNoteContext;
+        ViewNotesDashboard viewNotesDashboard;
+
         public Main_Form()
         {
             InitializeComponent();
@@ -23,8 +25,8 @@ namespace Digital_Notes_Manager
             Logout_AccordionElement.Click += AccordionElementClick;
             Report_ControlElement.Click += AccordionElementClick;
             alertControl = new DevExpress.XtraBars.Alerter.AlertControl();
-
             LoadNotesForm();
+            viewNotesDashboard = new ViewNotesDashboard();
         }
 
 
@@ -103,7 +105,6 @@ namespace Digital_Notes_Manager
         private void LoadAllNotesPoppedOut()
         {
             MDI_Panel.Controls.Clear();
-            ViewNotesDashboard viewNotesDashboard = new ViewNotesDashboard();
             MDI_Panel.Controls.Add(viewNotesDashboard.TableLayoutMDI);
         }
 
