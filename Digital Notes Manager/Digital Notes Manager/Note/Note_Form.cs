@@ -69,6 +69,7 @@ namespace Digital_Notes_Manager
             NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(0));
             Categorybox.Text = note.Category.ToString();
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
+            saveBtn.ImageOptions.Image = Properties.Resources.disk2;
 
         }
 
@@ -353,18 +354,7 @@ namespace Digital_Notes_Manager
             {
                 NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
             }
-            // أبو السيد أرجو النظر هنا
-            //var date = (DateTime)Calender.EditValue;
-
-            //if (date > DateTime.Now)
-            //{
-            //    NotficationDate = Calender.DateTimeOffset;
-            //    ChangeBell();
-            //}
-            //else
-            //{
-            //    MessageBox.Show("invalid");
-            //}
+            saveBtn.ImageOptions.Image = Properties.Resources.disk1;
         }
 
         private void TitleBox_DoubleClick(object sender, EventArgs e)
@@ -484,6 +474,16 @@ namespace Digital_Notes_Manager
             }
             this.Close();
 
+        }
+
+        private void richTextBox1_TextChanged(object sender, EventArgs e)
+        {
+            saveBtn.ImageOptions.Image = Properties.Resources.disk1;
+        }
+
+        private void TitleBox_TextChanged(object sender, EventArgs e)
+        {
+            saveBtn.ImageOptions.Image = Properties.Resources.disk1;
         }
     }
 }

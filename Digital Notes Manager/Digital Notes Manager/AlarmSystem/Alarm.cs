@@ -113,7 +113,7 @@ namespace Digital_Notes_Manager.AlarmSystem
             SoundPlayer player = new SoundPlayer(typeof(Program).Assembly.GetManifestResourceStream("Digital_Notes_Manager.AlarmSounds.Alarm1.wav"));
             player.Play();
             mainFormInstance.ShowSoonMessage(note);
-            mainFormInstance.LateNotifyReminderDates(note);
+            //mainFormInstance.LateNotifyReminderDates(note);
 
         }
 
@@ -121,14 +121,14 @@ namespace Digital_Notes_Manager.AlarmSystem
         {
             SystemSounds.Asterisk.Play();
             mainFormInstance.IsMached(note);
-            mainFormInstance.LateNotifyReminderDates(note);
+            //mainFormInstance.LateNotifyReminderDates(note);
 
 
         }
         public async Task NotifyEndReminderDate(Note note)
         {
             SystemSounds.Asterisk.Play();
-            mainFormInstance.LateNotifyReminderDates(note);
+            // mainFormInstance.LateNotifyReminderDates(note);
 
         }
 
