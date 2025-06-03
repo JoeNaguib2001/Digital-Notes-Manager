@@ -14,9 +14,11 @@ namespace Digital_Notes_Manager
         public ViewNotes viewNotes;
         public NotificationPopupForm notificationPopup;
         ManageNoteContext manageNoteContext = Utilities.manageNoteContext;
-        public Main_Form()
+        ViewNotesDashboard viewNotesDashboard; public Main_Form()
         {
             InitializeComponent();
+            viewNotesDashboard = new ViewNotesDashboard();
+            viewNotes = new ViewNotes();
             this.Shown += Notify_Load;
 
             Add_A_New_Note_Accordion_Element.Click += AccordionElementClick;
@@ -33,13 +35,13 @@ namespace Digital_Notes_Manager
             panel1.Resize += (s, e) =>
             {
                 notificationBell1.Location = new Point(panel1.Width - notificationBell1.Width - 10, 10);
-                if(notificationPopup != null)
+                if (notificationPopup != null)
                 {
                     Point mainFormLocation = this.Location;
 
-                Point notificationBellLocation = notificationBell1.PointToScreen(Point.Empty);
+                    Point notificationBellLocation = notificationBell1.PointToScreen(Point.Empty);
 
-                
+
                     notificationPopup.StartPosition = FormStartPosition.Manual;
                     notificationPopup.Location = new Point(
                         notificationBellLocation.X - 260,
@@ -50,7 +52,7 @@ namespace Digital_Notes_Manager
                 }
             };
 
-            LoadNotesForm();
+            LoadAllNotesPoppedOut();
         }
 
 
@@ -98,13 +100,8 @@ namespace Digital_Notes_Manager
                         break;
                     case "Add_A_New_Note_Accordion_Element":
                         {
-
                             Note_Form noteForm = new Note_Form();
                             noteForm.Show();
-
-
-
-
                         }
                         break;
                     case "View_All_Notes_Popped":
@@ -153,13 +150,12 @@ namespace Digital_Notes_Manager
             Properties.Settings.Default.userName = string.Empty;
             Properties.Settings.Default.rememberMe = false;
             Properties.Settings.Default.Save();
-
         }
 
         private void LoadAllNotesPoppedOut()
         {
             MDI_Panel.Controls.Clear();
-            ViewNotesDashboard viewNotesDashboard = new ViewNotesDashboard();
+            viewNotesDashboard = new ViewNotesDashboard();
             MDI_Panel.Controls.Add(viewNotesDashboard.TableLayoutMDI);
         }
 

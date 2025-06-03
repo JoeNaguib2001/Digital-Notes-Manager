@@ -100,6 +100,7 @@
             Controls.Add(panel1);
             FormBorderStyle = FormBorderStyle.FixedToolWindow;
             Name = "LoginRegisterMDI";
+            KeyDown += LoginRegisterMDI_KeyDown;
             panel1.ResumeLayout(false);
             ResumeLayout(false);
         }
