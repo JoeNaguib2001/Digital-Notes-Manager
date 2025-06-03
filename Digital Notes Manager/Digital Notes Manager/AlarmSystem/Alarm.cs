@@ -26,19 +26,21 @@ namespace Digital_Notes_Manager.AlarmSystem
             if (note != null && !note.IsCompleted)
             {
                 notes.Add(note);
-                notes = notes.OrderByDescending(n => n.ReminderDate).ToList();
-                noteQueue = new Queue<Note>(notes);
+            notes = notes.Where(x=>!x.IsCompleted && x.ReminderDate != DateTime.MinValue)
+                    .OrderByDescending(n => n.ReminderDate).ToList();
+            noteQueue = new Queue<Note>(notes);
+
             }
 
         }
 
-        private Dictionary<int, bool> ReminderNotified = new();
 
         private Dictionary<int, bool> soonNotified = new();
         private Dictionary<int, bool> notified = new();
 
         public async Task CompareTimeAsync()
         {
+
             while (true)
             {
                 await Task.Delay(1500);
@@ -48,7 +50,7 @@ namespace Digital_Notes_Manager.AlarmSystem
                     var note = noteQueue.First();
                     var timeDifference = note.ReminderDate - DateTime.Now;
 
-                    if (timeDifference <= TimeSpan.FromMinutes(5) && timeDifference > TimeSpan.Zero)
+                    if (timeDifference <= TimeSpan.FromMinutes(5) && timeDifference > TimeSpan.FromMinutes(4))
                     {
                         if (!soonNotified.ContainsKey(note.ID))
                         {
@@ -66,10 +68,12 @@ namespace Digital_Notes_Manager.AlarmSystem
                         noteQueue.Dequeue();
                     }
 
-                    if (timeDifference < TimeSpan.FromMinutes(-1) && !ReminderNotified.ContainsKey(note.ID))
+                    if (timeDifference < TimeSpan.FromMinutes(-2) && !notified.ContainsKey(note.ID))
                     {
                         await NotifyEndReminderDate(note);
-                        ReminderNotified[note.ID] = true;
+                        notified[note.ID] = true;
+                        noteQueue.Dequeue();
+
                     }
 
 
