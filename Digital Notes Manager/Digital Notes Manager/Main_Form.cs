@@ -10,19 +10,24 @@ namespace Digital_Notes_Manager
     public partial class Main_Form : XtraForm
     {
         private DevExpress.XtraBars.Alerter.AlertControl alertControl;
+        public ViewNotes viewNotes;
+        ManageNoteContext manageNoteContext = Utilities.manageNoteContext;
+        ViewNotesDashboard viewNotesDashboard;
 
         public Main_Form()
         {
             InitializeComponent();
+            viewNotesDashboard = new ViewNotesDashboard();
+            viewNotes = new ViewNotes();
             this.Shown += Notify_Load;
 
             Add_A_New_Note_Accordion_Element.Click += AccordionElementClick;
             Show_Notes_Accordion_Element.Click += AccordionElementClick;
             View_All_Notes_Popped.Click += AccordionElementClick;
             Logout_AccordionElement.Click += AccordionElementClick;
+            Report_ControlElement.Click += AccordionElementClick;
             alertControl = new DevExpress.XtraBars.Alerter.AlertControl();
-
-            LoadNotesForm();
+            LoadAllNotesPoppedOut();
         }
 
 
@@ -40,8 +45,13 @@ namespace Digital_Notes_Manager
                         break;
                     case "Add_A_New_Note_Accordion_Element":
                         {
+
                             Note_Form noteForm = new Note_Form();
                             noteForm.Show();
+
+
+
+
                         }
                         break;
                     case "View_All_Notes_Popped":
@@ -54,6 +64,11 @@ namespace Digital_Notes_Manager
                             Logout();
                         }
                         break;
+                    case "Report_ControlElement":
+                        {
+                            LoadReportsForm();
+                        }
+                        break;
                     default:
                         XtraMessageBox.Show("Unknown action.");
                         break;
@@ -61,15 +76,14 @@ namespace Digital_Notes_Manager
             }
         }
 
-        public ViewNotes viewNotes;
-        ManageNoteContext manageNoteContext = Utilities.manageNoteContext;
+
 
 
         private void LoadNotesForm()
         {
             this.MDI_Panel.Controls.Clear();
             viewNotes = new ViewNotes();
-            MDI_Panel.Controls.Add(viewNotes.panel1);
+            MDI_Panel.Controls.Add(viewNotes.Pn_Container);
             var resources = typeof(Program).Assembly.GetManifestResourceNames();
             foreach (var res in resources)
             {
@@ -92,7 +106,6 @@ namespace Digital_Notes_Manager
         private void LoadAllNotesPoppedOut()
         {
             MDI_Panel.Controls.Clear();
-            ViewNotesDashboard viewNotesDashboard = new ViewNotesDashboard();
             MDI_Panel.Controls.Add(viewNotesDashboard.TableLayoutMDI);
         }
 
@@ -157,7 +170,8 @@ namespace Digital_Notes_Manager
                 .ToList();
 
             ReportsForm reportsForm = new ReportsForm(notes);
-            IsMdiContainer=true;
+            MDI_Panel.Controls.Clear();
+            MDI_Panel.Controls.Add(reportsForm.tableLayoutPanel1);
         }
 
         private void LogoutAccordionElement_Click(object sender, EventArgs e)
