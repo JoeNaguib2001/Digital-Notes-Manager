@@ -31,30 +31,29 @@ namespace Digital_Notes_Manager
             schedulerControl1.DataStorage.Appointments.CustomFieldMappings.Add(new AppointmentCustomFieldMapping("ParentID", "ParentID"));
         }
 
-        private List<TaskModel> LoadTasksFromDatabase()
+        private List<Note> LoadTasksFromDatabase()
         {
             using var context = new ManageNoteContext();
-            return context.Tasks.AsNoTracking().ToList();
+            return context.Notes.AsNoTracking().ToList();
         }
 
-        private void AddTasksToScheduler(List<TaskModel> tasks)
+        private void AddTasksToScheduler(List<Note> notes)
         {
             var storage = schedulerControl1.DataStorage;
 
             storage.Appointments.Clear();
             Dictionary<int, Appointment> appointmentsMap = new();
 
-            foreach (var task in tasks)
+            foreach (var note in notes)
             {
                 Appointment apt = storage.CreateAppointment(AppointmentType.Normal);
-                apt.Subject = task.Title;
-                apt.Start = task.StartDate;
-                apt.End = task.EndDate;
-                apt.CustomFields["Progress"] = task.Progress;
-                apt.CustomFields["ID"] = task.ID;
-                apt.CustomFields["ParentID"] = task.ParentID;
+                apt.Subject = note.Title;
+                apt.Start = note.StartDate;
+                apt.End = note.EndDate;
+                apt.CustomFields["Progress"] = note.IsCompleted ? 100 : 0;
+                apt.CustomFields["ID"] = note.ID;
 
-                appointmentsMap[task.ID] = apt;
+                appointmentsMap[note.ID] = apt;
                 storage.Appointments.Add(apt);
             }
 

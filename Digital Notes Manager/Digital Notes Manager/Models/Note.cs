@@ -18,11 +18,10 @@ namespace Digital_Notes_Manager.Models
 
         public bool IsCompleted { get; set; } = false;
 
-        [NotMapped]
         public DateTime StartDate { get; set; }
-        [NotMapped]
         public DateTime EndDate { get; set; }
+
         [NotMapped]
-        public DateTime Duration { get; set; }
+        public TimeSpan Duration => EndDate - StartDate;
     }
 }

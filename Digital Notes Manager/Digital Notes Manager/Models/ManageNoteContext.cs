@@ -6,7 +6,6 @@ namespace Digital_Notes_Manager.Models
     {
         public DbSet<User> Users { get; set; }
         public DbSet<Note> Notes { get; set; }
-        public DbSet<TaskModel> Tasks { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
