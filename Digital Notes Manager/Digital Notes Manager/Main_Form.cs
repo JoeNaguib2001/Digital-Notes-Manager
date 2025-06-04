@@ -19,6 +19,7 @@ namespace Digital_Notes_Manager
             InitializeComponent();
             viewNotesDashboard = new ViewNotesDashboard();
             viewNotes = new ViewNotes();
+            Utilities.MainForm = this;
             this.Shown += Notify_Load;
 
             Add_A_New_Note_Accordion_Element.Click += AccordionElementClick;
@@ -80,8 +81,7 @@ namespace Digital_Notes_Manager
                     notificationBellLocation.X - 260,
                     notificationBellLocation.Y + notificationBell1.Height
                 );
-
-                notificationPopup.Show();
+                notificationPopup.Show(this); 
             }
         }
 
@@ -102,6 +102,7 @@ namespace Digital_Notes_Manager
                         {
                             Note_Form noteForm = new Note_Form();
                             noteForm.Show();
+                            Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
                         }
                         break;
                     case "View_All_Notes_Popped":
@@ -134,11 +135,6 @@ namespace Digital_Notes_Manager
             this.MDI_Panel.Controls.Clear();
             viewNotes = new ViewNotes();
             MDI_Panel.Controls.Add(viewNotes.Pn_Container);
-            var resources = typeof(Program).Assembly.GetManifestResourceNames();
-            foreach (var res in resources)
-            {
-                System.Diagnostics.Debug.WriteLine(res);
-            }
         }
 
         private void Logout()
@@ -211,7 +207,7 @@ namespace Digital_Notes_Manager
           .Where(x => x.UserID == userId && !x.IsCompleted && x.ReminderDate != DateTime.MinValue)
           .OrderByDescending(x => x.ReminderDate)
           .ToList();
-                
+
 
             Alarm alarm = new Alarm(this, list);
             _ = alarm.CompareTimeAsync();
@@ -227,10 +223,5 @@ namespace Digital_Notes_Manager
             MDI_Panel.Controls.Clear();
             MDI_Panel.Controls.Add(reportsForm.tableLayoutPanel1);
         }
-
-        private void LogoutAccordionElement_Click(object sender, EventArgs e)
-        {
-        }
-
     }
 }

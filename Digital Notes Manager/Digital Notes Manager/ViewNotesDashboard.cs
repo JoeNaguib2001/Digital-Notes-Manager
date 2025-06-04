@@ -1,24 +1,31 @@
 ﻿using Digital_Notes_Manager;
 using Digital_Notes_Manager.Customs;
 using Digital_Notes_Manager.Models;
-using System.Data;
 using System.Drawing.Drawing2D;
-
 
 namespace Test
 {
     public partial class ViewNotesDashboard : DevExpress.XtraBars.FluentDesignSystem.FluentDesignForm
     {
+
         private ManageNoteContext _dbContext;
         public Category SelectedCategory { get; set; }
         public bool IsCategorySelected { get; set; } = false;
         int _userId = Utilities.GetCurrentLoggedInUserId();
+        private bool isSecondColumnVisible = true;
         public ViewNotesDashboard()
         {
-            Utilities.ViewNotesDashboard = this;
             InitializeComponent();
+            Utilities.ViewNotesDashboard = this;
+            Utilities.TableLayoutPanel = CategoriesNotesPanel;
             LoadCategories();
             _dbContext = new ManageNoteContext();
+            ViewNotesHamubrger viewNotesHamubrger = new ViewNotesHamubrger();
+            TableLayoutMDI.Controls.Add(viewNotesHamubrger.Pn_Container, 1, 0);
+
+
+
+
             //var firstNonEmptyCategory = _dbContext.Notes
             //    .Where(x => x.UserID == _userId)
             //    .GroupBy(x => x.Category)
@@ -47,15 +54,15 @@ namespace Test
             { Category.Personal, ColorTranslator.FromHtml("#406f48")},  // Light Blue-Gray
         };
 
-
+        FlowLayoutPanel CategoryflowLayoutPanel;
         private void LoadCategories()
         {
             CategoryPanel.Controls.Clear();
             //Adding A new Floylayout Panel in Run Time
-            FlowLayoutPanel CategoryflowLayoutPanel = new FlowLayoutPanel()
+            CategoryflowLayoutPanel = new FlowLayoutPanel()
             {
                 Dock = DockStyle.Fill,
-                AutoScroll = true,
+                AutoScroll = false,
                 FlowDirection = FlowDirection.LeftToRight,
                 WrapContents = true,
                 Padding = new Padding(10),
@@ -76,8 +83,6 @@ namespace Test
                         CategoryflowLayoutPanel.Controls.Add(card);
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -120,6 +125,7 @@ namespace Test
                 Label countLabel = new Label
                 {
                     Text = $"Notes Count: {noteCount}",
+                    ForeColor = Color.White,
                     Font = new Font("Tahoma", 10),
                     Location = new Point(10, 50),
                     AutoSize = true
@@ -142,6 +148,7 @@ namespace Test
                 Label countLabel = new Label
                 {
                     Text = $"Notes Count: {noteCount}",
+                    ForeColor = Color.White,
                     Font = new Font("Tahoma", 10),
                     Location = new Point(10, 50),
                     AutoSize = true
@@ -149,7 +156,6 @@ namespace Test
                 card.Controls.Add(countLabel);
                 card.BackColor = ColorTranslator.FromHtml("#3d4546");
 
-                // إضافة حدث النقر لعرض الملاحظات الخاصة بالفئة
                 card.Click += (s, e) =>
                 {
                     IsCategorySelected = false; // Reset the category selection
@@ -291,6 +297,72 @@ namespace Test
             else
                 LoadNotesForAllCategories(SearchTextBox.Text);
 
+        }
+
+        private void ShowHideBtn_Click(object sender, EventArgs e)
+        {
+            int targetColumn = 1;
+
+            if (isSecondColumnVisible)
+            {
+                // نخفي العمود التاني: نمسح الكنترولات منه ونخفيه
+                for (int row = 0; row < TableLayoutMDI.RowCount; row++)
+                {
+                    var control = TableLayoutMDI.GetControlFromPosition(targetColumn, row);
+                    if (control != null)
+                    {
+                        control.Visible = false;
+                    }
+                }
+
+                TableLayoutMDI.ColumnStyles[targetColumn].SizeType = SizeType.Absolute;
+                TableLayoutMDI.ColumnStyles[targetColumn].Width = 0;
+                isSecondColumnVisible = false;
+                TableLayoutMDI.ColumnStyles[2].SizeType = SizeType.Absolute;
+                TableLayoutMDI.ColumnStyles[2].Width = 50;
+                ShowHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.arrow_button; // Update the icon to show
+            }
+            else
+            {
+                for (int row = 0; row < TableLayoutMDI.RowCount; row++)
+                {
+                    var control = TableLayoutMDI.GetControlFromPosition(targetColumn, row);
+                    if (control != null)
+                    {
+                        control.Visible = true;
+                    }
+                }
+
+                TableLayoutMDI.ColumnStyles[targetColumn].SizeType = SizeType.Percent;
+                TableLayoutMDI.ColumnStyles[targetColumn].Width = 30;
+                isSecondColumnVisible = true;
+                ShowHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.right_arrow_solid_square_button; // Update the icon to show
+
+            }
+        }
+
+        private void TableLayoutMDI_Resize(object sender, EventArgs e)
+        {
+            //if (Utilities.MainForm.MDI_Panel.Size.Width > 750)
+            //{
+            //    //CategoriesNotesPanel.RowStyles[0].SizeType = SizeType.Absolute;
+            //    //CategoriesNotesPanel.RowStyles[0].Height = 135;
+            //    CategoryflowLayoutPanel.WrapContents = true; // Enable wrapping when the panel is wide enough
+            //}
+            //else
+            //{
+            //    //CategoriesNotesPanel.RowStyles[0].SizeType = SizeType.Absolute;
+            //    //CategoriesNotesPanel.RowStyles[0].Height = 100;
+            //    CategoryflowLayoutPanel.WrapContents = false; // Disable wrapping when the panel is narrow
+            //}
+            if (Utilities.MainForm.WindowState == FormWindowState.Maximized)
+            {
+                CategoriesNotesPanel.RowStyles[0].Height = 135;
+            }
+            else
+            {
+                CategoriesNotesPanel.RowStyles[0].Height = 270;
+            }
         }
     }
 }

@@ -13,7 +13,7 @@ namespace Digital_Notes_Manager.Customs
 
     public class NotificationBell : Control
     {
-        private List<string> notifications = new List<string>();
+        public static List<string> notifications = new List<string>();
         public event EventHandler BellClicked;
         private int _notificationCount;
 
@@ -45,6 +45,10 @@ namespace Digital_Notes_Manager.Customs
             var result = new List<string>(notifications);
             this.Invalidate(); 
             return result;
+        }
+        public static void RemoveNotification(string msg) {
+            notifications.Remove(msg);
+
         }
 
         protected override void OnClick(EventArgs e)

@@ -329,6 +329,7 @@ namespace Digital_Notes_Manager
                 ChangeBell();
             }
 
+
             saveBtn.ImageOptions.Image = Properties.Resources.disk1;
 
         }
