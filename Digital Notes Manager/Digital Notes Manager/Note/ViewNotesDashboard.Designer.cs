@@ -210,7 +210,7 @@
             // ShowHideBtn
             // 
             ShowHideBtn.Dock = DockStyle.Fill;
-            ShowHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.right_arrow_solid_square_button;
+            ShowHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.arrow_button;
             ShowHideBtn.Location = new Point(3, 296);
             ShowHideBtn.Name = "ShowHideBtn";
             ShowHideBtn.Size = new Size(39, 26);
