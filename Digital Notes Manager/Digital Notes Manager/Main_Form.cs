@@ -27,6 +27,7 @@ namespace Digital_Notes_Manager
             View_All_Notes_Popped.Click += AccordionElementClick;
             Logout_AccordionElement.Click += AccordionElementClick;
             Report_ControlElement.Click += AccordionElementClick;
+            Gantt_Chart_Element.Click += AccordionElementClick;
             alertControl = new DevExpress.XtraBars.Alerter.AlertControl();
 
             notificationBell1.Size = new Size(40, 40);
@@ -81,7 +82,7 @@ namespace Digital_Notes_Manager
                     notificationBellLocation.X - 260,
                     notificationBellLocation.Y + notificationBell1.Height
                 );
-                notificationPopup.Show(this); 
+                notificationPopup.Show(this);
             }
         }
 
@@ -102,7 +103,7 @@ namespace Digital_Notes_Manager
                         {
                             Note_Form noteForm = new Note_Form();
                             noteForm.Show();
-                            Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
+                            //Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
                         }
                         break;
                     case "View_All_Notes_Popped":
@@ -120,6 +121,11 @@ namespace Digital_Notes_Manager
                             LoadReportsForm();
                         }
                         break;
+                    case "Gantt_Chart_Element":
+                        {
+                            loadGantt();
+                        }
+                        break;
                     default:
                         XtraMessageBox.Show("Unknown action.");
                         break;
@@ -129,7 +135,12 @@ namespace Digital_Notes_Manager
 
 
 
-
+        private void loadGantt()
+        {
+            GanttForm ganttChartForm = new GanttForm();
+            MDI_Panel.Controls.Clear();
+            MDI_Panel.Controls.Add(ganttChartForm.schedulerControl1);
+        }
         private void LoadNotesForm()
         {
             this.MDI_Panel.Controls.Clear();

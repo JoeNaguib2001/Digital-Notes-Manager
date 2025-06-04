@@ -51,6 +51,7 @@
             notificationBell1 = new Customs.NotificationBell();
             notifyIcon1 = new NotifyIcon(components);
             GreatDocker = new Panel();
+            Gantt_Chart_Element = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
             menuStrip1.SuspendLayout();
             panel1.SuspendLayout();
@@ -90,7 +91,7 @@
             NotesGroupAccordionElement.Appearance.Pressed.ForeColor = Color.Black;
             NotesGroupAccordionElement.Appearance.Pressed.Options.UseBackColor = true;
             NotesGroupAccordionElement.Appearance.Pressed.Options.UseForeColor = true;
-            NotesGroupAccordionElement.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { Show_Notes_Accordion_Element, accordionControlSeparator3, Add_A_New_Note_Accordion_Element, accordionControlSeparator4, View_All_Notes_Popped, accordionControlSeparator5, Report_ControlElement });
+            NotesGroupAccordionElement.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { Show_Notes_Accordion_Element, accordionControlSeparator3, Add_A_New_Note_Accordion_Element, accordionControlSeparator4, View_All_Notes_Popped, accordionControlSeparator5, Report_ControlElement, Gantt_Chart_Element });
             NotesGroupAccordionElement.Expanded = true;
             NotesGroupAccordionElement.ImageOptions.Image = (Image)resources.GetObject("NotesGroupAccordionElement.ImageOptions.Image");
             NotesGroupAccordionElement.Name = "NotesGroupAccordionElement";
@@ -299,6 +300,12 @@
             GreatDocker.Size = new Size(1201, 842);
             GreatDocker.TabIndex = 6;
             // 
+            // Gantt_Chart_Element
+            // 
+            Gantt_Chart_Element.Name = "Gantt_Chart_Element";
+            Gantt_Chart_Element.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            Gantt_Chart_Element.Text = "Gantt Chart";
+            // 
             // Main_Form
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
@@ -345,5 +352,6 @@
         private Customs.NotificationBell notificationBell1;
         private Panel GreatDocker;
         public Panel MDI_Panel;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement Gantt_Chart_Element;
     }
 }
