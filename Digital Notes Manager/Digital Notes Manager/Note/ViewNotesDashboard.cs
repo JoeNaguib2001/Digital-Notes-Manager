@@ -12,7 +12,7 @@ namespace Test
         public Category SelectedCategory { get; set; }
         public bool IsCategorySelected { get; set; } = false;
         int _userId = Utilities.GetCurrentLoggedInUserId();
-        private bool isSecondColumnVisible = true;
+        private bool isSecondColumnVisible = false;
         string placeholderText = " search for a specific note...";
         bool isPlaceholderActive = true;
 
@@ -28,6 +28,8 @@ namespace Test
             _dbContext = new ManageNoteContext();
             ViewNotesHamubrger viewNotesHamubrger = new ViewNotesHamubrger();
             TableLayoutMDI.Controls.Add(viewNotesHamubrger.Pn_Container, 1, 0);
+            TableLayoutMDI.ColumnStyles[1].Width = 0;
+
 
             SearchTextBox.ForeColor = Color.Gray;
             SearchTextBox.Text = placeholderText;
@@ -254,7 +256,7 @@ namespace Test
             foreach (var note in filteredNotes)
             {
                 Note_Form noteForm = new Note_Form(note);
-                noteForm.TopPanal.BackColor = c; // Set the background color of the note card
+                noteForm.TopPanal.BackColor = c;
                 noteForm.TitleBox.BackColor = c;
                 noteForm.Container.Dock = DockStyle.None;
                 notesPanel.Controls.Add(noteForm.Container);

@@ -305,6 +305,7 @@
             Controls.Add(GreatDocker);
             Controls.Add(accordionControl1);
             Controls.Add(menuStrip1);
+            IconOptions.Icon = (Icon)resources.GetObject("Main_Form.IconOptions.Icon");
             IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
             Margin = new Padding(3, 2, 3, 2);
