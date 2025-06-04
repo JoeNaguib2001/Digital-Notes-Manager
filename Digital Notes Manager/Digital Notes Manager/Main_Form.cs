@@ -19,6 +19,7 @@ namespace Digital_Notes_Manager
             InitializeComponent();
             viewNotesDashboard = new ViewNotesDashboard();
             viewNotes = new ViewNotes();
+            Utilities.MainForm = this;
             this.Shown += Notify_Load;
 
             Add_A_New_Note_Accordion_Element.Click += AccordionElementClick;
@@ -206,7 +207,7 @@ namespace Digital_Notes_Manager
           .Where(x => x.UserID == userId && !x.IsCompleted && x.ReminderDate != DateTime.MinValue)
           .OrderByDescending(x => x.ReminderDate)
           .ToList();
-                
+
 
             Alarm alarm = new Alarm(this, list);
             _ = alarm.CompareTimeAsync();
@@ -222,10 +223,5 @@ namespace Digital_Notes_Manager
             MDI_Panel.Controls.Clear();
             MDI_Panel.Controls.Add(reportsForm.tableLayoutPanel1);
         }
-
-        private void LogoutAccordionElement_Click(object sender, EventArgs e)
-        {
-        }
-
     }
 }

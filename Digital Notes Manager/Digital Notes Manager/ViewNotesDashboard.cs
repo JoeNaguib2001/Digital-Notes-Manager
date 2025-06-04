@@ -15,8 +15,9 @@ namespace Test
         private bool isSecondColumnVisible = true;
         public ViewNotesDashboard()
         {
-            Utilities.ViewNotesDashboard = this;
             InitializeComponent();
+            Utilities.ViewNotesDashboard = this;
+            Utilities.TableLayoutPanel = CategoriesNotesPanel;
             LoadCategories();
             _dbContext = new ManageNoteContext();
             ViewNotesHamubrger viewNotesHamubrger = new ViewNotesHamubrger();
@@ -53,12 +54,12 @@ namespace Test
             { Category.Personal, ColorTranslator.FromHtml("#406f48")},  // Light Blue-Gray
         };
 
-
+        FlowLayoutPanel CategoryflowLayoutPanel;
         private void LoadCategories()
         {
             CategoryPanel.Controls.Clear();
             //Adding A new Floylayout Panel in Run Time
-            FlowLayoutPanel CategoryflowLayoutPanel = new FlowLayoutPanel()
+            CategoryflowLayoutPanel = new FlowLayoutPanel()
             {
                 Dock = DockStyle.Fill,
                 AutoScroll = false,
@@ -298,7 +299,7 @@ namespace Test
 
         }
 
-        private void ShoeHideBtn_Click(object sender, EventArgs e)
+        private void ShowHideBtn_Click(object sender, EventArgs e)
         {
             int targetColumn = 1;
 
@@ -319,7 +320,7 @@ namespace Test
                 isSecondColumnVisible = false;
                 TableLayoutMDI.ColumnStyles[2].SizeType = SizeType.Absolute;
                 TableLayoutMDI.ColumnStyles[2].Width = 50;
-                ShoeHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.arrow_button; // Update the icon to show
+                ShowHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.arrow_button; // Update the icon to show
             }
             else
             {
@@ -335,8 +336,32 @@ namespace Test
                 TableLayoutMDI.ColumnStyles[targetColumn].SizeType = SizeType.Percent;
                 TableLayoutMDI.ColumnStyles[targetColumn].Width = 30;
                 isSecondColumnVisible = true;
-                ShoeHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.right_arrow_solid_square_button; // Update the icon to show
+                ShowHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.right_arrow_solid_square_button; // Update the icon to show
 
+            }
+        }
+
+        private void TableLayoutMDI_Resize(object sender, EventArgs e)
+        {
+            //if (Utilities.MainForm.MDI_Panel.Size.Width > 750)
+            //{
+            //    //CategoriesNotesPanel.RowStyles[0].SizeType = SizeType.Absolute;
+            //    //CategoriesNotesPanel.RowStyles[0].Height = 135;
+            //    CategoryflowLayoutPanel.WrapContents = true; // Enable wrapping when the panel is wide enough
+            //}
+            //else
+            //{
+            //    //CategoriesNotesPanel.RowStyles[0].SizeType = SizeType.Absolute;
+            //    //CategoriesNotesPanel.RowStyles[0].Height = 100;
+            //    CategoryflowLayoutPanel.WrapContents = false; // Disable wrapping when the panel is narrow
+            //}
+            if (Utilities.MainForm.WindowState == FormWindowState.Maximized)
+            {
+                CategoriesNotesPanel.RowStyles[0].Height = 135;
+            }
+            else
+            {
+                CategoriesNotesPanel.RowStyles[0].Height = 270;
             }
         }
     }

@@ -68,7 +68,7 @@
             accordionControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             accordionControl1.Name = "accordionControl1";
             accordionControl1.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Hidden;
-            accordionControl1.Size = new Size(260, 786);
+            accordionControl1.Size = new Size(260, 842);
             accordionControl1.TabIndex = 0;
             accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
             // 
@@ -232,7 +232,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1398, 24);
+            menuStrip1.Size = new Size(1461, 24);
             menuStrip1.TabIndex = 1;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -262,7 +262,7 @@
             MDI_Panel.Dock = DockStyle.Fill;
             MDI_Panel.Location = new Point(0, 42);
             MDI_Panel.Name = "MDI_Panel";
-            MDI_Panel.Size = new Size(1138, 744);
+            MDI_Panel.Size = new Size(1201, 800);
             MDI_Panel.TabIndex = 2;
             // 
             // panel1
@@ -271,12 +271,13 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1138, 42);
+            panel1.Size = new Size(1201, 42);
             panel1.TabIndex = 4;
             // 
             // notificationBell1
             // 
-            notificationBell1.Location = new Point(987, 13);
+            notificationBell1.Anchor = AnchorStyles.None;
+            notificationBell1.Location = new Point(1133, 13);
             notificationBell1.Name = "notificationBell1";
             notificationBell1.NotificationCount = 0;
             notificationBell1.Size = new Size(24, 23);
@@ -295,14 +296,14 @@
             GreatDocker.Dock = DockStyle.Fill;
             GreatDocker.Location = new Point(260, 24);
             GreatDocker.Name = "GreatDocker";
-            GreatDocker.Size = new Size(1138, 786);
+            GreatDocker.Size = new Size(1201, 842);
             GreatDocker.TabIndex = 6;
             // 
             // Main_Form
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1398, 810);
+            ClientSize = new Size(1461, 866);
             Controls.Add(GreatDocker);
             Controls.Add(accordionControl1);
             Controls.Add(menuStrip1);
@@ -328,7 +329,6 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
-        private Panel MDI_Panel;
         private DevExpress.XtraBars.Navigation.AccordionControlElement Show_Notes_Accordion_Element;
         private DevExpress.XtraBars.Navigation.AccordionControlElement Add_A_New_Note_Accordion_Element;
         private DevExpress.XtraBars.Navigation.AccordionControlElement View_All_Notes_Popped;
@@ -344,5 +344,6 @@
         private NotifyIcon notifyIcon1;
         private Customs.NotificationBell notificationBell1;
         private Panel GreatDocker;
+        public Panel MDI_Panel;
     }
 }

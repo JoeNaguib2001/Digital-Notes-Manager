@@ -40,7 +40,7 @@
             refreshNotesToolStripMenuItem = new ToolStripMenuItem();
             CategoryPanel = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
-            ShoeHideBtn = new DevExpress.XtraEditors.SimpleButton();
+            ShowHideBtn = new DevExpress.XtraEditors.SimpleButton();
             fluentFormDefaultManager1 = new DevExpress.XtraBars.FluentDesignSystem.FluentFormDefaultManager(components);
             fluentDesignFormControl1 = new DevExpress.XtraBars.FluentDesignSystem.FluentDesignFormControl();
             fluentDesignFormContainer1.SuspendLayout();
@@ -58,10 +58,10 @@
             // 
             fluentDesignFormContainer1.Controls.Add(TableLayoutMDI);
             fluentDesignFormContainer1.Dock = DockStyle.Fill;
-            fluentDesignFormContainer1.Location = new Point(0, 31);
+            fluentDesignFormContainer1.Location = new Point(0, 24);
             fluentDesignFormContainer1.Margin = new Padding(3, 2, 3, 2);
             fluentDesignFormContainer1.Name = "fluentDesignFormContainer1";
-            fluentDesignFormContainer1.Size = new Size(1374, 619);
+            fluentDesignFormContainer1.Size = new Size(1374, 626);
             fluentDesignFormContainer1.TabIndex = 0;
             // 
             // TableLayoutMDI
@@ -79,8 +79,9 @@
             TableLayoutMDI.RowCount = 1;
             TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
             TableLayoutMDI.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
-            TableLayoutMDI.Size = new Size(1374, 619);
+            TableLayoutMDI.Size = new Size(1374, 626);
             TableLayoutMDI.TabIndex = 1;
+            TableLayoutMDI.Resize += TableLayoutMDI_Resize;
             // 
             // LeftGreatInsider
             // 
@@ -96,7 +97,7 @@
             LeftGreatInsider.RowCount = 2;
             LeftGreatInsider.RowStyles.Add(new RowStyle());
             LeftGreatInsider.RowStyles.Add(new RowStyle(SizeType.Percent, 100.000008F));
-            LeftGreatInsider.Size = new Size(912, 615);
+            LeftGreatInsider.Size = new Size(912, 622);
             LeftGreatInsider.TabIndex = 1;
             // 
             // tableLayoutPanel1
@@ -134,9 +135,9 @@
             CategoriesNotesPanel.Location = new Point(3, 56);
             CategoriesNotesPanel.Name = "CategoriesNotesPanel";
             CategoriesNotesPanel.RowCount = 2;
-            CategoriesNotesPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 25.9259262F));
-            CategoriesNotesPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 74.07407F));
-            CategoriesNotesPanel.Size = new Size(906, 556);
+            CategoriesNotesPanel.RowStyles.Add(new RowStyle(SizeType.Absolute, 270F));
+            CategoriesNotesPanel.RowStyles.Add(new RowStyle(SizeType.Percent, 100F));
+            CategoriesNotesPanel.Size = new Size(906, 563);
             CategoriesNotesPanel.TabIndex = 3;
             // 
             // notesPanel
@@ -145,10 +146,10 @@
             notesPanel.BackColor = Color.FromArgb(228, 235, 241);
             notesPanel.ContextMenuStrip = contextMenuStrip1;
             notesPanel.Dock = DockStyle.Fill;
-            notesPanel.Location = new Point(3, 147);
+            notesPanel.Location = new Point(3, 273);
             notesPanel.Name = "notesPanel";
             notesPanel.Padding = new Padding(10);
-            notesPanel.Size = new Size(900, 406);
+            notesPanel.Size = new Size(900, 287);
             notesPanel.TabIndex = 4;
             // 
             // contextMenuStrip1
@@ -173,14 +174,14 @@
             CategoryPanel.Location = new Point(3, 2);
             CategoryPanel.Margin = new Padding(3, 2, 3, 2);
             CategoryPanel.Name = "CategoryPanel";
-            CategoryPanel.Size = new Size(900, 140);
+            CategoryPanel.Size = new Size(900, 266);
             CategoryPanel.TabIndex = 2;
             // 
             // tableLayoutPanel2
             // 
             tableLayoutPanel2.ColumnCount = 1;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
-            tableLayoutPanel2.Controls.Add(ShoeHideBtn, 0, 1);
+            tableLayoutPanel2.Controls.Add(ShowHideBtn, 0, 1);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(1326, 3);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -188,18 +189,18 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 47.36842F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 5.263158F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 47.36842F));
-            tableLayoutPanel2.Size = new Size(45, 613);
+            tableLayoutPanel2.Size = new Size(45, 620);
             tableLayoutPanel2.TabIndex = 0;
             // 
-            // ShoeHideBtn
+            // ShowHideBtn
             // 
-            ShoeHideBtn.Dock = DockStyle.Fill;
-            ShoeHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.right_arrow_solid_square_button;
-            ShoeHideBtn.Location = new Point(3, 293);
-            ShoeHideBtn.Name = "ShoeHideBtn";
-            ShoeHideBtn.Size = new Size(39, 26);
-            ShoeHideBtn.TabIndex = 0;
-            ShoeHideBtn.Click += ShoeHideBtn_Click;
+            ShowHideBtn.Dock = DockStyle.Fill;
+            ShowHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.right_arrow_solid_square_button;
+            ShowHideBtn.Location = new Point(3, 296);
+            ShowHideBtn.Name = "ShowHideBtn";
+            ShowHideBtn.Size = new Size(39, 26);
+            ShowHideBtn.TabIndex = 0;
+            ShowHideBtn.Click += ShowHideBtn_Click;
             // 
             // fluentFormDefaultManager1
             // 
@@ -213,7 +214,7 @@
             fluentDesignFormControl1.Manager = fluentFormDefaultManager1;
             fluentDesignFormControl1.Margin = new Padding(3, 2, 3, 2);
             fluentDesignFormControl1.Name = "fluentDesignFormControl1";
-            fluentDesignFormControl1.Size = new Size(1374, 31);
+            fluentDesignFormControl1.Size = new Size(1374, 24);
             fluentDesignFormControl1.TabIndex = 4;
             fluentDesignFormControl1.TabStop = false;
             fluentDesignFormControl1.Text = "View All Notes";
@@ -227,6 +228,7 @@
             Controls.Add(fluentDesignFormContainer1);
             Controls.Add(fluentDesignFormControl1);
             FluentDesignFormControl = fluentDesignFormControl1;
+            FormBorderStyle = FormBorderStyle.None;
             Margin = new Padding(3, 2, 3, 2);
             Name = "ViewNotesDashboard";
             Text = "View All Notes";
@@ -256,7 +258,7 @@
         private TableLayoutPanel tableLayoutPanel1;
         public TableLayoutPanel TableLayoutMDI;
         private TableLayoutPanel tableLayoutPanel2;
-        private DevExpress.XtraEditors.SimpleButton ShoeHideBtn;
+        private DevExpress.XtraEditors.SimpleButton ShowHideBtn;
         private TableLayoutPanel CategoriesNotesPanel;
     }
 }
