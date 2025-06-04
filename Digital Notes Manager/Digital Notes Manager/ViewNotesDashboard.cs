@@ -13,6 +13,9 @@ namespace Test
         public bool IsCategorySelected { get; set; } = false;
         int _userId = Utilities.GetCurrentLoggedInUserId();
         private bool isSecondColumnVisible = true;
+        string placeholderText = " search for a specific note...";
+        bool isPlaceholderActive = true;
+
         public ViewNotesDashboard()
         {
             InitializeComponent();
@@ -23,6 +26,11 @@ namespace Test
             ViewNotesHamubrger viewNotesHamubrger = new ViewNotesHamubrger();
             TableLayoutMDI.Controls.Add(viewNotesHamubrger.Pn_Container, 1, 0);
 
+            SearchTextBox.ForeColor = Color.Gray;
+            SearchTextBox.Text = placeholderText;
+
+            SearchTextBox.Enter += RemovePlaceholder;
+            SearchTextBox.Leave += SetPlaceholder;
 
 
 
@@ -42,6 +50,27 @@ namespace Test
             //    firstNonEmptyCategory = Category.Study;
             //}
             LoadNotesForAllCategories("");
+
+        }
+
+        private void SetPlaceholder(object? sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(SearchTextBox.Text))
+            {
+                SearchTextBox.Text = placeholderText;
+                SearchTextBox.ForeColor = Color.Gray;
+                isPlaceholderActive = true;
+            }
+        }
+
+        private void RemovePlaceholder(object? sender, EventArgs e)
+        {
+            if (isPlaceholderActive)
+            {
+                SearchTextBox.Text = "";
+                SearchTextBox.ForeColor = Color.Black;
+                isPlaceholderActive = false;
+            }
         }
 
         public static readonly Dictionary<Category, Color> CategoryColors = new Dictionary<Category, Color>
@@ -292,6 +321,7 @@ namespace Test
 
         private void SerachBox_TextChanged(object sender, EventArgs e)
         {
+            if (isPlaceholderActive) return;
             if (IsCategorySelected == true)
                 LoadNotesForSpecficCategory(SelectedCategory, CategoryColors[SelectedCategory], SearchTextBox.Text);
             else
@@ -320,7 +350,7 @@ namespace Test
                 isSecondColumnVisible = false;
                 TableLayoutMDI.ColumnStyles[2].SizeType = SizeType.Absolute;
                 TableLayoutMDI.ColumnStyles[2].Width = 50;
-                ShowHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.arrow_button; // Update the icon to show
+                ShowHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.arrow_button;
             }
             else
             {

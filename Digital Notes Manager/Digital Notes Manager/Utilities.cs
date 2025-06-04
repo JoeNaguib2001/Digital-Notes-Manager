@@ -1,5 +1,4 @@
-﻿using DevExpress.Utils.MVVM.Services;
-using DevExpress.XtraGrid;
+﻿using DevExpress.XtraGrid;
 using Digital_Notes_Manager.Models;
 using System.ComponentModel;
 using Test;
@@ -22,13 +21,10 @@ namespace Digital_Notes_Manager
         public static List<Note> notes { get; set; } = new List<Note>();
         //List Of Edites Notes
         public static List<Note> updatedNotes { get; set; } = new List<Note>();
-<<<<<<< Updated upstream
         public static List<string> notifications = new List<string>();
 
-=======
         //
         public static TableLayoutPanel TableLayoutPanel { get; set; }
->>>>>>> Stashed changes
 
         public static void SetNotesGridControlDataSource()
         {
