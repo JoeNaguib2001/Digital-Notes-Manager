@@ -9,6 +9,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <ApplicationHighDpiMode>SystemAware</ApplicationHighDpiMode>
     <ForceDesignerDpiUnaware>true</ForceDesignerDpiUnaware>
+    <ApplicationIcon>icons\note-taking-app-icon-2048x2048-mt93xtc5.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -16,6 +17,10 @@
     <None Remove="Alarm1.wav" />
     <None Remove="Alarm2.wav" />
     <None Remove="AlarmSounds\Alarm3.wav" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icons\note-taking-app-icon-2048x2048-mt93xtc5.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +40,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Note\ViewNotes - Copy.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Properties\Resources.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>

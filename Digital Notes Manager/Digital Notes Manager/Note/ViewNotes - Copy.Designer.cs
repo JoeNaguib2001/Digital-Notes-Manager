@@ -1,6 +1,6 @@
 ﻿namespace Digital_Notes_Manager
 {
-    partial class ViewNotes
+    partial class ViewNotesHamubrger
     {
         /// <summary>
         /// Required designer variable.
@@ -31,7 +31,7 @@
             components = new System.ComponentModel.Container();
             DevExpress.XtraGrid.GridLevelNode gridLevelNode1 = new DevExpress.XtraGrid.GridLevelNode();
             DevExpress.XtraEditors.Controls.EditorButtonImageOptions editorButtonImageOptions1 = new DevExpress.XtraEditors.Controls.EditorButtonImageOptions();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewNotes));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ViewNotesHamubrger));
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject1 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject2 = new DevExpress.Utils.SerializableAppearanceObject();
             DevExpress.Utils.SerializableAppearanceObject serializableAppearanceObject3 = new DevExpress.Utils.SerializableAppearanceObject();
@@ -136,7 +136,6 @@
             gridView1.CellValueChanged += gridView1_CellValueChanged;
             gridView1.RowUpdated += gridView1_RowUpdated;
             gridView1.CustomUnboundColumnData += gridView1_CustomUnboundColumnData;
-            gridView1.CustomColumnDisplayText += gridView1_CustomColumnDisplayText;
             // 
             // colTitle
             // 
@@ -178,8 +177,6 @@
             colCreationDate.AppearanceHeader.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
             colCreationDate.FieldName = "CreationDate";
             colCreationDate.Name = "colCreationDate";
-            colCreationDate.Visible = true;
-            colCreationDate.VisibleIndex = 3;
             colCreationDate.Width = 145;
             // 
             // colReminderDate
@@ -202,8 +199,6 @@
             colReminderDate.DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
             colReminderDate.FieldName = "ReminderDate";
             colReminderDate.Name = "colReminderDate";
-            colReminderDate.Visible = true;
-            colReminderDate.VisibleIndex = 4;
             colReminderDate.Width = 177;
             // 
             // colCategory
@@ -225,8 +220,6 @@
             colCategory.Caption = "Category";
             colCategory.FieldName = "Category";
             colCategory.Name = "colCategory";
-            colCategory.Visible = true;
-            colCategory.VisibleIndex = 2;
             colCategory.Width = 145;
             // 
             // DeleteColumn
@@ -247,7 +240,7 @@
             DeleteColumn.MaxWidth = 75;
             DeleteColumn.Name = "DeleteColumn";
             DeleteColumn.Visible = true;
-            DeleteColumn.VisibleIndex = 6;
+            DeleteColumn.VisibleIndex = 3;
             // 
             // BtnDelete
             // 
@@ -277,7 +270,7 @@
             gridColumn2.OptionsColumn.AllowEdit = false;
             gridColumn2.UnboundDataType = typeof(string);
             gridColumn2.Visible = true;
-            gridColumn2.VisibleIndex = 5;
+            gridColumn2.VisibleIndex = 2;
             gridColumn2.Width = 88;
             // 
             // Pn_Container
@@ -322,7 +315,7 @@
             liveTimer.Interval = 1000;
             liveTimer.Tick += liveTimer_Tick;
             // 
-            // ViewNotes
+            // ViewNotesHamubrger
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -330,7 +323,7 @@
             ClientSize = new Size(915, 565);
             Controls.Add(Pn_Container);
             Icon = (Icon)resources.GetObject("$this.Icon");
-            Name = "ViewNotes";
+            Name = "ViewNotesHamubrger";
             Text = "View Notes";
             ((System.ComponentModel.ISupportInitialize)detailView).EndInit();
             ((System.ComponentModel.ISupportInitialize)Notes_Grid).EndInit();

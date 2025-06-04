@@ -9,9 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Digital_Notes_Manager
 {
-    public partial class ViewNotes : Form
+    public partial class ViewNotesHamubrger : Form
     {
-        public ViewNotes()
+        public ViewNotesHamubrger()
         {
             InitializeComponent();
             gridView1.Columns["CreationDate"].DisplayFormat.FormatType = DevExpress.Utils.FormatType.DateTime;
@@ -117,13 +117,14 @@ namespace Digital_Notes_Manager
                     {
                         ManageNoteContext.Entry(selectedRow).State = EntityState.Deleted;
                         ManageNoteContext.SaveChanges();
-                        ToastForm.ShowToast("Note Deleted Successfully", 2000);
+                        XtraMessageBox.Show("Note Deleted Successfully");
                         Utilities.SetNotesGridControlDataSource();
+                        Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
                     }
                 }
                 else
                 {
-                    ToastForm.ShowToast("Please Select A Note To Delete", 2000);
+                    XtraMessageBox.Show("Please Select A Note To Delete");
                 }
             }
         }
@@ -146,6 +147,7 @@ namespace Digital_Notes_Manager
             ManageNoteContext.SaveChanges();
         }
 
+        // This method is called when the user clicks the "Delete All" menu item in the context menu.
         private void deleteAllSeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (MessageBox.Show("Are you sure you want to delete the selected notes ?", "Confirm", MessageBoxButtons.YesNo) == DialogResult.No)
@@ -174,8 +176,9 @@ namespace Digital_Notes_Manager
             }
 
 
-            ToastForm.ShowToast("Note Deleted Successfully", 2000);
+            XtraMessageBox.Show("Deleted Successfully");
             Utilities.SetNotesGridControlDataSource();
+            Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
         }
 
         private void gridView1_PopupMenuShowing(object sender, DevExpress.XtraGrid.Views.Grid.PopupMenuShowingEventArgs e)
@@ -187,13 +190,12 @@ namespace Digital_Notes_Manager
 
         }
 
-        List<Note_Form> note_Forms = new List<Note_Form>();
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var selectedRow = gridView1.GetFocusedRow() as Note;
             if (Utilities.OpenedNotes.Any(n => n.ID == selectedRow.ID))
             {
-                ToastForm.ShowToast("This note is already opened", 2000);
+                XtraMessageBox.Show("This note is already opened.");
                 return;
             }
             else
@@ -213,7 +215,10 @@ namespace Digital_Notes_Manager
 
         private void saveInYourDeviceToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Note_Form noteForm = new Note_Form();
             var selectedRow = gridView1.GetFocusedRow() as Note;
+            noteForm.richTextBox1.Text = selectedRow?.Content ?? string.Empty;
+
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Rich Text File (*.rtf) | *.rtf";
             saveFileDialog.Title = "Save Note as RTF File in Your Device";
@@ -229,6 +234,8 @@ namespace Digital_Notes_Manager
                     richTextBox.SelectionColor = Color.Black;
                     RichTextBox textBox = new RichTextBox();
                     textBox.Rtf = selectedRow.Content;
+
+
                     richTextBox.Rtf = textBox.Rtf;
 
 
@@ -237,7 +244,7 @@ namespace Digital_Notes_Manager
                     // Open the file automatically
                     System.Diagnostics.Process.Start("explorer.exe", saveFileDialog.FileName);
 
-                    ToastForm.ShowToast("Note saved and opened successfully!", 2000);
+                    MessageBox.Show("Note saved and opened successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
                 catch (Exception ex)
                 {
@@ -261,7 +268,7 @@ namespace Digital_Notes_Manager
                     else
                     {
                         int days = diff.Days;
-                        int hours = diff.Hours;
+                        int hours = diff.Hours;       // ساعات بعد استثناء الأيام
                         int minutes = diff.Minutes;
                         int seconds = diff.Seconds;
 
@@ -339,18 +346,6 @@ namespace Digital_Notes_Manager
                 if (findPanel != null)
                 {
                     findPanel.FindEdit.Font = new Font("Tahoma", 12);
-                }
-            }
-
-        }
-
-        private void gridView1_CustomColumnDisplayText(object sender, CustomColumnDisplayTextEventArgs e)
-        {
-            if (e.Column.FieldName == "ReminderDate")
-            {
-                if (e.Value is DateTime date && date == DateTime.MinValue)
-                {
-                    e.DisplayText = "-";
                 }
             }
 

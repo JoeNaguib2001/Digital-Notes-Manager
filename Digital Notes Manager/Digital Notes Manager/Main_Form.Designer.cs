@@ -32,13 +32,12 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Form));
             accordionControl1 = new DevExpress.XtraBars.Navigation.AccordionControl();
             NotesGroupAccordionElement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            Show_Notes_Accordion_Element = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            accordionControlSeparator3 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
-            Add_A_New_Note_Accordion_Element = new DevExpress.XtraBars.Navigation.AccordionControlElement();
-            accordionControlSeparator4 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
             View_All_Notes_Popped = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            Show_Notes_Accordion_Element = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            Add_A_New_Note_Accordion_Element = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             accordionControlSeparator5 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
             Report_ControlElement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
+            Gantt_Chart_Element = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             accordionControlSeparator1 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
             Logout_AccordionElement = new DevExpress.XtraBars.Navigation.AccordionControlElement();
             accordionControlSeparator2 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
@@ -48,7 +47,7 @@
             helpToolStripMenuItem = new ToolStripMenuItem();
             MDI_Panel = new Panel();
             panel1 = new Panel();
-            notificationBell1 = new Customs.NotificationBell();
+            notificationBell1 = new Digital_Notes_Manager.Customs.NotificationBell();
             notifyIcon1 = new NotifyIcon(components);
             GreatDocker = new Panel();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
@@ -67,8 +66,9 @@
             accordionControl1.LookAndFeel.SkinName = "Visual Studio 2013 Blue";
             accordionControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             accordionControl1.Name = "accordionControl1";
+            accordionControl1.OptionsMinimizing.State = DevExpress.XtraBars.Navigation.AccordionControlState.Minimized;
             accordionControl1.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Hidden;
-            accordionControl1.Size = new Size(260, 804);
+            accordionControl1.Size = new Size(56, 842);
             accordionControl1.TabIndex = 0;
             accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
             // 
@@ -90,11 +90,33 @@
             NotesGroupAccordionElement.Appearance.Pressed.ForeColor = Color.Black;
             NotesGroupAccordionElement.Appearance.Pressed.Options.UseBackColor = true;
             NotesGroupAccordionElement.Appearance.Pressed.Options.UseForeColor = true;
-            NotesGroupAccordionElement.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { Show_Notes_Accordion_Element, accordionControlSeparator3, Add_A_New_Note_Accordion_Element, accordionControlSeparator4, View_All_Notes_Popped, accordionControlSeparator5, Report_ControlElement });
+            NotesGroupAccordionElement.Elements.AddRange(new DevExpress.XtraBars.Navigation.AccordionControlElement[] { View_All_Notes_Popped, Show_Notes_Accordion_Element, Add_A_New_Note_Accordion_Element, accordionControlSeparator5, Report_ControlElement, Gantt_Chart_Element });
             NotesGroupAccordionElement.Expanded = true;
             NotesGroupAccordionElement.ImageOptions.Image = (Image)resources.GetObject("NotesGroupAccordionElement.ImageOptions.Image");
             NotesGroupAccordionElement.Name = "NotesGroupAccordionElement";
             NotesGroupAccordionElement.Text = "My Notes";
+            // 
+            // View_All_Notes_Popped
+            // 
+            View_All_Notes_Popped.Appearance.Default.Font = new Font("Tahoma", 10.2F);
+            View_All_Notes_Popped.Appearance.Default.ForeColor = Color.White;
+            View_All_Notes_Popped.Appearance.Default.Options.UseFont = true;
+            View_All_Notes_Popped.Appearance.Default.Options.UseForeColor = true;
+            View_All_Notes_Popped.Appearance.Hovered.BackColor = Color.FromArgb(205, 230, 247);
+            View_All_Notes_Popped.Appearance.Hovered.ForeColor = Color.Black;
+            View_All_Notes_Popped.Appearance.Hovered.Options.UseBackColor = true;
+            View_All_Notes_Popped.Appearance.Hovered.Options.UseForeColor = true;
+            View_All_Notes_Popped.Appearance.Normal.BackColor = Color.FromArgb(222, 233, 239);
+            View_All_Notes_Popped.Appearance.Normal.ForeColor = Color.Black;
+            View_All_Notes_Popped.Appearance.Normal.Options.UseBackColor = true;
+            View_All_Notes_Popped.Appearance.Normal.Options.UseForeColor = true;
+            View_All_Notes_Popped.Appearance.Pressed.BackColor = Color.FromArgb(205, 230, 247);
+            View_All_Notes_Popped.Appearance.Pressed.ForeColor = Color.Black;
+            View_All_Notes_Popped.Appearance.Pressed.Options.UseBackColor = true;
+            View_All_Notes_Popped.Appearance.Pressed.Options.UseForeColor = true;
+            View_All_Notes_Popped.Name = "View_All_Notes_Popped";
+            View_All_Notes_Popped.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            View_All_Notes_Popped.Text = "View All Notes Popped";
             // 
             // Show_Notes_Accordion_Element
             // 
@@ -118,10 +140,6 @@
             Show_Notes_Accordion_Element.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             Show_Notes_Accordion_Element.Text = "Show My Notes";
             // 
-            // accordionControlSeparator3
-            // 
-            accordionControlSeparator3.Name = "accordionControlSeparator3";
-            // 
             // Add_A_New_Note_Accordion_Element
             // 
             Add_A_New_Note_Accordion_Element.Appearance.Default.Font = new Font("Tahoma", 10.2F);
@@ -143,32 +161,6 @@
             Add_A_New_Note_Accordion_Element.Name = "Add_A_New_Note_Accordion_Element";
             Add_A_New_Note_Accordion_Element.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             Add_A_New_Note_Accordion_Element.Text = "Add A New Note";
-            // 
-            // accordionControlSeparator4
-            // 
-            accordionControlSeparator4.Name = "accordionControlSeparator4";
-            // 
-            // View_All_Notes_Popped
-            // 
-            View_All_Notes_Popped.Appearance.Default.Font = new Font("Tahoma", 10.2F);
-            View_All_Notes_Popped.Appearance.Default.ForeColor = Color.White;
-            View_All_Notes_Popped.Appearance.Default.Options.UseFont = true;
-            View_All_Notes_Popped.Appearance.Default.Options.UseForeColor = true;
-            View_All_Notes_Popped.Appearance.Hovered.BackColor = Color.FromArgb(205, 230, 247);
-            View_All_Notes_Popped.Appearance.Hovered.ForeColor = Color.Black;
-            View_All_Notes_Popped.Appearance.Hovered.Options.UseBackColor = true;
-            View_All_Notes_Popped.Appearance.Hovered.Options.UseForeColor = true;
-            View_All_Notes_Popped.Appearance.Normal.BackColor = Color.FromArgb(222, 233, 239);
-            View_All_Notes_Popped.Appearance.Normal.ForeColor = Color.Black;
-            View_All_Notes_Popped.Appearance.Normal.Options.UseBackColor = true;
-            View_All_Notes_Popped.Appearance.Normal.Options.UseForeColor = true;
-            View_All_Notes_Popped.Appearance.Pressed.BackColor = Color.FromArgb(205, 230, 247);
-            View_All_Notes_Popped.Appearance.Pressed.ForeColor = Color.Black;
-            View_All_Notes_Popped.Appearance.Pressed.Options.UseBackColor = true;
-            View_All_Notes_Popped.Appearance.Pressed.Options.UseForeColor = true;
-            View_All_Notes_Popped.Name = "View_All_Notes_Popped";
-            View_All_Notes_Popped.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            View_All_Notes_Popped.Text = "View All Notes Popped";
             // 
             // accordionControlSeparator5
             // 
@@ -195,6 +187,12 @@
             Report_ControlElement.Name = "Report_ControlElement";
             Report_ControlElement.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
             Report_ControlElement.Text = "Report";
+            // 
+            // Gantt_Chart_Element
+            // 
+            Gantt_Chart_Element.Name = "Gantt_Chart_Element";
+            Gantt_Chart_Element.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            Gantt_Chart_Element.Text = "Gantt Chart";
             // 
             // accordionControlSeparator1
             // 
@@ -232,7 +230,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1283, 24);
+            menuStrip1.Size = new Size(1461, 24);
             menuStrip1.TabIndex = 1;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -262,7 +260,7 @@
             MDI_Panel.Dock = DockStyle.Fill;
             MDI_Panel.Location = new Point(0, 42);
             MDI_Panel.Name = "MDI_Panel";
-            MDI_Panel.Size = new Size(1023, 762);
+            MDI_Panel.Size = new Size(1405, 800);
             MDI_Panel.TabIndex = 2;
             // 
             // panel1
@@ -271,12 +269,13 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1023, 42);
+            panel1.Size = new Size(1405, 42);
             panel1.TabIndex = 4;
             // 
             // notificationBell1
             // 
-            notificationBell1.Location = new Point(987, 13);
+            notificationBell1.Anchor = AnchorStyles.None;
+            notificationBell1.Location = new Point(1235, 13);
             notificationBell1.Name = "notificationBell1";
             notificationBell1.NotificationCount = 0;
             notificationBell1.Size = new Size(24, 23);
@@ -293,19 +292,20 @@
             GreatDocker.Controls.Add(MDI_Panel);
             GreatDocker.Controls.Add(panel1);
             GreatDocker.Dock = DockStyle.Fill;
-            GreatDocker.Location = new Point(260, 24);
+            GreatDocker.Location = new Point(56, 24);
             GreatDocker.Name = "GreatDocker";
-            GreatDocker.Size = new Size(1023, 804);
+            GreatDocker.Size = new Size(1405, 842);
             GreatDocker.TabIndex = 6;
             // 
             // Main_Form
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1283, 828);
+            ClientSize = new Size(1461, 866);
             Controls.Add(GreatDocker);
             Controls.Add(accordionControl1);
             Controls.Add(menuStrip1);
+            IconOptions.Icon = (Icon)resources.GetObject("Main_Form.IconOptions.Icon");
             IsMdiContainer = true;
             MainMenuStrip = menuStrip1;
             Margin = new Padding(3, 2, 3, 2);
@@ -328,14 +328,11 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
-        private Panel MDI_Panel;
         private DevExpress.XtraBars.Navigation.AccordionControlElement Show_Notes_Accordion_Element;
         private DevExpress.XtraBars.Navigation.AccordionControlElement Add_A_New_Note_Accordion_Element;
         private DevExpress.XtraBars.Navigation.AccordionControlElement View_All_Notes_Popped;
         private ToolStripMenuItem importNoteToolStripMenuItem;
         private DevExpress.XtraBars.Navigation.AccordionControlElement Logout_AccordionElement;
-        private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator3;
-        private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator4;
         private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator5;
         private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator1;
         private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator2;
@@ -344,5 +341,7 @@
         private NotifyIcon notifyIcon1;
         private Customs.NotificationBell notificationBell1;
         private Panel GreatDocker;
+        public Panel MDI_Panel;
+        private DevExpress.XtraBars.Navigation.AccordionControlElement Gantt_Chart_Element;
     }
 }

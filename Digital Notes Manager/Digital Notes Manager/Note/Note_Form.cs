@@ -36,21 +36,16 @@ namespace Digital_Notes_Manager
 
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HTCAPTION = 0x2;
+        private string currentCalendarContext = ""; // Could be "Notification", "Start", "End"
+        private DateTime StartDate;
+        private DateTime EndDate;
+
         public Note_Form()
         {
             InitializeComponent();
             Categorybox.SelectedIndexChanged -= Categorybox_SelectedIndexChanged;
             SetupNoteForm();
-            //GalleryItemGroup group = new GalleryItemGroup();
-            //group.Items.Add(new GalleryItem(null, "", "", Color.Red));
-            //group.Items.Add(new GalleryItem(null, "", "", Color.Green));
-            //// Add more...
 
-            //galleryControl1.Gallery.Groups.Add(group);
-            //galleryControl1.Gallery.ItemClick += (s, e) =>
-            //{
-            //    var selectedColor = e.Item.HintColor; // Custom extension or mapping
-            //};
             CreateNote();
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
 
@@ -70,8 +65,20 @@ namespace Digital_Notes_Manager
             NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(0));
             Categorybox.Text = note.Category.ToString();
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
-            saveBtn.ImageOptions.Image = Properties.Resources.disk2;
+            if (note.ReminderDate < DateTime.Now && note.IsCompleted == true)
+            {
+                IsCompleted.Visible = true;
+                IsCompleted.Text = "Completed";
+                IsCompleted.Checked = true;
+            }
+            else if (note.ReminderDate < DateTime.Now && note.IsCompleted == false)
+            {
+                IsCompleted.Visible = true;
+                IsCompleted.Text = "Not Completed";
+                IsCompleted.Checked = false;
+            }
 
+            saveBtn.ImageOptions.Image = Properties.Resources.disk2;
         }
 
         private void SetupNoteForm()
@@ -266,14 +273,35 @@ namespace Digital_Notes_Manager
 
             // Step 3: Add items
             BarButtonItem item1 = new BarButtonItem(barManager, "Set Notification");
-            BarButtonItem item2 = new BarButtonItem(barManager, "change Color");
+            BarButtonItem item2 = new BarButtonItem(barManager, "Set Start");
+            BarButtonItem item3 = new BarButtonItem(barManager, "Set  End");
+
 
             // Handle clicks
-            item1.ItemClick += (s, e) => Calender.ShowPopup();
+            item1.ItemClick += (s, e) =>
+            {
+                currentCalendarContext = "Notification";
+                Calender.ShowPopup();
+            };
+
+            item2.ItemClick += (s, e) =>
+            {
+                currentCalendarContext = "Start";
+                Calender.ShowPopup();
+            };
+
+            item3.ItemClick += (s, e) =>
+            {
+                currentCalendarContext = "End";
+                Calender.ShowPopup();
+            };
+
 
             // Add items to popup menu
             popupMenu.AddItem(item1);
             popupMenu.AddItem(item2);
+            popupMenu.AddItem(item3);
+
             // Step 4: Attach to button click
             MenuBtn.Click += (s, e) =>
             {
@@ -282,17 +310,11 @@ namespace Digital_Notes_Manager
                 Point leftOfButton = MenuBtn.PointToScreen(new Point(-MenuBtn.Width * 2, 20)); // if Width unknown, estimate
                 popupMenu.ShowPopup(leftOfButton);
 
-                //popupMenu.ShowPopup(MousePosition); // show near cursor
+
             };
 
         }
 
-
-
-        //private void Calender_Click(object sender, EventArgs e)
-        //{
-        //    Calender.ShowPopup();
-        //}
 
 
 
@@ -307,6 +329,8 @@ namespace Digital_Notes_Manager
                 currentNote.ReminderDate = NotficationDate.DateTime;
                 currentNote.Category = (Category)Enum.Parse(typeof(Category), Categorybox.Text);
                 currentNote.IsCompleted = Completed;
+                currentNote.StartDate = StartDate;
+                currentNote.EndDate = EndDate;
                 _ManageNoteContext.Notes.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _ManageNoteContext.SaveChanges();
                 Alarm.AddNewNoteToAlarmSystemNotesList(currentNote);
@@ -323,22 +347,30 @@ namespace Digital_Notes_Manager
 
         private void Calender_EditValueChanged(object sender, EventArgs e)
         {
+            DateTime selectedDate = Calender.DateTimeOffset.DateTime;
 
-            NotficationDate = Calender.DateTimeOffset;
-            DateTime d = NotficationDate.DateTime;
+            if (currentCalendarContext == "Notification")
+            {
+                NotficationDate = Calender.DateTimeOffset;
+                if (selectedDate > DateTime.Now)
+                {
+                    ChangeBell();
+                }
+            }
+            else if (currentCalendarContext == "Start")
+            {
+                var x = Calender.DateTimeOffset;
+                StartDate = x.DateTime;
 
-            if (d > DateTime.Now)
-            {
-                ChangeBell();
             }
-            else
+            else if (currentCalendarContext == "End")
             {
-                NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
+                var x = Calender.DateTimeOffset;
+                EndDate = x.DateTime;
             }
+
             saveBtn.ImageOptions.Image = Properties.Resources.disk1;
 
-            IsCompleted.Visible = true;
-            IsCompleted.Text = "Not Completed";
         }
 
         private void TitleBox_DoubleClick(object sender, EventArgs e)
@@ -371,6 +403,7 @@ namespace Digital_Notes_Manager
         {
             _Category = Categorybox.Text;
             ToastForm.ShowToast($"Category Changed To {Categorybox.Text}", 3000);
+            saveBtn.ImageOptions.Image = Properties.Resources.disk1;
 
         }
 
@@ -466,6 +499,7 @@ namespace Digital_Notes_Manager
         {
             IsCompleted.Text = "Complete";
             Completed = true;
+            saveBtn.ImageOptions.Image = Properties.Resources.disk1;
         }
 
     }

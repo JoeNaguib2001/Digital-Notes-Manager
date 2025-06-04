@@ -19,6 +19,7 @@ namespace Digital_Notes_Manager
             InitializeComponent();
             viewNotesDashboard = new ViewNotesDashboard();
             viewNotes = new ViewNotes();
+            Utilities.MainForm = this;
             this.Shown += Notify_Load;
 
             Add_A_New_Note_Accordion_Element.Click += AccordionElementClick;
@@ -26,6 +27,7 @@ namespace Digital_Notes_Manager
             View_All_Notes_Popped.Click += AccordionElementClick;
             Logout_AccordionElement.Click += AccordionElementClick;
             Report_ControlElement.Click += AccordionElementClick;
+            Gantt_Chart_Element.Click += AccordionElementClick;
             alertControl = new DevExpress.XtraBars.Alerter.AlertControl();
 
             notificationBell1.Size = new Size(40, 40);
@@ -80,8 +82,7 @@ namespace Digital_Notes_Manager
                     notificationBellLocation.X - 260,
                     notificationBellLocation.Y + notificationBell1.Height
                 );
-
-                notificationPopup.Show();
+                notificationPopup.Show(this);
             }
         }
 
@@ -102,6 +103,7 @@ namespace Digital_Notes_Manager
                         {
                             Note_Form noteForm = new Note_Form();
                             noteForm.Show();
+                            //Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
                         }
                         break;
                     case "View_All_Notes_Popped":
@@ -119,6 +121,11 @@ namespace Digital_Notes_Manager
                             LoadReportsForm();
                         }
                         break;
+                    case "Gantt_Chart_Element":
+                        {
+                            loadGantt();
+                        }
+                        break;
                     default:
                         XtraMessageBox.Show("Unknown action.");
                         break;
@@ -128,17 +135,17 @@ namespace Digital_Notes_Manager
 
 
 
-
+        private void loadGantt()
+        {
+            GanttForm ganttChartForm = new GanttForm();
+            MDI_Panel.Controls.Clear();
+            MDI_Panel.Controls.Add(ganttChartForm.schedulerControl1);
+        }
         private void LoadNotesForm()
         {
             this.MDI_Panel.Controls.Clear();
             viewNotes = new ViewNotes();
             MDI_Panel.Controls.Add(viewNotes.Pn_Container);
-            var resources = typeof(Program).Assembly.GetManifestResourceNames();
-            foreach (var res in resources)
-            {
-                System.Diagnostics.Debug.WriteLine(res);
-            }
         }
 
         private void Logout()
@@ -208,10 +215,10 @@ namespace Digital_Notes_Manager
             int userId = Properties.Settings.Default.userID;
 
             List<Note> list = manageNoteContext.Notes
-                .Where(x => x.UserID == userId && !x.IsCompleted)
-                .AsEnumerable()
-                .OrderBy(x => x.ReminderDate)
-                .ToList();
+          .Where(x => x.UserID == userId && !x.IsCompleted && x.ReminderDate != DateTime.MinValue)
+          .OrderByDescending(x => x.ReminderDate)
+          .ToList();
+
 
             Alarm alarm = new Alarm(this, list);
             _ = alarm.CompareTimeAsync();
@@ -227,10 +234,5 @@ namespace Digital_Notes_Manager
             MDI_Panel.Controls.Clear();
             MDI_Panel.Controls.Add(reportsForm.tableLayoutPanel1);
         }
-
-        private void LogoutAccordionElement_Click(object sender, EventArgs e)
-        {
-        }
-
     }
 }

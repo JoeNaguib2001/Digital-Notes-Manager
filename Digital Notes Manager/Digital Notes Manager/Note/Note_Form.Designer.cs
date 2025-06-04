@@ -69,7 +69,7 @@
             richTextBox1.Font = new Font("Tahoma", 11.25F, FontStyle.Regular, GraphicsUnit.Point, 0);
             richTextBox1.Location = new Point(12, 50);
             richTextBox1.Name = "richTextBox1";
-            richTextBox1.Size = new Size(339, 259);
+            richTextBox1.Size = new Size(280, 192);
             richTextBox1.TabIndex = 3;
             richTextBox1.Text = "";
             richTextBox1.TextChanged += richTextBox1_TextChanged;
@@ -102,10 +102,10 @@
             Close_btn.Dock = DockStyle.Right;
             Close_btn.ImageOptions.Image = Properties.Resources.cross;
             Close_btn.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            Close_btn.Location = new Point(333, 0);
+            Close_btn.Location = new Point(276, 0);
             Close_btn.Name = "Close_btn";
             Close_btn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
-            Close_btn.Size = new Size(41, 33);
+            Close_btn.Size = new Size(29, 33);
             Close_btn.TabIndex = 6;
             Close_btn.Click += Close_btn_Click;
             // 
@@ -133,7 +133,7 @@
             // TitleBox
             // 
             TitleBox.EditValue = "Note";
-            TitleBox.Location = new Point(147, 3);
+            TitleBox.Location = new Point(100, 3);
             TitleBox.Name = "TitleBox";
             TitleBox.Properties.AllowFocused = false;
             TitleBox.Properties.Appearance.BackColor = Color.FromArgb(44, 62, 80);
@@ -155,7 +155,7 @@
             // 
             // Categorybox
             // 
-            Categorybox.Location = new Point(257, 5);
+            Categorybox.Location = new Point(184, 4);
             Categorybox.Name = "Categorybox";
             Categorybox.Properties.Appearance.Font = new Font("Tahoma", 9.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             Categorybox.Properties.Appearance.Options.UseFont = true;
@@ -172,15 +172,15 @@
             DownPanel.Controls.Add(Categorybox);
             DownPanel.Controls.Add(saveBtn);
             DownPanel.Dock = DockStyle.Bottom;
-            DownPanel.Location = new Point(0, 325);
+            DownPanel.Location = new Point(0, 254);
             DownPanel.Name = "DownPanel";
-            DownPanel.Size = new Size(374, 34);
+            DownPanel.Size = new Size(305, 34);
             DownPanel.TabIndex = 10;
             // 
             // TrashBtn
             // 
             TrashBtn.ImageOptions.Image = Properties.Resources.trash1;
-            TrashBtn.Location = new Point(137, 6);
+            TrashBtn.Location = new Point(127, 7);
             TrashBtn.Name = "TrashBtn";
             TrashBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             TrashBtn.Size = new Size(20, 20);
@@ -191,7 +191,7 @@
             // 
             BellButton.ImageOptions.Image = Properties.Resources.bell1;
             BellButton.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            BellButton.Location = new Point(57, 0);
+            BellButton.Location = new Point(42, 0);
             BellButton.Name = "BellButton";
             BellButton.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             BellButton.Size = new Size(38, 33);
@@ -209,7 +209,7 @@
             TopPanal.Dock = DockStyle.Top;
             TopPanal.Location = new Point(0, 0);
             TopPanal.Name = "TopPanal";
-            TopPanal.Size = new Size(374, 33);
+            TopPanal.Size = new Size(305, 33);
             TopPanal.TabIndex = 11;
             TopPanal.Paint += TopPanal_Paint;
             TopPanal.MouseDown += TopPanal_MouseDown;
@@ -218,7 +218,7 @@
             // 
             IsCompleted.AutoSize = true;
             IsCompleted.ForeColor = Color.White;
-            IsCompleted.Location = new Point(250, 10);
+            IsCompleted.Location = new Point(177, 9);
             IsCompleted.Name = "IsCompleted";
             IsCompleted.Size = new Size(77, 17);
             IsCompleted.TabIndex = 11;
@@ -236,7 +236,7 @@
             Container.Dock = DockStyle.Fill;
             Container.Location = new Point(0, 0);
             Container.Name = "Container";
-            Container.Size = new Size(374, 359);
+            Container.Size = new Size(305, 288);
             Container.TabIndex = 12;
             Container.Paint += Container_Paint;
             // 
@@ -245,7 +245,7 @@
             AllowDrop = true;
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(374, 359);
+            ClientSize = new Size(305, 288);
             Controls.Add(Container);
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
