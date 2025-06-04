@@ -364,6 +364,7 @@ namespace Digital_Notes_Manager
         {
             _Category = Categorybox.Text;
             ToastForm.ShowToast($"Category Changed To {Categorybox.Text}", 3000);
+            saveBtn.ImageOptions.Image = Properties.Resources.disk1;
 
         }
 

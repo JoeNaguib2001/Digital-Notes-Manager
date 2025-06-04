@@ -47,13 +47,13 @@ namespace Digital_Notes_Manager.Models
             });
 
 
-            modelBuilder.Entity<Note>().HasData(
-     new Note { ID = 1, Title = "Hello", Content = "Welcome to my first note", CreationDate = new DateTime(2025, 5, 31), Category = Category.Study, ReminderDate = new DateTime(2025, 6, 1), UserID = 1 },
-     new Note { ID = 2, Title = "Meeting Notes", Content = "Discuss project timeline and deliverables.", CreationDate = new DateTime(2025, 5, 30), Category = Category.Work, ReminderDate = new DateTime(2025, 6, 3), UserID = 1 },
-     new Note { ID = 3, Title = "Shopping List", Content = "Milk, Bread, Eggs, Coffee", CreationDate = new DateTime(2025, 5, 31), Category = Category.Reminders, ReminderDate = new DateTime(2025, 6, 2), UserID = 1 },
-     new Note { ID = 4, Title = "Ideas", Content = "Build a note-taking app with tagging feature.", CreationDate = new DateTime(2025, 5, 29), Category = Category.Ideas, ReminderDate = new DateTime(2025, 6, 1), UserID = 1 },
-     new Note { ID = 5, Title = "Workout Plan", Content = "Push/Pull/Legs split for next 4 weeks.", CreationDate = new DateTime(2025, 5, 28), Category = Category.Personal, ReminderDate = new DateTime(2025, 6, 5), UserID = 1 }
- );
+            //           modelBuilder.Entity<Note>().HasData(
+            //    new Note { ID = 1, Title = "Hello", Content = "Welcome to my first note", CreationDate = new DateTime(2025, 5, 31), Category = Category.Study, ReminderDate = new DateTime(2025, 6, 1), UserID = 1 },
+            //    new Note { ID = 2, Title = "Meeting Notes", Content = "Discuss project timeline and deliverables.", CreationDate = new DateTime(2025, 5, 30), Category = Category.Work, ReminderDate = new DateTime(2025, 6, 3), UserID = 1 },
+            //    new Note { ID = 3, Title = "Shopping List", Content = "Milk, Bread, Eggs, Coffee", CreationDate = new DateTime(2025, 5, 31), Category = Category.Reminders, ReminderDate = new DateTime(2025, 6, 2), UserID = 1 },
+            //    new Note { ID = 4, Title = "Ideas", Content = "Build a note-taking app with tagging feature.", CreationDate = new DateTime(2025, 5, 29), Category = Category.Ideas, ReminderDate = new DateTime(2025, 6, 1), UserID = 1 },
+            //    new Note { ID = 5, Title = "Workout Plan", Content = "Push/Pull/Legs split for next 4 weeks.", CreationDate = new DateTime(2025, 5, 28), Category = Category.Personal, ReminderDate = new DateTime(2025, 6, 5), UserID = 1 }
+            //);
 
 
         }
