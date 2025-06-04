@@ -19,6 +19,9 @@ namespace Test
         public ViewNotesDashboard()
         {
             InitializeComponent();
+            EnableDoubleBuffering(notesPanel);
+            EnableDoubleBuffering(CategoryPanel);
+
             Utilities.ViewNotesDashboard = this;
             Utilities.TableLayoutPanel = CategoriesNotesPanel;
             LoadCategories();
@@ -51,6 +54,15 @@ namespace Test
             //}
             LoadNotesForAllCategories("");
 
+        }
+
+        private void EnableDoubleBuffering(Control control)
+        {
+            typeof(Panel).InvokeMember("DoubleBuffered",
+                System.Reflection.BindingFlags.SetProperty |
+                System.Reflection.BindingFlags.Instance |
+                System.Reflection.BindingFlags.NonPublic,
+                null, control, new object[] { true });
         }
 
         private void SetPlaceholder(object? sender, EventArgs e)
@@ -238,12 +250,6 @@ namespace Test
                     .ToList();
             }
 
-            //if (notes.Count == 0)
-            //{
-            //    MessageBox.Show("You Have No Notes For This Category !!!");
-            //    return;
-            //}
-
             notesPanel.Controls.Clear();
             foreach (var note in filteredNotes)
             {
@@ -273,12 +279,7 @@ namespace Test
                     .Where(n => ConvertRtfToPlainText(n.Content).Contains(searchFor))
                     .ToList();
             }
-            //if (notes.Count == 0)
-            //{
-            //    MessageBox.Show("You Have No Notes For This Category !!!");
-            //    return;
-            //}
-
+            notesPanel.SuspendLayout();
             notesPanel.Controls.Clear();
             foreach (var note in filteredNotes)
             {
@@ -291,6 +292,7 @@ namespace Test
                 noteForm.Container.Dock = DockStyle.None;
                 notesPanel.Controls.Add(noteForm.Container);
             }
+            notesPanel.ResumeLayout();
         }
         private GraphicsPath GetRoundedRectanglePath(Rectangle rect, int radius)
         {
@@ -332,10 +334,8 @@ namespace Test
         private void ShowHideBtn_Click(object sender, EventArgs e)
         {
             int targetColumn = 1;
-
             if (isSecondColumnVisible)
             {
-                // نخفي العمود التاني: نمسح الكنترولات منه ونخفيه
                 for (int row = 0; row < TableLayoutMDI.RowCount; row++)
                 {
                     var control = TableLayoutMDI.GetControlFromPosition(targetColumn, row);
@@ -366,7 +366,7 @@ namespace Test
                 TableLayoutMDI.ColumnStyles[targetColumn].SizeType = SizeType.Percent;
                 TableLayoutMDI.ColumnStyles[targetColumn].Width = 30;
                 isSecondColumnVisible = true;
-                ShowHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.right_arrow_solid_square_button; // Update the icon to show
+                ShowHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.right_arrow_solid_square_button;
 
             }
         }

@@ -267,6 +267,7 @@
             gridColumn2.Caption = "Timer";
             gridColumn2.FieldName = "TimeDiff";
             gridColumn2.Name = "gridColumn2";
+            gridColumn2.OptionsColumn.AllowEdit = false;
             gridColumn2.UnboundDataType = typeof(string);
             gridColumn2.Visible = true;
             gridColumn2.VisibleIndex = 2;
