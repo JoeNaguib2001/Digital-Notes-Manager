@@ -304,31 +304,35 @@ namespace Digital_Notes_Manager
                     {
                         e.Appearance.BackColor = Color.LightGray;
                         e.Appearance.ForeColor = Color.Black;
+                        e.HighPriority = true;
                     }
                     // Soon
                     else if (totalHours > 0 && totalHours <= 5)
                     {
                         e.Appearance.BackColor = Color.IndianRed;
                         e.Appearance.ForeColor = Color.White;
+                        e.HighPriority = true;
                     }
                     // Upcoming
                     else if (totalHours > 5 && totalHours <= 24)
                     {
                         e.Appearance.BackColor = Color.Orange;
                         e.Appearance.ForeColor = Color.Black;
+                        e.HighPriority = true;
                     }
                     // Later
                     else if (totalHours > 24 && totalHours <= 100)
                     {
                         e.Appearance.BackColor = Color.Yellow;
                         e.Appearance.ForeColor = Color.Black;
+                        e.HighPriority = true;
                     }
                     // Scheduled
                     else
                     {
-                        // لون طبيعي عادي
                         e.Appearance.BackColor = Color.Green;
                         e.Appearance.ForeColor = Color.White;
+                        e.HighPriority = true;
                     }
                 }
             }

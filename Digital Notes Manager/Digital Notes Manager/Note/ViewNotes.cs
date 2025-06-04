@@ -323,7 +323,6 @@ namespace Digital_Notes_Manager
                     // Scheduled
                     else
                     {
-                        // لون طبيعي عادي
                         e.Appearance.BackColor = Color.Green;
                         e.Appearance.ForeColor = Color.White;
                         e.HighPriority = true;
