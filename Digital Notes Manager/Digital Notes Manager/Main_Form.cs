@@ -101,6 +101,7 @@ namespace Digital_Notes_Manager
                         {
                             Note_Form noteForm = new Note_Form();
                             noteForm.Show();
+                            Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
                         }
                         break;
                     case "View_All_Notes_Popped":
@@ -133,11 +134,6 @@ namespace Digital_Notes_Manager
             this.MDI_Panel.Controls.Clear();
             viewNotes = new ViewNotes();
             MDI_Panel.Controls.Add(viewNotes.Pn_Container);
-            var resources = typeof(Program).Assembly.GetManifestResourceNames();
-            foreach (var res in resources)
-            {
-                System.Diagnostics.Debug.WriteLine(res);
-            }
         }
 
         private void Logout()

@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using Digital_Notes_Manager.Customs;
   
@@ -16,11 +12,11 @@ namespace Digital_Notes_Manager
             this.FormBorderStyle = FormBorderStyle.None;
             this.StartPosition = FormStartPosition.Manual;
             this.BackColor = Color.White;
-            this.Size = new Size(300, 300); 
+            this.Size = new Size(300, 300);
             this.TopMost = true;
 
-           
-           this.Location = new Point(1000, 100);
+
+            this.Location = new Point(1000, 100);
 
             this.Paint += (s, e) =>
             {
@@ -35,7 +31,7 @@ namespace Digital_Notes_Manager
 
             var closeButton = new Button
             {
-                Text = "×",
+                Text = "ï¿½",
                 Font = new Font("Segoe UI", 10, FontStyle.Bold),
                 Size = new Size(30, 30),
                 Location = new Point(this.Width - 35, 5),
@@ -88,7 +84,7 @@ namespace Digital_Notes_Manager
                 {
 
                     Text = "x",
-                    Font = new Font("Segoe UI",7, FontStyle.Bold),
+                    Font = new Font("Segoe UI", 7, FontStyle.Bold),
                     Size = new Size(20, 20),
                     FlatStyle = FlatStyle.Flat,
                     ForeColor = Color.Red,

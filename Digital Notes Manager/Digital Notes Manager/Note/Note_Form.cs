@@ -331,10 +331,6 @@ namespace Digital_Notes_Manager
             {
                 ChangeBell();
             }
-            //else
-            //{
-            //    NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
-            //}
             saveBtn.ImageOptions.Image = Properties.Resources.disk1;
 
             IsCompleted.Visible = true;

@@ -68,7 +68,7 @@
             accordionControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             accordionControl1.Name = "accordionControl1";
             accordionControl1.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Hidden;
-            accordionControl1.Size = new Size(260, 804);
+            accordionControl1.Size = new Size(260, 786);
             accordionControl1.TabIndex = 0;
             accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
             // 
@@ -232,7 +232,7 @@
             menuStrip1.Items.AddRange(new ToolStripItem[] { fileToolStripMenuItem, helpToolStripMenuItem });
             menuStrip1.Location = new Point(0, 0);
             menuStrip1.Name = "menuStrip1";
-            menuStrip1.Size = new Size(1283, 24);
+            menuStrip1.Size = new Size(1398, 24);
             menuStrip1.TabIndex = 1;
             menuStrip1.Text = "menuStrip1";
             // 
@@ -262,7 +262,7 @@
             MDI_Panel.Dock = DockStyle.Fill;
             MDI_Panel.Location = new Point(0, 42);
             MDI_Panel.Name = "MDI_Panel";
-            MDI_Panel.Size = new Size(1023, 762);
+            MDI_Panel.Size = new Size(1138, 744);
             MDI_Panel.TabIndex = 2;
             // 
             // panel1
@@ -271,7 +271,7 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1023, 42);
+            panel1.Size = new Size(1138, 42);
             panel1.TabIndex = 4;
             // 
             // notificationBell1
@@ -295,14 +295,14 @@
             GreatDocker.Dock = DockStyle.Fill;
             GreatDocker.Location = new Point(260, 24);
             GreatDocker.Name = "GreatDocker";
-            GreatDocker.Size = new Size(1023, 804);
+            GreatDocker.Size = new Size(1138, 786);
             GreatDocker.TabIndex = 6;
             // 
             // Main_Form
             // 
             AutoScaleDimensions = new SizeF(6F, 13F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1283, 828);
+            ClientSize = new Size(1398, 810);
             Controls.Add(GreatDocker);
             Controls.Add(accordionControl1);
             Controls.Add(menuStrip1);

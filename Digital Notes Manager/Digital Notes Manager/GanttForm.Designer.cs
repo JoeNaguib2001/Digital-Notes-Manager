@@ -45,7 +45,6 @@
             schedulerControl1.Views.WeekView.Enabled = false;
             schedulerControl1.Views.WorkWeekView.TimeRulers.Add(timeRuler3);
             schedulerControl1.Views.YearView.UseOptimizedScrolling = false;
-            schedulerControl1.Click += schedulerControl1_Click;
             // 
             // schedulerDataStorage1
             // 
