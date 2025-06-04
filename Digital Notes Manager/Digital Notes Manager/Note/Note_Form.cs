@@ -41,19 +41,10 @@ namespace Digital_Notes_Manager
             InitializeComponent();
             Categorybox.SelectedIndexChanged -= Categorybox_SelectedIndexChanged;
             SetupNoteForm();
-            //GalleryItemGroup group = new GalleryItemGroup();
-            //group.Items.Add(new GalleryItem(null, "", "", Color.Red));
-            //group.Items.Add(new GalleryItem(null, "", "", Color.Green));
-            //// Add more...
 
-            //galleryControl1.Gallery.Groups.Add(group);
-            //galleryControl1.Gallery.ItemClick += (s, e) =>
-            //{
-            //    var selectedColor = e.Item.HintColor; // Custom extension or mapping
-            //};
             CreateNote();
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
-            //59, 76, 57 || 47, 47, 47 || 75, 44, 44 || 27, 42, 73
+
         }
         public Note_Form(Note note)
         {
@@ -70,8 +61,20 @@ namespace Digital_Notes_Manager
             NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(0));
             Categorybox.Text = note.Category.ToString();
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
-            saveBtn.ImageOptions.Image = Properties.Resources.disk2;
+            if (note.ReminderDate < DateTime.Now && note.IsCompleted == true)
+            {
+                IsCompleted.Visible = true;
+                IsCompleted.Text = "Completed";
+                IsCompleted.Checked = true;
+            }
+            else if (note.ReminderDate < DateTime.Now && note.IsCompleted == false)
+            {
+                IsCompleted.Visible = true;
+                IsCompleted.Text = "Not Completed";
+                IsCompleted.Checked = false;
+            }
 
+            saveBtn.ImageOptions.Image = Properties.Resources.disk2;
         }
 
         private void SetupNoteForm()
@@ -266,14 +269,14 @@ namespace Digital_Notes_Manager
 
             // Step 3: Add items
             BarButtonItem item1 = new BarButtonItem(barManager, "Set Notification");
-            BarButtonItem item2 = new BarButtonItem(barManager, "change Color");
+
 
             // Handle clicks
             item1.ItemClick += (s, e) => Calender.ShowPopup();
 
             // Add items to popup menu
             popupMenu.AddItem(item1);
-            popupMenu.AddItem(item2);
+
             // Step 4: Attach to button click
             MenuBtn.Click += (s, e) =>
             {
@@ -282,17 +285,11 @@ namespace Digital_Notes_Manager
                 Point leftOfButton = MenuBtn.PointToScreen(new Point(-MenuBtn.Width * 2, 20)); // if Width unknown, estimate
                 popupMenu.ShowPopup(leftOfButton);
 
-                //popupMenu.ShowPopup(MousePosition); // show near cursor
+
             };
 
         }
 
-
-
-        //private void Calender_Click(object sender, EventArgs e)
-        //{
-        //    Calender.ShowPopup();
-        //}
 
 
 
@@ -331,10 +328,10 @@ namespace Digital_Notes_Manager
             {
                 ChangeBell();
             }
+
+
             saveBtn.ImageOptions.Image = Properties.Resources.disk1;
 
-            IsCompleted.Visible = true;
-            IsCompleted.Text = "Not Completed";
         }
 
         private void TitleBox_DoubleClick(object sender, EventArgs e)
@@ -462,6 +459,7 @@ namespace Digital_Notes_Manager
         {
             IsCompleted.Text = "Complete";
             Completed = true;
+            saveBtn.ImageOptions.Image = Properties.Resources.disk1;
         }
 
     }
