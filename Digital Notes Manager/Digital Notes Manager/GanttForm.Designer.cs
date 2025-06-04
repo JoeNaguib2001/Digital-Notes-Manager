@@ -3,7 +3,6 @@
     partial class GanttForm
     {
         private System.ComponentModel.IContainer components = null;
-        private DevExpress.XtraScheduler.SchedulerControl schedulerControl1;
         private DevExpress.XtraScheduler.SchedulerDataStorage schedulerDataStorage1;
 
         protected override void Dispose(bool disposing)
@@ -88,5 +87,6 @@
         }
 
         private Panel SchedualPanel;
+        public DevExpress.XtraScheduler.SchedulerControl schedulerControl1;
     }
 }

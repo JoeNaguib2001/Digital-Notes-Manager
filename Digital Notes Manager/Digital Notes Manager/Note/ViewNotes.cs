@@ -117,13 +117,13 @@ namespace Digital_Notes_Manager
                     {
                         ManageNoteContext.Entry(selectedRow).State = EntityState.Deleted;
                         ManageNoteContext.SaveChanges();
-                        XtraMessageBox.Show("Note Deleted Successfully");
+                        ToastForm.ShowToast("Note Deleted Successfully", 2000);
                         Utilities.SetNotesGridControlDataSource();
                     }
                 }
                 else
                 {
-                    XtraMessageBox.Show("Please Select A Note To Delete");
+                    ToastForm.ShowToast("Please Select A Note To Delete", 2000);
                 }
             }
         }
@@ -174,7 +174,7 @@ namespace Digital_Notes_Manager
             }
 
 
-            XtraMessageBox.Show("Deleted Successfully");
+            ToastForm.ShowToast("Note Deleted Successfully", 2000);
             Utilities.SetNotesGridControlDataSource();
         }
 
@@ -193,7 +193,7 @@ namespace Digital_Notes_Manager
             var selectedRow = gridView1.GetFocusedRow() as Note;
             if (Utilities.OpenedNotes.Any(n => n.ID == selectedRow.ID))
             {
-                XtraMessageBox.Show("This note is already opened.");
+                ToastForm.ShowToast("This note is already opened", 2000);
                 return;
             }
             else
@@ -214,9 +214,6 @@ namespace Digital_Notes_Manager
         private void saveInYourDeviceToolStripMenuItem_Click(object sender, EventArgs e)
         {
             var selectedRow = gridView1.GetFocusedRow() as Note;
-            //Note_Form noteForm = new Note_Form(selectedRow);
-            //noteForm.richTextBox1.Text = selectedRow?.Content ?? string.Empty;
-
             SaveFileDialog saveFileDialog = new SaveFileDialog();
             saveFileDialog.Filter = "Rich Text File (*.rtf) | *.rtf";
             saveFileDialog.Title = "Save Note as RTF File in Your Device";
@@ -232,9 +229,6 @@ namespace Digital_Notes_Manager
                     richTextBox.SelectionColor = Color.Black;
                     RichTextBox textBox = new RichTextBox();
                     textBox.Rtf = selectedRow.Content;
-
-
-                    //richTextBox.SelectionFont = textBox.Font;
                     richTextBox.Rtf = textBox.Rtf;
 
 
@@ -243,7 +237,7 @@ namespace Digital_Notes_Manager
                     // Open the file automatically
                     System.Diagnostics.Process.Start("explorer.exe", saveFileDialog.FileName);
 
-                    MessageBox.Show("Note saved and opened successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    ToastForm.ShowToast("Note saved and opened successfully!", 2000);
                 }
                 catch (Exception ex)
                 {
@@ -267,7 +261,7 @@ namespace Digital_Notes_Manager
                     else
                     {
                         int days = diff.Days;
-                        int hours = diff.Hours;       // ساعات بعد استثناء الأيام
+                        int hours = diff.Hours;
                         int minutes = diff.Minutes;
                         int seconds = diff.Seconds;
 
@@ -303,31 +297,35 @@ namespace Digital_Notes_Manager
                     {
                         e.Appearance.BackColor = Color.LightGray;
                         e.Appearance.ForeColor = Color.Black;
+                        e.HighPriority = true;
                     }
                     // Soon
                     else if (totalHours > 0 && totalHours <= 5)
                     {
                         e.Appearance.BackColor = Color.IndianRed;
                         e.Appearance.ForeColor = Color.White;
+                        e.HighPriority = true;
                     }
                     // Upcoming
                     else if (totalHours > 5 && totalHours <= 24)
                     {
                         e.Appearance.BackColor = Color.Orange;
                         e.Appearance.ForeColor = Color.Black;
+                        e.HighPriority = true;
                     }
                     // Later
                     else if (totalHours > 24 && totalHours <= 100)
                     {
                         e.Appearance.BackColor = Color.Yellow;
                         e.Appearance.ForeColor = Color.Black;
+                        e.HighPriority = true;
                     }
                     // Scheduled
                     else
                     {
-                        // لون طبيعي عادي
                         e.Appearance.BackColor = Color.Green;
                         e.Appearance.ForeColor = Color.White;
+                        e.HighPriority = true;
                     }
                 }
             }
@@ -341,6 +339,18 @@ namespace Digital_Notes_Manager
                 if (findPanel != null)
                 {
                     findPanel.FindEdit.Font = new Font("Tahoma", 12);
+                }
+            }
+
+        }
+
+        private void gridView1_CustomColumnDisplayText(object sender, CustomColumnDisplayTextEventArgs e)
+        {
+            if (e.Column.FieldName == "ReminderDate")
+            {
+                if (e.Value is DateTime date && date == DateTime.MinValue)
+                {
+                    e.DisplayText = "-";
                 }
             }
 

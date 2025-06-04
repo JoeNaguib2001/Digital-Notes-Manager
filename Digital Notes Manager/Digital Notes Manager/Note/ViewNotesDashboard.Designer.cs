@@ -34,6 +34,7 @@
             LeftGreatInsider = new TableLayoutPanel();
             tableLayoutPanel1 = new TableLayoutPanel();
             SearchTextBox = new TextBox();
+            label1 = new Label();
             CategoriesNotesPanel = new TableLayoutPanel();
             notesPanel = new FlowLayoutPanel();
             contextMenuStrip1 = new ContextMenuStrip(components);
@@ -102,10 +103,12 @@
             // 
             // tableLayoutPanel1
             // 
-            tableLayoutPanel1.ColumnCount = 2;
+            tableLayoutPanel1.ColumnCount = 3;
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 100F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 48.7940636F));
-            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 51.2059326F));
-            tableLayoutPanel1.Controls.Add(SearchTextBox, 0, 0);
+            tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 51.2059364F));
+            tableLayoutPanel1.Controls.Add(SearchTextBox, 1, 0);
+            tableLayoutPanel1.Controls.Add(label1, 0, 0);
             tableLayoutPanel1.Location = new Point(3, 3);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.Padding = new Padding(5);
@@ -119,11 +122,23 @@
             SearchTextBox.BackColor = SystemColors.InactiveCaption;
             SearchTextBox.Dock = DockStyle.Fill;
             SearchTextBox.Font = new Font("Tahoma", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            SearchTextBox.Location = new Point(8, 8);
+            SearchTextBox.Location = new Point(108, 8);
             SearchTextBox.Name = "SearchTextBox";
-            SearchTextBox.Size = new Size(431, 33);
+            SearchTextBox.Size = new Size(382, 33);
             SearchTextBox.TabIndex = 0;
             SearchTextBox.TextChanged += SerachBox_TextChanged;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Dock = DockStyle.Fill;
+            label1.Font = new Font("Tahoma", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label1.Location = new Point(8, 5);
+            label1.Name = "label1";
+            label1.Padding = new Padding(10);
+            label1.Size = new Size(94, 37);
+            label1.TabIndex = 1;
+            label1.Text = "Search:";
             // 
             // CategoriesNotesPanel
             // 
@@ -260,6 +275,7 @@
         private TableLayoutPanel tableLayoutPanel2;
         private DevExpress.XtraEditors.SimpleButton ShowHideBtn;
         private TableLayoutPanel CategoriesNotesPanel;
+        private Label label1;
     }
 }
 

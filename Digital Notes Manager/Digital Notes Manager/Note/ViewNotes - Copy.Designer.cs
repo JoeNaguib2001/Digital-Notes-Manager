@@ -119,7 +119,7 @@
             gridView1.Appearance.FocusedRow.Options.UseForeColor = true;
             gridView1.Appearance.HeaderPanel.BackColor = Color.Red;
             gridView1.Appearance.HeaderPanel.Options.UseBackColor = true;
-            gridView1.Appearance.SelectedRow.ForeColor = Color.White;
+            gridView1.Appearance.SelectedRow.ForeColor = Color.Black;
             gridView1.Appearance.SelectedRow.Options.UseForeColor = true;
             gridView1.ColumnPanelRowHeight = 75;
             gridView1.Columns.AddRange(new DevExpress.XtraGrid.Columns.GridColumn[] { colTitle, colCreationDate, colReminderDate, colCategory, DeleteColumn, gridColumn2 });
@@ -267,6 +267,7 @@
             gridColumn2.Caption = "Timer";
             gridColumn2.FieldName = "TimeDiff";
             gridColumn2.Name = "gridColumn2";
+            gridColumn2.OptionsColumn.AllowEdit = false;
             gridColumn2.UnboundDataType = typeof(string);
             gridColumn2.Visible = true;
             gridColumn2.VisibleIndex = 2;

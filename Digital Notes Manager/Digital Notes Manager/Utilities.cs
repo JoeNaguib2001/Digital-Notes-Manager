@@ -1,4 +1,4 @@
-﻿using DevExpress.XtraGrid;
+using DevExpress.XtraGrid;
 using Digital_Notes_Manager.Models;
 using System.ComponentModel;
 using Test;
