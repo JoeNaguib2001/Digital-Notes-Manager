@@ -1,5 +1,6 @@
 using System.Drawing.Drawing2D;
-
+using Digital_Notes_Manager.Customs;
+  
 namespace Digital_Notes_Manager
 {
     public partial class NotificationPopupForm : Form
@@ -99,6 +100,7 @@ namespace Digital_Notes_Manager
                 {
                     containerPanel.Controls.Remove(card);
                     messages.Remove(msg);
+                    NotificationBell.notifications.Remove(msg); 
                     RearrangeCards(containerPanel);
                 };
 
