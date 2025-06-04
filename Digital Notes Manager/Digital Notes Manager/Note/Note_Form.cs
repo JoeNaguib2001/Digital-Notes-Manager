@@ -27,6 +27,7 @@ namespace Digital_Notes_Manager
         public Note CurrentNote { get; set; }
         private Note ToDeleteNote;
 
+        private bool Completed;
         [DllImport("user32.dll")]
         public static extern bool ReleaseCapture();
 
@@ -40,16 +41,7 @@ namespace Digital_Notes_Manager
             InitializeComponent();
             Categorybox.SelectedIndexChanged -= Categorybox_SelectedIndexChanged;
             SetupNoteForm();
-            //GalleryItemGroup group = new GalleryItemGroup();
-            //group.Items.Add(new GalleryItem(null, "", "", Color.Red));
-            //group.Items.Add(new GalleryItem(null, "", "", Color.Green));
-            //// Add more...
 
-            //galleryControl1.Gallery.Groups.Add(group);
-            //galleryControl1.Gallery.ItemClick += (s, e) =>
-            //{
-            //    var selectedColor = e.Item.HintColor; // Custom extension or mapping
-            //};
             CreateNote();
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
 
@@ -69,8 +61,20 @@ namespace Digital_Notes_Manager
             NotficationDate = new DateTimeOffset(note.ReminderDate, TimeSpan.FromHours(0));
             Categorybox.Text = note.Category.ToString();
             Categorybox.SelectedIndexChanged += Categorybox_SelectedIndexChanged;
-            saveBtn.ImageOptions.Image = Properties.Resources.disk2;
+            if (note.ReminderDate < DateTime.Now && note.IsCompleted == true)
+            {
+                IsCompleted.Visible = true;
+                IsCompleted.Text = "Completed";
+                IsCompleted.Checked = true;
+            }
+            else if (note.ReminderDate < DateTime.Now && note.IsCompleted == false)
+            {
+                IsCompleted.Visible = true;
+                IsCompleted.Text = "Not Completed";
+                IsCompleted.Checked = false;
+            }
 
+            saveBtn.ImageOptions.Image = Properties.Resources.disk2;
         }
 
         private void SetupNoteForm()
@@ -265,14 +269,14 @@ namespace Digital_Notes_Manager
 
             // Step 3: Add items
             BarButtonItem item1 = new BarButtonItem(barManager, "Set Notification");
-            BarButtonItem item2 = new BarButtonItem(barManager, "change Color");
+
 
             // Handle clicks
             item1.ItemClick += (s, e) => Calender.ShowPopup();
 
             // Add items to popup menu
             popupMenu.AddItem(item1);
-            popupMenu.AddItem(item2);
+
             // Step 4: Attach to button click
             MenuBtn.Click += (s, e) =>
             {
@@ -281,43 +285,16 @@ namespace Digital_Notes_Manager
                 Point leftOfButton = MenuBtn.PointToScreen(new Point(-MenuBtn.Width * 2, 20)); // if Width unknown, estimate
                 popupMenu.ShowPopup(leftOfButton);
 
-                //popupMenu.ShowPopup(MousePosition); // show near cursor
+
             };
 
         }
 
 
 
-        //private void Calender_Click(object sender, EventArgs e)
-        //{
-        //    Calender.ShowPopup();
-        //}
-
-
 
         private void saveBtn_Click(object sender, EventArgs e)
         {
-
-            //Digital_Notes_Manager.Models.Note newNote = new Digital_Notes_Manager.Models.Note
-            //{
-            //    Title = _Title,
-            //    Content = richTextBox1.Rtf,
-            //    CreationDate = DateTime.Now,
-            //    ReminderDate = NotficationDate.DateTime,
-            //    Category = (Category)Enum.Parse(typeof(Category), _Category),
-            //    UserID = Properties.Settings.Default.userID
-            //};
-
-            //_ManageNoteContext.Notes.Add(newNote);
-            //_ManageNoteContext.SaveChanges();
-            //Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
-            //Utilities.SetNotesGridControlDataSource();
-            //Mode = Mode.Edit;
-            //noteId = newNote.ID;
-            //_ManageNoteContext.Notes.Entry(newNote).State = Microsoft.EntityFrameworkCore.EntityState.Detached;
-
-
-
 
             var currentNote = _ManageNoteContext.Notes.FirstOrDefault(n => n.ID == noteId);
             if (currentNote != null)
@@ -326,6 +303,7 @@ namespace Digital_Notes_Manager
                 currentNote.Content = richTextBox1.Rtf;
                 currentNote.ReminderDate = NotficationDate.DateTime;
                 currentNote.Category = (Category)Enum.Parse(typeof(Category), Categorybox.Text);
+                currentNote.IsCompleted = Completed;
                 _ManageNoteContext.Notes.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _ManageNoteContext.SaveChanges();
                 Alarm.AddNewNoteToAlarmSystemNotesList(currentNote);
@@ -350,11 +328,10 @@ namespace Digital_Notes_Manager
             {
                 ChangeBell();
             }
-            else
-            {
-                NotficationDate = new DateTimeOffset(NotficationDate.DateTime, TimeSpan.FromHours(2));
-            }
+
+
             saveBtn.ImageOptions.Image = Properties.Resources.disk1;
+
         }
 
         private void TitleBox_DoubleClick(object sender, EventArgs e)
@@ -387,15 +364,7 @@ namespace Digital_Notes_Manager
         {
             _Category = Categorybox.Text;
             ToastForm.ShowToast($"Category Changed To {Categorybox.Text}", 3000);
-            //if (Utilities.ViewNotesDashboard.IsCategorySelected == false)
-            //{
-            //    Utilities.ViewNotesDashboard.LoadNotesForSpecficCategory("All Categories");
-            //}
-            //else
-            //{
-            //    var category = Utilities.ViewNotesDashboard.SelectedCategory;
-            //    Utilities.ViewNotesDashboard.LoadNotesForSpecficCategory(category, ViewNotesDashboard.CategoryColors[category]);
-            //}
+
         }
 
         private void TopPanal_MouseDown(object sender, MouseEventArgs e)
@@ -485,5 +454,13 @@ namespace Digital_Notes_Manager
         {
             saveBtn.ImageOptions.Image = Properties.Resources.disk1;
         }
+
+        private void IsCompleted_CheckedChanged(object sender, EventArgs e)
+        {
+            IsCompleted.Text = "Complete";
+            Completed = true;
+            saveBtn.ImageOptions.Image = Properties.Resources.disk1;
+        }
+
     }
 }

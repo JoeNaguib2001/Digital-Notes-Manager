@@ -3,7 +3,6 @@
     partial class GanttForm
     {
         private System.ComponentModel.IContainer components = null;
-        private DevExpress.XtraScheduler.SchedulerControl schedulerControl1;
         private DevExpress.XtraScheduler.SchedulerDataStorage schedulerDataStorage1;
 
         protected override void Dispose(bool disposing)
@@ -45,7 +44,6 @@
             schedulerControl1.Views.WeekView.Enabled = false;
             schedulerControl1.Views.WorkWeekView.TimeRulers.Add(timeRuler3);
             schedulerControl1.Views.YearView.UseOptimizedScrolling = false;
-            schedulerControl1.Click += schedulerControl1_Click;
             // 
             // schedulerDataStorage1
             // 
@@ -89,5 +87,6 @@
         }
 
         private Panel SchedualPanel;
+        public DevExpress.XtraScheduler.SchedulerControl schedulerControl1;
     }
 }

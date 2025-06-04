@@ -1,24 +1,42 @@
 ﻿using Digital_Notes_Manager;
 using Digital_Notes_Manager.Customs;
 using Digital_Notes_Manager.Models;
-using System.Data;
 using System.Drawing.Drawing2D;
-
 
 namespace Test
 {
     public partial class ViewNotesDashboard : DevExpress.XtraBars.FluentDesignSystem.FluentDesignForm
     {
+
         private ManageNoteContext _dbContext;
         public Category SelectedCategory { get; set; }
         public bool IsCategorySelected { get; set; } = false;
         int _userId = Utilities.GetCurrentLoggedInUserId();
+        private bool isSecondColumnVisible = true;
+        string placeholderText = " search for a specific note...";
+        bool isPlaceholderActive = true;
+
         public ViewNotesDashboard()
         {
-            Utilities.ViewNotesDashboard = this;
             InitializeComponent();
+            EnableDoubleBuffering(notesPanel);
+            EnableDoubleBuffering(CategoryPanel);
+
+            Utilities.ViewNotesDashboard = this;
+            Utilities.TableLayoutPanel = CategoriesNotesPanel;
             LoadCategories();
             _dbContext = new ManageNoteContext();
+            ViewNotesHamubrger viewNotesHamubrger = new ViewNotesHamubrger();
+            TableLayoutMDI.Controls.Add(viewNotesHamubrger.Pn_Container, 1, 0);
+
+            SearchTextBox.ForeColor = Color.Gray;
+            SearchTextBox.Text = placeholderText;
+
+            SearchTextBox.Enter += RemovePlaceholder;
+            SearchTextBox.Leave += SetPlaceholder;
+
+
+
             //var firstNonEmptyCategory = _dbContext.Notes
             //    .Where(x => x.UserID == _userId)
             //    .GroupBy(x => x.Category)
@@ -35,27 +53,57 @@ namespace Test
             //    firstNonEmptyCategory = Category.Study;
             //}
             LoadNotesForAllCategories("");
+
+        }
+
+        private void EnableDoubleBuffering(Control control)
+        {
+            typeof(Panel).InvokeMember("DoubleBuffered",
+                System.Reflection.BindingFlags.SetProperty |
+                System.Reflection.BindingFlags.Instance |
+                System.Reflection.BindingFlags.NonPublic,
+                null, control, new object[] { true });
+        }
+
+        private void SetPlaceholder(object? sender, EventArgs e)
+        {
+            if (string.IsNullOrWhiteSpace(SearchTextBox.Text))
+            {
+                SearchTextBox.Text = placeholderText;
+                SearchTextBox.ForeColor = Color.Gray;
+                isPlaceholderActive = true;
+            }
+        }
+
+        private void RemovePlaceholder(object? sender, EventArgs e)
+        {
+            if (isPlaceholderActive)
+            {
+                SearchTextBox.Text = "";
+                SearchTextBox.ForeColor = Color.Black;
+                isPlaceholderActive = false;
+            }
         }
 
         public static readonly Dictionary<Category, Color> CategoryColors = new Dictionary<Category, Color>
         {
-            { Category.None, Color.Pink },      // Light Blue
-            { Category.Study, Color.FromArgb(173, 216, 230) },      // Light Blue
-            { Category.Work, Color.FromArgb(255, 239, 153) },       // Light Yellow
-            { Category.Ideas, Color.FromArgb(204, 255, 204) },      // Light Green
-            { Category.Reminders, ColorTranslator.FromHtml("#d5cabd") }, // Beige
-            { Category.Personal, ColorTranslator.FromHtml("#adc5cf") },  // Light Blue-Gray
+            { Category.None, Color.FromArgb(44, 62, 80)},      // Light Blue
+            { Category.Study, Color.FromArgb(59, 76, 57) },      // Light Blue
+            { Category.Work, ColorTranslator.FromHtml("#505050") },       // Light Yellow
+            { Category.Ideas,  ColorTranslator.FromHtml("#6f5a40") },      // Light Green
+            { Category.Reminders, ColorTranslator.FromHtml("#2A3C6A") },  // Beige
+            { Category.Personal, ColorTranslator.FromHtml("#406f48")},  // Light Blue-Gray
         };
 
-
+        FlowLayoutPanel CategoryflowLayoutPanel;
         private void LoadCategories()
         {
             CategoryPanel.Controls.Clear();
             //Adding A new Floylayout Panel in Run Time
-            FlowLayoutPanel CategoryflowLayoutPanel = new FlowLayoutPanel()
+            CategoryflowLayoutPanel = new FlowLayoutPanel()
             {
                 Dock = DockStyle.Fill,
-                AutoScroll = true,
+                AutoScroll = false,
                 FlowDirection = FlowDirection.LeftToRight,
                 WrapContents = true,
                 Padding = new Padding(10),
@@ -76,8 +124,6 @@ namespace Test
                         CategoryflowLayoutPanel.Controls.Add(card);
                     }
                 }
-
-
             }
             catch (Exception ex)
             {
@@ -90,7 +136,7 @@ namespace Test
         {
             RoundedPanel card = new RoundedPanel
             {
-                Size = new Size(250, 200),
+                Size = new Size(200, 100),
                 AutoScroll = true,
                 Padding = new Padding(10),
                 Margin = new Padding(15),
@@ -106,7 +152,9 @@ namespace Test
                 Font = new Font("Tahoma", 16, FontStyle.Bold),
                 Location = new Point(10, 10),
                 AutoSize = true
+
             };
+            titleLabel.ForeColor = Color.White;
             card.Controls.Add(titleLabel);
 
 
@@ -118,6 +166,7 @@ namespace Test
                 Label countLabel = new Label
                 {
                     Text = $"Notes Count: {noteCount}",
+                    ForeColor = Color.White,
                     Font = new Font("Tahoma", 10),
                     Location = new Point(10, 50),
                     AutoSize = true
@@ -140,23 +189,21 @@ namespace Test
                 Label countLabel = new Label
                 {
                     Text = $"Notes Count: {noteCount}",
+                    ForeColor = Color.White,
                     Font = new Font("Tahoma", 10),
                     Location = new Point(10, 50),
                     AutoSize = true
                 };
                 card.Controls.Add(countLabel);
-                card.BackColor = Color.Pink;
+                card.BackColor = ColorTranslator.FromHtml("#3d4546");
 
-                // إضافة حدث النقر لعرض الملاحظات الخاصة بالفئة
                 card.Click += (s, e) =>
                 {
                     IsCategorySelected = false; // Reset the category selection
                     LoadNotesForAllCategories("");
                 };
             }
-
             return card;
-
         }
         private Panel CreateNoteCard(Note note)
         {
@@ -203,12 +250,6 @@ namespace Test
                     .ToList();
             }
 
-            //if (notes.Count == 0)
-            //{
-            //    MessageBox.Show("You Have No Notes For This Category !!!");
-            //    return;
-            //}
-
             notesPanel.Controls.Clear();
             foreach (var note in filteredNotes)
             {
@@ -238,12 +279,7 @@ namespace Test
                     .Where(n => ConvertRtfToPlainText(n.Content).Contains(searchFor))
                     .ToList();
             }
-            //if (notes.Count == 0)
-            //{
-            //    MessageBox.Show("You Have No Notes For This Category !!!");
-            //    return;
-            //}
-
+            notesPanel.SuspendLayout();
             notesPanel.Controls.Clear();
             foreach (var note in filteredNotes)
             {
@@ -256,6 +292,7 @@ namespace Test
                 noteForm.Container.Dock = DockStyle.None;
                 notesPanel.Controls.Add(noteForm.Container);
             }
+            notesPanel.ResumeLayout();
         }
         private GraphicsPath GetRoundedRectanglePath(Rectangle rect, int radius)
         {
@@ -286,11 +323,76 @@ namespace Test
 
         private void SerachBox_TextChanged(object sender, EventArgs e)
         {
+            if (isPlaceholderActive) return;
             if (IsCategorySelected == true)
                 LoadNotesForSpecficCategory(SelectedCategory, CategoryColors[SelectedCategory], SearchTextBox.Text);
             else
                 LoadNotesForAllCategories(SearchTextBox.Text);
 
+        }
+
+        private void ShowHideBtn_Click(object sender, EventArgs e)
+        {
+            int targetColumn = 1;
+            if (isSecondColumnVisible)
+            {
+                for (int row = 0; row < TableLayoutMDI.RowCount; row++)
+                {
+                    var control = TableLayoutMDI.GetControlFromPosition(targetColumn, row);
+                    if (control != null)
+                    {
+                        control.Visible = false;
+                    }
+                }
+
+                TableLayoutMDI.ColumnStyles[targetColumn].SizeType = SizeType.Absolute;
+                TableLayoutMDI.ColumnStyles[targetColumn].Width = 0;
+                isSecondColumnVisible = false;
+                TableLayoutMDI.ColumnStyles[2].SizeType = SizeType.Absolute;
+                TableLayoutMDI.ColumnStyles[2].Width = 50;
+                ShowHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.arrow_button;
+            }
+            else
+            {
+                for (int row = 0; row < TableLayoutMDI.RowCount; row++)
+                {
+                    var control = TableLayoutMDI.GetControlFromPosition(targetColumn, row);
+                    if (control != null)
+                    {
+                        control.Visible = true;
+                    }
+                }
+
+                TableLayoutMDI.ColumnStyles[targetColumn].SizeType = SizeType.Percent;
+                TableLayoutMDI.ColumnStyles[targetColumn].Width = 30;
+                isSecondColumnVisible = true;
+                ShowHideBtn.ImageOptions.Image = Digital_Notes_Manager.Properties.Resources.right_arrow_solid_square_button;
+
+            }
+        }
+
+        private void TableLayoutMDI_Resize(object sender, EventArgs e)
+        {
+            //if (Utilities.MainForm.MDI_Panel.Size.Width > 750)
+            //{
+            //    //CategoriesNotesPanel.RowStyles[0].SizeType = SizeType.Absolute;
+            //    //CategoriesNotesPanel.RowStyles[0].Height = 135;
+            //    CategoryflowLayoutPanel.WrapContents = true; // Enable wrapping when the panel is wide enough
+            //}
+            //else
+            //{
+            //    //CategoriesNotesPanel.RowStyles[0].SizeType = SizeType.Absolute;
+            //    //CategoriesNotesPanel.RowStyles[0].Height = 100;
+            //    CategoryflowLayoutPanel.WrapContents = false; // Disable wrapping when the panel is narrow
+            //}
+            if (Utilities.MainForm.WindowState == FormWindowState.Maximized)
+            {
+                CategoriesNotesPanel.RowStyles[0].Height = 135;
+            }
+            else
+            {
+                CategoriesNotesPanel.RowStyles[0].Height = 270;
+            }
         }
     }
 }

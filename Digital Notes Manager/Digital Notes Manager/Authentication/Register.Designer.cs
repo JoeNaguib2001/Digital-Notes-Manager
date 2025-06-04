@@ -147,6 +147,7 @@
             SinUpBtn.Name = "SinUpBtn";
             SinUpBtn.Size = new Size(183, 66);
             SinUpBtn.TabIndex = 7;
+            SinUpBtn.Tag = "signupBtn";
             SinUpBtn.Text = "Sign Up";
             SinUpBtn.Click += SinUpBtn_Click;
             // 
@@ -182,6 +183,7 @@
             // 
             // Register
             // 
+            AcceptButton = SinUpBtn;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(700, 404);
@@ -203,11 +205,11 @@
         private DevExpress.XtraEditors.LabelControl usernameLabel;
         private DevExpress.XtraEditors.LabelControl labelControl1;
         private DevExpress.XtraEditors.LabelControl labelControl2;
-        private DevExpress.XtraEditors.TextEdit usernameTxt;
-        private DevExpress.XtraEditors.TextEdit passwordConfirmTxt;
-        private DevExpress.XtraEditors.TextEdit passwordTxt;
         public Panel registerPanel;
         private DevExpress.XtraEditors.SimpleButton SinUpBtn;
         private CheckBox RememberMeCheckBox;
+        public DevExpress.XtraEditors.TextEdit usernameTxt;
+        public DevExpress.XtraEditors.TextEdit passwordConfirmTxt;
+        public DevExpress.XtraEditors.TextEdit passwordTxt;
     }
 }

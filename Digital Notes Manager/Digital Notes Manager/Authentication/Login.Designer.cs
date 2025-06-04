@@ -83,6 +83,7 @@
             loginBtn.Name = "loginBtn";
             loginBtn.Size = new Size(161, 63);
             loginBtn.TabIndex = 4;
+            loginBtn.Tag = "loginBtn";
             loginBtn.Text = "Login";
             loginBtn.Click += loginBtn_Click;
             // 
@@ -147,6 +148,7 @@
             // 
             // Login
             // 
+            AcceptButton = loginBtn;
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(689, 367);
@@ -167,9 +169,9 @@
         private DevExpress.XtraEditors.LabelControl userNameLabel;
         private DevExpress.XtraEditors.LabelControl passwordLabel;
         private DevExpress.XtraEditors.SimpleButton loginBtn;
-        private DevExpress.XtraEditors.TextEdit userNameTxt;
-        private DevExpress.XtraEditors.TextEdit passwordTxt;
         public Panel loginPanel;
         private CheckBox RememberMeCheckBox;
+        public DevExpress.XtraEditors.TextEdit userNameTxt;
+        public DevExpress.XtraEditors.TextEdit passwordTxt;
     }
 }

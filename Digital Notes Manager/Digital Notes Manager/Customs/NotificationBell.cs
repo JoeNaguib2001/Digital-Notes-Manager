@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,22 +13,42 @@ namespace Digital_Notes_Manager.Customs
 
     public class NotificationBell : Control
     {
-        private List<string> notifications = new List<string>();
+        public static List<string> notifications = new List<string>();
         public event EventHandler BellClicked;
+        private int _notificationCount;
 
-        public int NotificationCount => notifications.Count;
+        public int NotificationCount
+        {
+            get => _notificationCount;
+            set
+            {
+                _notificationCount = value;
+                this.Invalidate(); 
+            }
+        }
 
         public void AddNotification(string message)
         {
             notifications.Add(message);
-            this.Invalidate(); // يعيد رسم العنصر
-        }
+            NotificationCount++;
 
+            this.Invalidate(); 
+        }
+        public void ResetCounter()
+        {
+            this.NotificationCount = -1;
+      
+            this.Invalidate();
+        }
         public List<string> GetNotifications()
         {
             var result = new List<string>(notifications);
-            this.Invalidate(); // يخفي العدد
+            this.Invalidate(); 
             return result;
+        }
+        public static void RemoveNotification(string msg) {
+            notifications.Remove(msg);
+
         }
 
         protected override void OnClick(EventArgs e)
@@ -43,17 +63,15 @@ namespace Digital_Notes_Manager.Customs
             var g = e.Graphics;
             g.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-            // ارسم صورة الجرس
-            if (Properties.Resources.bell2 != null)
+            if (Properties.Resources.pngegg != null)
             {
-                g.DrawImage(Properties.Resources.bell2, 0, 0, 20,20); // حجم الجرس
+                g.DrawImage(Properties.Resources.pngegg, 0, 0, 20,20); 
             }
 
-            // عدد الإشعارات (badge)
-            if (notifications.Count > 0)
+            if (NotificationCount > 0)
             {
                 g.FillEllipse(Brushes.Red, 20, 0, 16, 16);
-                g.DrawString(notifications.Count.ToString(), new Font("Segoe UI", 8, FontStyle.Bold), Brushes.White, new PointF(22, 1));
+                g.DrawString(NotificationCount.ToString(), new Font("Segoe UI", 8, FontStyle.Bold), Brushes.White, new PointF(22, 1));
             }
         }
     }
