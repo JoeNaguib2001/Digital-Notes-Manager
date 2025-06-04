@@ -102,10 +102,10 @@
             Close_btn.Dock = DockStyle.Right;
             Close_btn.ImageOptions.Image = Properties.Resources.cross;
             Close_btn.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            Close_btn.Location = new Point(264, 0);
+            Close_btn.Location = new Point(276, 0);
             Close_btn.Name = "Close_btn";
             Close_btn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
-            Close_btn.Size = new Size(41, 33);
+            Close_btn.Size = new Size(29, 33);
             Close_btn.TabIndex = 6;
             Close_btn.Click += Close_btn_Click;
             // 
@@ -133,7 +133,7 @@
             // TitleBox
             // 
             TitleBox.EditValue = "Note";
-            TitleBox.Location = new Point(110, 3);
+            TitleBox.Location = new Point(100, 3);
             TitleBox.Name = "TitleBox";
             TitleBox.Properties.AllowFocused = false;
             TitleBox.Properties.Appearance.BackColor = Color.FromArgb(44, 62, 80);
@@ -180,7 +180,7 @@
             // TrashBtn
             // 
             TrashBtn.ImageOptions.Image = Properties.Resources.trash1;
-            TrashBtn.Location = new Point(137, 6);
+            TrashBtn.Location = new Point(127, 7);
             TrashBtn.Name = "TrashBtn";
             TrashBtn.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             TrashBtn.Size = new Size(20, 20);
@@ -191,7 +191,7 @@
             // 
             BellButton.ImageOptions.Image = Properties.Resources.bell1;
             BellButton.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.TopCenter;
-            BellButton.Location = new Point(66, 3);
+            BellButton.Location = new Point(42, 0);
             BellButton.Name = "BellButton";
             BellButton.PaintStyle = DevExpress.XtraEditors.Controls.PaintStyles.Light;
             BellButton.Size = new Size(38, 33);
@@ -218,7 +218,7 @@
             // 
             IsCompleted.AutoSize = true;
             IsCompleted.ForeColor = Color.White;
-            IsCompleted.Location = new Point(187, 9);
+            IsCompleted.Location = new Point(177, 9);
             IsCompleted.Name = "IsCompleted";
             IsCompleted.Size = new Size(77, 17);
             IsCompleted.TabIndex = 11;
