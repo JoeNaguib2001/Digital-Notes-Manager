@@ -36,6 +36,10 @@ namespace Digital_Notes_Manager
 
         private const int WM_NCLBUTTONDOWN = 0xA1;
         private const int HTCAPTION = 0x2;
+        private string currentCalendarContext = ""; // Could be "Notification", "Start", "End"
+        private DateTime StartDate;
+        private DateTime EndDate;
+
         public Note_Form()
         {
             InitializeComponent();
@@ -269,13 +273,34 @@ namespace Digital_Notes_Manager
 
             // Step 3: Add items
             BarButtonItem item1 = new BarButtonItem(barManager, "Set Notification");
+            BarButtonItem item2 = new BarButtonItem(barManager, "Set Start");
+            BarButtonItem item3 = new BarButtonItem(barManager, "Set  End");
 
 
             // Handle clicks
-            item1.ItemClick += (s, e) => Calender.ShowPopup();
+            item1.ItemClick += (s, e) =>
+            {
+                currentCalendarContext = "Notification";
+                Calender.ShowPopup();
+            };
+
+            item2.ItemClick += (s, e) =>
+            {
+                currentCalendarContext = "Start";
+                Calender.ShowPopup();
+            };
+
+            item3.ItemClick += (s, e) =>
+            {
+                currentCalendarContext = "End";
+                Calender.ShowPopup();
+            };
+
 
             // Add items to popup menu
             popupMenu.AddItem(item1);
+            popupMenu.AddItem(item2);
+            popupMenu.AddItem(item3);
 
             // Step 4: Attach to button click
             MenuBtn.Click += (s, e) =>
@@ -304,6 +329,8 @@ namespace Digital_Notes_Manager
                 currentNote.ReminderDate = NotficationDate.DateTime;
                 currentNote.Category = (Category)Enum.Parse(typeof(Category), Categorybox.Text);
                 currentNote.IsCompleted = Completed;
+                currentNote.StartDate = StartDate;
+                currentNote.EndDate = EndDate;
                 _ManageNoteContext.Notes.Entry(currentNote).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                 _ManageNoteContext.SaveChanges();
                 Alarm.AddNewNoteToAlarmSystemNotesList(currentNote);
@@ -320,15 +347,27 @@ namespace Digital_Notes_Manager
 
         private void Calender_EditValueChanged(object sender, EventArgs e)
         {
+            DateTime selectedDate = Calender.DateTimeOffset.DateTime;
 
-            NotficationDate = Calender.DateTimeOffset;
-            DateTime d = NotficationDate.DateTime;
-
-            if (d > DateTime.Now)
+            if (currentCalendarContext == "Notification")
             {
-                ChangeBell();
+                NotficationDate = Calender.DateTimeOffset;
+                if (selectedDate > DateTime.Now)
+                {
+                    ChangeBell();
+                }
             }
+            else if (currentCalendarContext == "Start")
+            {
+                var x = Calender.DateTimeOffset;
+                StartDate = x.DateTime;
 
+            }
+            else if (currentCalendarContext == "End")
+            {
+                var x = Calender.DateTimeOffset;
+                EndDate = x.DateTime;
+            }
 
             saveBtn.ImageOptions.Image = Properties.Resources.disk1;
 
@@ -364,6 +403,7 @@ namespace Digital_Notes_Manager
         {
             _Category = Categorybox.Text;
             ToastForm.ShowToast($"Category Changed To {Categorybox.Text}", 3000);
+            saveBtn.ImageOptions.Image = Properties.Resources.disk1;
 
         }
 

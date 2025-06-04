@@ -47,7 +47,7 @@
             helpToolStripMenuItem = new ToolStripMenuItem();
             MDI_Panel = new Panel();
             panel1 = new Panel();
-            notificationBell1 = new Customs.NotificationBell();
+            notificationBell1 = new Digital_Notes_Manager.Customs.NotificationBell();
             notifyIcon1 = new NotifyIcon(components);
             GreatDocker = new Panel();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
@@ -66,8 +66,9 @@
             accordionControl1.LookAndFeel.SkinName = "Visual Studio 2013 Blue";
             accordionControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             accordionControl1.Name = "accordionControl1";
+            accordionControl1.OptionsMinimizing.State = DevExpress.XtraBars.Navigation.AccordionControlState.Minimized;
             accordionControl1.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Hidden;
-            accordionControl1.Size = new Size(260, 842);
+            accordionControl1.Size = new Size(56, 842);
             accordionControl1.TabIndex = 0;
             accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
             // 
@@ -259,7 +260,7 @@
             MDI_Panel.Dock = DockStyle.Fill;
             MDI_Panel.Location = new Point(0, 42);
             MDI_Panel.Name = "MDI_Panel";
-            MDI_Panel.Size = new Size(1201, 800);
+            MDI_Panel.Size = new Size(1405, 800);
             MDI_Panel.TabIndex = 2;
             // 
             // panel1
@@ -268,13 +269,13 @@
             panel1.Dock = DockStyle.Top;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(1201, 42);
+            panel1.Size = new Size(1405, 42);
             panel1.TabIndex = 4;
             // 
             // notificationBell1
             // 
             notificationBell1.Anchor = AnchorStyles.None;
-            notificationBell1.Location = new Point(1133, 13);
+            notificationBell1.Location = new Point(1235, 13);
             notificationBell1.Name = "notificationBell1";
             notificationBell1.NotificationCount = 0;
             notificationBell1.Size = new Size(24, 23);
@@ -291,9 +292,9 @@
             GreatDocker.Controls.Add(MDI_Panel);
             GreatDocker.Controls.Add(panel1);
             GreatDocker.Dock = DockStyle.Fill;
-            GreatDocker.Location = new Point(260, 24);
+            GreatDocker.Location = new Point(56, 24);
             GreatDocker.Name = "GreatDocker";
-            GreatDocker.Size = new Size(1201, 842);
+            GreatDocker.Size = new Size(1405, 842);
             GreatDocker.TabIndex = 6;
             // 
             // Main_Form
