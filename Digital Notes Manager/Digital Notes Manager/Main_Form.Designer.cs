@@ -46,13 +46,13 @@
             importNoteToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             MDI_Panel = new Panel();
-            panel1 = new Panel();
-            notificationBell1 = new Digital_Notes_Manager.Customs.NotificationBell();
+            NotificationPanel = new Panel();
+            notificationBell1 = new Customs.NotificationBell();
             notifyIcon1 = new NotifyIcon(components);
             GreatDocker = new Panel();
             ((System.ComponentModel.ISupportInitialize)accordionControl1).BeginInit();
             menuStrip1.SuspendLayout();
-            panel1.SuspendLayout();
+            NotificationPanel.SuspendLayout();
             GreatDocker.SuspendLayout();
             SuspendLayout();
             // 
@@ -66,9 +66,8 @@
             accordionControl1.LookAndFeel.SkinName = "Visual Studio 2013 Blue";
             accordionControl1.LookAndFeel.UseDefaultLookAndFeel = false;
             accordionControl1.Name = "accordionControl1";
-            accordionControl1.OptionsMinimizing.State = DevExpress.XtraBars.Navigation.AccordionControlState.Minimized;
             accordionControl1.ScrollBarMode = DevExpress.XtraBars.Navigation.ScrollBarMode.Hidden;
-            accordionControl1.Size = new Size(56, 842);
+            accordionControl1.Size = new Size(250, 842);
             accordionControl1.TabIndex = 0;
             accordionControl1.ViewType = DevExpress.XtraBars.Navigation.AccordionControlViewType.HamburgerMenu;
             // 
@@ -190,9 +189,25 @@
             // 
             // Gantt_Chart_Element
             // 
-            Gantt_Chart_Element.Name = "Gantt_Chart_Element";
-            Gantt_Chart_Element.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-            Gantt_Chart_Element.Text = "Gantt Chart";
+             Gantt_Chart_Element.Appearance.Default.Font = new Font("Tahoma", 10.2F);
+             Gantt_Chart_Element.Appearance.Default.ForeColor = Color.White;
+             Gantt_Chart_Element.Appearance.Default.Options.UseFont = true;
+             Gantt_Chart_Element.Appearance.Default.Options.UseForeColor = true;
+             Gantt_Chart_Element.Appearance.Hovered.BackColor = Color.FromArgb(205, 230, 247);
+             Gantt_Chart_Element.Appearance.Hovered.ForeColor = Color.Black;
+             Gantt_Chart_Element.Appearance.Hovered.Options.UseBackColor = true;
+             Gantt_Chart_Element.Appearance.Hovered.Options.UseForeColor = true;
+             Gantt_Chart_Element.Appearance.Normal.BackColor = Color.FromArgb(222, 233, 239);
+             Gantt_Chart_Element.Appearance.Normal.ForeColor = Color.Black;
+             Gantt_Chart_Element.Appearance.Normal.Options.UseBackColor = true;
+             Gantt_Chart_Element.Appearance.Normal.Options.UseForeColor = true;
+             Gantt_Chart_Element.Appearance.Pressed.BackColor = Color.FromArgb(205, 230, 247);
+             Gantt_Chart_Element.Appearance.Pressed.ForeColor = Color.Black;
+             Gantt_Chart_Element.Appearance.Pressed.Options.UseBackColor = true;
+             Gantt_Chart_Element.Appearance.Pressed.Options.UseForeColor = true;
+             Gantt_Chart_Element.Name = "Gantt_Chart_Element";
+             Gantt_Chart_Element.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+             Gantt_Chart_Element.Text = "Gantt";
             // 
             // accordionControlSeparator1
             // 
@@ -260,22 +275,22 @@
             MDI_Panel.Dock = DockStyle.Fill;
             MDI_Panel.Location = new Point(0, 42);
             MDI_Panel.Name = "MDI_Panel";
-            MDI_Panel.Size = new Size(1405, 800);
+            MDI_Panel.Size = new Size(1211, 800);
             MDI_Panel.TabIndex = 2;
             // 
-            // panel1
+            // NotificationPanel
             // 
-            panel1.Controls.Add(notificationBell1);
-            panel1.Dock = DockStyle.Top;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(1405, 42);
-            panel1.TabIndex = 4;
+            NotificationPanel.Controls.Add(notificationBell1);
+            NotificationPanel.Dock = DockStyle.Top;
+            NotificationPanel.Location = new Point(0, 0);
+            NotificationPanel.Name = "NotificationPanel";
+            NotificationPanel.Size = new Size(1211, 42);
+            NotificationPanel.TabIndex = 4;
             // 
             // notificationBell1
             // 
             notificationBell1.Anchor = AnchorStyles.None;
-            notificationBell1.Location = new Point(1235, 13);
+            notificationBell1.Location = new Point(1138, 13);
             notificationBell1.Name = "notificationBell1";
             notificationBell1.NotificationCount = 0;
             notificationBell1.Size = new Size(24, 23);
@@ -290,11 +305,11 @@
             // GreatDocker
             // 
             GreatDocker.Controls.Add(MDI_Panel);
-            GreatDocker.Controls.Add(panel1);
+            GreatDocker.Controls.Add(NotificationPanel);
             GreatDocker.Dock = DockStyle.Fill;
-            GreatDocker.Location = new Point(56, 24);
+            GreatDocker.Location = new Point(250, 24);
             GreatDocker.Name = "GreatDocker";
-            GreatDocker.Size = new Size(1405, 842);
+            GreatDocker.Size = new Size(1211, 842);
             GreatDocker.TabIndex = 6;
             // 
             // Main_Form
@@ -314,7 +329,7 @@
             ((System.ComponentModel.ISupportInitialize)accordionControl1).EndInit();
             menuStrip1.ResumeLayout(false);
             menuStrip1.PerformLayout();
-            panel1.ResumeLayout(false);
+            NotificationPanel.ResumeLayout(false);
             GreatDocker.ResumeLayout(false);
             ResumeLayout(false);
             PerformLayout();
@@ -337,7 +352,7 @@
         private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator1;
         private DevExpress.XtraBars.Navigation.AccordionControlSeparator accordionControlSeparator2;
         private DevExpress.XtraBars.Navigation.AccordionControlElement Report_ControlElement;
-        private Panel panel1;
+        private Panel NotificationPanel;
         private NotifyIcon notifyIcon1;
         private Customs.NotificationBell notificationBell1;
         private Panel GreatDocker;

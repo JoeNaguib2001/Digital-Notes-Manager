@@ -17,9 +17,9 @@ namespace Digital_Notes_Manager
         ViewNotesDashboard viewNotesDashboard; public Main_Form()
         {
             InitializeComponent();
+            Utilities.MainForm = this;
             viewNotesDashboard = new ViewNotesDashboard();
             viewNotes = new ViewNotes();
-            Utilities.MainForm = this;
             this.Shown += Notify_Load;
 
             Add_A_New_Note_Accordion_Element.Click += AccordionElementClick;
@@ -31,29 +31,23 @@ namespace Digital_Notes_Manager
             alertControl = new DevExpress.XtraBars.Alerter.AlertControl();
 
             notificationBell1.Size = new Size(40, 40);
-            notificationBell1.Location = new Point(panel1.Width - notificationBell1.Width - 10, 10);
+            notificationBell1.Location = new Point(NotificationPanel.Width - notificationBell1.Width - 10, 10);
             notificationBell1.BellClicked += NotificationBell_BellClicked;
 
-            panel1.Resize += (s, e) =>
+            NotificationPanel.Resize += (s, e) =>
             {
-                notificationBell1.Location = new Point(panel1.Width - notificationBell1.Width - 10, 10);
+                notificationBell1.Location = new Point(NotificationPanel.Width - notificationBell1.Width - 10, 10);
                 if (notificationPopup != null)
                 {
                     Point mainFormLocation = this.Location;
-
                     Point notificationBellLocation = notificationBell1.PointToScreen(Point.Empty);
-
-
                     notificationPopup.StartPosition = FormStartPosition.Manual;
                     notificationPopup.Location = new Point(
                         notificationBellLocation.X - 260,
                         notificationBellLocation.Y + notificationBell1.Height
                     );
-
-
                 }
             };
-
             LoadAllNotesPoppedOut();
         }
 
