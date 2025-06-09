@@ -497,8 +497,16 @@ namespace Digital_Notes_Manager
 
         private void IsCompleted_CheckedChanged(object sender, EventArgs e)
         {
-            IsCompleted.Text = "Complete";
-            Completed = true;
+            if (IsCompleted.Checked)
+            {
+                IsCompleted.Text = "Completed";
+                Completed = true;
+            }
+            else
+            {
+                IsCompleted.Text = "Not Completed";
+                Completed = false;
+            }
             saveBtn.ImageOptions.Image = Properties.Resources.disk1;
         }
 
