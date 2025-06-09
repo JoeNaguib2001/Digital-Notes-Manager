@@ -302,7 +302,7 @@ namespace Digital_Notes_Manager
                     // Soon
                     else if (totalHours > 0 && totalHours <= 5)
                     {
-                        e.Appearance.BackColor = Color.IndianRed;
+                        e.Appearance.BackColor = Color.RosyBrown;
                         e.Appearance.ForeColor = Color.White;
                         e.HighPriority = true;
                     }
@@ -310,7 +310,7 @@ namespace Digital_Notes_Manager
                     else if (totalHours > 5 && totalHours <= 24)
                     {
                         e.Appearance.BackColor = Color.Orange;
-                        e.Appearance.ForeColor = Color.Black;
+                        e.Appearance.ForeColor = Color.White;
                         e.HighPriority = true;
                     }
                     // Later

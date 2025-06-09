@@ -54,8 +54,8 @@ namespace Digital_Notes_Manager
             register.passwordTxt.Clear();
             register.passwordConfirmTxt.Clear();
             loginRegisterMDIPanel.Controls.Clear();
-            loginRegisterMDIPanel.Controls.Add(register.registerPanel);
-
+            loginRegisterMDIPanel.Controls.Add(register);
+            register.Show();
         }
         public void LoadLogin()
         {
@@ -83,24 +83,6 @@ namespace Digital_Notes_Manager
             LoadRegister();
         }
 
-        private void LoginRegisterMDI_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                foreach (Control control in loginRegisterMDIPanel.Controls)
-                {
-                    if (control is Button btn)
-                    {
-                        if (btn.Tag != null && (btn.Tag.ToString() == "loginBtn" || btn.Tag.ToString() == "signupBtn"))
-                        {
-                            btn.PerformClick();
-                            break;
-                        }
-                    }
-                }
 
-                e.Handled = true;
-            }
-        }
     }
 }

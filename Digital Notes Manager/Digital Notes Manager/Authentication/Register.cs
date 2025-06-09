@@ -88,7 +88,6 @@ namespace Digital_Notes_Manager
                 context.SaveChanges();
 
                 Properties.Settings.Default.userID = newUser.UserID;
-                Properties.Settings.Default.Save();
 
                 XtraMessageBox.Show("Registered successfully!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
@@ -106,7 +105,7 @@ namespace Digital_Notes_Manager
                     Properties.Settings.Default.rememberMe = false;
                     Properties.Settings.Default.userName = string.Empty;
                 }
-
+                Properties.Settings.Default.Save();
                 Main_Form main_Form = new Main_Form();
                 main_Form.Show();
                 passwordConfirmTxt.Clear();

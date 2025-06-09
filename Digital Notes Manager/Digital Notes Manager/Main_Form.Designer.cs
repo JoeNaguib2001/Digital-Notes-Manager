@@ -43,6 +43,7 @@
             accordionControlSeparator2 = new DevExpress.XtraBars.Navigation.AccordionControlSeparator();
             menuStrip1 = new MenuStrip();
             fileToolStripMenuItem = new ToolStripMenuItem();
+            newNoteToolStripMenuItem = new ToolStripMenuItem();
             importNoteToolStripMenuItem = new ToolStripMenuItem();
             helpToolStripMenuItem = new ToolStripMenuItem();
             MDI_Panel = new Panel();
@@ -189,25 +190,25 @@
             // 
             // Gantt_Chart_Element
             // 
-             Gantt_Chart_Element.Appearance.Default.Font = new Font("Tahoma", 10.2F);
-             Gantt_Chart_Element.Appearance.Default.ForeColor = Color.White;
-             Gantt_Chart_Element.Appearance.Default.Options.UseFont = true;
-             Gantt_Chart_Element.Appearance.Default.Options.UseForeColor = true;
-             Gantt_Chart_Element.Appearance.Hovered.BackColor = Color.FromArgb(205, 230, 247);
-             Gantt_Chart_Element.Appearance.Hovered.ForeColor = Color.Black;
-             Gantt_Chart_Element.Appearance.Hovered.Options.UseBackColor = true;
-             Gantt_Chart_Element.Appearance.Hovered.Options.UseForeColor = true;
-             Gantt_Chart_Element.Appearance.Normal.BackColor = Color.FromArgb(222, 233, 239);
-             Gantt_Chart_Element.Appearance.Normal.ForeColor = Color.Black;
-             Gantt_Chart_Element.Appearance.Normal.Options.UseBackColor = true;
-             Gantt_Chart_Element.Appearance.Normal.Options.UseForeColor = true;
-             Gantt_Chart_Element.Appearance.Pressed.BackColor = Color.FromArgb(205, 230, 247);
-             Gantt_Chart_Element.Appearance.Pressed.ForeColor = Color.Black;
-             Gantt_Chart_Element.Appearance.Pressed.Options.UseBackColor = true;
-             Gantt_Chart_Element.Appearance.Pressed.Options.UseForeColor = true;
-             Gantt_Chart_Element.Name = "Gantt_Chart_Element";
-             Gantt_Chart_Element.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
-             Gantt_Chart_Element.Text = "Gantt";
+            Gantt_Chart_Element.Appearance.Default.Font = new Font("Tahoma", 10.2F);
+            Gantt_Chart_Element.Appearance.Default.ForeColor = Color.White;
+            Gantt_Chart_Element.Appearance.Default.Options.UseFont = true;
+            Gantt_Chart_Element.Appearance.Default.Options.UseForeColor = true;
+            Gantt_Chart_Element.Appearance.Hovered.BackColor = Color.FromArgb(205, 230, 247);
+            Gantt_Chart_Element.Appearance.Hovered.ForeColor = Color.Black;
+            Gantt_Chart_Element.Appearance.Hovered.Options.UseBackColor = true;
+            Gantt_Chart_Element.Appearance.Hovered.Options.UseForeColor = true;
+            Gantt_Chart_Element.Appearance.Normal.BackColor = Color.FromArgb(222, 233, 239);
+            Gantt_Chart_Element.Appearance.Normal.ForeColor = Color.Black;
+            Gantt_Chart_Element.Appearance.Normal.Options.UseBackColor = true;
+            Gantt_Chart_Element.Appearance.Normal.Options.UseForeColor = true;
+            Gantt_Chart_Element.Appearance.Pressed.BackColor = Color.FromArgb(205, 230, 247);
+            Gantt_Chart_Element.Appearance.Pressed.ForeColor = Color.Black;
+            Gantt_Chart_Element.Appearance.Pressed.Options.UseBackColor = true;
+            Gantt_Chart_Element.Appearance.Pressed.Options.UseForeColor = true;
+            Gantt_Chart_Element.Name = "Gantt_Chart_Element";
+            Gantt_Chart_Element.Style = DevExpress.XtraBars.Navigation.ElementStyle.Item;
+            Gantt_Chart_Element.Text = "Gantt";
             // 
             // accordionControlSeparator1
             // 
@@ -251,10 +252,17 @@
             // 
             // fileToolStripMenuItem
             // 
-            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { importNoteToolStripMenuItem });
+            fileToolStripMenuItem.DropDownItems.AddRange(new ToolStripItem[] { newNoteToolStripMenuItem, importNoteToolStripMenuItem });
             fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             fileToolStripMenuItem.Size = new Size(37, 20);
             fileToolStripMenuItem.Text = "File";
+            // 
+            // newNoteToolStripMenuItem
+            // 
+            newNoteToolStripMenuItem.Name = "newNoteToolStripMenuItem";
+            newNoteToolStripMenuItem.Size = new Size(139, 22);
+            newNoteToolStripMenuItem.Text = "New Note";
+            newNoteToolStripMenuItem.Click += newNoteToolStripMenuItem_Click;
             // 
             // importNoteToolStripMenuItem
             // 
@@ -358,5 +366,6 @@
         private Panel GreatDocker;
         public Panel MDI_Panel;
         private DevExpress.XtraBars.Navigation.AccordionControlElement Gantt_Chart_Element;
+        private ToolStripMenuItem newNoteToolStripMenuItem;
     }
 }

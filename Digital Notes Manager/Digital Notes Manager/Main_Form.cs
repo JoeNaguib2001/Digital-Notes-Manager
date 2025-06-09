@@ -97,7 +97,6 @@ namespace Digital_Notes_Manager
                         {
                             Note_Form noteForm = new Note_Form();
                             noteForm.Show();
-                            //Utilities.ViewNotesDashboard.RefreshPoppedOutNotes();
                         }
                         break;
                     case "View_All_Notes_Popped":
@@ -227,6 +226,12 @@ namespace Digital_Notes_Manager
             ReportsForm reportsForm = new ReportsForm(notes);
             MDI_Panel.Controls.Clear();
             MDI_Panel.Controls.Add(reportsForm.tableLayoutPanel1);
+        }
+
+        private void newNoteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Note_Form noteForm = new Note_Form();
+            noteForm.Show();
         }
     }
 }
