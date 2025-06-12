@@ -59,7 +59,7 @@ namespace Digital_Notes_Manager.AlarmSystem
                             soonNotified[note.ID] = true;
                         }
                     }
-
+                    //
                     if (timeDifference <= TimeSpan.Zero && timeDifference >= TimeSpan.FromMinutes(-1) && !notified.ContainsKey(note.ID))
                     {
                         await Notify(note);
