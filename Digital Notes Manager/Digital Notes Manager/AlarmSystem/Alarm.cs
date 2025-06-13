@@ -26,9 +26,9 @@ namespace Digital_Notes_Manager.AlarmSystem
             if (note != null && !note.IsCompleted)
             {
                 notes.Add(note);
-            notes = notes.Where(x=>!x.IsCompleted && x.ReminderDate != DateTime.MinValue)
-                    .OrderByDescending(n => n.ReminderDate).ToList();
-            noteQueue = new Queue<Note>(notes);
+                notes = notes.Where(x => !x.IsCompleted && x.ReminderDate != DateTime.MinValue)
+                        .OrderByDescending(n => n.ReminderDate).ToList();
+                noteQueue = new Queue<Note>(notes);
 
             }
 
@@ -75,9 +75,6 @@ namespace Digital_Notes_Manager.AlarmSystem
                         noteQueue.Dequeue();
 
                     }
-
-
-
                 }
             }
         }

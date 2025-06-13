@@ -10,7 +10,7 @@ namespace Digital_Notes_Manager.Models
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             base.OnConfiguring(optionsBuilder);
-            optionsBuilder.UseSqlServer("Server=.;Database=DB_Digital_Notes;Trusted_Connection=True;TrustServerCertificate=True;")
+            optionsBuilder.UseSqlServer("Server=.;Database=DB_Digital_Notes_1;Trusted_Connection=True;TrustServerCertificate=True;")
                 .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTrackingWithIdentityResolution);
 
             //====================== Logged ==============================
