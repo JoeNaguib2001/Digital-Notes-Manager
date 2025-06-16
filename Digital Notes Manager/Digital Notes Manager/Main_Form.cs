@@ -21,7 +21,7 @@ namespace Digital_Notes_Manager
             viewNotesDashboard = new ViewNotesDashboard();
             viewNotes = new ViewNotes();
             this.Shown += Notify_Load;
-
+            this.WindowState = FormWindowState.Maximized;
             Add_A_New_Note_Accordion_Element.Click += AccordionElementClick;
             Show_Notes_Accordion_Element.Click += AccordionElementClick;
             View_All_Notes_Popped.Click += AccordionElementClick;

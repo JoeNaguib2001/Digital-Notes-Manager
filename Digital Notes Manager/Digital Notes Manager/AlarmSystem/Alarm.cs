@@ -73,9 +73,6 @@ namespace Digital_Notes_Manager.AlarmSystem
                         noteQueue.Dequeue();
 
                     }
-
-
-
                 }
             }
         }
