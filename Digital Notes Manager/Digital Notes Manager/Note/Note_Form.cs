@@ -142,7 +142,7 @@ namespace Digital_Notes_Manager
             _ManageNoteContext.Notes.Add(newNote);
             _ManageNoteContext.SaveChanges();
             ToDeleteNote = newNote;
-            Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
+            //Alarm.AddNewNoteToAlarmSystemNotesList(newNote);
             Utilities.SetNotesGridControlDataSource();
 
             noteId = newNote.ID;

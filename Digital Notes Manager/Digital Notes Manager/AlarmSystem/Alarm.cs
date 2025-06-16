@@ -26,13 +26,20 @@ namespace Digital_Notes_Manager.AlarmSystem
             if (note != null && !note.IsCompleted)
             {
                 notes.Add(note);
-            notes = notes.Where(x=>!x.IsCompleted && x.ReminderDate != DateTime.MinValue)
-                    .OrderByDescending(n => n.ReminderDate).ToList();
-            noteQueue = new Queue<Note>(notes);
+                var now = DateTime.Now;
+
+                notes = notes
+                   .Where(x => !x.IsCompleted && x.ReminderDate != DateTime.MinValue && x.ReminderDate >= now)
+                     .OrderBy(x => x.ReminderDate)
+                         .ToList();
+                noteQueue = new Queue<Note>(notes);
 
             }
 
         }
+    
+
+
 
 
         private Dictionary<int, bool> soonNotified = new();
@@ -50,16 +57,7 @@ namespace Digital_Notes_Manager.AlarmSystem
                     var note = noteQueue.First();
                     var timeDifference = note.ReminderDate - DateTime.Now;
 
-                    if (timeDifference <= TimeSpan.FromMinutes(5) && timeDifference > TimeSpan.FromMinutes(4))
-                    {
-                        if (!soonNotified.ContainsKey(note.ID))
-                        {
-                            await NotifySoon(note);
-                            await NotifyEndReminderDate(note);
-                            soonNotified[note.ID] = true;
-                        }
-                    }
-                    //
+               
                     if (timeDifference <= TimeSpan.Zero && timeDifference >= TimeSpan.FromMinutes(-1) && !notified.ContainsKey(note.ID))
                     {
                         await Notify(note);
@@ -81,26 +79,53 @@ namespace Digital_Notes_Manager.AlarmSystem
                 }
             }
         }
+        public async Task SoonTimeReminder()
+        {
+            while (true)
+            {
+                await Task.Delay(1500);
+                var now = DateTime.Now;
 
-        //
+                var upcomingNotes = notes
+                   .Where(note => note.ReminderDate >= now.AddMinutes(-1) && 
+                     (note.ReminderDate - now).TotalMinutes <= 60)
+                      .ToList();
+
+                foreach (var note in upcomingNotes)
+                {
+                    var timeDifference = note.ReminderDate - now;
+
+                    if (timeDifference <= TimeSpan.FromMinutes(5) &&
+                       timeDifference > TimeSpan.FromMinutes(3))
+                    {
+                        if (!soonNotified.ContainsKey(note.ID))
+                        {
+                            await NotifySoon(note);
+                            //await NotifyEndReminderDate(note);
+                            soonNotified[note.ID] = true;
+                        }
+                    }
+                }
+            }
+        }
 
         public async Task NotifySoon(Note note)
         {
             SoundPlayer player = new SoundPlayer(typeof(Program).Assembly.GetManifestResourceStream("Digital_Notes_Manager.AlarmSounds.Alarm1.wav"));
             player.Play();
             mainFormInstance.ShowSoonMessage(note);
-            mainFormInstance.LateNotifyReminderDates(note);
         }
 
         public async Task Notify(Note note)
         {
-            SystemSounds.Asterisk.Play();
+            SoundPlayer player = new SoundPlayer(typeof(Program).Assembly.GetManifestResourceStream("Digital_Notes_Manager.AlarmSounds.Alarm1.wav"));
+            player.Play();
             mainFormInstance.IsMached(note);
-            mainFormInstance.LateNotifyReminderDates(note);
         }
         public async Task NotifyEndReminderDate(Note note)
         {
-            SystemSounds.Asterisk.Play();
+            SoundPlayer player = new SoundPlayer(typeof(Program).Assembly.GetManifestResourceStream("Digital_Notes_Manager.AlarmSounds.Alarm1.wav"));
+            player.Play();
             mainFormInstance.LateNotifyReminderDates(note);
         }
 

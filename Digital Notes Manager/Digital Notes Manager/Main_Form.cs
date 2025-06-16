@@ -203,19 +203,25 @@ namespace Digital_Notes_Manager
                 alertControl.Show(null, "? Reminder", $"Note {note.Title} is coming soon!");
             }));
         }
+
         private async void Notify_Load(object sender, EventArgs e)
         {
             int userId = Properties.Settings.Default.userID;
+            var now = DateTime.Now;
 
             List<Note> list = manageNoteContext.Notes
-          .Where(x => x.UserID == userId && !x.IsCompleted && x.ReminderDate != DateTime.MinValue)
-          .OrderByDescending(x => x.ReminderDate)
-          .ToList();
-
-
+                     .Where(x => !x.IsCompleted && x.ReminderDate != DateTime.MinValue)
+                     .ToList()     
+                       .OrderBy(x => x.ReminderDate >= now ? 1 : 0)
+                         .ThenBy(x => x.ReminderDate < now
+                            ? now - x.ReminderDate
+                              : x.ReminderDate - now)
+                                    .ToList();
             Alarm alarm = new Alarm(this, list);
             _ = alarm.CompareTimeAsync();
+            _ = alarm.SoonTimeReminder();
         }
+
         private void LoadReportsForm()
         {
             int userId = Properties.Settings.Default.userID;
